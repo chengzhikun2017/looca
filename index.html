@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>looca</title>
+  <script type="text/javascript">
+  window.onerror = function(message, source, lineno, colno, error) {
+    return
+    alert(message)
+    alert(source)
+  }
+
+  function setRem() {
+    return
+    document.documentElement.style.fontSize = window.innerWidth / 3.75 + 'px';
+  }
+  setRem()
+  window.onresize = setRem
+
+  </script>
+</head>
+
+<body>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+</body>
+
+</html>
