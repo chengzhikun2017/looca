@@ -1,5 +1,5 @@
 <template>
-  <section class="container" :style="`height:${height}`">
+  <section class="container" :style="`height:${height}`" :class="dev!==undefined?'dev':''">
     <div class="background-box" :class="backgroundClass" :style="`z-index: ${backgroundZ}`">
       <div class="background">
         <slot name="background">
@@ -31,6 +31,9 @@ export default {
       default:-1,
       type:Number,
     },
+    dev:{
+      
+    },
   },
   methods: {},
   computed: {},
@@ -39,8 +42,11 @@ export default {
 
 </script>
 <style lang='scss' scoped>
+.dev{
+  border:1px solid red;
+}
 .container {
-  width: 800px;
+  width: 1140px;
   height: 100px;
   margin: 0 auto;
   position: relative;
@@ -60,7 +66,7 @@ export default {
   .background {
     /*background: #009;*/
     height: 100%;
-    width: 1920px;
+    width: 100vw;
     /*background: linear-gradient(to left, #fff, #00f);*/
     position: absolute;
   }

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import config from '../config.js'
 import error_page from '../pages/error.vue'
 import index_page from '../pages/index.vue'

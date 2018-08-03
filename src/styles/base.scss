@@ -1,0 +1,11 @@
+@mixin line-lb{
+  content: '';
+  background: #0F0;
+  width: 100px;
+  height: 5px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  transition: .5s;
+}
+$testColor:#f0f;
