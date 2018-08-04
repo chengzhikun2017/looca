@@ -8,7 +8,8 @@ import index_page from '../pages/index.vue'
 /**
  * test part 
  */
-import test1 from './../pages/test/test1.vue'
+const test1 = ()=>import('./../pages/test/test1.vue')
+const test2 = ()=>import('./../pages/test/test2.vue')
 
 /**
  * accounting part (accounting) webpackChunkName: "accounting" 
@@ -59,16 +60,17 @@ index = index.concat(
 
 )
 var indexPageArr = newRoute('/index_page', 'index_page', index_page, {
+// var indexPageArr = newRoute('/test1', 'test1', test1, {
+})
   // meta: {
   //   keepAlive: true //需要被缓存
   // }
-})
 var indexPage = indexPageArr[0]
 // console.log('indexPage', indexPage)
 route_test = route_test.concat(
   // newRoute('/test', 'test', test),
   newRoute('/test1', 'test1', test1),
-  // newRoute('/test2', 'test2', test2),
+  newRoute('/test2', 'test2', test2),
   // newRoute('/test3', 'test3', test3),
 )
 basicRoutes = [{

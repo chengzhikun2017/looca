@@ -1,6 +1,7 @@
 <template>
   <div class="widget2">
-    <div :style="`background-image: url(${src});`" alt="" class="container">
+    <div :style="`background-image: url(${src});`" alt="" class="img-container">
+      <div class="cover"></div>
       <div class="title-box">
         <h2 class="title">
           {{title}}
@@ -49,20 +50,29 @@ export default {
 <style lang='scss' scoped>
 .widget2 {
   /*height: 300px;*/
+  width: 100%;
+  padding:20px;
 }
 
-.container {
+.img-container {
   background: url(#) no-repeat center center;
   background-size: cover;
   height: 300px;
   transition: .5s;
   position: relative;
+  margin-bottom: 20px;
   &:hover {
     cursor: pointer;
 
     .title-box:after {
-      width: 200px;
+      width: 60px;
     }
+  }
+  .cover{
+    width: 100%;
+    height: 100%;
+    /*border:1px solid red;*/
+    background: linear-gradient(to top,rgba(0,0,0,0.6) 0,rgba(0,0,0,0) 30%)
   }
 }
 
@@ -75,18 +85,20 @@ export default {
   position: absolute;
   bottom: 10px;
   margin-left: 20px;
+  margin-bottom: 20px;
   .title {
     color: #fff;
+    font-size: 16px;
   }
   &:after {
     content: '';
-    background: #fff;
-    width: 100px;
-    height: 5px;
+    background: #cd2122;
+    width: 30px;
+    height: 2px;
     position: absolute;
     bottom: 0;
     left: 0;
-    transition: .5s;
+    transition: .2s;
   }
 }
 

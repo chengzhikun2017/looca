@@ -1,7 +1,7 @@
 <template>
-  <section class="container" :style="`height:${height}`" :class="dev!==undefined?'dev':''">
-    <div class="background-box" :class="backgroundClass" :style="`z-index: ${backgroundZ}`">
-      <div class="background">
+  <section class="container" :style="`height:${height}`" :class="dev!==undefined?'dev':'prod'">
+    <div class="background-box"  :style="`z-index: ${backgroundZ}`">
+      <div class="background" :class="backgroundClass">
         <slot name="background">
 
         </slot>
@@ -44,6 +44,10 @@ export default {
 <style lang='scss' scoped>
 .dev{
   border:1px solid red;
+}
+.prod{
+  border:1px solid transparent;
+
 }
 .container {
   width: 1140px;

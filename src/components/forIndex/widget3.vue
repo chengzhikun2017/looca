@@ -1,6 +1,6 @@
 <template>
   <div class="widget3">
-    <div :style="`background-image: url(${src});`" alt="" class="container">
+    <div :style="`background-image: url(${src});`" alt="" class="img-container">
       <div class="title-box">
         <h2 class="title">
           {{title}}
@@ -42,21 +42,21 @@ export default {
 </script>
 <style lang='scss' scoped>
 .widget3 {
-  height: 200px;
+  height: 175px;
   width: 360px;
 }
 
-.container {
+.img-container {
+  padding:20px;
   background: url(#) no-repeat center center;
   background-size: cover;
   height: 100%;
-  transition: .5s;
+  transition: .2s;
   position: relative;
   &:hover {
     cursor: pointer;
-
     .content-box:after {
-      width: 200px;
+      width: 100px;
     }
   }
 }
@@ -80,17 +80,17 @@ export default {
   position: relative;
   .content{
     color:#fff;
-
+    margin: 0;
   }
   &:after {
     content: '';
-    background: #0F0;
-    width: 100px;
-    height: 5px;
+    background: #fff;
+    width: 50px;
+    height: 3px;
     position: absolute;
-    bottom: 0;
+    bottom: -20px;
     left: 0;
-    transition: .5s;
+    transition: .2s;
   }
 }
 
