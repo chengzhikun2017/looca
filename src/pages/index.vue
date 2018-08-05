@@ -1,5 +1,17 @@
 <template>
   <div class="index-page">
+    <div class="nav-box">
+      <span class="logo-box">
+        <div class="logo"></div>
+        <span class="name">Loo&co Global</span>
+      </span>
+      <nav class="link-box">
+      <a href="" class="nav active">首页</a>
+      <a href="" class="nav">关于我们</a>
+      <a href="" class="nav">产品和账户</a>
+      <a href="" class="nav">推广员计划</a>
+      </nav>
+    </div>
     <v-layer :height="bannerHeight">
       <div slot="background" class="banner-box">
         <a-carousel :autoplay="true">
@@ -11,10 +23,10 @@
       </div>
       <div class="banner-container">
         <h1 class="title">
-          <span>Oracle-FX • 澳瑞克<br>更懂你的外汇平台</span>
+          <span>Loo&co Global • 乐恺环球<br>更懂你的外汇平台</span>
         </h1>
         <h2 class="subtitle">
-          开始您与 <strong>澳瑞克</strong> 的交易旅程
+          开始您与 <strong>乐恺环球</strong> 的交易旅程
         </h2>
         <div class="bttn-box">
           <a href="" class="btn signup">注册真实账户</a>
@@ -30,7 +42,7 @@
           <div class="action-text">
             <h4 class="text action_box-title" itemprop="headline">
               <span class="emphsis">
-                Oracle-FX(澳瑞克)，更懂你的外汇平台。
+                Loo&co Global(乐恺环球)，更懂你的外汇平台。
               </span>
               自2013年以来，给来自30多个国家，超过百万的客户提供稳定外汇交易。
             </h4>
@@ -50,24 +62,24 @@
       </div>
       <div class="why-box">
         <h3 class="tbk__title" itemprop="headline">
-          为什么选择Oracle-FX澳瑞克
+          为什么选择Loo&co Global乐恺环球
         </h3>
         <h4 class="tbk__subtitle" itemprop="alternativeHeadline">
           专注于每一位客户的交易体验，一个更懂你的外汇平台。
         </h4>
       </div>
       <div class="items-box">
-        <widget1 :src='itemImgs[0]' title="专业开发团队" content="耗时数年打造的Oracle-FX金牌团队，拥有顶尖的产品开发运营能力。" />
-        <widget1 :src='itemImgs[1]' title="屡获外汇经纪商奖" content="Oracle-FX澳瑞克自2013年成立以来，多次获得“年度外汇经纪商“奖。" />
-        <widget1 :src='itemImgs[2]' title="严格的监管" content="Oracle-FX澳瑞克荣获澳大利亚ASIC监管号402043." />
-        <widget1 :src='itemImgs[3]' title="高效的客服体系" content="Oracle-FX澳瑞克客服团队5*24小时为您提供服务，更懂你的外汇平台。" />
+        <widget1 :src='itemImgs[0]' title="专业开发团队" content="耗时数年打造的Loo&co Global金牌团队，拥有顶尖的产品开发运营能力。" />
+        <widget1 :src='itemImgs[1]' title="屡获外汇经纪商奖" content="Loo&co Global乐恺环球自2013年成立以来，多次获得“年度外汇经纪商“奖。" />
+        <widget1 :src='itemImgs[2]' title="严格的监管" content="Loo&co Global乐恺环球荣获澳大利亚ASIC监管号402043." />
+        <widget1 :src='itemImgs[3]' title="高效的客服体系" content="Loo&co Global乐恺环球客服团队5*24小时为您提供服务，更懂你的外汇平台。" />
       </div>
     </v-layer>
     <v-layer height="440px">
       <div class="description-box">
-        <widget2 :src='descriptionSrcs[0]' title="Oracle-FX澳瑞克执照与监管" content="Oracle-FX澳瑞克平台执照与监管在线查询，平台拥有澳大利亚监管" />
-        <widget2 :src='descriptionSrcs[1]' title="Oracle-FX澳瑞克交易产品" content="Oracle-FX澳瑞克拥有目前最全的外汇交易产品，包含外汇、黄金、白银、原油、股指等。" />
-        <widget2 :src='descriptionSrcs[2]' title="Oracle-FX澳瑞克跟单社区" content="Oracle-FX澳瑞克重金打造专业外汇交易团队、大数据反向跟单信号、EA等供所有澳瑞克客户选择复制跟单。" />
+        <widget2 :src='descriptionSrcs[0]' title="Loo&co Global乐恺环球执照与监管" content="Loo&co Global乐恺环球平台执照与监管在线查询，平台拥有澳大利亚监管" />
+        <widget2 :src='descriptionSrcs[1]' title="Loo&co Global乐恺环球交易产品" content="Loo&co Global乐恺环球拥有目前最全的外汇交易产品，包含外汇、黄金、白银、原油、股指等。" />
+        <widget2 :src='descriptionSrcs[2]' title="Loo&co Global乐恺环球跟单社区" content="Loo&co Global乐恺环球重金打造专业外汇交易团队、大数据反向跟单信号、EA等供所有乐恺环球客户选择复制跟单。" />
       </div>
       <!-- description -->
     </v-layer>
@@ -95,26 +107,26 @@
     <!-- </v-layer> -->
     <v-layer height="300px">
       <div class="college-box">
-        <widget3 :src="collegeSrcs[0]" title="澳瑞克商学院" :contents="['Oracle-FX澳瑞克商学院','每天都会有外汇直播哦！']" />
-        <widget3 :src="collegeSrcs[1]" title="澳瑞克商学院" :contents="['Oracle-FX澳瑞克商学院','每天都会有外汇直播哦！']" />
-        <widget3 :src="collegeSrcs[2]" title="澳瑞克商学院" :contents="['Oracle-FX澳瑞克商学院','每天都会有外汇直播哦！']" />
+        <widget3 :src="collegeSrcs[0]" title="乐恺环球商学院" :contents="['Loo&co Global乐恺环球商学院','每天都会有外汇直播哦！']" />
+        <widget3 :src="collegeSrcs[1]" title="乐恺环球商学院" :contents="['Loo&co Global乐恺环球商学院','每天都会有外汇直播哦！']" />
+        <widget3 :src="collegeSrcs[2]" title="乐恺环球商学院" :contents="['Loo&co Global乐恺环球商学院','每天都会有外汇直播哦！']" />
       </div>
     </v-layer>
     <v-layer height="560px" backgroundClass="bg-red">
       <!-- media report -->
       <div class="media-box">
         <h2 class="title">
-          Oracle-FX澳瑞克媒体报道
+          Loo&co Global乐恺环球媒体报道
         </h2>
-        <widget4 width="540px" avatarPosition="bottom" :avatarSrc="mediaIcons[0]" :starNum="5" top="180px" left="0px" content="“做为专业平台的Oracle -FX开创更有效的MT4操作系统，依托广大全球会员，以对外贸易、技术转移、资本流动、提供服务、相互联系、相互依存而形成的全球范围的有机经济整体，降低投资风险，实现合力操作，公平透明合理化利润空间。" name="中华网" enName="CHINA.COM" />
-        <widget4 width="240px" avatarPosition="bottom" :avatarSrc="mediaIcons[1]" :starNum="4" top="160px" left="590px" content="“Oracle-FX 集团是正规的外汇投资理财平台，为投资者提供一个长久稳定的外汇投资理财平台，投资者的资金在个人MT4账户里，可以随时申请提现。" name="搜狐财经" enName="SOHU.COM" />
+        <widget4 width="540px" avatarPosition="bottom" :avatarSrc="mediaIcons[0]" :starNum="5" top="180px" left="0px" content="“做为专业平台的 Loo&co Global 开创更有效的MT4操作系统，依托广大全球会员，以对外贸易、技术转移、资本流动、提供服务、相互联系、相互依存而形成的全球范围的有机经济整体，降低投资风险，实现合力操作，公平透明合理化利润空间。" name="中华网" enName="CHINA.COM" />
+        <widget4 width="240px" avatarPosition="bottom" :avatarSrc="mediaIcons[1]" :starNum="4" top="160px" left="590px" content="“Loo&co Global 集团是正规的外汇投资理财平台，为投资者提供一个长久稳定的外汇投资理财平台，投资者的资金在个人MT4账户里，可以随时申请提现。" name="搜狐财经" enName="SOHU.COM" />
         <widget4 width="240px" avatarPosition="top" :avatarSrc="mediaIcons[2]" :starNum="5" top="160px" left="890px" content="“Oracle FX 集团——这是一个创富和改变自己和家族一生的神话，你必须了解的中国金融未来20年最大趋势和未来50年中国5亿人的普通投资理财工具！" name="南方财务网" enName="SOUTHMONEY.COM" />
       </div>
     </v-layer>
     <v-layer height="200px">
       <!-- join -->
       <div class="join-sec">
-        <h3 class="title">加入Oracle-FX澳瑞克</h3>
+        <h3 class="title">加入Loo&co Global乐恺环球</h3>
         <p class="content">更懂你的外汇平台，更专业的客户服务，期待您的加入！</p>
         <div class="bttn">在线咨询</div>
       </div>
@@ -134,7 +146,7 @@
             <span class="link"></span>
             <span class="link">MT4下载</span>
             <span class="link">资金安全</span>
-            <span class="link">澳瑞克商学院</span>
+            <span class="link">乐恺环球商学院</span>
             <span class="link">合伙人登录</span>
           </div>
           <div class="qr-code">
@@ -143,8 +155,8 @@
           </div>
           <div class="contact-us">
             <h4 class="title">联系我们</h4>
-            <p class="tel">客服热线：400-189-0574</p>
-            <!-- <p class="mail">Email: service@oracle-fx.com</p> -->
+            <p class="tel">客服热线：400-186-0574</p>
+            <!-- <p class="mail">Email: service@Loo&co Global.com</p> -->
           </div>
         </div>
         <div class="footer"></div>
@@ -202,6 +214,95 @@ export default {
 
 </script>
 <style lang='scss' scoped>
+$themeRed:#cd2122;
+.nav-box{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 1140px;
+  /*border:1px solid red;*/
+  height: 70px;
+  text-align: left;
+  z-index: 2;
+  /*display: flex;*/
+  padding-top: 10px;
+  /*justify-content: space-between;*/
+  .logo-box{
+    flex-grow: 0;
+    display: flex;
+    width: 320px;
+    height: 100%;
+    .logo{
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background:url("../assets/display/logo_red.png") no-repeat center center;
+      background-size: cover;
+    }
+    .name{
+      font-size: 36px;
+      margin-left: 10px;
+      color: #fff;
+      display: inline-block;
+      line-height: 1.2;
+    }
+  }
+  .link-box{
+    position: absolute;
+    right: 0;
+    top: 14px;
+    margin: 0;
+    /*display: inline-block;*/
+    /*border:1px solid red;*/
+    width:600px;
+    text-align: right;
+    .nav{
+      color: #f5f5f5;
+      font-size: 14px;
+      border-radius: 3px;
+      font-family: "Montserrat", PingFangSC,helvetica neue,hiragino sans gb,arial,microsoft yahei ui,microsoft yahei,simsun,sans-serif;
+      line-height: 14px;
+      font-weight: 400;
+      font-style: normal;
+      position: relative;
+      padding:8px 12px;
+      display: inline-block;
+      margin-left: 5px;
+      transition: .2s;
+      height: 32px;
+      margin-top: 4px;
+      &:after{
+        content: "";
+        opacity: 1;
+        position: absolute;
+        height: 1px;
+        width: 7px;
+        bottom: 3px;
+        bottom: calc(50% - 12px);
+        left: 12px;
+        background-color: hsla(0,0%,100%,.4);
+        -webkit-transition: opacity .2s ease-in-out;
+        transition: opacity .2s ease-in-out;
+      }
+      &:hover{
+        background-color: $themeRed;
+      }
+      &:hover:after{
+        background-color:transparent;
+      }
+      
+    }
+    .active{
+      background:$themeRed;
+      &:after{
+        background:transparent;
+      }
+    }
+  }
+
+}
 .banner-background {
   background: url(#) no-repeat center center;
   background-size: cover;
@@ -218,7 +319,7 @@ export default {
     position: relative;
     &:after {
       content: "";
-      height: 5px;
+      height: 3px;
       width: 50px;
       position: absolute;
       background: #fff;
@@ -258,6 +359,7 @@ export default {
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
+
     }
     .login {
       background: none;
@@ -278,7 +380,7 @@ export default {
       }
     }
     .signup {
-      background-color: #cd2122;
+      background-color: $themeRed;
       color: #fff;
       margin-right: 20px;
       &:hover {
@@ -308,12 +410,12 @@ export default {
   height: 200px;
   position: relative;
   top: -24px;
-  background: #cd2122;
+  background: $themeRed;
   display: table;
   &:after {
     position: absolute;
     content: '';
-    background-color: #CD2122;
+    background-color: $themeRed;
     width: 30px;
     height: 32px;
     display: block;
@@ -328,7 +430,7 @@ export default {
   &:before {
     position: absolute;
     content: '';
-    background-color: #CD2122;
+    background-color: $themeRed;
     /*border:1px solid red;*/
     top: -6px;
     left: 0;
@@ -465,7 +567,7 @@ export default {
     font-size: 24px;
     font-weight: normal;
     text-align: left;
-    color: #cd2122;
+    color: $themeRed;
     font-size: 24px;
     margin-bottom: 20px;
     margin-top: 20px;
@@ -473,7 +575,7 @@ export default {
   }
   .subtitle {
     text-align: left;
-    color: #cd2122;
+    color: $themeRed;
     font-weight: bold;
     /*margin-left: 20px;*/
     font-size: 24px;
@@ -533,7 +635,7 @@ export default {
     text-align: left;
     line-height: 30px;
     font-weight: 600;
-    color: #cd2122;
+    color: $themeRed;
     font-style: normal;
     padding-left: 30px;
   }
@@ -547,15 +649,15 @@ export default {
     padding-left: 30px;
   }
   .bttn {
-    border-color: #cd2122;
+    border-color: $themeRed;
     width: 262px;
     position: absolute;
     right: 20px;
     top: 80px;
     height: 50px;
     border-radius: 3px;
-    border: 2px solid #cd2122;
-    color: #cd2122;
+    border: 2px solid $themeRed;
+    color: $themeRed;
     font-size: 19px;
     line-height: 48px;
     font-weight: bold;
