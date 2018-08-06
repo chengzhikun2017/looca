@@ -3,13 +3,17 @@ import Router from 'vue-router'
 import config from '../config.js'
 import error_page from '../pages/error.vue'
 import index_page from '../pages/index.vue'
+import crm_index from '../pages/crm_index.vue'
 
 
 /**
  * test part 
  */
-const test1 = ()=>import('./../pages/test/test1.vue')
-const test2 = ()=>import('./../pages/test/test2.vue')
+const test1 = () =>  import ('./../pages/test/test1.vue')
+const test2 = () =>  import ('./../pages/test/test2.vue')
+const test3 = () =>  import ('./../pages/test/test3.vue')
+const test4 = () =>  import ('./../pages/test/test4.vue')
+const test5 = () =>  import ('./../pages/test/test5.vue')
 
 /**
  * accounting part (accounting) webpackChunkName: "accounting" 
@@ -31,7 +35,7 @@ Vue.use(Router)
  * @param  {[配置]} options   路由的配置，e.g. meta:{ keepAlive:true}
  * @return {[type]}           [description]
  */
-var newRoute = function(paths, name, component, options) {
+const newRoute = function(paths, name, component, options) {
   if (typeof paths === 'string') {
     paths = [paths]
   }
@@ -55,23 +59,31 @@ var newRoute = function(paths, name, component, options) {
 var routes = [],
   basicRoutes = [],
   route_test = [],
-  index = []
-index = index.concat(
-
+  index = [],
+  crmRoutes = []
+crmRoutes = crmRoutes.concat(
+  newRoute('/crm_index', 'crm_index', crm_index),
+  newRoute('/index_page', 'index_page', index_page),
 )
-var indexPageArr = newRoute('/index_page', 'index_page', index_page, {
-// var indexPageArr = newRoute('/test1', 'test1', test1, {
+
+
+// var indexPageArr = newRoute('/index_page', 'index_page', index_page, {
+  var indexPageArr = newRoute('/test1', 'test1', test1, {
 })
-  // meta: {
-  //   keepAlive: true //需要被缓存
-  // }
+// meta: {
+//   keepAlive: true //需要被缓存
+// }
 var indexPage = indexPageArr[0]
 // console.log('indexPage', indexPage)
 route_test = route_test.concat(
   // newRoute('/test', 'test', test),
-  newRoute('/test1', 'test1', test1),
+  // newRoute('/test1', 'test1', test1),
   newRoute('/test2', 'test2', test2),
-  // newRoute('/test3', 'test3', test3),
+  newRoute('/test3', 'test3', test3),
+  newRoute('/test4', 'test4', test4),
+  newRoute('/test5', 'test5', test5,{
+    // meta:{keepAlive:true,}
+  }),
 )
 basicRoutes = [{
   path: '',
@@ -87,9 +99,11 @@ basicRoutes = [{
 routes = routes.concat(index.concat(
   indexPage,
   route_test,
+  crmRoutes,
 ), basicRoutes)
+// console.log('%c routes', 'color:red', routes)
 var router = new Router({
-  mode: 'history',
+  // mode: 'history',
   routes: routes
 })
 

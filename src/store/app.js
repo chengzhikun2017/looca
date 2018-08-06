@@ -5,10 +5,12 @@
 // import {HGJ_VUE} from '../../main.js'
 import helper from '../utils/helper.js'
 export default {
-  // namespaced:true,
+  namespaced:true,
   state: {
     isWX:false,
     wxConfiged:false,
+    platform:helper.getPlatForm(),
+    windowHeight:window.innerHeight,
   },
   getters: {},
   mutations: {
@@ -19,7 +21,7 @@ export default {
       } else {
         state.isWX = false;
       }
-    }
+    },
   },
   actions: {
     app_jsconfig({state}){

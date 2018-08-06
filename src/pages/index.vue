@@ -120,7 +120,7 @@
         </h2>
         <widget4 width="540px" avatarPosition="bottom" :avatarSrc="mediaIcons[0]" :starNum="5" top="180px" left="0px" content="“做为专业平台的 Loo&co Global 开创更有效的MT4操作系统，依托广大全球会员，以对外贸易、技术转移、资本流动、提供服务、相互联系、相互依存而形成的全球范围的有机经济整体，降低投资风险，实现合力操作，公平透明合理化利润空间。" name="中华网" enName="CHINA.COM" />
         <widget4 width="240px" avatarPosition="bottom" :avatarSrc="mediaIcons[1]" :starNum="4" top="160px" left="590px" content="“Loo&co Global 集团是正规的外汇投资理财平台，为投资者提供一个长久稳定的外汇投资理财平台，投资者的资金在个人MT4账户里，可以随时申请提现。" name="搜狐财经" enName="SOHU.COM" />
-        <widget4 width="240px" avatarPosition="top" :avatarSrc="mediaIcons[2]" :starNum="5" top="160px" left="890px" content="“Oracle FX 集团——这是一个创富和改变自己和家族一生的神话，你必须了解的中国金融未来20年最大趋势和未来50年中国5亿人的普通投资理财工具！" name="南方财务网" enName="SOUTHMONEY.COM" />
+        <widget4 width="240px" avatarPosition="top" :avatarSrc="mediaIcons[2]" :starNum="5" top="160px" left="890px" content="“Loo&co Global 集团——这是一个创富和改变自己和家族一生的神话，你必须了解的中国金融未来20年最大趋势和未来50年中国5亿人的普通投资理财工具！" name="南方财务网" enName="SOUTHMONEY.COM" />
       </div>
     </v-layer>
     <v-layer height="200px">
@@ -155,7 +155,7 @@
           </div>
           <div class="contact-us">
             <h4 class="title">联系我们</h4>
-            <p class="tel">客服热线：400-186-0574</p>
+            <p class="tel">客服热线：400-0577-009</p>
             <!-- <p class="mail">Email: service@Loo&co Global.com</p> -->
           </div>
         </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="test">
+  <div class="test1">
     <v-layer :backgroundZ="1" height="200px">
       <div> 111</div>
       <div slot="background">
@@ -30,40 +30,40 @@ export default {
   name: 'test1',
   data() {
     return {
-
+      headerName:'test1',
       src: require("./../../assets/WechatIMG762.jpeg")
     }
   },
   mounted() {
-    console.log('widget4', this.$refs.widget4)
-    console.log('%c widget4', 'color:red', this)
+    // console.log('widget4', this.$refs.widget4)
+    // console.log('%c widget4', 'color:red', this)
     // var i = 0
     // var Inter = setInterval((params) => {
     //   //body 
     //   if (this.$refs.widget4) {
     //     clearInterval(Inter)
-    //     console.log('widget4----', this.$refs.widget4)
+        // console.log('widget4----', this.$refs.widget4)
     //   } else {
-    //     console.log('i', i++)
-    //     console.log('widget4----', this.$refs.widget4)
+        // console.log('i', i++)
+        // console.log('widget4----', this.$refs.widget4)
     //   }
     // }, 20)
     // widget4.then(resolve=>{
-    //   console.log('%c resolve','color:red',resolve)
+      // console.log('%c resolve','color:red',resolve)
     // })
   },
   methods: {
     widget4Loaded(){
-      console.log('%c this','color:red',this)
-      console.log('%c widget4---','color:red',this.$refs.widget4)
+      // console.log('%c this','color:red',this)
+      // console.log('%c widget4---','color:red',this.$refs.widget4)
     },
   },
   created(){
     // vm = this
     this.$refs.widget4 = null
-    console.log('%c widget4---','color:red',this.$refs.widget4)
+    // console.log('%c widget4---','color:red',this.$refs.widget4)
     setTimeout(()=> {
-      console.log('%c this this ','color:red',this)
+      // console.log('%c this this ','color:red',this)
     }, 2000);
   },
   computed: {
@@ -71,13 +71,13 @@ export default {
     //   return this.$refs
     // },    
     widget4(){
-      console.log('comput widget4')
+      // console.log('comput widget4')
       return this.$refs.widget4
     },
   },
   watch: {
     widget4(value) {
-      console.log('widget4 watched', widget4)
+      // console.log('widget4 watched', widget4)
     },
   },
   components: {
@@ -87,9 +87,9 @@ export default {
     widget4: () =>
       import ('./../../components/forIndex/widget4.vue')
       // .then((params) => {
-      //   console.log('%c loaded','color:red',params)
-      //   console.log('%c loaded','color:red',this)
-      //   console.log('%c loaded','color:red',vm)
+        // console.log('%c loaded','color:red',params)
+        // console.log('%c loaded','color:red',this)
+        // console.log('%c loaded','color:red',vm)
       //   vm.$nextTick(()=>{
       //   })
       //   setTimeout(function() {
@@ -115,7 +115,7 @@ export default {
 
 </style>
 <style lang="scss">
-.test .ant-carousel .slick-slide {
+.test1 .ant-carousel .slick-slide {
   text-align: center;
   height: 200px;
   line-height: 160px;
