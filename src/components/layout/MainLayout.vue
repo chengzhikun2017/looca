@@ -1,6 +1,6 @@
 <template>
   <a-layout id="appLayout">
-    <a-layout-sider breakpoint="lg" collapsedWidth="0" @collapse="onCollapse" ref="sider" >
+    <a-layout-sider breakpoint="lg" v-model="collapsed" collapsedWidth="0" @collapse="onCollapse" ref="sider" >
       <div class="logo" />
       <a-menu ref="menu" theme="dark" mode="inline" v-model="current":defaultSelectedKeys="['4']" @click="onItemClick">
         <a-menu-item key="1" @click.native="go('/test5')" @click="onItemClick">
@@ -33,7 +33,7 @@
         </a-sub-menu>
       </a-menu>
     </a-layout-sider>
-    <a-layout>
+    <a-layout @click.native="onMainBodyClick">
       <a-layout-header :style="{ background: '#fff', padding: 0 }" >
         <slot name="header"></slot>
       </a-layout-header>
@@ -61,7 +61,8 @@ export default {
       mode: 'inline',
       theme: 'light',
       current: ['4'],
-      //item 从
+      collapsed:false,
+      //item 从 store 中获取
     }
   },
   created(){
@@ -71,14 +72,32 @@ export default {
     this.initSider()
   },
   methods: {
+    onMainBodyClick(){
+      this.hideMobileSider()
+    },
     initSider(){
+      if(this.isPC){
+        return
+      }
       let el = this.$refs.sider.$el
       el.style.position="absolute"
       el.style.height="100%"
       el.style.zIndex="2"
     },
+    hideSider(){
+      this.collapsed = true
+    },
+    showSider(){
+      this.collapsed = false
+    },
+    hideMobileSider(){
+      if(!this.isPC){
+        this.hideSider()
+      }
+    },
     onItemClick(e){
-      this.$refs.sider.setCollapsed(true,'clickMenuItem')
+      this.hideMobileSider()
+      // this.$refs.sider.setCollapsed(true,'clickMenuItem')
     },
     onCollapse(collapsed, type) {
       console.log(collapsed, type);
@@ -92,7 +111,7 @@ export default {
       return this.windowHeight - (64 + 69 + 24) + 'px'
     },
 
-    ...mapState('app', ['windowHeight'])
+    ...mapState('app', ['windowHeight','isPC'])
   },
   components: {},
 }
@@ -109,6 +128,8 @@ export default {
   padding: 24px;
   background: #fff;
   min-height: 480px;
+  overflow: auto;
+  position: relative;
 }
 
 </style>

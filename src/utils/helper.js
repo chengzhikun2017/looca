@@ -5,6 +5,7 @@ import config from '../config.js'
 // } from '../main.js'
 // import commonRemind from './commonRemind.js'
 export default class helper {
+  static platform=null
   static urlConcat(url, obj) {
     var str = '',
       queryArr = []
@@ -61,18 +62,25 @@ export default class helper {
     //后续单项的更新，也通过此方法更新
   }
   static getPlatForm() {
+    if(helper.platform){
+      return helper.platform
+    }
+    var platform
     var userAgentInfo = navigator.userAgent;
     var Agents = ["Android", "IOS", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
 
     if (!!userAgentInfo.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/)) {
-      return "ios";
+      helper.platform = "ios";
+      return platform
     }
 
     for (var v = 0; v < Agents.length; v++) {
       if (userAgentInfo.toLowerCase().indexOf(Agents[v].toLowerCase()) > 0) {
-        return Agents[v];
+        helper.platform = Agents[v];
+        return platform
       }
     }
+    helper.platform = "PC"
     return "PC";
   }
   static isPC() {

@@ -7,28 +7,7 @@
       <div class="tabs-box">
         <a-tabs defaultActiveKey="1" @change="callback">
           <a-tab-pane tab="立即登录" key="1">
-            <a-form @submit="handleSubmit" :autoFormCreate="(form)=>{this.form = form}">
-               <a-form-item
-                 :wrapperCol="{ span: 24 }"
-                 fieldDecoratorId="note"
-                 :fieldDecoratorOptions="{rules: [{ required: true, message: 'Please input your note!' }]}"
-               >
-                 <a-input />
-               </a-form-item>
-               <a-form-item
-                 :wrapperCol="{ span: 12 }"
-                 fieldDecoratorId="gender"
-                 :fieldDecoratorOptions="{rules: [{ required: true, message: 'Please select your gender!' }]}"
-               >
-               </a-form-item>
-               <a-form-item
-                 :wrapperCol="{ span: 12, offset: 5 }"
-               >
-                 <a-button type='primary' htmlType='submit'>
-                   Submit
-                 </a-button>
-               </a-form-item>
-             </a-form>
+
           </a-tab-pane>
           <a-tab-pane tab="免费注册" key="2" forceRender>
           </a-tab-pane>

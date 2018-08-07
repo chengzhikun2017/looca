@@ -4,12 +4,15 @@
 // } from '../../utils/fetch.js'
 // import {HGJ_VUE} from '../../main.js'
 import helper from '../utils/helper.js'
+const platform = helper.getPlatForm()
+const isPC = helper.isPC()
 export default {
   namespaced:true,
   state: {
     isWX:false,
     wxConfiged:false,
-    platform:helper.getPlatForm(),
+    platform,
+    isPC,
     windowHeight:window.innerHeight,
   },
   getters: {},

@@ -1,12 +1,14 @@
 <template>
   <div class="test2">
     <router-link to="test1">test1</router-link>
+    <Login></Login>
   </div>
 </template>
 <script>
 import layer from './../../components/layout/ContentCenterFullW.vue'
 // import widget2 from './../../components/forIndex/widget2.vue'
 import widget3 from './../../components/forIndex/widget3.vue'
+import Login from './../../components/views/login.vue'
 const widget4 =  () => import('./../../components/forIndex/widget4.vue')
 export default {
   name: 'test2',
@@ -22,6 +24,7 @@ export default {
     // 'widget2':widget2 ,
     'widget3':widget3 ,
     'widget4':widget4 ,
+    'Login':Login ,
   },
 }
 
