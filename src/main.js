@@ -13,6 +13,7 @@ import {
   Form,
   Input,
   Select,
+  Tabs,
 } from 'vue-antd-ui';
 import MenuItem from 'vue-antd-ui/lib/Menu/MenuItem'
 import helper from './utils/helper.js'
@@ -52,6 +53,8 @@ Vue.component(Layout.name, Layout)
 registerComponentChild(Vue,Layout)
 Vue.component(Select.name, Select)
 registerComponentChild(Vue,Select)
+Vue.component(Tabs.name, Tabs)
+registerComponentChild(Vue,Tabs)
 Vue.component(Form.name, Form)
 registerComponentChild(Vue,Form)
 Vue.component("widget1", widget1)

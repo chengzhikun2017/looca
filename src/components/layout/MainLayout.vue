@@ -1,9 +1,9 @@
 <template>
   <a-layout id="appLayout">
-    <a-layout-sider breakpoint="lg" collapsedWidth="0" @collapse="onCollapse">
+    <a-layout-sider breakpoint="lg" collapsedWidth="0" @collapse="onCollapse" ref="sider" >
       <div class="logo" />
-      <a-menu ref="menu" theme="dark" mode="inline" v-model="current":defaultSelectedKeys="['4']">
-        <a-menu-item key="1" @click.native="go('/test5')">
+      <a-menu ref="menu" theme="dark" mode="inline" v-model="current":defaultSelectedKeys="['4']" @click="onItemClick">
+        <a-menu-item key="1" @click.native="go('/test5')" @click="onItemClick">
           <a-icon type="user" />
           <span class="nav-text" >test 5</span>
         </a-menu-item>
@@ -62,15 +62,28 @@ export default {
     }
   },
   created(){
-    console.log('%c main layout created','color:red',)
+    // console.log('%c main layout created','color:red',)
   },
   mounted(){
-    setTimeout(()=> {
-      
-    console.log('%c men','color:red',this.$refs.menu)
-    }, 100);
+    console.log('%c this.$refs.sider','color:red',this.$refs.sider)
+    this.$refs.sider.$el.style.position="absolute"
+    this.$refs.sider.$el.style.height="100%"
+    this.$refs.sider.$el.style.zIndex="2"
+    // console.log('%c men','color:red',this.$refs.menu)
   },
   methods: {
+    // onmenuSeleted(e){
+    //   console.log('sel',e)
+      
+    // },    
+    // onmenuClick(e){
+    //   console.log('click',e)
+      
+    // },
+    onItemClick(e){
+      console.log('%c item click','color:red',e)
+      this.$refs.sider.setCollapsed(true,'clickMenuItem')
+    },
     onCollapse(collapsed, type) {
       console.log(collapsed, type);
     },

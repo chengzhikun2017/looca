@@ -5,14 +5,21 @@
         <router-view v-if="$route.meta.keepAlive" />
       </keep-alive>
       <router-view v-if="!$route.meta.keepAlive" />
-      <div slot="header" class="head-text">{{header}}</div>
+      <div slot="header" class="head-text">
+        {{header}}
+        <!-- title -->
+        <!-- account -->
+        <!-- message -->
+      </div>
     </MainLayout>
 
     <button @click="test" class="test" v-if="isTest">test</button>
+    <Log></Log>
   </div>
 </template>
 
 <script>
+import Log from './components/views/log.vue'
 import {mapState,mapMuations,mapActions,mapGetters} from 'vuex'
 import router from './router/index.js'
 export default {
@@ -71,6 +78,9 @@ export default {
       console.log('%c app vue ','color:red',this.routerMatchedComponent)
     }
   },
+  components:{
+    Log,
+  },
 }
 </script>
 
@@ -93,7 +103,7 @@ export default {
 .head-text{
   text-align: left;
   padding-left: 20px;
-  
+
 }
 </style>
 <style >
