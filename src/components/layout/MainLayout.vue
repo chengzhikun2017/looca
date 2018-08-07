@@ -50,38 +50,34 @@
 </template>
 <script>
 // 64+69+24
+// 
 import { mapState, mapMuations, mapActions, mapGetters } from 'vuex'
 import helper from './../../utils/helper.js'
 export default {
   name: 'MainLayout',
   data() {
+    console.log('data')
     return {
       mode: 'inline',
       theme: 'light',
       current: ['4'],
+      //item 从
     }
   },
   created(){
-    // console.log('%c main layout created','color:red',)
+    console.log('%c main layout created','color:red',)
   },
   mounted(){
-    console.log('%c this.$refs.sider','color:red',this.$refs.sider)
-    this.$refs.sider.$el.style.position="absolute"
-    this.$refs.sider.$el.style.height="100%"
-    this.$refs.sider.$el.style.zIndex="2"
-    // console.log('%c men','color:red',this.$refs.menu)
+    this.initSider()
   },
   methods: {
-    // onmenuSeleted(e){
-    //   console.log('sel',e)
-      
-    // },    
-    // onmenuClick(e){
-    //   console.log('click',e)
-      
-    // },
+    initSider(){
+      let el = this.$refs.sider.$el
+      el.style.position="absolute"
+      el.style.height="100%"
+      el.style.zIndex="2"
+    },
     onItemClick(e){
-      console.log('%c item click','color:red',e)
       this.$refs.sider.setCollapsed(true,'clickMenuItem')
     },
     onCollapse(collapsed, type) {
