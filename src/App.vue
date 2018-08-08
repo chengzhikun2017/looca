@@ -22,14 +22,15 @@
 import Log from './components/views/log.vue'
 import {mapState,mapMuations,mapActions,mapGetters} from 'vuex'
 import router from './router/index.js'
+
 export default {
   name: 'App',
   data(){
     return {
       name:'App',
-      func:()=>{
-        console.log(this.name)
-      },
+      // func:()=>{
+      //   console.log(this.name)
+      // },
       setHeader:()=>{
 
       }
@@ -40,7 +41,7 @@ export default {
   },
   provide(){
     return{
-      appTest:this.func,
+      // appTest:this.func,
     }
   },
   computed:{
@@ -90,8 +91,6 @@ export default {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
 }
 .test{
   position: absolute;
@@ -107,5 +106,4 @@ export default {
 }
 </style>
 <style >
-  @import "./styles/main.scss"
 </style>

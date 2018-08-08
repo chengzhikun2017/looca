@@ -1,11 +1,9 @@
 <template>
   <div class="test3">
-    <LayoutPC></LayoutPC>
   </div>
 </template>
 
 <script>
-  import LayoutPC from './../../components/layout/ContainerPC.vue'
 export default {
   name:'test3',
   data() {
@@ -16,7 +14,6 @@ export default {
   methods: {},
   computed: {},
   components: {
-    LayoutPC,
   },
 }
 </script>

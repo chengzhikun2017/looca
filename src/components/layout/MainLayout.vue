@@ -62,7 +62,17 @@ export default {
       theme: 'light',
       current: ['4'],
       collapsed:false,
+      header:{
+        
+      },
       //item 从 store 中获取
+    }
+  },
+  provide(){
+    return{
+      setHeader:(header)=>{
+        this.header=header
+      },
     }
   },
   created(){

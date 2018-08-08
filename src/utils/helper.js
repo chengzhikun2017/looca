@@ -4,6 +4,7 @@ import config from '../config.js'
 //   HGJ_VUE
 // } from '../main.js'
 // import commonRemind from './commonRemind.js'
+const _toString = Object.prototype.toString
 export default class helper {
   static platform=null
   static urlConcat(url, obj) {
@@ -104,5 +105,20 @@ export default class helper {
   static getWeixinVersion() {
     var wechatInfo = navigator.userAgent.match(/MicroMessenger\/([\d\.]+)/i);
     return wechatInfo
+  }
+  static isNum(value){
+    return _toString.call(value) === "[object Number]"
+  }
+  static isArray(value){
+    return 
+  }
+  static isObject(value){
+    return 
+  }
+  static isFunction(value){
+    return 
+  }
+  static isString(value){
+    return _toString.call(value) === "[object String]"
   }
 }

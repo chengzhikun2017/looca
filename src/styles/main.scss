@@ -1,8 +1,16 @@
-body {
+#app {
+  .ant-form-item {
+    margin-bottom: 16px;
+    .ant-form-explain{
+      position:absolute;
+      font-size: 12px;
+
+    }
+  }
 }
 
 * {
-  box-sizing:border-box;
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
 }

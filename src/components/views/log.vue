@@ -1,23 +1,28 @@
 <template>
   <div class="log-vue" v-if='false'>
+  <!-- <div class="log-vue" v-if='true'> -->
     <div class="log-box">
       <div class="header">
         <img src="" alt="" class="log">
+        <span class="title">Loo&co</span>
       </div>
       <div class="tabs-box">
-        <a-tabs defaultActiveKey="1" @change="callback">
+        <a-tabs defaultActiveKey="2" @change="callback">
           <a-tab-pane tab="立即登录" key="1">
-
+            <Log></Log>
           </a-tab-pane>
           <a-tab-pane tab="免费注册" key="2" forceRender>
+            <Sign></Sign>
           </a-tab-pane>
-          <!-- <a-tab-pane tab="Tab 3" key="3">Content of Tab Pane 3</a-tab-pane> -->
         </a-tabs>
       </div>
     </div>
   </div>
 </template>
+
 <script>
+import Log from "./login.vue"
+import Sign from "./signup.vue"
 export default {
   name: 'log',
   data() {
@@ -31,7 +36,10 @@ export default {
     },
   },
   computed: {},
-  components: {},
+  components: {
+    Log,
+    Sign,
+  },
 }
 
 </script>
@@ -40,9 +48,10 @@ export default {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.9);
   left: 0;
   top: 0;
+  z-index: 2;
 }
 
 .tabs-box {
@@ -53,12 +62,18 @@ export default {
 }
 
 .log-box {
-  width: 400px;
+  width: 360px;
   margin: 0 auto;
   margin-top: 80px;
   .header {
-    border: 1px solid red;
     height: 30px;
+    .title{
+      color: #eee;
+      font-style: italic;
+      font-weight: bold;
+      font-size: 18px;
+      margin-left: 20px;
+    }
   }
 }
 
@@ -72,6 +87,7 @@ export default {
   .ant-tabs-tab{
     width:50%;
     margin-right: 0;
+    text-align: center;
   }
 }
 </style>

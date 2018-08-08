@@ -14,10 +14,12 @@ import {
   Input,
   Select,
   Tabs,
+  Checkbox,
 } from 'vue-antd-ui';
 import MenuItem from 'vue-antd-ui/lib/Menu/MenuItem'
 import helper from './utils/helper.js'
 import MainLayout from './components/layout/MainLayout.vue'
+import "./styles/main.scss"
 
 function registerComponentChild(vue, parentAntComponent) {
   var parent = parentAntComponent
@@ -45,8 +47,10 @@ const widget5 = () =>
 Vue.config.productionTip = false
 Vue.component(Button.name, Button)
 Vue.component(Input.name, Input)
+registerComponentChild(Vue,Input)
 Vue.component(Icon.name, Icon)
 Vue.component(Carousel.name, Carousel)
+Vue.component(Checkbox.name, Checkbox)
 Vue.component(Menu.name, Menu)
 registerComponentChild(Vue,Menu)
 Vue.component(Layout.name, Layout)
