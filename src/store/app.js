@@ -2,32 +2,37 @@
 // import {
   // simpleFetch
 // } from '../../utils/fetch.js'
-// import {HGJ_VUE} from '../../main.js'
+import {vueApp} from '../main.js'
 import helper from '../utils/helper.js'
 const platform = helper.getPlatForm()
 const isPC = helper.isPC()
+const isWX = helper.isWeixin()
+const isIOS = helper.isIOS()
+const isAndroid = helper.isAndroid()
 export default {
   namespaced:true,
   state: {
-    isWX:false,
     wxConfiged:false,
+    isWX,
     platform,
     isPC,
+    isIOS,
+    isAndroid,
     windowHeight:window.innerHeight,
   },
   getters: {},
   mutations: {
-    app_checkIsWX(state) {
-      var userAgent = window.navigator.userAgent.toLowerCase();
-      if (userAgent.match(/MicroMessenger/i) == 'micromessenger') {
-        state.isWX = true;
-      } else {
-        state.isWX = false;
-      }
-    },
+    // checkIsWX(state) {
+    //   var userAgent = window.navigator.userAgent.toLowerCase();
+    //   if (userAgent.match(/MicroMessenger/i) == 'micromessenger') {
+    //     state.isWX = true;
+    //   } else {
+    //     state.isWX = false;
+    //   }
+    // },
   },
   actions: {
-    app_jsconfig({state}){
+    jsconfig({state}){
       // return
       if(!state.isWX){
         return

@@ -1,12 +1,10 @@
 import router from '../router'
 import config from '../config.js'
-// import {
-//   HGJ_VUE
-// } from '../main.js'
+import {vueApp} from '../main.js'
 // import commonRemind from './commonRemind.js'
 const _toString = Object.prototype.toString
 export default class helper {
-  static platform=null
+  static platform = null
   static urlConcat(url, obj) {
     var str = '',
       queryArr = []
@@ -26,7 +24,7 @@ export default class helper {
     }
   }
   static goPage(path, callback, stopGo) {
-    console.log('go page ',path)
+    console.log('go page ', path)
     if (stopGo) {
       HGJ_VUE.hgjAlert('服务暂时关闭')
       return
@@ -46,7 +44,7 @@ export default class helper {
       HGJ_VUE.hgjAlert('服务暂时关闭')
       return
     }
-    if (!HGJ_VUE.$store.state.account.isLoged) {
+    if (!store.state.account.isLoged) {
       commonRemind.unloginRemind()
       return
     }
@@ -63,7 +61,7 @@ export default class helper {
     //后续单项的更新，也通过此方法更新
   }
   static getPlatForm() {
-    if(helper.platform){
+    if (helper.platform) {
       return helper.platform
     }
     var platform
@@ -106,19 +104,42 @@ export default class helper {
     var wechatInfo = navigator.userAgent.match(/MicroMessenger\/([\d\.]+)/i);
     return wechatInfo
   }
-  static isNum(value){
+  static isNum(value) {
     return _toString.call(value) === "[object Number]"
   }
-  static isArray(value){
-    return 
+  static isArray(value) {
+    return
   }
-  static isObject(value){
-    return 
+  static isObject(value) {
+    return
   }
-  static isFunction(value){
-    return 
+  static isFunction(value) {
+    return
   }
-  static isString(value){
+  static isString(value) {
     return _toString.call(value) === "[object String]"
+  }
+  static resetInitialInfo() {
+    vueApp.$store.commit('cards/clearListCC')
+    vueApp.$store.commit('cards/clearListDC')
+    vueApp.$store.commit('account/reset')
+    vueApp.$store.commit('share/resetReport')
+    vueApp.$store.dispatch('market/resetList')
+    // vueApp.$store.commit('order/clearProductList')
+  }
+
+  static getInitialInfo() {
+    vueApp.$store.dispatch('cards/getListCC')
+    vueApp.$store.dispatch('cards/getListDC')
+    vueApp.$store.dispatch('account/getUserInfo')
+      .then((res) => {
+        if (vueApp.$store.state.account.level > 0) {
+          vueApp.$store.dispatch('market/getAllList')
+        }
+      })
+    vueApp.$store.dispatch('order/productsListGet')
+    vueApp.$store.dispatch('share/getCount')
+    vueApp.$store.dispatch('share/viewCount')
+
   }
 }

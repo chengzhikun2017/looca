@@ -19,7 +19,7 @@
         </a-checkbox>
         <span class="forget-pwd">忘记密码</span> -->
       </a-form-item>
-      <a-form-item :wrapperCol="{ span: 24}">
+      <a-form-item :wrapperCol="{ span: 24}" validateStatus="error" help="hhhh">
         <div class="bttn-box">
           <a-button type='primary' htmlType='submit'>
             Submit
