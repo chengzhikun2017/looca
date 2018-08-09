@@ -79,26 +79,21 @@ export default {
       })
       return promise
     },
-    getVerifyCode(context, code) {
-      console.log('code', code)
-      // return
+    getVerifyCode(context, {phone,code,}) {
       let promise = fetch({
         url: '/account/sendVerifyCode',
         params: {
-          phone: context.state.phone,
-          code: code
+          phone,
+          code,
         },
       })
-      promise.then(res => {
-        HGJ_VUE.hgjToast('已发送')
-      }, err => {})
       return promise
     },
-    signUp({ state }, { password, code }) {
+    signUp({ state }, { phone,password, code }) {
       var promise = fetch({
         url: 'account/register',
         params: {
-          phone: state.phone,
+          phone: phone,
           code: code, // 存不存store?
           password: password,
           ancestor: state.ancestor,
