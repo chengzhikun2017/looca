@@ -1,6 +1,8 @@
 <template>
   <div class="loading-vue" v-if='isLoading>0'>
-    
+    <div class="container l-position-cc">
+      <a-spin size="large"></a-spin>
+    </div>
   </div>
 </template>
 
@@ -26,9 +28,13 @@ export default {
   position: fixed;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(255, 255, 255, 0.7);
   left: 0;
   top: 0;
-  z-index: 999;
+  z-index: 9999;
+  .container{
+    width: 40px;
+    height: 40px;
+  }
 }
 </style>

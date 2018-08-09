@@ -9,34 +9,38 @@ import helper from './utils/helper.js'
 // import MainLayout from './components/layout/MainLayout.vue'
 import "./styles/main.scss"
 import "./utils/componentRegister.js"
-function registerComponentChild(vue, parentAntComponent) {
-  var parent = parentAntComponent
-  for(let key in parent){
-    let child = parent[key]
-    if(child.name&&child.name[0]==="A"){
-      vue.component(child.name,child)
-    }
-  }
-
+import "./utils/filters.js"
+import "./utils/directives.js"
+import "./utils/vue_proto.js"
+Vue.config.productionTip = true
+Vue.config.errorHandler = function (err, vm, info) {
+  console.log('%c vue error handle:::','color:#c0c')
+  console.log('%c error',error)
+  console.log('%c vm',vm)
+  console.log('%c inof',inof)
+  // handle error
+  // `info` 是 Vue 特定的错误信息，比如错误所在的生命周期钩子
+  // 只在 2.2.0+ 可用
 }
-const widget1 = () =>
-  import ('./components/forIndex/widget1.vue')
-const widget2 = () =>
-  import ('./components/forIndex/widget2.vue')
-const widget3 = () =>
-  import ('./components/forIndex/widget3.vue')
-const widget4 = () =>
-  import ('./components/forIndex/widget4.vue')
-const widget5 = () =>
-  import ('./components/forIndex/widget5.vue')
+Vue.config.warnHandler = function (msg, vm, trace) {
+  // `trace` 是组件的继承关系追踪
+  console.log('%c vue warn handle:::','color:#808')
+  console.log('%c error',msg)
+  console.log('%c vm',vm)
+  console.log('%c inof',trace)
+}
 
-// import 'vue-antd-ui/dist/antd.css'
+Vue.config.keyCodes = {
+  v: 86,
+  f1: 112,
+  // camelCase 不可用
+  mediaPlayPause: 179,
+  // 取而代之的是 kebab-case 且用双引号括起来
+  "media-play-pause": 179,
+  up: [38, 87]
+}
+Vue.config.performace = true
 
-Vue.component("widget1", widget1)
-Vue.component("widget2", widget2)
-Vue.component("widget3", widget3)
-Vue.component("widget4", widget4)
-Vue.component("widget5", widget5)
 /* eslint-disable no-new */
 var vueApp = new Vue({
   el: '#app',
@@ -45,4 +49,5 @@ var vueApp = new Vue({
   components: { App, },
   template: '<App/>'
 })
+window.vueApp = vueApp
 export  {vueApp}

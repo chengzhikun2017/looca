@@ -15,6 +15,7 @@
 
     <button @click="test" class="test" v-if="isTest">test</button>
     <Log></Log>
+    <Loading></Loading>
   </div>
 </template>
 
@@ -22,7 +23,8 @@
 import Log from './components/views/log.vue'
 import {mapState,mapMuations,mapActions,mapGetters} from 'vuex'
 import router from './router/index.js'
-
+import Loading from './components/loading.vue'
+import {Message} from 'vue-antd-ui'
 export default {
   name: 'App',
   data(){
@@ -37,6 +39,7 @@ export default {
     }
   },
   created(){
+    this.checkSession()
     // console.log('%c app created','color:red',this)
   },
   provide(){
@@ -45,9 +48,6 @@ export default {
     }
   },
   computed:{
-    header(){
-      
-    },
     isTest(){
       return true
     },
@@ -75,12 +75,17 @@ export default {
   },
   methods:{
     test(){
-      console.log('%c app vue ','color:red',this)
-      console.log('%c app vue ','color:red',this.routerMatchedComponent)
-    }
+      // this.$message.info('1111')
+      // this.$store.dispatch('account/')
+      // this.$hideLoading()
+      // console.log('%c app vue ','color:red',this)
+      // console.log('%c app vue ','color:red',this.routerMatchedComponent)
+    },
+    ...mapActions('account',["checkSession"])
   },
   components:{
     Log,
+    Loading,
   },
 }
 </script>
@@ -93,11 +98,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
 }
 .test{
-  position: absolute;
+  position: fixed;
   right: 40px;
   top: 0; 
   padding:5px 10px;
   z-index: 999999;
+  background: #f0f;
 }
 .head-text{
   text-align: left;

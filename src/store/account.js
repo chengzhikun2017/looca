@@ -1,4 +1,4 @@
- // import fetch from '../../utils/fetch.js'
+ import fetch from './../utils/fetch.js'
 // import {
   // simpleFetch
 // } from '../../utils/fetch.js'
@@ -130,7 +130,7 @@ export default {
       })
       return loginPromise
     },
-    logout({ commit, dispatch }) {
+    logout({ commit, dispatch }) { //todo :use modal
       HGJ_VUE.hgjAlert({
         title: '退出登录',
         options: [{
@@ -158,19 +158,22 @@ export default {
           text: '取消',
         }],
       })
-
-      // return promise
     },
     checkSession({ commit, dispatch }) {
-      var promise = simpleFetch({
+      var promise = fetch({
         url: 'account/checkSession',
+        }, {        
+        simple: true,
+        // showloading: false,
       })
       promise.then(res => {
-        if (res.data.data && res.data.data.userId) {
+        if (res.data && res.data.userId) {
           // dispatch('getUserInfo')
           helper.getInitialInfo()
-        } else if (res.data.message === '请登录') {
+        } else if (res.message === '请登录') {
           console.log('未登录')
+        } else if (res.message === '请重新登录'){
+          console.log('请重新登录')
         }
       })
       return promise

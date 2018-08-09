@@ -1,6 +1,6 @@
 <template>
-  <div class="log-vue" v-if='false'>
-  <!-- <div class="log-vue" v-if='true'> -->
+  <!-- <div class="log-vue" v-if='false'> -->
+  <div class="log-vue" v-if='true'>
     <div class="log-box">
       <div class="header">
         <img src="" alt="" class="log">

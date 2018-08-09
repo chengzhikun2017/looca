@@ -1,11 +1,10 @@
 <template>
   <a-layout id="appLayout">
-    <a-layout-sider breakpoint="lg" v-model="collapsed" collapsedWidth="0" @collapse="onCollapse" ref="sider" >
-      <div class="logo" />
-      <a-menu ref="menu" theme="dark" mode="inline" v-model="current":defaultSelectedKeys="['4']" @click="onItemClick">
+    <a-layout-sider breakpoint="lg" v-model="collapsed" collapsedWidth="0" @collapse="onCollapse" ref="sider">
+      <a-menu ref="menu" theme="dark" mode="inline" v-model="current" :defaultSelectedKeys="['4']" @click="onItemClick">
         <a-menu-item key="1" @click.native="go('/test5')" @click="onItemClick">
           <a-icon type="user" />
-          <span class="nav-text" >test 5</span>
+          <span class="nav-text">test 5</span>
         </a-menu-item>
         <a-menu-item key="2" @click.native="go('/test2')">
           <a-icon type="video-camera" />
@@ -30,11 +29,18 @@
           <span slot="title"><a-icon type="mail" /><span>Navigation 2</span></span>
           <a-menu-item key="9">Option 9</a-menu-item>
           <a-menu-item key="10">Option 10</a-menu-item>
+          <a-menu-item key="11">Option 10</a-menu-item>
+          <a-menu-item key="12">Option 10</a-menu-item>
+          <a-menu-item key="13">Option 10</a-menu-item>
+          <a-menu-item key="14">Option 10</a-menu-item>
+          <a-menu-item key="15">Option 10</a-menu-item>
+          <a-menu-item key="16">Option 10</a-menu-item>
         </a-sub-menu>
       </a-menu>
+      <div class="logo" />
     </a-layout-sider>
     <a-layout @click.native="onMainBodyClick">
-      <a-layout-header :style="{ background: '#fff', padding: 0 }" >
+      <a-layout-header :style="{ background: '#fff', padding: 0 }">
         <slot name="header"></slot>
       </a-layout-header>
       <a-layout-content :style="{ margin: '24px 16px 0' }">
@@ -61,58 +67,58 @@ export default {
       mode: 'inline',
       theme: 'light',
       current: ['4'],
-      collapsed:false,
-      header:{
-        
+      collapsed: false,
+      header: {
+
       },
       //item 从 store 中获取
     }
   },
-  provide(){
-    return{
-      setHeader:(header)=>{
-        this.header=header
+  provide() {
+    return {
+      setHeader: (header) => {
+        this.header = header
       },
     }
   },
-  created(){
-    console.log('%c main layout created','color:red',)
+  created() {
+    console.log('%c main layout created', 'color:red', )
   },
-  mounted(){
+  mounted() {
     this.initSider()
   },
   methods: {
-    onMainBodyClick(){
+    onMainBodyClick() {
       this.hideMobileSider()
     },
-    initSider(){
-      if(this.isPC){
+    initSider() {
+      if (this.isPC) {
         return
       }
       let el = this.$refs.sider.$el
-      el.style.position="absolute"
-      el.style.height="100%"
-      el.style.zIndex="2"
+      el.style.position = "absolute"
+      el.style.height = "100%"
+      el.style.zIndex = "2"
     },
-    hideSider(){
+    hideSider() {
       this.collapsed = true
     },
-    showSider(){
+    showSider() {
       this.collapsed = false
     },
-    hideMobileSider(){
-      if(!this.isPC){
+    hideMobileSider() {
+      if (!this.isPC) {
         this.hideSider()
       }
     },
-    onItemClick(e){
+    onItemClick(e) {
       this.hideMobileSider()
       // this.$refs.sider.setCollapsed(true,'clickMenuItem')
     },
     onCollapse(collapsed, type) {
       console.log(collapsed, type);
     },
-    go(path){
+    go(path) {
       helper.goPage(path)
     },
   },
@@ -120,18 +126,24 @@ export default {
     contentHeight() {
       return this.windowHeight - (64 + 69 + 24) + 'px'
     },
-
-    ...mapState('app', ['windowHeight','isPC'])
+    siderHeight() {
+      return this.windowHeight - 64 + 'px'
+    },
+    ...mapState('app', ['windowHeight', 'isPC'])
   },
   components: {},
 }
 
 </script>
 <style lang='scss' scoped>
-#appLayout .logo {
-  height: 32px;
-  background: rgba(255, 255, 255, .2);
-  margin: 16px;
+.logo {
+  width: 100%;
+  height: 64px;
+  background: rgba(0, 111, 111, 1);
+  padding: 16px 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .content {
@@ -144,9 +156,22 @@ export default {
 
 </style>
 <style lang="scss">
-#appLayout{
-  .ant-menu-item,.ant-menu-submenu-title{
+#appLayout {
+  height: 100%;
+  .ant-menu-item,
+  .ant-menu-submenu-title {
     text-align: left;
   }
+  .ant-layout-sider{
+    height: 100%;
+  }
+  .ant-menu-root {
+    padding-top: 64px;
+    max-height: 100%;
+    height: 100%;
+    overflow-y:auto;
+    border:1px solid red;
+  }
 }
+
 </style>
