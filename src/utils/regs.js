@@ -13,9 +13,9 @@
     //   msg: '请输入正确的手机号',
     // }
   }
-  pwd(v) {
+  get password() {
     let reg = /.{8,}/
-    return reg.test(v)
+    return reg
   }
   code6(v) {
     let reg = /\d{6}/

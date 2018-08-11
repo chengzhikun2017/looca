@@ -1,6 +1,5 @@
 import Vue from 'vue'
 
-
 Vue.prototype.$showLoading = (loadingText) => {
   vueApp.$store.commit('feedback/showLoading', loadingText)
 }

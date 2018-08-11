@@ -7,7 +7,7 @@
         <span class="title">Loo&co</span>
       </div>
       <div class="tabs-box">
-        <a-tabs defaultActiveKey="2" @change="callback">
+        <a-tabs defaultActiveKey="1" @change="callback">
           <a-tab-pane tab="立即登录" key="1">
             <Log></Log>
           </a-tab-pane>

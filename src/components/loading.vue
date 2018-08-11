@@ -1,7 +1,7 @@
 <template>
   <div class="loading-vue" v-if='isLoading>0'>
     <div class="container l-position-cc">
-      <a-spin size="large"></a-spin>
+      <a-spin size="large" tip="loading"></a-spin>
     </div>
   </div>
 </template>

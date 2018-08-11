@@ -42,6 +42,9 @@
     <a-layout @click.native="onMainBodyClick">
       <a-layout-header :style="{ background: '#fff', padding: 0 }">
         <slot name="header"></slot>
+        <div class="nav-user">
+          <NavUser></NavUser>
+        </div>
       </a-layout-header>
       <a-layout-content :style="{ margin: '24px 16px 0' }">
         <div class="content" :style="{height:contentHeight}">
@@ -59,6 +62,7 @@
 // 
 import { mapState, mapMuations, mapActions, mapGetters } from 'vuex'
 import helper from './../../utils/helper.js'
+import NavUser from './../views/navUser.vue'
 export default {
   name: 'MainLayout',
   data() {
@@ -131,7 +135,9 @@ export default {
     },
     ...mapState('app', ['windowHeight', 'isPC'])
   },
-  components: {},
+  components: {
+    NavUser,
+  },
 }
 
 </script>
@@ -145,7 +151,15 @@ export default {
   top: 0;
   left: 0;
 }
-
+.nav-user{
+  /*width: 32px;*/
+  height: 100%;
+  position: absolute;
+  right: 20px;
+  top: 0;
+  display: flex;
+  align-items: center;
+}
 .content {
   padding: 24px;
   background: #fff;
@@ -162,16 +176,20 @@ export default {
   .ant-menu-submenu-title {
     text-align: left;
   }
+  .ant-layout-header{
+    position: relative;
+  }
   .ant-layout-sider{
     height: 100%;
+    .ant-menu-root {
+      padding-top: 64px;
+      max-height: 100%;
+      height: 100%;
+      overflow-y:auto;
+      /*border:1px solid red;*/
+    }
   }
-  .ant-menu-root {
-    padding-top: 64px;
-    max-height: 100%;
-    height: 100%;
-    overflow-y:auto;
-    border:1px solid red;
-  }
+
 }
 
 </style>

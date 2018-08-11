@@ -12,6 +12,8 @@ import {
   Checkbox,
   Spin,
   Message,
+  Modal,
+  Dropdown,
 } from 'vue-antd-ui';
 import MainLayout from './../components/layout/MainLayout.vue'
 const widget1 = () =>
@@ -31,6 +33,8 @@ Vue.component("widget3", widget3)
 Vue.component("widget4", widget4)
 Vue.component("widget5", widget5)
 Vue.prototype.$message = Message
+Vue.prototype.$modal = Modal
+console.log('%c Modal','color:red',Modal)
 function registerComponentChild(vue, parentAntComponent) {
   var parent = parentAntComponent
   for (let key in parent) {
@@ -45,6 +49,7 @@ Vue.component("MainLayout", MainLayout)
 Vue.component(Button.name, Button)
 Vue.component(Spin.name, Spin)
 Vue.component(Input.name, Input)
+Vue.component(Dropdown.name, Dropdown)
 registerComponentChild(Vue, Input)
 Vue.component(Icon.name, Icon)
 Vue.component(Carousel.name, Carousel)

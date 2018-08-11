@@ -6,22 +6,55 @@ class input {
     this.values = {}
     this.status = {}
     this.validation = {}
+    this.valid = {}
     // this.inputHelper = inputHelper
     keys.forEach((key) => {
         this.values[key] = ""
         this.status[key] = {}
-        this.validation[key] = ()=>{}
+        this.valid[key] = false
+        this.validation[key] = ()=>{
+          return inputHelper.right
+        }
       }
     )
   }
+  get allValid(){
+    let valid = this.valid
+    let flag = true
+    for(let key in valid){
+      if(!valid[key]){
+        flag = false
+        break
+      }
+    }
+    return flag
+  }
   clearStatus(key){
-    this.status[key] = {}
+    let status = this.status[key]
+    console.log('this',this)
+    for(let key in status){
+      status[key] = ''
+    }
   }
   setValidation(key,func){
     this.validation[key] = ()=>{
       // console.log('%c this','color:red',this)
-      this.status[key] = func(this.values[key])
+      let result = func(this.values[key])
+      if(result===undefined){
+        this.status[key] = inputHelper.right
+        this.valid[key] = true
+      }else{
+        this.valid[key] = false
+        this.status[key] = result
+      }
     }
+  }
+  validateAll(){
+    let validations = this.validation
+    for(let key in validations){
+      validations[key]()
+    }
+    return this.allValid
   }
 }
 class InputHelper {
@@ -29,7 +62,11 @@ class InputHelper {
     empty: {
       validateStatus: "error",
       help: "不能为空"
-    }
+    },
+    right:{
+      validateStatus: "success",
+      help: "",
+    },
   }
   newInput = input
   inputedFlag(input) { //absoleted
@@ -68,6 +105,9 @@ class InputHelper {
 
   get statusEmpty() {
     return this._status.empty
+  }
+  get right(){
+    return this._status.right
   }
 }
 var inputHelper = new InputHelper()

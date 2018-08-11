@@ -38,7 +38,7 @@ export default function fetch(options, {
   simple = false,
 } = {}) {
   var fetchPromis = new Promise((resolve, reject) => {
-    console.log('%c options', 'color:red', resolveAnyway, showloading, rejectErr, simple)
+    // console.log('%c options', 'color:red', resolveAnyway, showloading, rejectErr, simple)
     if (showloading && vueApp) {
       vueApp.$showLoading()
     }else{
@@ -58,7 +58,7 @@ export default function fetch(options, {
         if (showloading && vueApp) {
           vueApp.$hideLoading()
         }
-        console.log('responese to>>>%c' + options.url, 'color:green', '<<<', response)
+        // console.log('responese to>>>%c' + options.url, 'color:green', '<<<', response)
         let res = response.data
         if (res.error === 0) {
           if (simple) {

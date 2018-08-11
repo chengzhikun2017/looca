@@ -13,22 +13,22 @@ import "./utils/filters.js"
 import "./utils/directives.js"
 import "./utils/vue_proto.js"
 Vue.config.productionTip = true
-Vue.config.errorHandler = function (err, vm, info) {
-  console.log('%c vue error handle:::','color:#c0c')
-  console.log('%c error',error)
-  console.log('%c vm',vm)
-  console.log('%c inof',inof)
-  // handle error
-  // `info` 是 Vue 特定的错误信息，比如错误所在的生命周期钩子
-  // 只在 2.2.0+ 可用
-}
-Vue.config.warnHandler = function (msg, vm, trace) {
-  // `trace` 是组件的继承关系追踪
-  console.log('%c vue warn handle:::','color:#808')
-  console.log('%c error',msg)
-  console.log('%c vm',vm)
-  console.log('%c inof',trace)
-}
+// Vue.config.errorHandler = function (err, vm, info) {
+//   console.log('%c vue error handle:::','color:#c0c')
+//   console.log('%c error',err)
+//   console.log('%c vm',vm)
+//   console.log('%c info',info)
+//   // handle error
+//   // `info` 是 Vue 特定的错误信息，比如错误所在的生命周期钩子
+//   // 只在 2.2.0+ 可用
+// }
+// Vue.config.warnHandler = function (msg, vm, trace) {
+//   // `trace` 是组件的继承关系追踪
+//   console.log('%c vue warn handle:::','color:#808')
+//   console.log('%c error',msg)
+//   console.log('%c vm',vm)
+//   console.log('%c inof',trace)
+// }
 
 Vue.config.keyCodes = {
   v: 86,
