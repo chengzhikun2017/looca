@@ -129,14 +129,9 @@ export default class helper {
   }
 
   static getInitialInfo() {
-    vueApp.$store.dispatch('cards/getListCC')
-    vueApp.$store.dispatch('cards/getListDC')
+    // vueApp.$store.dispatch('cards/getListCC')
+    // vueApp.$store.dispatch('cards/getListDC')
     vueApp.$store.dispatch('account/getUserInfo')
-      .then((res) => {
-        if (vueApp.$store.state.account.level > 0) {
-          vueApp.$store.dispatch('market/getAllList')
-        }
-      })
     vueApp.$store.dispatch('order/productsListGet')
     vueApp.$store.dispatch('share/getCount')
     vueApp.$store.dispatch('share/viewCount')

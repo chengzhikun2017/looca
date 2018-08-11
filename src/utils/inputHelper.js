@@ -1,6 +1,7 @@
 import router from '../router'
 import config from '../config.js'
 import helper from './helper.js'
+import regs from './regs.js'
 class input {
   constructor(keys) {
     this.values = {}
@@ -13,7 +14,8 @@ class input {
         this.status[key] = {}
         this.valid[key] = false
         this.validation[key] = ()=>{
-          return inputHelper.right
+          this.status[key] = inputHelper.right
+          this.valid[key] = true
         }
       }
     )
@@ -31,14 +33,12 @@ class input {
   }
   clearStatus(key){
     let status = this.status[key]
-    console.log('this',this)
     for(let key in status){
       status[key] = ''
     }
   }
   setValidation(key,func){
     this.validation[key] = ()=>{
-      // console.log('%c this','color:red',this)
       let result = func(this.values[key])
       if(result===undefined){
         this.status[key] = inputHelper.right
@@ -57,6 +57,27 @@ class input {
     return this.allValid
   }
 }
+var ValidationSet ={}
+
+ValidationSet.phone = function(input,keyName){
+  input.setValidation(keyName, (value) => {
+    if (!value) {
+      return inputHelper.statusEmpty
+    } else if (!regs.phone.test(value)) {
+      return inputHelper.createStatus(2, "不正确")
+    }
+  })
+}
+ValidationSet.password = function(input,keyName){
+  input.setValidation(keyName, (value) => {
+    if (!value) {
+      return inputHelper.statusEmpty
+    } else if (!regs.password.test(value)) {
+      return inputHelper.createStatus(2, "不正确")
+    }
+  })
+}
+
 class InputHelper {
   _status = {
     empty: {
@@ -69,6 +90,7 @@ class InputHelper {
     },
   }
   newInput = input
+  ValidationSet = ValidationSet
   inputedFlag(input) { //absoleted
     let obj = {}
     for (let key in input) {
@@ -104,11 +126,14 @@ class InputHelper {
   }
 
   get statusEmpty() {
-    return this._status.empty
+    return Object.assign({},this._status.empty)
   }
   get right(){
-    return this._status.right
+    return Object.assign({},this._status.right)
   }
 }
 var inputHelper = new InputHelper()
 export default inputHelper
+export{
+  ValidationSet,
+}

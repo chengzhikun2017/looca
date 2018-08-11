@@ -13,7 +13,7 @@
       </div>
     </MainLayout>
     <button @click="test" class="test" v-if="isTest">test</button>
-    <Log v-if="!isLoged"></Log>
+    <Log v-if="isLoged===false"></Log>
     <Loading ></Loading>
   </div>
 </template>

@@ -22,7 +22,7 @@
      this.isRealNamed = false
      this.name = null
      this.idCardNo = null
-     this.isLoged = false
+     this.isLoged = ''
      this.jf = 0
      this.money = 0
      this.qrcodeUrl = ''
@@ -63,6 +63,7 @@
        for (let key in info) {
          s[key] = info[key]
        }
+       s.isLoged = false
      },
    },
    actions: {
@@ -77,7 +78,7 @@
          params: {
            phone: phone
          },
-       })
+       }, { simple: true, showLoading: 0 })
        return promise
      },
      getVerifyCode(context, { phone, code, }) {
@@ -90,7 +91,7 @@
        })
        return promise
      },
-     signup({ state }, { phone, password, code }) {
+     signup({ state }, { phone, password, code, save }) {
        var promise = fetch({
          url: 'account/register',
          params: {
@@ -104,6 +105,9 @@
        promise.then(res => {
          state.isLoged = true
          helper.getInitialInfo()
+         if (save) {
+           saveAccount(phone, password)
+         }
          //save to local
        })
        return promise
@@ -168,7 +172,6 @@
        return promise
      },
      getUserInfo({ state }, params) {
-
        if (params == undefined || params.showLoading == undefined) {
          var showLoading = false
        }

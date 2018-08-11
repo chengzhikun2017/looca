@@ -33,16 +33,16 @@ const handleFetchError = (err) => {
 
 export default function fetch(options, {
   resolveAnyway = false,
-  showloading = 1,
+  showLoading = 1,
   rejectErr = false,
   simple = false,
 } = {}) {
   var fetchPromis = new Promise((resolve, reject) => {
-    // console.log('%c options', 'color:red', resolveAnyway, showloading, rejectErr, simple)
-    if (showloading && vueApp) {
+    console.log('%c options', 'color:red', resolveAnyway, showLoading, rejectErr, simple)
+    if (showLoading && vueApp) {
       vueApp.$showLoading()
     }else{
-      showloading = false
+      showLoading = false
     }
     const instance = axios.create({
       // 超时时间设置
@@ -55,7 +55,7 @@ export default function fetch(options, {
     })
     instance(options).then(response => {
         // status必然是200
-        if (showloading && vueApp) {
+        if (showLoading && vueApp) {
           vueApp.$hideLoading()
         }
         // console.log('responese to>>>%c' + options.url, 'color:green', '<<<', response)
@@ -94,7 +94,7 @@ export default function fetch(options, {
         handleFetchError(err)
       })
       .finally(() => {
-        if (showloading && vueApp) {
+        if (showLoading && vueApp) {
           // vueApp.$hideLoading()
         }
       })

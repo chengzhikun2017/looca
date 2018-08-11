@@ -29,5 +29,8 @@ export default {
     validation(){
       return this.input.status
     },
+    valid(){
+      return this.input.valid
+    },
   },
 }

@@ -32,6 +32,7 @@
 import { mapState, mapMuations, mapActions, mapGetters } from 'vuex'
 import regs from './../../utils/regs.js'
 import inputHelper from './../../utils/inputHelper.js'
+import {ValidationSet} from './../../utils/inputHelper.js'
 import inputMixin from './../../components/mixin/input.js'
 const formItemLayout = {
   labelCol: { span: 4 },
@@ -48,20 +49,9 @@ export default {
   data() {
     var newInput = new inputHelper.newInput(['phone', "password"])
     newInput.values.phone = "17702103430"
-    newInput.setValidation('phone', (value) => {
-      if (!value) {
-        return inputHelper.statusEmpty
-      } else if (!regs.phone.test(value)) {
-        return inputHelper.createStatus(2, "不正确")
-      }
-    })
-    newInput.setValidation('password', (value) => {
-      if (!value) {
-        return inputHelper.statusEmpty
-      } else if (!regs.password.test(value)) {
-        return inputHelper.createStatus(2, "不正确")
-      }
-    })
+    ValidationSet.phone(newInput,'phone')
+    ValidationSet.password(newInput,'password')
+    
     return {
       savePassword: true,
       formItemLayout,
