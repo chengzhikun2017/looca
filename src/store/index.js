@@ -4,6 +4,7 @@ import app from './app'
 import common from './common'
 import account from './account'
 import feedback from './feedback'
+import cards from './cards'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -11,6 +12,7 @@ const store = new Vuex.Store({
     app,
     common,
     feedback,
+    cards,
     account,
   }
 })

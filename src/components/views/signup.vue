@@ -24,12 +24,12 @@
           <a-button slot="suffix" :type="codeBtnType" @click.native="sendVerifyCode">发送验证码</a-button>
         </a-input>
       </a-form-item>
-      <a-form-item :wrapperCol="{ span: 24 }" :validateStatus="input.status.password.validateStatus" :help="input.status.password.help">
+      <a-form-item :wrapperCol="{ span: 24 }" type="password" :validateStatus="input.status.password.validateStatus" :help="input.status.password.help">
         <a-input placeholder="密码，至少8位数字+字母" v-model="input.values.password" @focus="clearValidation('password')"  @blur="validate('password')">
           <a-icon slot="prefix" type="lock" />
         </a-input>
       </a-form-item>
-      <a-form-item :labelCol="{ span: 24 }" :wrapperCol="{ span: 24 }">
+      <a-form-item :labelCol="{ span: 24 }" :wrapperCol="{ span: 24 }" v-if="isRegister">
         <a-checkbox>
           记住我
         </a-checkbox>
@@ -37,7 +37,7 @@
       <a-form-item :wrapperCol="{ span: 24}">
         <div class="bttn-box">
           <a-button type='primary' htmlType='submit'>
-            注册并登录
+            {{isFindpwd?"修改密码并重新登录":"注册并登录"}}
           </a-button>
         </div>
       </a-form-item>
@@ -57,12 +57,20 @@ export default {
     var newInput = new inputHelper.newInput(['phone', "password", "captcha", 'code', ])
     ValidationSet.password(newInput, 'password')
     ValidationSet.phone(newInput, 'phone')
-    newInput.values.phone = "17702103430"
+    // newInput.values.phone = "17702103430"
     return {
       codeBtnType: "primary",
       input: newInput,
       captchaSrc: '',
+      countdown:60,
+      countTimer:null,
     }
+  },
+  props:{
+    type:{
+      default:1, //1:signup 2:findpwd
+      type:Number,
+    },
   },
   created() {
     this.getCaptcha()
@@ -74,13 +82,22 @@ export default {
   },
   mixins: [inputMixin],
   methods: {
+    startCountdown(){
+      this.countTimer = setInterval(() => {
+        this.countdown--
+        if(this.countdown<=0){
+          clearInterval(this.countTimer)
+          this.countTimer = null
+        }
+      },1000)
+    },
     handleSubmit() {
       let { phone, code, password } = this.formData
       this.signup({
         phone,
         code,
         password,
-        save: savePassword
+        save: this.savePassword
       })
     },
     onPhoneBlur() {
@@ -122,11 +139,30 @@ export default {
       let phone = this.formData.phone
       let code = this.formData.captcha
       this.getVerifyCode({ phone, code })
+      .then((res) => {
+        console.log('%c res send code','color:red',res)
+        if(res.error===0 && res.message ==="success"){
+          this.startCountdown()
+        }
+      })
     },
     ...mapActions('account', ['getVerifyCode', 'signup', 'isPhoneRegister'])
   },
   computed: {
-
+    isRegister(){
+      return this.type===1
+    },
+    isFindpwd(){
+      return this.type===2
+    },
+    codeBtnDisable(){
+      return this.countTimer!==null
+    },
+    codeBtnMsg(){
+      if(this.codeBtnDisable){
+        return `${this.countdown}s后获取`
+      }
+    },
   },
   watch: {
     'formData.phone' (v) {

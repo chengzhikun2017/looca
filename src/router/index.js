@@ -4,7 +4,10 @@ import config from '../config.js'
 import error_page from '../pages/error.vue'
 import index_page from '../pages/index.vue'
 import crm_index from '../pages/crm_index.vue'
-
+import findpwd from '../pages/findpwd.vue'
+// import addDC from '../pages/addDC.vue'
+import modifypwd from '../pages/modifypwd.vue'
+import mine_cards from '../pages/mine_cards.vue'
 
 /**
  * test part 
@@ -63,7 +66,11 @@ var routes = [],
   crmRoutes = []
 crmRoutes = crmRoutes.concat(
   newRoute('/crm_index', 'crm_index', crm_index),
+  newRoute('/findpwd', 'findpwd', findpwd),
+  // newRoute('/addDC', 'addDC', addDC),
+  newRoute('/modifypwd', 'modifypwd', modifypwd),
   newRoute('/index_page', 'index_page', index_page),
+  newRoute('/mine_cards', 'mine_cards', mine_cards),
 )
 
 

@@ -18,7 +18,7 @@ const handleUnPayed = (err) => {
 }
 
 function handleWrongCode(res) {
-  // vueApp.hgjAlert(res.message)
+  vueApp.$message.error(res.message)
 }
 const handleFetchError = (err) => {
   if (/network error/ig.test(err)) {

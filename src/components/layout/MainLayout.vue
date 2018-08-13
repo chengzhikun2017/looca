@@ -20,7 +20,7 @@
         </a-menu-item>
         <a-sub-menu key="sub1">
           <span slot="title"><a-icon type="mail" /><span>Navigation One</span></span>
-          <a-menu-item key="5">Option 5</a-menu-item>
+          <a-menu-item key="mine_cards">我的银行卡</a-menu-item>
           <a-menu-item key="6">Option 6</a-menu-item>
           <a-menu-item key="7">Option 7</a-menu-item>
           <a-menu-item key="8">Option 8</a-menu-item>
@@ -116,6 +116,10 @@ export default {
       }
     },
     onItemClick(e) {
+      console.log('%c e','color:red',e)
+      switch(e.key){
+        case "mine_cards":this.go('/mine_cards');break;
+      }
       this.hideMobileSider()
       // this.$refs.sider.setCollapsed(true,'clickMenuItem')
     },

@@ -74,12 +74,12 @@ export default {
   },
   methods: {
     test() {
-      console.log('%c h','color:red',this.h)
-      this.$modal.info({
-        title: 'This is a notification message',
-        content: `<h2>hahahah</h2>`,
-        onOk() {},
-      })
+      console.log('%c h','color:red',this.$store)
+      // this.$modal.info({
+      //   title: 'This is a notification message',
+      //   content: `<h2>hahahah</h2>`,
+      //   onOk() {},
+      // })
       // this.$message.info('1111')
       // this.$store.dispatch('account/')
       // this.$hideLoading()

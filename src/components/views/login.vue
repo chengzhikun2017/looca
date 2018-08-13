@@ -3,16 +3,16 @@
     <a-form @submit="handleSubmit">
       <!-- component  input key hasFeedback -->
       <a-form-item :wrapperCol="{ span: 24 }" :validateStatus="input.status.phone.validateStatus" :help="input.status.phone.help">
-        <a-input placeholder="123" ref="inputPhone" v-model="input.values.phone" @blur="validate('phone')" @focus="clearValidation('phone')">
+        <a-input placeholder="手机号" ref="inputPhone" v-model="input.values.phone" @blur="validate('phone')" @focus="clearValidation('phone')">
           <a-icon slot="prefix" type="user" />
         </a-input>
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 24 }" :validateStatus="input.status.password.validateStatus" :help="input.status.password.help">
-        <a-input placeholder="123" type="password" ref="inputPassword" v-model="input.values.password" @blur="validate('password')" @focus="clearValidation('password')">
+        <a-input placeholder="密码" type="password" ref="inputPassword" v-model="input.values.password" @blur="validate('password')" @focus="clearValidation('password')">
           <a-icon slot="prefix" type="user" />
         </a-input>
       </a-form-item>
-      <a-form-item :labelCol="formTailLayout.labelCol" :wrapperCol="formTailLayout.wrapperCol">
+      <a-form-item :labelCol="{ span: 24 }" :wrapperCol="{ span: 24 }">
         <a-checkbox @change="onSavePwdChange" v-model="savePassword">
           记住我
         </a-checkbox>
@@ -67,7 +67,6 @@ export default {
 
     },
     handleSubmit() {
-
       console.log('%c form', 'color:red', this.input.validateAll())
       if (this.input.validateAll()) {
         this._login()
@@ -116,9 +115,6 @@ export default {
 .login-vue {
   .ant-input-prefix {
     color: #d9d9d9;
-  }
-  .ant-btn {
-    width: 100%;
   }
 }
 

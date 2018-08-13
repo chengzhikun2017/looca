@@ -77,6 +77,15 @@ ValidationSet.password = function(input,keyName){
     }
   })
 }
+ValidationSet.id = function(input,keyName){
+  input.setValidation(keyName, (value) => {
+    if (!value) {
+      return inputHelper.statusEmpty
+    } else if (!regs.password.test(value)) {
+      // return inputHelper.createStatus(2, "不正确")
+    }
+  })
+}
 
 class InputHelper {
   _status = {

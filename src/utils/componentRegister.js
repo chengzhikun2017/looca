@@ -14,6 +14,7 @@ import {
   Message,
   Modal,
   Dropdown,
+  Upload,
 } from 'vue-antd-ui';
 import MainLayout from './../components/layout/MainLayout.vue'
 const widget1 = () =>
@@ -47,6 +48,7 @@ function registerComponentChild(vue, parentAntComponent) {
 
 Vue.component("MainLayout", MainLayout)
 Vue.component(Button.name, Button)
+Vue.component(Upload.name, Upload)
 Vue.component(Spin.name, Spin)
 Vue.component(Input.name, Input)
 Vue.component(Dropdown.name, Dropdown)
