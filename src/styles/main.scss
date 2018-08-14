@@ -18,14 +18,18 @@
       // width: 100%;
       // max-width: 320px;
     }
-    &:before{
-      content:"";
+    &:before {
+      content: "";
       width: 25%;
-      display:inline-block;
+      display: inline-block;
     }
   }
   .ant-form-item {
     max-width: 460px;
+    label {
+      white-space: normal;
+      padding-right: 8px;
+    }
   }
 }
 
@@ -39,8 +43,7 @@
       align-items: center;
     }
     .ant-btn {
-      width: 100%;
-      // max-width: 320px;
+      width: 100%; // max-width: 320px;
     }
   }
 }

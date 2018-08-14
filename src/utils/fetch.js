@@ -61,7 +61,7 @@ export default function fetch(options, {
         if (showLoading && vueApp) {
           vueApp.$hideLoading()
         }
-        // console.log('responese to>>>%c' + options.url, 'color:green', '<<<', response)
+        console.log('responese to>>>%c' + options.url, 'color:green', '<<<', response)
         let res = response.data
         if (res.error === 0) {
           if (simple) {

@@ -9,25 +9,37 @@ const saveAccount = (account, password) => {
 }
 class defaultAccountInfo {
   constructor(props) {
+    this.verifyCode = ''
     this.ancestor = null
     this.qudao = null
     this.phone = ''
-    this.captcha = ''
-    this.verifyCode = ''
+    // this.captcha = ''
     this.userId = null
     this.isRealNamed = false
-    this.name = null
-    this.idCardNo = null
+    // this.name = null
+    // this.idCardNo = null
     this.isLoged = ''
     this.jf = 0
     this.money = 0
-    this.qrcodeUrl = ''
+    // this.qrcodeUrl = ''
     this.userId = null
     this.unfreezeMoney = 0
     this.freezeMoney = 0
     this.isActive = 0
-    this.level = 0
+    // this.level = 0
     this.freePlanTimes = 0
+    this.registerTime = null,
+    this.share={
+      brokerage:0,
+      level:0,
+      qrcodeUrl:'',
+    }
+    this.identity = {
+      idCardNo:"",
+      name:"",
+      email:"",
+    }
+    this.authInfo={}
   }
 }
 
@@ -63,12 +75,7 @@ export default {
     },
   },
   actions: {
-    getAuthInfo(content) {
-      var promise = fetch({
-        url: "/auth/info"
-      })
-      return promise
-    },
+
     logoutReset({ state, dispatch, commit }) {
       commit('account/reset')
     },
@@ -91,11 +98,11 @@ export default {
         },
       }, {
         simple: true,
-        showLoading:false,
-        resolveAnyway:true,
+        showLoading: false,
+        resolveAnyway: true,
       })
       promise.then(res => {
-        if(res.error === 0){
+        if (res.error === 0) {
           vueApp.$message.info("已发送")
         }
       })
@@ -184,32 +191,40 @@ export default {
       })
       return promise
     },
+    getAuthInfo({state}) {
+      var promise = fetch({
+        url: "/auth/info"
+      })
+      promise.then(res=>{
+        console.log(res)
+        state.authInfo = res
+      })
+      return promise
+    },
     getUserInfo({ state }, params) {
       if (params == undefined || params.showLoading == undefined) {
         var showLoading = false
       }
-      return new Promise((resolve, reject) => {
-        fetch({
-          url: 'profile/info',
-        }, showLoading).then(res => {
-          for (let key in res) {
-            state[key] = res[key]
-          }
-          if (res.name && res.idCardNo) {
-            state.isRealNamed = true
-            state.name = res.name
-            state.idCardNo = res.idCardNo
-          }
-          if (res.userId) {
-            state.userId = res.userId
-            state.isLoged = true
-          }
-          resolve(res)
-          // helper.getInitialInfo()
-        })
+      var promise = fetch({
+        url: 'profile/info',
+      }, showLoading)
+      promise.then(res => {
+        for (let key in res) {
+          state[key] = res[key]
+        }
+        let identity = res.identity
+        if (identity.name && identity.idCardNo) {
+          state.isRealNamed = true
+        }
+        if (res.userId) {
+          state.userId = res.userId
+          state.isLoged = true
+        }
+        // helper.getInitialInfo()
       })
+      return promise
     },
-    realNameVerify({ state }, params) {
+    realNameVerify({ state ,dispatch}, params) {
       //{ idCardUrl, idCardUrl2, idCardNo, name, email, }
       // console.log('name,idCardNo%c', 'color:red', name, idCardNo)
       var promise = fetch({
@@ -217,6 +232,7 @@ export default {
         params,
       })
       promise.then(res => {
+        dispatch('account/getAuthInfo')
         console.log('real name verify ', res)
         // state.name = name
         // state.idCardNo = idCardNo

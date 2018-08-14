@@ -120,22 +120,28 @@ export default class helper {
   static isString(value) {
     return _toString.call(value) === "[object String]"
   }
+
+  static isNullObj(obj){
+    
+  }
+
   static resetInitialInfo() {
-    vueApp.$store.commit('cards/clearListCC')
-    vueApp.$store.commit('cards/clearListDC')
+    // vueApp.$store.commit('cards/clearListCC')
+    // vueApp.$store.commit('cards/clearListDC')
     vueApp.$store.commit('account/reset')
-    vueApp.$store.commit('share/resetReport')
-    vueApp.$store.dispatch('market/resetList')
+    // vueApp.$store.commit('share/resetReport')
+    // vueApp.$store.dispatch('market/resetList')
     // vueApp.$store.commit('order/clearProductList')
   }
 
   static getInitialInfo() {
     // vueApp.$store.dispatch('cards/getListCC')
     // vueApp.$store.dispatch('cards/getListDC')
+    vueApp.$store.dispatch('account/getAuthInfo')
     vueApp.$store.dispatch('account/getUserInfo')
-    vueApp.$store.dispatch('order/productsListGet')
-    vueApp.$store.dispatch('share/getCount')
-    vueApp.$store.dispatch('share/viewCount')
+    // vueApp.$store.dispatch('order/productsListGet')
+    // vueApp.$store.dispatch('share/getCount')
+    // vueApp.$store.dispatch('share/viewCount')
 
   }
 }
