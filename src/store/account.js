@@ -91,6 +91,7 @@ export default {
         },
       }, {
         simple: true,
+        showLoading:false,
       })
       promise.then(res => {
         vueApp.$message.info("已发送")

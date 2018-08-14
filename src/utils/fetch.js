@@ -37,22 +37,22 @@ export default function fetch(options, {
   rejectErr = false,
   simple = false,
 } = {}) {
+  console.log('%c options', 'color:red', resolveAnyway, showLoading, rejectErr, simple)
+  if (showLoading && vueApp) {
+    vueApp.$showLoading()
+  }else{
+    showLoading = false
+  }
+  const instance = axios.create({
+    // 超时时间设置
+    timeout: 60000,
+    // 请求的host设置
+    baseURL: apiUrl,
+    // 通过cookies进行认证
+    withCredentials: true,
+    // headers: {'Access-Control-Allow-Origin': "*"},
+  })
   var fetchPromis = new Promise((resolve, reject) => {
-    console.log('%c options', 'color:red', resolveAnyway, showLoading, rejectErr, simple)
-    if (showLoading && vueApp) {
-      vueApp.$showLoading()
-    }else{
-      showLoading = false
-    }
-    const instance = axios.create({
-      // 超时时间设置
-      timeout: 60000,
-      // 请求的host设置
-      baseURL: apiUrl,
-      // 通过cookies进行认证
-      withCredentials: true,
-      // headers: {'Access-Control-Allow-Origin': "*"},
-    })
     instance(options).then(response => {
         // status必然是200
         if (showLoading && vueApp) {
@@ -95,7 +95,7 @@ export default function fetch(options, {
       })
       .finally(() => {
         if (showLoading && vueApp) {
-          // vueApp.$hideLoading()
+          vueApp.$hideLoading()
         }
       })
   })

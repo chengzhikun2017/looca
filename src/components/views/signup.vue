@@ -21,11 +21,11 @@
           <a-icon slot="prefix" type="exclamation-circle-o" />
           <!-- <div class="captcha-box" slot="suffix"></div> -->
           <!-- <img :src="captchaSrc" alt="" class="captch"> -->
-          <a-button slot="suffix" :type="codeBtnType" @click.native="sendVerifyCode">发送验证码</a-button>
+          <a-button slot="suffix" :type="codeBtnType" @click.native="sendVerifyCode" :loading="sendingCode" :ghost="codeBtnDisable">{{codeBtnMsg}}</a-button>
         </a-input>
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 24 }" type="password" :validateStatus="input.status.password.validateStatus" :help="input.status.password.help">
-        <a-input placeholder="密码，至少8位数字+字母" v-model="input.values.password" @focus="clearValidation('password')"  @blur="validate('password')">
+        <a-input placeholder="密码，至少8位数字+字母" v-model="input.values.password" @focus="clearValidation('password')" @blur="validate('password')">
           <a-icon slot="prefix" type="lock" />
         </a-input>
       </a-form-item>
@@ -59,17 +59,17 @@ export default {
     ValidationSet.phone(newInput, 'phone')
     // newInput.values.phone = "17702103430"
     return {
-      codeBtnType: "primary",
       input: newInput,
       captchaSrc: '',
-      countdown:60,
-      countTimer:null,
+      countdown: 60,
+      countTimer: null,
+      sendingCode: false,
     }
   },
-  props:{
-    type:{
-      default:1, //1:signup 2:findpwd
-      type:Number,
+  props: {
+    type: {
+      default: 1, //1:signup 2:findpwd
+      type: Number,
     },
   },
   created() {
@@ -82,14 +82,14 @@ export default {
   },
   mixins: [inputMixin],
   methods: {
-    startCountdown(){
+    startCountdown() {
       this.countTimer = setInterval(() => {
         this.countdown--
-        if(this.countdown<=0){
-          clearInterval(this.countTimer)
-          this.countTimer = null
-        }
-      },1000)
+          if (this.countdown <= 0) {
+            clearInterval(this.countTimer)
+            this.countTimer = null
+          }
+      }, 1000)
     },
     handleSubmit() {
       let { phone, code, password } = this.formData
@@ -104,7 +104,7 @@ export default {
       this.validate('phone')
       if (this.valid.phone) {
         let status = this.input.status
-        status.phone= inputHelper.createStatus(-1)
+        status.phone = inputHelper.createStatus(-1)
 
         // status = {
         //   validateStatus: "success",
@@ -114,9 +114,9 @@ export default {
           .then(res => {
             console.log('%c res', 'color:red', res)
             if (res.data.status === 1) {
-              status.phone= inputHelper.createStatus(2, '该手机号已经被注册')
+              status.phone = inputHelper.createStatus(2, '该手机号已经被注册')
             } else {
-              status.phone= inputHelper.createStatus(0, '该手机号可以注册')
+              status.phone = inputHelper.createStatus(0, '该手机号可以注册')
             }
           })
       }
@@ -138,29 +138,46 @@ export default {
     sendVerifyCode() {
       let phone = this.formData.phone
       let code = this.formData.captcha
+      this.sendingCode = true
       this.getVerifyCode({ phone, code })
-      .then((res) => {
-        console.log('%c res send code','color:red',res)
-        if(res.error===0 && res.message ==="success"){
-          this.startCountdown()
-        }
-      })
+        .then((res) => {
+          if (res.error === 0 && res.message === "success") {
+            console.log('%c res send code', 'color:red', res)
+            this.startCountdown()
+          }
+        })
+        .finally(() => {
+          console.log('finally')
+          this.sendingCode = false
+        })
     },
     ...mapActions('account', ['getVerifyCode', 'signup', 'isPhoneRegister'])
   },
   computed: {
-    isRegister(){
-      return this.type===1
+    codeBtnType() {
+      if (this.codeBtnDisable) {
+        if(this.sendingCode){
+          return "loading"
+        }
+        return "disabled"
+      } else {
+        return "primary"
+      }
     },
-    isFindpwd(){
-      return this.type===2
+    isRegister() {
+      return this.type === 1
     },
-    codeBtnDisable(){
-      return this.countTimer!==null
+    isFindpwd() {
+      return this.type === 2
     },
-    codeBtnMsg(){
-      if(this.codeBtnDisable){
+    codeBtnDisable() {
+      return this.countTimer !== null
+    },
+    codeBtnMsg() {
+      if (this.codeBtnDisable) {
         return `${this.countdown}s后获取`
+      } else {
+        return "获取验证码"
       }
     },
   },
