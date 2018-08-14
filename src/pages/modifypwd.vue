@@ -25,7 +25,8 @@
 import inputMixin from './../components/mixin/input.js'
 import inputHelper from './../utils/inputHelper.js'
 import { ValidationSet } from './../utils/inputHelper.js'
-import {mapState,mapMuations,mapActions,mapGetters} from 'vuex'
+import {mapState,mapMutations
+,mapActions,mapGetters} from 'vuex'
 export default {
   name: 'modifypwd',
   data() {

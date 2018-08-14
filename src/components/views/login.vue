@@ -21,7 +21,7 @@
       <a-form-item :wrapperCol="{ span: 24}">
         <div class="bttn-box">
           <a-button type='primary' htmlType='submit'>
-            Submit
+            登录
           </a-button>
         </div>
       </a-form-item>
@@ -29,7 +29,8 @@
   </div>
 </template>
 <script>
-import { mapState, mapMuations, mapActions, mapGetters } from 'vuex'
+import { mapState, mapMutations
+, mapActions, mapGetters } from 'vuex'
 import regs from './../../utils/regs.js'
 import inputHelper from './../../utils/inputHelper.js'
 import {ValidationSet} from './../../utils/inputHelper.js'
@@ -115,6 +116,9 @@ export default {
 .login-vue {
   .ant-input-prefix {
     color: #d9d9d9;
+  }
+  .ant-btn {
+    width: 100%;
   }
 }
 

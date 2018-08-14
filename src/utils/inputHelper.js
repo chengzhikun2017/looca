@@ -56,6 +56,11 @@ class input {
     }
     return this.allValid
   }
+  clearValues(){
+    for(let key in this.values){
+      this.values[key] = ""
+    }
+  }
 }
 var ValidationSet ={}
 

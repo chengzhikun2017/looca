@@ -32,7 +32,7 @@
   </div>
 </template>
 <script>
-import { mapState, mapMuations, mapActions, mapGetters } from 'vuex'
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import inputHelper from './../../utils/inputHelper.js'
 import { ValidationSet } from './../../utils/inputHelper.js'
 import inputMixin from './../../components/mixin/input.js'
@@ -42,6 +42,9 @@ export default {
   mixins:[inputMixin],
   data() {
     var newInput = new inputHelper.newInput(["name","cardNo","bankName","bankBranch",])
+    newInput.values.cardNo = "6212261001020165509"
+    newInput.values.name="黄树栋"
+    newInput.values.bankName="工商银行"
     return {
       input:newInput
     }
@@ -49,7 +52,11 @@ export default {
   methods: {
     handleSubmit(){
       let params = this.getCardParms()
-      this.addDC(params)
+      this.addDC(params).then((res) => {
+         this.setListGot()
+         this.getListDC()
+      })
+
     },
     getCardParms(){
       return {
@@ -59,7 +66,8 @@ export default {
         cardNo:this.formData.cardNo,
       }
     },
-    ...mapActions('cards',['addDC'])
+    ...mapMutations('cards',['setListGot']),
+    ...mapActions('cards',['addDC','getListDC']),
   },
   computed: {},
   components: {},

@@ -19,7 +19,8 @@
 </template>
 <script>
 import Log from './components/views/log.vue'
-import { mapState, mapMuations, mapActions, mapGetters } from 'vuex'
+import { mapState, mapMutations
+, mapActions, mapGetters } from 'vuex'
 import router from './router/index.js'
 import Loading from './components/loading.vue'
 import { Message } from 'vue-antd-ui'

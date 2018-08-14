@@ -22,12 +22,15 @@ function handleWrongCode(res) {
 }
 const handleFetchError = (err) => {
   if (/network error/ig.test(err)) {
-    vueApp.hgjAlert({
+    vueApp.$modal.info({
       title: '网络错误',
       content: '请检查您的网络环境',
     })
   } else {
-    vueApp.hgjAlert(err.toString())
+    vueApp.$modal.info({
+      title:"error",
+      content:err.toString()
+    })
   }
 }
 
@@ -52,7 +55,7 @@ export default function fetch(options, {
     withCredentials: true,
     // headers: {'Access-Control-Allow-Origin': "*"},
   })
-  var fetchPromis = new Promise((resolve, reject) => {
+  var fetchPromise = new Promise((resolve, reject) => {
     instance(options).then(response => {
         // status必然是200
         if (showLoading && vueApp) {
@@ -67,11 +70,6 @@ export default function fetch(options, {
             resolve(res.data)
           }
         } else {
-          // let code=res.error
-          if (rejectErr) {
-            reject(res)
-            return
-          }
           switch (res.error) {
             case 20006:
               // handleUnlogin(res);
@@ -87,6 +85,10 @@ export default function fetch(options, {
           if (resolveAnyway) {
             resolve(res)
           }
+          if (rejectErr) {
+            reject(res)
+            // return
+          }
         }
       })
       .catch(err => {
@@ -99,5 +101,5 @@ export default function fetch(options, {
         }
       })
   })
-  return fetchPromis
+  return fetchPromise
 }

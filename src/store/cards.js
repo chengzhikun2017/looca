@@ -16,7 +16,8 @@ export default {
   namespaced: true,
   state: {
     // cardsListCC: [],
-    cardsListDC: [],
+    listDC: [],
+    listGot:false,
     cardIdSC: null,
     cardsDict: {
       'ICBC': '工商银行',
@@ -47,7 +48,7 @@ export default {
     //   s.cardsListCC = []
     // },
     clearListDC(s) {
-      s.cardsListDC = []
+      s.listDC = []
     },
     setInfoDC(s, cardInfoObj) {
       for (let key in s.newInfo) {
@@ -60,9 +61,17 @@ export default {
       console.log('%c addCardDC_resetValue', 'color:red')
       s.newInfo = new defaultInfo()
     },
+    setListGot(s,status){
+      if(status===undefined){
+        s.listGot = false
+        // store.dispatch('cards/getListDC')
+      }else{
+        s.listGot = true
+      }
+    },
   },
   actions: {
-    infoDC({}, cardNo) {
+    getInfoDC({}, cardNo) {
       return fetch({
         url: 'card/info',
         params: {
@@ -70,17 +79,16 @@ export default {
         },
       })
     },
-    listDC({ state }) {
+    getListDC({ state }) {
+      if(state.listGot){
+        return
+      }
       fetch({
         url: 'bankCard/list',
       }).then(res => {
-        state.cardsListDC = res
-        for (let i = 0; i < res.length; i++) {
-          if (res[i].settlementStatus === 'SUCCESS') {
-            state.cardIdSC = res[i].cardId
-            break;
-          }
-        }
+        // console.log('%c res','color:red',res)
+        state.listDC = res
+        state.listGot = true
       })
     },
     addDC(store, { name,  cardNo, bankName,bankBranch}) {
@@ -92,7 +100,7 @@ export default {
         },
       })
       promise.then(res => {
-        let { name, idCardNo } = state.info
+        let { name, idCardNo } = store.state.info
         let isRealNameValidated = getters.account_userInfo.name
         // dispatch('cards_getListDC')
         // commit('addCardDC_resetValue')

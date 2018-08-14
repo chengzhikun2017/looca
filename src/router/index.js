@@ -8,6 +8,7 @@ import findpwd from '../pages/findpwd.vue'
 // import addDC from '../pages/addDC.vue'
 import modifypwd from '../pages/modifypwd.vue'
 import mine_cards from '../pages/mine_cards.vue'
+import mine_real from '../pages/mine_real.vue'
 
 /**
  * test part 
@@ -71,6 +72,7 @@ crmRoutes = crmRoutes.concat(
   newRoute('/modifypwd', 'modifypwd', modifypwd),
   newRoute('/index_page', 'index_page', index_page),
   newRoute('/mine_cards', 'mine_cards', mine_cards),
+  newRoute('/mine_real', 'mine_real', mine_real),
 )
 
 

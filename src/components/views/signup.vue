@@ -21,7 +21,7 @@
           <a-icon slot="prefix" type="exclamation-circle-o" />
           <!-- <div class="captcha-box" slot="suffix"></div> -->
           <!-- <img :src="captchaSrc" alt="" class="captch"> -->
-          <a-button slot="suffix" :type="codeBtnType" @click.native="sendVerifyCode" :loading="sendingCode" :ghost="codeBtnDisable">{{codeBtnMsg}}</a-button>
+          <a-button slot="suffix" :type="codeBtnType" @click.native="sendVerifyCode" :loading="sendingCode" :ghost="codeBtnDisabled">{{codeBtnMsg}}</a-button>
         </a-input>
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 24 }" type="password" :validateStatus="input.status.password.validateStatus" :help="input.status.password.help">
@@ -46,7 +46,8 @@
 </template>
 <script>
 import regs from './../../utils/regs.js'
-import { mapState, mapMuations, mapActions, mapGetters } from 'vuex'
+import { mapState, mapMutations
+, mapActions, mapGetters } from 'vuex'
 import inputHelper from './../../utils/inputHelper.js'
 import { ValidationSet } from './../../utils/inputHelper.js'
 import inputMixin from './../../components/mixin/input.js'
@@ -88,6 +89,7 @@ export default {
           if (this.countdown <= 0) {
             clearInterval(this.countTimer)
             this.countTimer = null
+            this.countdown = 60
           }
       }, 1000)
     },
@@ -136,18 +138,19 @@ export default {
       this.captchaSrc = '/api' + url
     },
     sendVerifyCode() {
+      if(this.codeBtnDisabled){
+        return
+      }
       let phone = this.formData.phone
       let code = this.formData.captcha
       this.sendingCode = true
       this.getVerifyCode({ phone, code })
         .then((res) => {
           if (res.error === 0 && res.message === "success") {
-            console.log('%c res send code', 'color:red', res)
             this.startCountdown()
           }
         })
         .finally(() => {
-          console.log('finally')
           this.sendingCode = false
         })
     },
@@ -155,14 +158,10 @@ export default {
   },
   computed: {
     codeBtnType() {
-      if (this.codeBtnDisable) {
-        if(this.sendingCode){
-          return "loading"
-        }
-        return "disabled"
-      } else {
-        return "primary"
-      }
+      // if(this.sendingCode){
+      //   return "loading"
+      // }
+      return "primary"
     },
     isRegister() {
       return this.type === 1
@@ -170,11 +169,11 @@ export default {
     isFindpwd() {
       return this.type === 2
     },
-    codeBtnDisable() {
-      return this.countTimer !== null
+    codeBtnDisabled() {
+      return this.countTimer !== null || this.sendingCode
     },
     codeBtnMsg() {
-      if (this.codeBtnDisable) {
+      if (this.codeBtnDisabled) {
         return `${this.countdown}s后获取`
       } else {
         return "获取验证码"
@@ -183,7 +182,6 @@ export default {
   },
   watch: {
     'formData.phone' (v) {
-
     },
   },
   components: {},
@@ -213,6 +211,10 @@ export default {
   }
   .ant-btn {
     width: 100%;
+  }
+  .ant-input-suffix .ant-btn{
+    width: 120px;
+
   }
 }
 

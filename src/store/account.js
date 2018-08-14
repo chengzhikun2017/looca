@@ -92,9 +92,12 @@ export default {
       }, {
         simple: true,
         showLoading:false,
+        resolveAnyway:true,
       })
       promise.then(res => {
-        vueApp.$message.info("已发送")
+        if(res.error === 0){
+          vueApp.$message.info("已发送")
+        }
       })
       return promise
     },
@@ -208,7 +211,7 @@ export default {
     },
     realNameVerify({ state }, params) {
       //{ idCardUrl, idCardUrl2, idCardNo, name, email, }
-      console.log('name,idCardNo%c', 'color:red', name, idCardNo)
+      // console.log('name,idCardNo%c', 'color:red', name, idCardNo)
       var promise = fetch({
         url: 'auth/identity',
         params,

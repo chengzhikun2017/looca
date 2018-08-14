@@ -16,7 +16,8 @@
   </div>
 </template>
 <script>
-import {mapState,mapMuations,mapActions,mapGetters} from 'vuex'
+import {mapState,mapMutations
+,mapActions,mapGetters} from 'vuex'
 export default {
   name: 'navUser',
   data() {

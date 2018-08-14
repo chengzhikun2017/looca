@@ -71,6 +71,13 @@ export default {
       })
       .catch(err=>{})
     },
+    upload({state}){
+      fetch({
+        url:'upload/image',
+        method:"post",
+        // params:
+      })
+    },
   }
 }
 

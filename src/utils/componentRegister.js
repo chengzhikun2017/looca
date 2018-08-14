@@ -48,6 +48,7 @@ function registerComponentChild(vue, parentAntComponent) {
 
 Vue.component("MainLayout", MainLayout)
 Vue.component(Button.name, Button)
+Vue.component(Modal.name, Modal)
 Vue.component(Upload.name, Upload)
 Vue.component(Spin.name, Spin)
 Vue.component(Input.name, Input)

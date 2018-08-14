@@ -21,7 +21,7 @@
         <a-sub-menu key="sub1">
           <span slot="title"><a-icon type="mail" /><span>Navigation One</span></span>
           <a-menu-item key="mine_cards">我的银行卡</a-menu-item>
-          <a-menu-item key="6">Option 6</a-menu-item>
+          <a-menu-item key="mine_real">实名信息</a-menu-item>
           <a-menu-item key="7">Option 7</a-menu-item>
           <a-menu-item key="8">Option 8</a-menu-item>
         </a-sub-menu>
@@ -60,7 +60,8 @@
 <script>
 // 64+69+24
 // 
-import { mapState, mapMuations, mapActions, mapGetters } from 'vuex'
+import { mapState, mapMutations
+, mapActions, mapGetters } from 'vuex'
 import helper from './../../utils/helper.js'
 import NavUser from './../views/navUser.vue'
 export default {
@@ -119,6 +120,7 @@ export default {
       console.log('%c e','color:red',e)
       switch(e.key){
         case "mine_cards":this.go('/mine_cards');break;
+        case "mine_real":this.go('/mine_real');break;
       }
       this.hideMobileSider()
       // this.$refs.sider.setCollapsed(true,'clickMenuItem')
