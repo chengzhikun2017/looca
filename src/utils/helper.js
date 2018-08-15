@@ -23,6 +23,11 @@ export default class helper {
       return '0' + v
     }
   }
+  static getBase64(img, callback) {
+    const reader = new FileReader()
+    reader.addEventListener('load', () => callback(reader.result))
+    reader.readAsDataURL(img)
+  }
   static goPage(path, callback, stopGo) {
     console.log('%c go page','color:red',)
     console.log('go page ', path)

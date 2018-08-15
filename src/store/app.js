@@ -1,4 +1,4 @@
- // import fetch from '../../utils/fetch.js'
+ import fetch from '../utils/fetch.js'
 // import {
   // simpleFetch
 // } from '../../utils/fetch.js'
@@ -71,11 +71,15 @@ export default {
       })
       .catch(err=>{})
     },
-    upload({state}){
+    upload({state},file){
+      console.log('file',file)
+      let params = new FormData()
+      params.append('imgFile', file, file.name) 
+      params.append('test', 1) 
       fetch({
         url:'upload/image',
         method:"post",
-        // params:
+        params,
       })
     },
   }

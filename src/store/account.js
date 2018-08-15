@@ -192,6 +192,7 @@ export default {
       return promise
     },
     getAuthInfo({state}) {
+      // 0等待认证、1等待审核、2认证通过、3认证失败 
       var promise = fetch({
         url: "/auth/info"
       })

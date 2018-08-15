@@ -13,34 +13,11 @@
         <a-input :placeholder="editing?'请输入邮箱地址':'未填写'" ref="inputemail" v-model="input.values.email" @blur="validate('email')" @focus="clearValidation('email')" :disabled="!editing">
         </a-input>
       </a-form-item>
-
-
       <a-form-item :wrapperCol="{ span: 18 }" label='身份证正面' :labelCol="{ span: 6 }" :validateStatus="input.status.email.validateStatus" :help="input.status.email.help">
-
-        <a-upload action="/api/upload/image" :showUploadList="{ showPreviewIcon: true, showRemoveIcon: editing }" listType="picture-card" :fileList="fileList" @preview="handlePreview" @change="handleChange" :withCredentials="true">
-          <div v-if="fileList.length < 1">
-            <a-icon type="plus" />
-            <div class="ant-upload-text">Upload</div>
-          </div>
-        </a-upload>
-        <a-modal :visible="previewVisible" :footer="null" @cancel="handleCancel">
-          <img alt="example" style="width: 100%" :src="previewImage" />
-        </a-modal>
-
+        <ImageUpload :editing="editing" v-model="idCardUrl" label="身份证正面 " />
       </a-form-item>
-
-      <a-form-item :wrapperCol="{ span: 18 }" label='身份证背面' :labelCol="{ span: 6 }" :validateStatus="input.status.email.validateStatus" :help="input.status.email.help">
-
-        <a-upload action="/api/upload/image" :showUploadList="{ showPreviewIcon: true, showRemoveIcon: editing }" listType="picture-card" :fileList="fileList" @preview="handlePreview" @change="handleChange" :withCredentials="true">
-          <div v-if="fileList.length < 1">
-            <a-icon type="plus" />
-            <div class="ant-upload-text">Upload</div>
-          </div>
-        </a-upload>
-        <a-modal :visible="previewVisible" :footer="null" @cancel="handleCancel">
-          <img alt="example" style="width: 100%" :src="previewImage" />
-        </a-modal>
-        
+      <a-form-item :wrapperCol="{ span: 18 }" label='身份证反面' :labelCol="{ span: 6 }" :validateStatus="input.status.email.validateStatus" :help="input.status.email.help">
+        <ImageUpload :editing="editing" v-model="idCardUrl2" label="身份证反面 " />
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 24}" v-if="editing">
         <div class="bttn-box">
@@ -56,23 +33,7 @@
           </a-button>
         </div>
       </a-form-item>
-      <!-- <a-form-item :wrapperCol="{ span: 24}">
-        <div class="bttn-box">
-          <a-button type='primary' htmlType='submit'>
-            提交
-          </a-button>
-        </div>
-      </a-form-item> -->
     </a-form>
-    <!-- <a-upload action="/api/upload/image" :showUploadList="{ showPreviewIcon: true, showRemoveIcon: editing }" listType="picture-card" :fileList="fileList" @preview="handlePreview" @change="handleChange" :withCredentials="true">
-      <div v-if="fileList.length < 1">
-        <a-icon type="plus" />
-        <div class="ant-upload-text">Upload</div>
-      </div>
-    </a-upload>
-    <a-modal :visible="previewVisible" :footer="null" @cancel="handleCancel">
-      <img alt="example" style="width: 100%" :src="previewImage" />
-    </a-modal> -->
   </div>
 </template>
 <script>
@@ -85,34 +46,23 @@ import {
   mapActions,
   mapGetters
 } from 'vuex'
+import ImageUpload from './../components/container/imageUpload.vue'
 
 
-function getBase64(img, callback) {
-  const reader = new FileReader()
-  reader.addEventListener('load', () => callback(reader.result))
-  reader.readAsDataURL(img)
-}
 export default {
   name: 'mine_real',
-  mixins:[inputMixin],
+  mixins: [inputMixin],
   data() {
-    var newInput = new inputHelper.newInput(['name','email','idCardNo'])
-    newInput.values.name = '黄树栋'
+    var newInput = new inputHelper.newInput(['name', 'email', 'idCardNo'])
     return {
-      input:newInput,
-      headers: {
-        authorization: 'authorization-text',
-      },
+      input: newInput,
       editing: false,
-      loading: false,
-      imageUrl: '',
-      previewVisible: false,
-      previewImage: '',
-      fileList: [],
+      idCardUrl:'',
+      idCardUrl2:'',
     }
   },
-  created(){
-    setTimeout(()=> {
+  created() {
+    setTimeout(() => {
       this.formData.name = this.authInfo.name
       this.formData.email = this.authInfo.email
       this.formData.idCardNo = this.authInfo.idCardNo
@@ -122,62 +72,42 @@ export default {
     // }
   },
   methods: {
-
-    handleSubmit(){
+    customRequest(e) {
+      console.log('%c customRequest', 'color:red', e)
+      this.upload(e.file)
+    },
+    handleSubmit() {
 
       let params = this.getParams()
       this.realNameVerify(params)
     },
-    getParams(){
-      return{
-        idCardUrl:"",
-        idCardUrl2:"",
-        idCardNo:this.formData.idCardNo,
-        name:this.formData.name,
-        email:this.formData.email,
+    getParams() {
+      return {
+        idCardUrl: this.idCardUrl,
+        idCardUrl2: this.idCardUrl2,
+        idCardNo: this.formData.idCardNo,
+        name: this.formData.name,
+        email: this.formData.email,
       }
     },
     handleChange(info) {
-      console.log('%c upload change info', 'color:red', info)
-      if (info.file.status === 'uploading') {
-        this.loading = true
-        return
-      }
-      if (info.file.status === 'done') {
-        // Get this url from response in real world.
-        getBase64(info.file.originFileObj, (imageUrl) => {
-          this.imageUrl = imageUrl
-          this.loading = false
-        })
-      }
-    },
-    beforeUpload(file) {
-      const isJPG = file.type === 'image/jpeg'
-      if (!isJPG) {
-        this.$message.error('You can only upload JPG file!')
-      }
-      const isLt2M = file.size / 1024 / 1024 < 2
-      if (!isLt2M) {
-        this.$message.error('Image must smaller than 2MB!')
-      }
-      return isJPG && isLt2M
-    },
-    handleCancel() {
-      this.previewVisible = false
-    },
-    handlePreview(file) {
-      this.previewImage = file.url || file.thumbUrl
-      this.previewVisible = true
-    },
-    handleChange({ fileList }) {
-      this.fileList = fileList
-    },
-    ...mapActions('account',['realNameVerify'])
+          if (info.file.status !== 'uploading') {
+            console.log(info.file, info.fileList);
+          }
+          if (info.file.status === 'done') {
+            this.$message.success(`${info.file.name} file uploaded successfully`);
+          } else if (info.file.status === 'error') {
+            this.$message.error(`${info.file.name} file upload failed.`);
+          }
+        },
+    ...mapActions('account', ['realNameVerify']),
   },
   computed: {
-    ...mapState('account',['authInfo','isRealNamed'])
+    ...mapState('account', ['authInfo', 'isRealNamed']),
   },
-  components: {},
+  components: {
+    ImageUpload,
+  },
 }
 
 </script>
@@ -190,14 +120,7 @@ export default {
 </style>
 <style lang="scss">
 .mine-real-vue {
-  .ant-upload-select-picture-card i {
-    font-size: 32px;
-    color: #999;
-  }
-  .ant-upload-select-picture-card .ant-upload-text {
-    margin-top: 8px;
-    color: #666;
-  }
+  
 }
 
 </style>
