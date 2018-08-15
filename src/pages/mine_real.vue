@@ -1,5 +1,8 @@
 <template>
   <div class="mine-real-vue">
+    <p class="status">
+      当前认证状态：{{authInfo.status}}
+    </p>
     <a-form @submit="handleSubmit">
       <a-form-item :wrapperCol="{ span: 18 }" label='姓名' :labelCol="{ span: 6 }" :validateStatus="input.status.name.validateStatus" :help="input.status.name.help">
         <a-input :placeholder="editing?'请输入真实姓名':'未填写'" ref="inputname" v-model="input.values.name" @blur="validate('name')" @focus="clearValidation('name')" :disabled="!editing">
@@ -77,9 +80,12 @@ export default {
       this.upload(e.file)
     },
     handleSubmit() {
-
       let params = this.getParams()
-      this.realNameVerify(params)
+      this.authVerify(params)
+      .then(res=>{
+        this.editing = false
+        this.$message.info('提交成功，等待审核')
+      })
     },
     getParams() {
       return {
@@ -100,7 +106,7 @@ export default {
             this.$message.error(`${info.file.name} file upload failed.`);
           }
         },
-    ...mapActions('account', ['realNameVerify']),
+    ...mapActions('account', ['authVerify']),
   },
   computed: {
     ...mapState('account', ['authInfo', 'isRealNamed']),

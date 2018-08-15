@@ -1,14 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import config from '../config.js'
-import error_page from '../pages/error.vue'
-import index_page from '../pages/index.vue'
-import crm_index from '../pages/crm_index.vue'
-import findpwd from '../pages/findpwd.vue'
-// import addDC from '../pages/addDC.vue'
-import modifypwd from '../pages/modifypwd.vue'
-import mine_cards from '../pages/mine_cards.vue'
-import mine_real from '../pages/mine_real.vue'
+
+// import crm_index from '../pages/crm_index.vue'
+
+const findpwd = ()=> import( '../pages/findpwd.vue')
+const error_page = ()=> import( '../pages/error.vue')
+const index_page = ()=> import( '../pages/index.vue')
+const modifypwd = ()=> import( '../pages/modifypwd.vue')
+const mine_cards = ()=> import( '../pages/mine_cards.vue')
+const mine_real = ()=> import( '../pages/mine_real.vue')
+
+
+
+
 
 /**
  * test part 
@@ -66,7 +71,7 @@ var routes = [],
   index = [],
   crmRoutes = []
 crmRoutes = crmRoutes.concat(
-  newRoute('/crm_index', 'crm_index', crm_index),
+  // newRoute('/crm_index', 'crm_index', crm_index),
   newRoute('/findpwd', 'findpwd', findpwd),
   // newRoute('/addDC', 'addDC', addDC),
   newRoute('/modifypwd', 'modifypwd', modifypwd),

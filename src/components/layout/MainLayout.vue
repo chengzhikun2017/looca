@@ -19,11 +19,10 @@
           <span class="nav-text">test 4</span>
         </a-menu-item>
         <a-sub-menu key="sub1">
-          <span slot="title"><a-icon type="mail" /><span>Navigation One</span></span>
+          <span slot="title"><a-icon type="user" /><span>个人信息</span></span>
           <a-menu-item key="mine_cards">我的银行卡</a-menu-item>
           <a-menu-item key="mine_real">实名信息</a-menu-item>
-          <a-menu-item key="7">Option 7</a-menu-item>
-          <a-menu-item key="8">Option 8</a-menu-item>
+          <a-menu-item key="modifypwd">修改密码</a-menu-item>
         </a-sub-menu>
         <a-sub-menu key="sub2">
           <span slot="title"><a-icon type="mail" /><span>Navigation 2</span></span>
@@ -121,6 +120,7 @@ export default {
       switch(e.key){
         case "mine_cards":this.go('/mine_cards');break;
         case "mine_real":this.go('/mine_real');break;
+        case "modifypwd":this.go('/modifypwd');break;
       }
       this.hideMobileSider()
       // this.$refs.sider.setCollapsed(true,'clickMenuItem')

@@ -225,7 +225,7 @@ export default {
       })
       return promise
     },
-    realNameVerify({ state ,dispatch}, params) {
+    authVerify({ state ,dispatch}, params) {
       //{ idCardUrl, idCardUrl2, idCardNo, name, email, }
       // console.log('name,idCardNo%c', 'color:red', name, idCardNo)
       var promise = fetch({

@@ -79,6 +79,10 @@ export default {
         },
       })
     },
+    reGetListDC({dispatch,commit}){
+      commit('setListGot')
+      dispatch('getListDC')
+    },
     getListDC({ state }) {
       if(state.listGot){
         return
@@ -100,28 +104,26 @@ export default {
         },
       })
       promise.then(res => {
-        let { name, idCardNo } = store.state.info
-        let isRealNameValidated = getters.account_userInfo.name
-        // dispatch('cards_getListDC')
-        // commit('addCardDC_resetValue')
-        // if (!isRealNameValidated) {
-        //   dispatch('account_realNameVerify', { name, idCardNo })
-        // }
+        vueApp.$message.info("添加成功")
+        store.dispatch("reGetListDC")
       })
       return promise
     },
     delDC({ state, dispatch }, cardNo) {
-      var promise = simpleFetch({
+      var promise = fetch({
         url: 'bankCard/del',
         // method:'post',
         params: {
           cardNo,
         },
+      },{
+        simple:true,
       })
       promise.then(res => {
-        if (res.data && res.data.message === 'success') {
-          vueApp.$message.$info('已删除')
-          dispatch('cards_getListDC')
+        console.log('%c res','color:red',res)
+        if (res.error===0 && res.message === 'success') {
+          vueApp.$message.info('已删除')
+          dispatch("reGetListDC")
         }
       })
       return promise
