@@ -14,6 +14,7 @@
       @preview="handlePreview" 
       :showUploadList="showUploadList" 
       :disabled="disabled"
+      :fileList="fileList"
       @remove="onremove"
     >
       <div v-if="imageNum < 1&&!loading">
@@ -34,11 +35,11 @@ export default {
         // "Content-Type": "multipart/form-data",
       },
       loading: false,
-      fileList: [],
       imageNum:0,
       imageUrl: '',
       previewVisible: false,
       previewImage: '',
+      fileList: [],
     }
   },
   model: {
@@ -61,16 +62,29 @@ export default {
       default:'图片'
     },
   },
+  created(){
+    if(this.url){
+      this.fileList = [{
+        uid: -1,
+        name: 'xxx.png',
+        status: 'done',
+        url:this.url,
+      }]
+      this.imageNum = 1
+    }
+  },
   methods: {
     emitUrl(url){
       this.$emit('img_uploaded',url)
     },
     onremove(e){
-      // console.log('%c on remove','color:red',e)
+      console.log('%c on remove','color:red',e)
       this.imageNum--
+      this.fileList = []
     },
     handleChange(info) {
-      // console.log('%c upload change info', 'color:red', info)
+      this.fileList =info.fileList
+      console.log('%c upload change info', 'color:red', info)
       if (info.file.status === 'uploading') {
         // console.log('%c loading~~~','color:red',)
         // console.log(info.file, info.fileList);
@@ -117,6 +131,14 @@ export default {
         showRemoveIcon: this.editing
       }
     },
+    // fileList(){
+    //   return [{
+    //     uid: -1,
+    //     name: 'xxx.png',
+    //     status: 'done',
+    //     url: this.url,
+    //   }]
+    // },
   },
   components: {},
 }

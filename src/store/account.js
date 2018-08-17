@@ -15,7 +15,7 @@ class defaultAccountInfo {
     this.phone = ''
     // this.captcha = ''
     this.userId = null
-    this.isRealNamed = false
+    this.isRealNamed = ''
     // this.name = null
     // this.idCardNo = null
     this.isLoged = ''
@@ -216,6 +216,8 @@ export default {
         let identity = res.identity
         if (identity.name && identity.idCardNo) {
           state.isRealNamed = true
+        }else{
+          state.isRealNamed = false
         }
         if (res.userId) {
           state.userId = res.userId
@@ -227,16 +229,12 @@ export default {
     },
     authVerify({ state ,dispatch}, params) {
       //{ idCardUrl, idCardUrl2, idCardNo, name, email, }
-      // console.log('name,idCardNo%c', 'color:red', name, idCardNo)
       var promise = fetch({
         url: 'auth/identity',
         params,
       })
       promise.then(res => {
-        dispatch('account/getAuthInfo')
-        console.log('real name verify ', res)
-        // state.name = name
-        // state.idCardNo = idCardNo
+        dispatch('getAuthInfo')
       })
     },
     modifyPwd({}, { password, newPassword }) {

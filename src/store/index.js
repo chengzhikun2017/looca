@@ -5,6 +5,8 @@ import common from './common'
 import account from './account'
 import feedback from './feedback'
 import cards from './cards'
+import trade from './trade'
+import mt4AC from './mt4AC'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -14,6 +16,8 @@ const store = new Vuex.Store({
     feedback,
     cards,
     account,
+    trade,
+    mt4AC,
   }
 })
 

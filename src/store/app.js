@@ -71,17 +71,17 @@ export default {
       })
       .catch(err=>{})
     },
-    upload({state},file){
-      console.log('file',file)
-      let params = new FormData()
-      params.append('imgFile', file, file.name) 
-      params.append('test', 1) 
-      fetch({
-        url:'upload/image',
-        method:"post",
-        params,
-      })
-    },
+    // upload({state},file){
+    //   console.log('file',file)
+    //   let params = new FormData()
+    //   params.append('imgFile', file, file.name) 
+    //   params.append('test', 1) 
+    //   fetch({
+    //     url:'upload/image',
+    //     method:"post",
+    //     params,
+    //   })
+    // },
   }
 }
 

@@ -15,6 +15,10 @@ import {
   Modal,
   Dropdown,
   Upload,
+  List,
+  Table,
+  TreeSelect,
+  Radio,
 } from 'vue-antd-ui';
 import MainLayout from './../components/layout/MainLayout.vue'
 const widget1 = () =>
@@ -35,7 +39,7 @@ Vue.component("widget4", widget4)
 Vue.component("widget5", widget5)
 Vue.prototype.$message = Message
 Vue.prototype.$modal = Modal
-console.log('%c Modal','color:red',Modal)
+console.log('%c Modal','color:red',Radio)
 function registerComponentChild(vue, parentAntComponent) {
   var parent = parentAntComponent
   for (let key in parent) {
@@ -61,9 +65,17 @@ Vue.component(Menu.name, Menu)
 registerComponentChild(Vue, Menu)
 Vue.component(Layout.name, Layout)
 registerComponentChild(Vue, Layout)
+Vue.component(List.name, List)
+registerComponentChild(Vue, List)
 Vue.component(Select.name, Select)
 registerComponentChild(Vue, Select)
 Vue.component(Tabs.name, Tabs)
 registerComponentChild(Vue, Tabs)
 Vue.component(Form.name, Form)
 registerComponentChild(Vue, Form)
+Vue.component(Table.name, Table)
+registerComponentChild(Vue, Table)
+Vue.component(TreeSelect.name, TreeSelect)
+registerComponentChild(Vue, Radio)
+Vue.component(Radio.name, Radio)
+registerComponentChild(Vue, TreeSelect)

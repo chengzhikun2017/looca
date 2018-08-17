@@ -75,7 +75,8 @@ export default {
   },
   methods: {
     test() {
-      console.log('%c h','color:red',this.$store)
+      console.log('%c h','color:red',this.$store.state)
+      this.$store.dispatch('mt4AC/getList')
       // this.$modal.info({
       //   title: 'This is a notification message',
       //   content: `<h2>hahahah</h2>`,

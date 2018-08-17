@@ -65,19 +65,18 @@ export default {
     }
   },
   created() {
-    setTimeout(() => {
+    if(this.isRealNamed){
+      this.initData()
+    }
+   
+  },
+  methods: {
+    initData(){
+      this.idCardUrl2=this.authInfo.idCardUrl2
+      this.idCardUrl=this.authInfo.idCardUrl
       this.formData.name = this.authInfo.name
       this.formData.email = this.authInfo.email
       this.formData.idCardNo = this.authInfo.idCardNo
-    }, 2000);
-    // if(this.isRealNamed){
-    //   this.editing = false
-    // }
-  },
-  methods: {
-    customRequest(e) {
-      console.log('%c customRequest', 'color:red', e)
-      this.upload(e.file)
     },
     handleSubmit() {
       let params = this.getParams()
@@ -96,17 +95,14 @@ export default {
         email: this.formData.email,
       }
     },
-    handleChange(info) {
-          if (info.file.status !== 'uploading') {
-            console.log(info.file, info.fileList);
-          }
-          if (info.file.status === 'done') {
-            this.$message.success(`${info.file.name} file uploaded successfully`);
-          } else if (info.file.status === 'error') {
-            this.$message.error(`${info.file.name} file upload failed.`);
-          }
-        },
     ...mapActions('account', ['authVerify']),
+  },
+  watch:{
+    isRealNamed(v){
+      if(v){
+        this.initData()
+      }
+    },
   },
   computed: {
     ...mapState('account', ['authInfo', 'isRealNamed']),

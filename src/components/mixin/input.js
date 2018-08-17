@@ -8,9 +8,7 @@ export default {
       this.input.clearStatus(key)
     },
     validateAll(){
-      for(let key in this.input.values){
-        this.validate(key)
-      }
+      return this.input.validateAll()
     },
   },
   created() {
