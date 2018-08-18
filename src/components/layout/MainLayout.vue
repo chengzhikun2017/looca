@@ -24,12 +24,13 @@
           <a-menu-item key="mine_real">实名信息</a-menu-item>
           <a-menu-item key="modifypwd">修改密码</a-menu-item>
         </a-sub-menu>
-        <!-- <a-sub-menu key="sub2">
+        <a-sub-menu key="sub2">
           <span slot="title"><a-icon type="mail" /><span>Navigation 2</span></span>
-          <a-menu-item key="9"></a-menu-item>
-          <a-menu-item key="10"></a-menu-item>
-          <a-menu-item key="11"></a-menu-item>
-        </a-sub-menu> -->
+          <a-menu-item key="mt4_overview">mt4账号列表</a-menu-item>
+          <a-menu-item key="mt4_modifypwd">mt4修改密码</a-menu-item>
+          <a-menu-item key="mt4_create">mt4创建账号</a-menu-item>
+          <a-menu-item key="mt4_bind">mt4绑定账号</a-menu-item>
+        </a-sub-menu>
       </a-menu>
       <div class="logo" />
     </a-layout-sider>
@@ -80,8 +81,8 @@ export default {
       },
     }
   },
+
   created() {
-    console.log('%c main layout created', 'color:red', )
   },
   mounted() {
     this.initSider()
@@ -111,14 +112,16 @@ export default {
       }
     },
     onItemClick(e) {
-      console.log('%c e','color:red',e)
       switch(e.key){
         case "mine_cards":this.go('/mine_cards');break;
         case "mine_real":this.go('/mine_real');break;
         case "modifypwd":this.go('/modifypwd');break;
+        case "mt4_overview":this.go('/mt4_overview');break;
+        case "mt4_modifypwd":this.go('/mt4_modifypwd');break;
+        case "mt4_create":this.go('/mt4_create');break;
+        case "mt4_bind":this.go('/mt4_bind');break;
       }
       this.hideMobileSider()
-      // this.$refs.sider.setCollapsed(true,'clickMenuItem')
     },
     onCollapse(collapsed, type) {
       console.log(collapsed, type);
@@ -127,7 +130,18 @@ export default {
       helper.goPage(path)
     },
   },
+  watch:{
+    routePath(path){
+      // let current=this.routePath.replace('/','')
+      if(this.current[0]!==this.routePath){
+        this.current[0] = this.routePath
+      }
+    },
+  },
   computed: {
+    routePath(){
+      return this.$route.path.split('/')[1]
+    },
     contentHeight() {
       return this.windowHeight - (64 + 69 + 24) + 'px'
     },

@@ -18,6 +18,7 @@ export default {
     isPC,
     isIOS,
     isAndroid,
+    isTest:/localhost/.test(location.host),
     windowHeight:window.innerHeight,
   },
   getters: {},

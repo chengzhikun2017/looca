@@ -1,5 +1,6 @@
 <template>
   <div class="mt4_create-page">
+    <p class="title">{{title}}</p>
     <a-form @submit="handleSubmit">
       <a-form-item :wrapperCol="{ span: 18 }" label='交易密码' :labelCol="{ span: 6 }" :validateStatus="input.status.password.validateStatus" :help="input.status.password.help">
         <a-input placeholder="请输入交易密码" type="password" ref="inputPassword" v-model="input.values.password" @blur="validate('password')" @focus="clearValidation('password')">
@@ -43,10 +44,6 @@ export default {
     ValidationSet.password(newInput,'repassword')
     ValidationSet.password(newInput,'password2')
     ValidationSet.password(newInput,'repassword2')
-    newInput.values.password='111111111111'
-    newInput.values.repassword='111111111111'
-    newInput.values.password2='11111111111'
-    newInput.values.repassword2='11111111111'
     return {
       input: newInput,
     }
@@ -72,14 +69,13 @@ export default {
     },
     getParams(){
       return {
-        server:this.$route.params.server,
+        server:this.type,
         password:this.formData.password,
         password2:this.formData.password2,
       }
     },
     checkValid(){
       let flag = true
-      console.log('%c this.validateAll()','color:red',this.validateAll())
       if(!this.validateAll()){
         return false
       }
@@ -98,7 +94,21 @@ export default {
     },  
     ...mapActions("mt4AC",['create',])
   },
-  computed: {},
+  computed: {
+    type(){
+      return this.$route.params.server
+    },
+    title(){
+      if(this.type === 'demo'){
+        return "创建模拟账户"
+      }else{
+        return "创建实名账户"
+      }
+    },
+    __header(){
+      return this.title
+    },
+  },
   components: {},
 }
 

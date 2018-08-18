@@ -18,13 +18,12 @@ Vue.filter('money',function(value){
 
 Vue.filter('authStatus',function(value){
   //认证状态：0等待认证、1等待审核、2认证通过、3认证失败 
-  let str
+  let str=''
   switch(value){
     case 0: str = "等待认证";break;
     case 1: str = "等待审核";break;
     case 2: str = "认证通过";break;
     case 3: str = "认证失败";break;
-
   }
   return str
 })

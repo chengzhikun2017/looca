@@ -6,6 +6,8 @@ const isPC = helper.isPC()
 class defaultMt4InfoAC {
   constructor(props) {
     this.list = []
+    this.listGot = false
+    this.loadingList = false
   }
 }
 
@@ -20,12 +22,18 @@ export default {
   },
   actions: {
     getList({state}) {
-      fetch({
+      state.loadingList = true
+      var promise = fetch({
         url: "mt4Account/list",
-      }).then(res => {
-        state.list = res
-        console.log('%c mt4 account list', 'color:red', res)
       })
+      promise.then(res => {
+        state.list = res
+      })
+      .finally(() => {
+        console.log('%c finally get List','color:red',)
+        state.loadingList = false 
+      })
+      return promise
     },
     create({}, params) {
       console.log('%c params','color:red',params)

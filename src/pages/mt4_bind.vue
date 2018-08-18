@@ -30,7 +30,6 @@ export default {
   name: 'mt4_bind',
   data() {
     let newInput = new inputHelper.newInput(['password','mt4Uid'])
-    newInput.values.password='111111111111'
     return {
       input: newInput,
     }

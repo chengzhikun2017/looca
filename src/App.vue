@@ -50,14 +50,20 @@ export default {
     isTest() {
       return this.$store.state.app.isTest
     },
+    matched(){
+      return this.$route.matched
+    },
     routerMatchedComponent: {
       cached: false,
       get() {
         return this.$route.matched[0] && this.$route.matched[0].instances.default
       }
     },
-    header() {
-      return this.routerMatchedComponent && this.routerMatchedComponent.$data.header
+    header: {
+      cached:false,
+      get() {
+        return this.routerMatchedComponent && this.routerMatchedComponent.__header
+      }
     },
     path: {
       cached: false,
