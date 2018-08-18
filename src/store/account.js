@@ -79,7 +79,6 @@ export default {
     },
   },
   actions: {
-
     logoutReset({ state, dispatch, commit }) {
       commit('account/reset')
     },

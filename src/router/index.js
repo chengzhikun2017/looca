@@ -89,7 +89,7 @@ crmRoutes = crmRoutes.concat(
 
 
 // var indexPageArr = newRoute('/index_page', 'index_page', index_page, {
-  var indexPageArr = newRoute('/test1', 'test1', test1, {
+  var indexPageArr = newRoute('/mine_real', 'mine_real', mine_real, {
 })
 // meta: {
 //   keepAlive: true //需要被缓存
@@ -98,7 +98,7 @@ var indexPage = indexPageArr[0]
 // console.log('indexPage', indexPage)
 route_test = route_test.concat(
   // newRoute('/test', 'test', test),
-  // newRoute('/test1', 'test1', test1),
+  newRoute('/test1', 'test1', test1),
   newRoute('/test2', 'test2', test2),
   newRoute('/test3', 'test3', test3),
   newRoute('/test4', 'test4', test4),

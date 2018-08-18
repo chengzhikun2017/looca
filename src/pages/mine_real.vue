@@ -1,7 +1,7 @@
 <template>
   <div class="mine-real-vue">
     <p class="status">
-      当前认证状态：{{authInfo.status}}
+      当前认证状态：{{authInfo.status|authStatus}}
     </p>
     <a-form @submit="handleSubmit">
       <a-form-item :wrapperCol="{ span: 18 }" label='姓名' :labelCol="{ span: 6 }" :validateStatus="input.status.name.validateStatus" :help="input.status.name.help">
@@ -59,7 +59,7 @@ export default {
     var newInput = new inputHelper.newInput(['name', 'email', 'idCardNo'])
     return {
       input: newInput,
-      editing: false,
+      editing: true,
       idCardUrl:'',
       idCardUrl2:'',
     }
@@ -77,6 +77,7 @@ export default {
       this.formData.name = this.authInfo.name
       this.formData.email = this.authInfo.email
       this.formData.idCardNo = this.authInfo.idCardNo
+      this.editing = false
     },
     handleSubmit() {
       let params = this.getParams()

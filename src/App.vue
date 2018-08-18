@@ -13,7 +13,7 @@
       </div>
     </MainLayout>
     <button @click="test" class="test" v-if="isTest">test</button>
-    <Log v-if="isLoged===false"></Log>
+    <Log v-if="isLoged!==true"></Log>
     <Loading ></Loading>
   </div>
 </template>
@@ -48,7 +48,7 @@ export default {
   },
   computed: {
     isTest() {
-      return true
+      return this.$store.state.app.isTest
     },
     routerMatchedComponent: {
       cached: false,

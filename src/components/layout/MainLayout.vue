@@ -2,7 +2,7 @@
   <a-layout id="appLayout">
     <a-layout-sider breakpoint="lg" v-model="collapsed" collapsedWidth="0" @collapse="onCollapse" ref="sider">
       <a-menu ref="menu" theme="dark" mode="inline" v-model="current" :defaultSelectedKeys="['4']" @click="onItemClick">
-        <a-menu-item key="1" @click.native="go('/test5')" @click="onItemClick">
+        <!-- <a-menu-item key="1" @click.native="go('/test5')" @click="onItemClick">
           <a-icon type="user" />
           <span class="nav-text">test 5</span>
         </a-menu-item>
@@ -17,24 +17,19 @@
         <a-menu-item key="4">
           <a-icon type="user" />
           <span class="nav-text">test 4</span>
-        </a-menu-item>
+        </a-menu-item> -->
         <a-sub-menu key="sub1">
           <span slot="title"><a-icon type="user" /><span>个人信息</span></span>
           <a-menu-item key="mine_cards">我的银行卡</a-menu-item>
           <a-menu-item key="mine_real">实名信息</a-menu-item>
           <a-menu-item key="modifypwd">修改密码</a-menu-item>
         </a-sub-menu>
-        <a-sub-menu key="sub2">
+        <!-- <a-sub-menu key="sub2">
           <span slot="title"><a-icon type="mail" /><span>Navigation 2</span></span>
-          <a-menu-item key="9">Option 9</a-menu-item>
-          <a-menu-item key="10">Option 10</a-menu-item>
-          <a-menu-item key="11">Option 10</a-menu-item>
-          <a-menu-item key="12">Option 10</a-menu-item>
-          <a-menu-item key="13">Option 10</a-menu-item>
-          <a-menu-item key="14">Option 10</a-menu-item>
-          <a-menu-item key="15">Option 10</a-menu-item>
-          <a-menu-item key="16">Option 10</a-menu-item>
-        </a-sub-menu>
+          <a-menu-item key="9"></a-menu-item>
+          <a-menu-item key="10"></a-menu-item>
+          <a-menu-item key="11"></a-menu-item>
+        </a-sub-menu> -->
       </a-menu>
       <div class="logo" />
     </a-layout-sider>
