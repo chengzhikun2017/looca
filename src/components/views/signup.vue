@@ -25,7 +25,7 @@
         </a-input>
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 24 }" type="password" :validateStatus="input.status.password.validateStatus" :help="input.status.password.help">
-        <a-input placeholder="密码，至少8位数字+字母" v-model="input.values.password" @focus="clearValidation('password')" @blur="validate('password')">
+        <a-input placeholder="密码，至少8位数字+字母" v-model="input.values.password" @focus="clearValidation('password')" type="password" @blur="validate('password')">
           <a-icon slot="prefix" type="lock" />
         </a-input>
       </a-form-item>
@@ -58,6 +58,8 @@ export default {
     var newInput = new inputHelper.newInput(['phone', "password", "captcha", 'code', ])
     ValidationSet.password(newInput, 'password')
     ValidationSet.phone(newInput, 'phone')
+    ValidationSet.code4(newInput, 'captcha')
+    ValidationSet.code6(newInput, 'code')
     // newInput.values.phone = "17702103430"
     return {
       input: newInput,
@@ -94,35 +96,47 @@ export default {
       }, 1000)
     },
     handleSubmit() {
+      console.log(this.checkValid())
+      if(!this.checkValid()){
+        return 
+      }
+      let params = this.getParams()
+      this.signup(params)
+    },
+    getParams(){
       let { phone, code, password } = this.formData
-      this.signup({
+      return {
         phone,
         code,
         password,
         save: this.savePassword
-      })
+      }
     },
     onPhoneBlur() {
-      this.validate('phone')
-      if (this.valid.phone) {
-        let status = this.input.status
-        status.phone = inputHelper.createStatus(-1)
-
-        // status = {
-        //   validateStatus: "success",
-        //   help: "该手机号可以注册"
-        // }
-        this.isPhoneRegister(this.formData.phone)
-          .then(res => {
-            console.log('%c res', 'color:red', res)
-            if (res.data.status === 1) {
-              status.phone = inputHelper.createStatus(2, '该手机号已经被注册')
-            } else {
-              status.phone = inputHelper.createStatus(0, '该手机号可以注册')
-            }
-          })
+      if(!this.validate('phone')){
+        return
       }
+      // if (this.valid.phone) {
+      if(this.type==2){
+        return
+      }
+      let status = this.input.status
+      status.phone = inputHelper.createStatus(-1)
+      // status = {
+      //   validateStatus: "success",
+      //   help: "该手机号可以注册"
+      // }
 
+      this.isPhoneRegister(this.formData.phone)
+        .then(res => {
+          console.log('%c res', 'color:red', res)
+          if (res.data.status === 1) {
+            status.phone = inputHelper.createStatus(2, '该手机号已经被注册')
+          } else {
+            status.phone = inputHelper.createStatus(0, '该手机号可以注册')
+          }
+        })
+      // }
     },
     onFocusCaptcha() {
       this.clearValidation('captcha')
@@ -138,6 +152,11 @@ export default {
       this.captchaSrc = '/api' + url
     },
     sendVerifyCode() {
+      let valid = this.valid
+      if(!valid.captcha){
+        this.$message.error('图片验证码不正确')
+        return
+      }
       if(this.codeBtnDisabled){
         return
       }
@@ -153,6 +172,9 @@ export default {
         .finally(() => {
           this.sendingCode = false
         })
+    },
+    checkValid(){
+      return this.input.validate(['code','password'])
     },
     ...mapActions('account', ['getVerifyCode', 'signup', 'isPhoneRegister'])
   },

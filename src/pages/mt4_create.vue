@@ -3,23 +3,19 @@
     <a-form @submit="handleSubmit">
       <a-form-item :wrapperCol="{ span: 18 }" label='交易密码' :labelCol="{ span: 6 }" :validateStatus="input.status.password.validateStatus" :help="input.status.password.help">
         <a-input placeholder="请输入交易密码" type="password" ref="inputPassword" v-model="input.values.password" @blur="validate('password')" @focus="clearValidation('password')">
-          <!-- <a-icon slot="prefix" type="user" /> -->
         </a-input>
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 18 }" label='重复交易密码' :labelCol="{ span: 6 }" :validateStatus="input.status.repassword.validateStatus" :help="input.status.repassword.help">
         <a-input placeholder="请再次输入交易密码" type="password" ref="inputrepassword" v-model="input.values.repassword" @blur="validate('repassword')" @focus="clearValidation('repassword')">
-          <!-- <a-icon slot="prefix" type="user" /> -->
         </a-input>
       </a-form-item>
       
       <a-form-item :wrapperCol="{ span: 18 }" label='只读密码' :labelCol="{ span: 6 }" :validateStatus="input.status.password2.validateStatus" :help="input.status.password2.help">
         <a-input placeholder="请输入只读密码" type="password" ref="inputPassword2" v-model="input.values.password2" @blur="validate('password2')" @focus="clearValidation('password2')">
-          <!-- <a-icon slot="prefix" type="user" /> -->
         </a-input>
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 18 }" label='重复只读密码' :labelCol="{ span: 6 }" :validateStatus="input.status.repassword2.validateStatus" :help="input.status.repassword2.help">
         <a-input placeholder="请再次输入只读密码" type="password" ref="inputrepassword2" v-model="input.values.repassword2" @blur="validate('repassword2')" @focus="clearValidation('repassword2')">
-          <!-- <a-icon slot="prefix" type="user" /> -->
         </a-input>
       </a-form-item>
 

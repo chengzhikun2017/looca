@@ -16,7 +16,7 @@
         <a-checkbox @change="onSavePwdChange" v-model="savePassword">
           记住我
         </a-checkbox>
-        <span class="forget-pwd">忘记密码</span>
+        <span class="forget-pwd" @click="forgetPwd">忘记密码</span>
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 24}">
         <div class="bttn-box">
@@ -29,6 +29,7 @@
   </div>
 </template>
 <script>
+import helper from '../../utils/helper.js'
 import { mapState, mapMutations
 , mapActions, mapGetters } from 'vuex'
 import regs from './../../utils/regs.js'
@@ -49,10 +50,8 @@ export default {
   mixins: [inputMixin],
   data() {
     var newInput = new inputHelper.newInput(['phone', "password"])
-    newInput.values.phone = "17702103430"
     ValidationSet.phone(newInput,'phone')
     ValidationSet.password(newInput,'password')
-    
     return {
       savePassword: true,
       formItemLayout,
@@ -64,6 +63,10 @@ export default {
     this.$refs.inputPhone.focus()
   },
   methods: {
+    forgetPwd(){
+      this.setFindPwd(true)
+      // helper.goPage('/findpwd')
+    },
     onSavePwdChange() {
 
     },
@@ -81,7 +84,8 @@ export default {
         save: this.savePassword,
       })
     },
-    ...mapActions('account', ['login'])
+    ...mapMutations('account',['setFindPwd']),
+    ...mapActions('account', ['login']),
   },
   computed: {
 

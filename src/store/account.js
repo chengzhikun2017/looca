@@ -28,7 +28,7 @@ class defaultAccountInfo {
     this.isActive = 0
     // this.level = 0
     this.freePlanTimes = 0
-    this.registerTime = null,
+    this.registerTime = null
     this.share={
       brokerage:0,
       level:0,
@@ -40,6 +40,7 @@ class defaultAccountInfo {
       email:"",
     }
     this.authInfo={}
+    this.isFindpwd= false
   }
 }
 
@@ -72,6 +73,9 @@ export default {
         s[key] = info[key]
       }
       s.isLoged = false
+    },
+    setFindPwd(state,status){
+      state.isFindpwd = status
     },
   },
   actions: {

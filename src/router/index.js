@@ -12,6 +12,8 @@ const mine_cards = ()=> import( '../pages/mine_cards.vue')
 const mine_real = ()=> import( '../pages/mine_real.vue')
 const mt4_overview = ()=> import( '../pages/mt4_overview.vue')
 const mt4_create = ()=> import( '../pages/mt4_create.vue')
+const mt4_bind = ()=> import( '../pages/mt4_bind.vue')
+const mt4_modifypwd = ()=> import( '../pages/mt4_modifypwd.vue')
 
 
 
@@ -74,13 +76,14 @@ var routes = [],
   crmRoutes = []
 crmRoutes = crmRoutes.concat(
   // newRoute('/crm_index', 'crm_index', crm_index),
-  newRoute('/findpwd', 'findpwd', findpwd),
-  // newRoute('/addDC', 'addDC', addDC),
+  // newRoute('/findpwd', 'findpwd', findpwd),
   newRoute('/modifypwd', 'modifypwd', modifypwd),
   newRoute('/index_page', 'index_page', index_page),
   newRoute('/mine_cards', 'mine_cards', mine_cards),
   newRoute('/mine_real', 'mine_real', mine_real),
   newRoute('/mt4_overview', 'mt4_overview', mt4_overview),
+  newRoute('/mt4_bind', 'mt4_bind', mt4_bind),
+  newRoute('/mt4_modifypwd', 'mt4_modifypwd', mt4_modifypwd),
   newRoute('/mt4_create/:server', 'mt4_create', mt4_create),
 )
 

@@ -42,13 +42,14 @@ export default {
       return promise
     },
     bindAC({},{mt4Uid,password}){
-      fetch({
+      var promise = fetch({
         url:'mt4Account/bind',
         params:{
           mt4Uid,
           password,
         },
       })
+      return promise
     },
     modifyPwd({},params){
       // mt4Uid: MT4账号

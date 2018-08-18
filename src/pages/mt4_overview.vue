@@ -13,6 +13,7 @@
         <a-radio-group name="radioGroup" v-model="createType" >
           <a-radio value="live">实名账户</a-radio>
           <a-radio value="demo">虚拟账户</a-radio>
+          <a-radio value="bind">绑定账户</a-radio>
           <!-- <a-radio :value="3">C</a-radio> -->
         </a-radio-group>
       </div>
@@ -194,9 +195,12 @@ export default {
 
     },
     onCreateOK(e){
-      helper.goPage('/mt4_create/'+this.createType)
+      if(this.createType==="bind"){
+        helper.goPage('/mt4_bind')
+      }else{
+        helper.goPage('/mt4_create/'+this.createType)
+      }
       this.showModal = false
-      console.log('%c create confirm','color:red',)
     },
     onCreateCancel(){
       this.showModal = false

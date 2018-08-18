@@ -17,14 +17,23 @@
     let reg = /.{8,}/
     return reg
   }
-  code6(v) {
+  get mt4Pwd(){
+    return /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,}$/
+
+  }
+  get code6() {
     let reg = /\d{6}/
-    return reg.test(v)
+    return reg
+  }
+
+  get code4() {
+    let reg = /\d{4}/
+    return reg
   }
   // 银行卡，信用卡验证
-  bankCard(v) {
+  get bankCard() {
     let reg = /^\d{15,19}$/
-    return reg.test(v)
+    return reg
   }
   // 身份证验证
   // idCardNoUtil = {

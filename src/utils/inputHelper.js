@@ -31,6 +31,22 @@ class input {
     }
     return flag
   }
+  validate(keys){
+    let validations = this.validation
+    keys.forEach((key) => {
+      validations[key]()
+    })
+    let flag = true
+    ,len = keys.length
+    ,valid = this.valid
+    for(let i=0;i<len;i++){
+      if(!valid[keys[i]]){
+        flag = false
+        break
+      }
+    }
+    return flag
+  }
   clearStatus(key){
     let status = this.status[key]
     for(let key in status){
@@ -69,19 +85,50 @@ ValidationSet.phone = function(input,keyName){
     if (!value) {
       return inputHelper.statusEmpty
     } else if (!regs.phone.test(value)) {
-      return inputHelper.createStatus(2, "不正确")
+      return inputHelper.createStatus(2, "手机格式不正确")
     }
   })
 }
+
 ValidationSet.password = function(input,keyName){
   input.setValidation(keyName, (value) => {
     if (!value) {
       return inputHelper.statusEmpty
     } else if (!regs.password.test(value)) {
-      return inputHelper.createStatus(2, "不正确")
+      return inputHelper.createStatus(2, "密码格式不正确")
     }
   })
 }
+
+ValidationSet.mt4Pwd = function(input,keyName){
+  input.setValidation(keyName, (value) => {
+    if (!value) {
+      return inputHelper.statusEmpty
+    } else if (!regs.mt4Pwd.test(value)) {
+      return inputHelper.createStatus(2, "密码格式不正确")
+    }
+  })
+}
+ValidationSet.code6 = function(input,keyName){
+  input.setValidation(keyName, (value) => {
+    if (!value) {
+      return inputHelper.statusEmpty
+    } else if (!regs.code6.test(value)) {
+      return inputHelper.createStatus(2, "验证码格式不正确")
+    }
+  })
+}
+
+ValidationSet.code4 = function(input,keyName){
+  input.setValidation(keyName, (value) => {
+    if (!value) {
+      return inputHelper.statusEmpty
+    } else if (!regs.code4.test(value)) {
+      return inputHelper.createStatus(2, "验证码格式不正确")
+    }
+  })
+}
+
 ValidationSet.id = function(input,keyName){
   input.setValidation(keyName, (value) => {
     if (!value) {
