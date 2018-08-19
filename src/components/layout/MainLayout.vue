@@ -25,11 +25,11 @@
           <a-menu-item key="modifypwd">修改密码</a-menu-item>
         </a-sub-menu>
         <a-sub-menu key="sub2">
-          <span slot="title"><a-icon type="mail" /><span>Navigation 2</span></span>
-          <a-menu-item key="mt4_overview">mt4账号列表</a-menu-item>
-          <a-menu-item key="mt4_modifypwd">mt4修改密码</a-menu-item>
-          <a-menu-item key="mt4_create">mt4创建账号</a-menu-item>
-          <a-menu-item key="mt4_bind">mt4绑定账号</a-menu-item>
+          <span slot="title"><a-icon type="mail" /><span>MT4</span></span>
+          <a-menu-item key="mt4_overview">账号列表</a-menu-item>
+          <a-menu-item key="mt4_modifypwd">修改密码</a-menu-item>
+          <a-menu-item key="mt4_create">创建账号</a-menu-item>
+          <a-menu-item key="mt4_bind">绑定账号</a-menu-item>
         </a-sub-menu>
       </a-menu>
       <div class="logo" />
@@ -46,7 +46,7 @@
           <slot></slot>
         </div>
       </a-layout-content>
-      <a-layout-footer style="textAlign: center">
+      <a-layout-footer style="textAlign: center" v-if="!isPC">
         Ant Design ©2016 Created by Ant UED
       </a-layout-footer>
     </a-layout>
