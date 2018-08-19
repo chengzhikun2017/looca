@@ -62,18 +62,26 @@ export default {
       default:'图片'
     },
   },
+  watch:{
+    url(value){
+      this.onUrlChange()
+    },
+  },
   created(){
-    if(this.url){
-      this.fileList = [{
-        uid: -1,
-        name: 'xxx.png',
-        status: 'done',
-        url:this.url,
-      }]
-      this.imageNum = 1
-    }
+    this.onUrlChange()
   },
   methods: {
+    onUrlChange(){
+      if(this.url){
+        this.fileList = [{
+          uid: -1,
+          name: 'xxx.png',
+          status: 'done',
+          url:this.url,
+        }]
+        this.imageNum = 1
+      }
+    },
     emitUrl(url){
       this.$emit('img_uploaded',url)
     },

@@ -12,7 +12,7 @@
         <div v-else slot="description">修改认证资料需提交后台审核</div>
       </a-alert>
     </div>
-    <a-form @submit="handleSubmit">
+    <a-form>
       <a-form-item :wrapperCol="{ span: 18 }" label='姓名' :labelCol="{ span: 6 }" :validateStatus="input.status.name.validateStatus" :help="input.status.name.help">
         <a-input :placeholder="editing?'请输入真实姓名':'未填写'" ref="inputname" v-model="input.values.name" @blur="validate('name')" @focus="clearValidation('name')" :disabled="!editing">
         </a-input>
@@ -33,14 +33,17 @@
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 24}" v-if="editing">
         <div class="bttn-box">
-          <a-button type='primary' htmlType='submit'>
+          <a-button  @click.native="editing=false" htmlType='submit'>
+            取消
+          </a-button>
+          <a-button type='primary' @click.native="handleSubmit" htmlType='submit'>
             提交
           </a-button>
         </div>
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 24}" v-if="!editing">
         <div class="bttn-box">
-          <a-button type='primary' @click="editing=true">
+          <a-button @click="editing=true">
             编辑
           </a-button>
         </div>
