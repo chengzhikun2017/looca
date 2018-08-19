@@ -38,7 +38,8 @@
       <a-layout-header :style="{ background: '#fff', padding: 0 }">
         <slot name="header"></slot>
         <div class="nav-user">
-          <NavUser></NavUser>
+            <NavMt4></NavMt4>
+            <NavUser></NavUser>
         </div>
       </a-layout-header>
       <a-layout-content :style="{ margin: '24px 16px 0' }">
@@ -59,6 +60,7 @@ import { mapState, mapMutations
 , mapActions, mapGetters } from 'vuex'
 import helper from './../../utils/helper.js'
 import NavUser from './../views/navUser.vue'
+import NavMt4 from './../views/navMt4.vue'
 export default {
   name: 'MainLayout',
   data() {
@@ -151,7 +153,7 @@ export default {
     ...mapState('app', ['windowHeight', 'isPC'])
   },
   components: {
-    NavUser,
+    NavUser,NavMt4,
   },
 }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="l-nav-user-box">
-    <a-menu mode="horizontal" :subMenuCloseDelay='.5'>
+    <a-menu mode="horizontal" :subMenuCloseDelay='0.2' :subMenuOpenDelay="0.3">
       <a-sub-menu>
         <span class="title" slot="title"><a-icon type="setting"/></span>
         <!-- <a-menu-item-group title="Item 1"> -->

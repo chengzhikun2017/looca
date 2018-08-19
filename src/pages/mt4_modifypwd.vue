@@ -1,7 +1,7 @@
 <template>
   <div class="mt4_modifypwd-page">
 
-    <div class="id-list">
+    <div class="id-list" v-if=false>
       <span>需要修改的MT4账号</span>
       <a-tree-select
         showSearch
@@ -95,21 +95,28 @@ export default {
       if(!this.checkValid()){
         return
       }
-      this.modifyPwd()
+      let params
+      if(this.type === 'trade'){
+        params = this.getParamsTrade()
+      }else if(this.type === 'read'){
+        params = this.getParamsRead()
+      }
+      console.log('%c params','color:red',params)
+      this.modifyPwd(params)
     },
     getParamsRead(){
       return {
-        mt4Uid:this.mt4Uid,
-        password:this.readPwd,
-        newPassword:this.newReadPwd,
+        mt4Uid:this.currentMt4Uid,
+        password:this.formData.readPwd,
+        newPassword:this.formData.newReadPwd,
         type:'investor',
       }
     },
     getParamsTrade(){
       return {
-        mt4Uid:this.mt4Uid,
-        password:this.tradePwd,
-        newPassword:this.newTradePwd,
+        mt4Uid:this.currentMt4Uid,
+        password:this.formData.tradePwd,
+        newPassword:this.formData.newTradePwd,
         type:'main',
       }
     },
@@ -131,6 +138,7 @@ export default {
       }
       return flag
     }, 
+    ...mapActions('mt4AC',['modifyPwd'])
   },
   created(){
     this.mt4Uid = this.$route.params.mt4Uid
@@ -142,7 +150,7 @@ export default {
     showModifyRead(){
       return this.type==='read'||this.type==="both"
     },
-    ...mapState('mt4AC',['list','modifyPwd'])
+    ...mapState('mt4AC',['list','currentMt4Uid'])
   },
   components: {},
 }

@@ -8,6 +8,7 @@ class defaultMt4InfoAC {
     this.list = []
     this.listGot = false
     this.loadingList = false
+    this.currentMt4Uid = helper.getLocalStorage('currentMt4Uid')
   }
 }
 
@@ -16,12 +17,17 @@ export default {
   state: new defaultMt4InfoAC(),
   getters: {},
   mutations: {
+    setCurrent(s,id){
+      s.currentMt4Uid = id
+      helper.saveToLocal('currentMt4Uid',id)
+    },
     resetList(s){
       s.list = []
     },
   },
   actions: {
     getList({state}) {
+      state.listGot = false
       state.loadingList = true
       var promise = fetch({
         url: "mt4Account/list",
@@ -31,6 +37,7 @@ export default {
       })
       .finally(() => {
         state.loadingList = false 
+        state.listGot = true
       })
       return promise
     },
@@ -56,6 +63,9 @@ export default {
           password,
         },
       })
+      promise.then(res=>{
+        vueApp.$message.info('绑定成功')
+      })
       return promise
     },
     modifyPwd({},params){
@@ -69,10 +79,11 @@ export default {
       })
     },
     findPwd({},mt4Uid){
-      fetch({
+      var promise = fetch({
         url:"mt4Account/findPwd",
         mt4Uid,
       })
+      return promise
     },
   }
 }

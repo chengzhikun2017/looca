@@ -5,6 +5,12 @@ import {vueApp} from '../main.js'
 const _toString = Object.prototype.toString
 export default class helper {
   static platform = null
+  static saveToLocal(key,value){
+    localStorage[key] = value
+  }
+  static getLocalStorage(key){
+    return localStorage[key]
+  }
   static urlConcat(url, obj) {
     var str = '',
       queryArr = []

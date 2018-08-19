@@ -49,25 +49,37 @@
       </div>
       <a-button type="primary" @click.native="selectCreation">立即开户</a-button>
     </div>
-    <a-table :columns="columns"
-        :rowKey="rowKey"
-        :dataSource="list"
-        :pagination="pagination"
-        :loading="loading"
-        @change="handleTableChange"
-        v-if="isPC"
-      >
-      <template slot="balanceFee" slot-scope="balanceFee">
-        {{balanceFee|money}}
-      </template>
-      <template slot="createTime" slot-scope="createTime">
-        {{createTime|timeFull}}
-      </template>
-      <template slot="action" slot-scope="action">
-        <a-button type="primary">登录</a-button>
-        <a-button type="primary">立即入金</a-button>
-      </template>
-    </a-table>
+    <div class="loading" v-if="!listGot">
+      加载中...
+    </div>  
+    <div v-if="listGot">
+      <a-table :columns="columns"
+          :rowKey="rowKey"
+          :dataSource="list"
+          :pagination="pagination"
+          :loading="loading"
+          @change="handleTableChange"
+          v-if="isPC"
+        >
+        <template slot="balanceFee" slot-scope="balanceFee">
+          {{balanceFee|money}}
+        </template>
+        <template slot="createTime" slot-scope="createTime">
+          {{createTime|timeFull}}
+        </template>
+        <template slot="action" slot-scope="text, record, index">
+          <a-button type="primary">立即入金</a-button>
+          <a-button @click.native="onSelectCurrent(record,index)" v-if="currentMt4Uid!=record.mt4Uid" type="primary">
+            登录
+          </a-button>
+          <a-button @click.native="onSelectCurrent(record,index)" v-if="currentMt4Uid==record.mt4Uid"  disabled >
+            已登录
+          </a-button>
+          <!-- <span>{{text}}{{record}}</span> -->
+        </template>
+      </a-table>
+    </div>
+
   </div>
 </template>
 
@@ -129,6 +141,7 @@ import helper from '../utils/helper.js'
   {
     title: "action",
     dataIndex: "action",
+    width:'35%',
     scopedSlots: {
       customRender: 'action'
     },
@@ -192,7 +205,9 @@ export default {
   methods: {
     selectCreation(){
       this.showModal = true
-
+    },
+    onSelectCurrent(mt4,index){
+      this.setCurrent(mt4.mt4Uid)
     },
     onCreateOK(e){
       if(this.createType==="bind"){
@@ -222,6 +237,7 @@ export default {
       console.log(pagination,filters,sorter);
       this.pagination = Object.assign({},pagination)
     },
+    ...mapMutations('mt4AC',['setCurrent'])
   },
   computed: {
     columns(){
@@ -230,7 +246,7 @@ export default {
       })
       return arr.concat(staticColums)
     },
-    ...mapState('mt4AC',['list']),
+    ...mapState('mt4AC',['list','currentMt4Uid','listGot']),
     ...mapState('app',['isPC']),
   },
   components: {},

@@ -93,6 +93,19 @@ export default {
       this.editing = false
     },
     handleSubmit() {
+      this.$modal.confirm({
+          title: '确认提交',
+          content: `提交实名信息后将进入人工审核阶段，已认证实名信息和状态将被覆盖`,
+          onCancel(){},
+          cancelText:'取消',
+          onOk:()=> {
+            this.confirmSubmit()
+          },
+          closable:true,
+          maskClosable:true,
+      })
+    },
+    confirmSubmit(){
       let params = this.getParams()
       this.authVerify(params)
       .then(res=>{

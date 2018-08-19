@@ -14,6 +14,7 @@ const mt4_overview = ()=> import( '../pages/mt4_overview.vue')
 const mt4_create = ()=> import( '../pages/mt4_create.vue')
 const mt4_bind = ()=> import( '../pages/mt4_bind.vue')
 const mt4_modifypwd = ()=> import( '../pages/mt4_modifypwd.vue')
+const mt4_findpwd = ()=> import( '../pages/mt4_findpwd.vue')
 
 
 
@@ -84,6 +85,7 @@ crmRoutes = crmRoutes.concat(
   newRoute('/mt4_overview', 'mt4_overview', mt4_overview),
   newRoute('/mt4_bind', 'mt4_bind', mt4_bind),
   newRoute('/mt4_modifypwd', 'mt4_modifypwd', mt4_modifypwd),
+  newRoute('/mt4_findpwd', 'mt4_findpwd', mt4_findpwd),
   newRoute('/mt4_create/:server', 'mt4_create', mt4_create),
 )
 
