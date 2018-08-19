@@ -40,7 +40,7 @@ export default function fetch(options, {
   rejectErr = false,
   simple = false,
 } = {}) {
-  console.log('%c options', 'color:red', resolveAnyway, showLoading, rejectErr, simple)
+  // console.log('%c options', 'color:red', resolveAnyway, showLoading, rejectErr, simple)
   if (showLoading && vueApp) {
     vueApp.$showLoading()
   }else{

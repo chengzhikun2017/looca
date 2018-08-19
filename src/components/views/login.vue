@@ -101,7 +101,7 @@ export default {
   text-align: center;
 }
 
-.login-vue {
+.l-login {
   margin-top: 10px;
   .forget-pwd {
     color: #1890ff;
@@ -119,7 +119,7 @@ export default {
 
 </style>
 <style lang="scss">
-.login-vue {
+.l-login {
   .ant-input-prefix {
     color: #d9d9d9;
   }

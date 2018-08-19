@@ -42,7 +42,7 @@ Vue.component("widget4", widget4)
 Vue.component("widget5", widget5)
 Vue.prototype.$message = Message
 Vue.prototype.$modal = Modal
-console.log('%c Modal','color:red',Radio)
+// console.log('%c Modal','color:red',Radio)
 function registerComponentChild(vue, parentAntComponent) {
   var parent = parentAntComponent
   for (let key in parent) {

@@ -1,5 +1,5 @@
 <template>
-  <!-- <div class="log-vue" v-if='false'> -->
+  <!-- <div class="l-log" v-if='false'> -->
   <div class="l-log" v-if='true'>
     <div class="log-box">
       <div class="header">
@@ -58,7 +58,7 @@ export default {
 
 </script>
 <style lang='scss' scoped>
-.log-vue {
+.l-log {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -114,7 +114,7 @@ export default {
 </style>
 <style lang="scss">
 
-.log-vue{
+.l-log{
   .ant-tabs-nav{
     width: 100%;
   }

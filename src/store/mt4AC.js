@@ -30,7 +30,6 @@ export default {
         state.list = res
       })
       .finally(() => {
-        console.log('%c finally get List','color:red',)
         state.loadingList = false 
       })
       return promise
@@ -63,7 +62,7 @@ export default {
       // mt4Uid: MT4账号
       // password: 交易密码
       // newPassword: 新的密码，（必须包含数字和字母，6位以上）
-      // type: 修改密码类型：main为交易密码，investor为只读密码
+      // type: 修改密码类型： main 为交易密码， investor 为只读密码
       fetch({
         url:"mt4Account/modifyPwd",
         params,

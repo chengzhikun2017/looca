@@ -74,6 +74,7 @@ export default {
     }
   },
   created() {
+    console.log('%c isRealNamed','color:red',this.isRealNamed)
     if(this.isRealNamed){
       this.initData()
     }
@@ -122,7 +123,7 @@ export default {
         case 1: return 'warning';
         case 2: return 'success';
         case 3: return 'error';
-        default: return '';
+        default: return 'info';
       }
     },
     authStatus() {
