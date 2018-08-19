@@ -1,8 +1,17 @@
 <template>
   <div class="mine-real-vue">
-    <p class="status">
-      当前认证状态：{{authInfo.status|authStatus}}
-    </p>
+    <div class="mine-real-status">
+      <a-alert
+        :message="authStatus"
+        :type="alertType"
+        showIcon
+      >
+        <div v-if="authStatus === '认证失败'" slot="description">
+          {{authInfo.remark}}
+        </div>
+        <div v-else slot="description">修改认证资料需提交后台审核</div>
+      </a-alert>
+    </div>
     <a-form @submit="handleSubmit">
       <a-form-item :wrapperCol="{ span: 18 }" label='姓名' :labelCol="{ span: 6 }" :validateStatus="input.status.name.validateStatus" :help="input.status.name.help">
         <a-input :placeholder="editing?'请输入真实姓名':'未填写'" ref="inputname" v-model="input.values.name" @blur="validate('name')" @focus="clearValidation('name')" :disabled="!editing">
@@ -68,7 +77,7 @@ export default {
     if(this.isRealNamed){
       this.initData()
     }
-   
+
   },
   methods: {
     initData(){
@@ -103,10 +112,28 @@ export default {
       if(v){
         this.initData()
       }
-    },
+    }
   },
   computed: {
     ...mapState('account', ['authInfo', 'isRealNamed']),
+    alertType() {
+      switch(this.authInfo && this.authInfo.status) {
+        case 0: return 'info';
+        case 1: return 'warning';
+        case 2: return 'success';
+        case 3: return 'error';
+        default: return '';
+      }
+    },
+    authStatus() {
+      switch(this.authInfo && this.authInfo.status) {
+        case 0: return '等待认证';
+        case 1: return '等待审核';
+        case 2: return '认证通过';
+        case 3: return '认证失败';
+        default: return '';
+      }
+    }
   },
   components: {
     ImageUpload,
@@ -123,7 +150,10 @@ export default {
 </style>
 <style lang="scss">
 .mine-real-vue {
-  
+  .mine-real-status {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 10px;
+  }
 }
-
 </style>

@@ -20,7 +20,8 @@ import {
   TreeSelect,
   Radio,
   Col,
-  Row
+  Row,
+  Alert
 } from 'vue-antd-ui';
 import MainLayout from './../components/layout/MainLayout.vue'
 const widget1 = () =>
@@ -85,3 +86,5 @@ registerComponentChild(Vue, Col)
 Vue.component(Col.name, Col)
 registerComponentChild(Vue, Row)
 Vue.component(Row.name, Row)
+registerComponentChild(Vue, Alert)
+Vue.component(Alert.name, Alert)
