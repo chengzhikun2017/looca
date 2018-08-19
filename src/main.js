@@ -5,6 +5,9 @@ import App from './App'
 import router from './router'
 import store from './store'
 
+// flex.css
+import 'flex.css'
+
 import helper from './utils/helper.js'
 // import MainLayout from './components/layout/MainLayout.vue'
 import "./styles/main.scss"

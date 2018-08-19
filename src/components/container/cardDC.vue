@@ -1,8 +1,15 @@
 <template>
-  <div class="card-component " :class="editing?'editing':''">
-    <p class="bank-name">{{info.bankName}}</p>
-    <p class="card">{{info.cardNum | bankCard}}</p>
-    <span class="edit-box" v-if="editing" @click="deleteCard">
+  <div class="card-component" flex>
+    <div class="card-logo">
+      <!-- <img src="" alt=""> -->
+    </div>
+    <div class="card-content" flex-box="1">
+      <div class="bank-name">{{info.bankName}}</div>
+      <div class="card">{{info.cardNum | bankCard}}</div>
+      <div class="bank-address">{{info.bankBranch || '未知'}}</div>
+      <div class="card-owner">{{info.name || '未知'}}</div>
+    </div>
+    <span class="edit-box" @click="deleteCard">
       <a-icon type="delete" />
     </span>
   </div>
@@ -19,11 +26,7 @@ export default {
   props: {
     info: {
       required: true,
-    },
-    editing:{
-      default:false,
-      type:Boolean,
-    },
+    }
   },
   methods: {
     deleteCard(){
@@ -36,31 +39,50 @@ export default {
   },
   computed: {},
   components: {},
+  mounted () {
+    console.log(this.info)
+  }
 }
 
 </script>
 <style lang='scss' scoped>
 .card-component {
   position: relative;
-
+  display: block;
+  margin: 8px;
+  padding: 15px;
+  border-radius: 3px;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
   .bank-name {
-    margin-bottom: 0;
+    font-weight: 888;
+    font-size: 18px;
+    margin-top: 5px;
+    padding-bottom: 10px;
   }
   .card {
-    margin-bottom: 0;
+    font-size: 16px;
+    letter-spacing: 3px;
+    padding-bottom: 5px;
   }
-  margin-bottom: 20px;
+  .bank-address {
+    padding-right: 20px;
+    font-size: 12px;
+  }
+  .card-owner {
+    text-align: right;
+    padding-right: 20px;
+    font-size: 12px;
+  }
   .edit-box{
+    padding: 6px;
     display: inline-block;
     position: absolute;
-    left: 0;
+    right: 0;
     top: 0;
+    font-size: 20px;
     &:hover{
       cursor: pointer;
     }
   }
-}
-.editing{
-  padding-left: 30px;
 }
 </style>

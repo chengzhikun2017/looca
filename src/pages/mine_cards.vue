@@ -7,17 +7,22 @@
       </span>
     </div>
     <div class="cards-box" v-if="!adding">
-      <Card v-for="card in listDC" :info="card" :key="card.id" :editing="editing"></Card>
-      <!-- <Card v-for="card in listDC" :info="card"></Card> -->
-      <a-button type="primary" @click.native="startAdd"  v-if="!editing">添加银行卡</a-button>
-      <a-button  @click.native="editing=true" v-if="!editing&&cardsLength>0">编辑</a-button>
-      <a-button type="primary" @click.native="editing=false" v-if="editing">完成</a-button>
+      <a-row>
+        <a-col :xs="24" :sm="12" :md="8">
+          <div class="empty-card" @click="startAdd" flex="main:center cross:center">
+            + 添加银行卡
+          </div>
+        </a-col>
+        <a-col :xs="24" :sm="12" :md="8" v-for="card in listDC" :key="card.id">
+          <Card :info="card"></Card>
+        </a-col>
+      </a-row>
     </div>
 
   </div>
 </template>
 <script>
-// import 
+// import
 import { mapState, mapMutations
 , mapActions, mapGetters } from 'vuex'
 var AddDC = () =>
@@ -28,8 +33,7 @@ export default {
   name: 'mine_cards',
   data() {
     return {
-      adding: false,
-      editing:false,
+      adding: false
     }
   },
   created() {
@@ -43,7 +47,7 @@ export default {
       console.log('cancel')
       this.adding = false
     },
-    
+
     ...mapActions('cards', ['getListDC'])
   },
   computed: {
@@ -68,7 +72,6 @@ export default {
 <style lang='scss' scoped>
 .add-cards {
   position: relative;
-
   .cancel-box {
     position: absolute;
     right: -15px;
@@ -77,7 +80,19 @@ export default {
     :hover{
       cursor: pointer;
       opacity: .7;
-
+    }
+  }
+}
+.cards-box {
+  .empty-card {
+    margin: 8px;
+    height: 137px;
+    border-radius: 3px;
+    border: 1px dashed #ccc;
+    &:hover {
+      border: 1px dashed #1890ff;
+      color: #1890ff;
+      cursor: pointer;
     }
   }
 }
