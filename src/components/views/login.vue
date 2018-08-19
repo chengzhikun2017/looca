@@ -1,5 +1,5 @@
 <template>
-  <div class="login-vue">
+  <div class="l-login">
     <a-form @submit="handleSubmit">
       <!-- component  input key hasFeedback -->
       <a-form-item :wrapperCol="{ span: 24 }" :validateStatus="input.status.phone.validateStatus" :help="input.status.phone.help">
@@ -50,6 +50,8 @@ export default {
   mixins: [inputMixin],
   data() {
     var newInput = new inputHelper.newInput(['phone', "password"])
+    newInput.values.phone="17702103430"
+    newInput.values.password="123456aa"
     ValidationSet.phone(newInput,'phone')
     ValidationSet.password(newInput,'password')
     return {

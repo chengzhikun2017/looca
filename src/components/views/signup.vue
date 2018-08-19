@@ -1,5 +1,5 @@
 <template>
-  <div class="signup-vue">
+  <div class="l-signup">
     <a-form @submit="handleSubmit">
       <!-- component  input key -->
       <a-form-item :wrapperCol="{ span: 24 }" :validateStatus="input.status.phone.validateStatus" :help="input.status.phone.help">

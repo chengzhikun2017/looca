@@ -1,5 +1,5 @@
 <template>
-  <div class="loading-vue" v-if='isLoading>0'>
+  <div class="l-loading" v-if='isLoading>0'>
     <div class="container l-position-cc">
       <a-spin size="large" tip="loading"></a-spin>
     </div>
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.loading-vue{
+.l-loading{
   position: fixed;
   width: 100%;
   height: 100%;

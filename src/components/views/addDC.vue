@@ -1,5 +1,5 @@
 <template>
-  <div class="addDC-vue">
+  <div class="l-add-dc">
     <a-form @submit="handleSubmit">
       <a-form-item :wrapperCol="{ span: 18 }" label='姓名' :labelCol="{ span: 6 }" :validateStatus="input.status.name.validateStatus" :help="input.status.name.help">
         <a-input placeholder="请输入姓名" ref="inputname" v-model="input.values.name" @blur="validate('name')" @focus="clearValidation('name')">

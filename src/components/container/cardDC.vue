@@ -1,5 +1,5 @@
 <template>
-  <div class="card-component" flex>
+  <div class="l-card-dc" flex>
     <div class="card-logo">
       <!-- <img src="" alt=""> -->
     </div>
@@ -46,7 +46,7 @@ export default {
 
 </script>
 <style lang='scss' scoped>
-.card-component {
+.l-card-dc {
   position: relative;
   display: block;
   margin: 8px;

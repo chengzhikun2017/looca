@@ -1,5 +1,5 @@
 <template>
-  <div class="image-upload-component">
+  <div class="l-image-upload">
     <a-modal :visible="previewVisible" :footer="null" @cancel="handleCancel">
       <img alt="example" style="width: 100%" :src="previewImage" />
     </a-modal>
@@ -145,13 +145,13 @@ export default {
 
 </script>
 <style lang="scss" scoped>
-.image-upload-component{
+.l-image-upload{
   height: 112px;
 }
 </style>
 <style lang='scss' >
 
-.image-upload-component{
+.l-image-upload{
   .ant-upload-select-picture-card i {
     font-size: 32px;
     color: #999;
