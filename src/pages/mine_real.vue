@@ -40,7 +40,7 @@
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 24}" v-if="!editing">
         <div class="bttn-box">
-          <a-button @click="editing=true">
+          <a-button type='primary' @click="editing=true">
             编辑
           </a-button>
         </div>
