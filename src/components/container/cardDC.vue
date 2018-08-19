@@ -1,5 +1,5 @@
 <template>
-  <div class="card-component ":class="editing?'editing':''">
+  <div class="card-component " :class="editing?'editing':''">
     <p class="bank-name">{{info.bankName}}</p>
     <p class="card">{{info.cardNum | bankCard}}</p>
     <span class="edit-box" v-if="editing" @click="deleteCard">
@@ -29,7 +29,7 @@ export default {
     deleteCard(){
       this.delDC(this.info.cardNum)
       // .then(() => {
-      //   this.$message.info('删除成功') 
+      //   this.$message.info('删除成功')
       // })
     },
     ...mapActions('cards',['delDC'])
