@@ -1,7 +1,7 @@
 <template>
   <a-layout id="appLayout">
     <a-layout-sider breakpoint="lg" v-model="collapsed" collapsedWidth="0" @collapse="onCollapse" ref="sider">
-      <a-menu ref="menu" theme="dark" mode="inline" v-model="current" :defaultSelectedKeys="['4']" @click="onItemClick">
+      <a-menu ref="menu" theme="dark" mode="inline" :openKeys="openKeys" @openChange="onOpenChange" v-model="current" @click="onItemClick">
         <!-- <a-menu-item key="1" @click.native="go('/test5')" @click="onItemClick">
           <a-icon type="user" />
           <span class="nav-text">test 5</span>
@@ -98,6 +98,8 @@ export default {
   name: 'MainLayout',
   data() {
     return {
+      rootSubmenuKeys: ['user', 'mt4_account', 'mt4_trade'],
+      openKeys: [''],
       mode: 'inline',
       theme: 'light',
       current: ['4'],
@@ -159,12 +161,30 @@ export default {
   },
 
   created() {
-
   },
   mounted() {
+    // this.initOpenKeys()
     this.initSider()
   },
   methods: {
+    init(){
+      
+    },
+    initOpenKeys(){
+      console.log('%c routePath','color:red',this.routePath)
+      let path = this.routePath
+      this.current = [path]
+      let rootKey = this.config[path].rootKey
+      this.openKeys = [rootKey]
+    },
+    onOpenChange(openKeys) {
+      const latestOpenKey = openKeys.find(key => this.openKeys.indexOf(key) === -1)
+      if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
+        this.openKeys = openKeys
+      } else {
+        this.openKeys = latestOpenKey ? [latestOpenKey] : []
+      }
+    },
     onMainBodyClick() {
       this.hideMobileSider()
     },
@@ -202,16 +222,19 @@ export default {
     },
   },
   watch:{
-    // routePath(path){
-    //   let paths =[]
-    //   paths.push(path)
-    //   let rootKey =this.config[path].rootKey
-    //   while(rootKey){
-    //     paths.push(this.config[rootKey])
-    //     rootKey = this.config[rootKey].rootKey
-    //   }
-    //   this.keyPath = paths
-    // },
+    routePath(path){
+      this.current = [path]
+      let rootKey = this.config[path].rootKey
+      this.openKeys = [rootKey]
+      // let paths =[]
+      // // // let rootKey =this.config[path].rootKey
+      // while(rootKey){
+      //   console.log('%c rootKey','color:red',rootKey)
+      //   paths.push(this.config[rootKey])
+      //   rootKey = this.config[rootKey].rootKey
+      // }
+      // this.keyPath = paths
+    },
   },
   computed: {
     routePath(){
