@@ -25,11 +25,18 @@
           <a-menu-item key="modifypwd">修改密码</a-menu-item>
         </a-sub-menu>
         <a-sub-menu key="sub2">
-          <span slot="title"><a-icon type="mail" /><span>MT4</span></span>
+          <span slot="title"><a-icon type="mail" /><span>MT4账户管理</span></span>
           <a-menu-item key="mt4_overview">账号列表</a-menu-item>
           <a-menu-item key="mt4_modifypwd">修改密码</a-menu-item>
           <a-menu-item key="mt4_create">创建账号</a-menu-item>
           <a-menu-item key="mt4_bind">绑定账号</a-menu-item>
+        </a-sub-menu>
+        <a-sub-menu key="sub3">
+          <span slot="title"><a-icon type="mail" /><span>MT4交易管理</span></span>
+          <a-menu-item key="mt4_trade_history"> 交易记录：持仓和历史记录</a-menu-item>
+<!--           <a-menu-item key="mt4_modifypwd">修改密码</a-menu-item>
+          <a-menu-item key="mt4_create">创建账号</a-menu-item>
+          <a-menu-item key="mt4_bind">绑定账号</a-menu-item> -->
         </a-sub-menu>
       </a-menu>
       <div class="logo" />
@@ -122,6 +129,7 @@ export default {
         case "mt4_modifypwd":this.go('/mt4_modifypwd');break;
         case "mt4_create":this.go('/mt4_create');break;
         case "mt4_bind":this.go('/mt4_bind');break;
+        case "mt4_trade_history":this.go('/mt4_trade_history');break;
       }
       this.hideMobileSider()
     },
