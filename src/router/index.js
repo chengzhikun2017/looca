@@ -15,14 +15,18 @@ const mt4_create = ()=> import( '../pages/mt4_create.vue')
 const mt4_bind = ()=> import( '../pages/mt4_bind.vue')
 const mt4_modifypwd = ()=> import( '../pages/mt4_modifypwd.vue')
 const mt4_findpwd = ()=> import( '../pages/mt4_findpwd.vue')
+<<<<<<< HEAD
 const mt4_trade_history = ()=> import( '../pages/mt4_trade_history.vue')
 
 
+=======
+const trade_wallet = ()=> import( '../pages/trade_wallet.vue')
+>>>>>>> 6fe0f70aa6756ebcc525af8d4312c19b9d9e687a
 
 
 
 /**
- * test part 
+ * test part
  */
 const test1 = () =>  import ('./../pages/test/test1.vue')
 const test2 = () =>  import ('./../pages/test/test2.vue')
@@ -31,7 +35,7 @@ const test4 = () =>  import ('./../pages/test/test4.vue')
 const test5 = () =>  import ('./../pages/test/test5.vue')
 
 /**
- * accounting part (accounting) webpackChunkName: "accounting" 
+ * accounting part (accounting) webpackChunkName: "accounting"
  */
 /**
  * account part
@@ -89,6 +93,7 @@ crmRoutes = crmRoutes.concat(
   newRoute('/mt4_create/:server', 'mt4_create', mt4_create),
   newRoute('/mt4_trade_history', 'mt4_trade_history', mt4_trade_history),
   newRoute('/mt4_findpwd', 'mt4_findpwd', mt4_findpwd),
+  newRoute('/trade_wallet', 'trade_wallet', trade_wallet),
 )
 
 
