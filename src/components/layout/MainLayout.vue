@@ -167,16 +167,16 @@ export default {
     this.initSider()
   },
   methods: {
-    init(){
+    // init(){
       
-    },
-    initOpenKeys(){
-      console.log('%c routePath','color:red',this.routePath)
-      let path = this.routePath
-      this.current = [path]
-      let rootKey = this.config[path].rootKey
-      this.openKeys = [rootKey]
-    },
+    // },
+    // initOpenKeys(){
+    //   console.log('%c routePath','color:red',this.routePath)
+    //   let path = this.routePath
+    //   this.current = [path]
+    //   let rootKey = this.config[path].rootKey
+    //   this.openKeys = [rootKey]
+    // },
     onOpenChange(openKeys) {
       const latestOpenKey = openKeys.find(key => this.openKeys.indexOf(key) === -1)
       if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {

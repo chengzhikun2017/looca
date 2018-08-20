@@ -7,6 +7,8 @@ import feedback from './feedback'
 import cards from './cards'
 import trade from './trade'
 import mt4AC from './mt4AC'
+import wallet from './wallet'
+import mt4Balance from './mt4Balance'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -18,6 +20,8 @@ const store = new Vuex.Store({
     account,
     trade,
     mt4AC,
+    mt4Balance,
+    wallet,
   }
 })
 
