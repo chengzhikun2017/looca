@@ -7,7 +7,7 @@
           <span class="mt4-ac">{{currentMt4Uid||'1324232'}}</span>
         </span>
         <!-- <a-menu-item-group title="Item 1"> -->
-        <a-menu-item :key="mt4.mt4Uid" @click.native="onClickItem" v-for="mt4 in list">
+        <a-menu-item :key="mt4.mt4Uid" @click.native="onClickItem(mt4)" v-for="mt4 in list">
           {{mt4.mt4Uid}}{{ mt4.mt4Uid===currentMt4Uid?' 已登录':''}}
         </a-menu-item>
         <!-- <a-menu-item key="setting:2" @click.native="logout">Loo账户登出</a-menu-item> -->
@@ -31,9 +31,10 @@ export default {
     }
   },
   methods: {
-    onClickItem(e){
-      
+    onClickItem(mt4){
+      this.setCurrent(mt4.mt4Uid)
     },
+    ...mapMutations('mt4AC',['setCurrent'])
   },
   computed: {
     ...mapState('mt4AC',['currentMt4Uid','list','listGot'])

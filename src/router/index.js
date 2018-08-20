@@ -88,6 +88,7 @@ crmRoutes = crmRoutes.concat(
   newRoute('/mt4_modifypwd', 'mt4_modifypwd', mt4_modifypwd),
   newRoute('/mt4_create/:server', 'mt4_create', mt4_create),
   newRoute('/mt4_trade_history', 'mt4_trade_history', mt4_trade_history),
+  newRoute('/mt4_findpwd', 'mt4_findpwd', mt4_findpwd),
 )
 
 

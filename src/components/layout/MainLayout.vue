@@ -18,25 +18,32 @@
           <a-icon type="user" />
           <span class="nav-text">test 4</span>
         </a-menu-item> -->
-        <a-sub-menu key="sub1">
+        <a-sub-menu key="user">
           <span slot="title"><a-icon type="user" /><span>个人信息</span></span>
           <a-menu-item key="mine_cards">我的银行卡</a-menu-item>
           <a-menu-item key="mine_real">实名信息</a-menu-item>
           <a-menu-item key="modifypwd">修改密码</a-menu-item>
         </a-sub-menu>
-        <a-sub-menu key="sub2">
+        <a-sub-menu key="mt4_account">
           <span slot="title"><a-icon type="mail" /><span>MT4账户管理</span></span>
+          <a-menu-item key="mt4_create">开立账户</a-menu-item>
           <a-menu-item key="mt4_overview">账号列表</a-menu-item>
           <a-menu-item key="mt4_modifypwd">修改密码</a-menu-item>
-          <a-menu-item key="mt4_create">创建账号</a-menu-item>
           <a-menu-item key="mt4_bind">绑定账号</a-menu-item>
+          <a-menu-item key="mt4_findpwd">忘记密码</a-menu-item>
         </a-sub-menu>
-        <a-sub-menu key="sub3">
+        <a-sub-menu key="mt4_trade">
           <span slot="title"><a-icon type="mail" /><span>MT4交易管理</span></span>
           <a-menu-item key="mt4_trade_history"> 交易记录：持仓和历史记录</a-menu-item>
-<!--           <a-menu-item key="mt4_modifypwd">修改密码</a-menu-item>
-          <a-menu-item key="mt4_create">创建账号</a-menu-item>
-          <a-menu-item key="mt4_bind">绑定账号</a-menu-item> -->
+          <a-menu-item key="1">我要跟单：前往activ8</a-menu-item>
+          <a-menu-item key="2">在线入金</a-menu-item>
+          <a-menu-item key="3">出金申请</a-menu-item>
+          <a-menu-item key="4">出入金记录</a-menu-item>
+        </a-sub-menu>
+        <a-sub-menu key="agent">
+          <span slot="title"><a-icon type="mail" /><span>代理推广</span></span>
+          <a-menu-item key="33">我的推广</a-menu-item>
+          <a-menu-item key="55">返利记录</a-menu-item>
         </a-sub-menu>
       </a-menu>
       <div class="logo" />

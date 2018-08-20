@@ -30,9 +30,13 @@ export default {
           page:params.page||1,
           limit:params.limit||10
         },
+      },{
+        showLoading:false,
       })
       promise.then(res => {
-        state.list = res
+        state.list = res.list
+        state.ttlQty = res.total
+        state.ttlPage = res.pages
         console.log('%c getCurrentHistory','color:red',res)
       })
       .finally(() => {
@@ -43,3 +47,4 @@ export default {
     },
   }
 }
+  
