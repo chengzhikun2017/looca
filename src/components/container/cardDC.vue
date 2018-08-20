@@ -40,7 +40,6 @@ export default {
   computed: {},
   components: {},
   mounted () {
-    console.log(this.info)
   }
 }
 
