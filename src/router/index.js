@@ -15,13 +15,8 @@ const mt4_create = ()=> import( '../pages/mt4_create.vue')
 const mt4_bind = ()=> import( '../pages/mt4_bind.vue')
 const mt4_modifypwd = ()=> import( '../pages/mt4_modifypwd.vue')
 const mt4_findpwd = ()=> import( '../pages/mt4_findpwd.vue')
-<<<<<<< HEAD
 const mt4_trade_history = ()=> import( '../pages/mt4_trade_history.vue')
-
-
-=======
 const trade_wallet = ()=> import( '../pages/trade_wallet.vue')
->>>>>>> 6fe0f70aa6756ebcc525af8d4312c19b9d9e687a
 
 
 
