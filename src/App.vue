@@ -82,7 +82,22 @@ export default {
   methods: {
     test() {
       console.log('%c h','color:red',this.$store.state)
-      this.$store.dispatch('mt4AC/getList')
+      // this.$store.dispatch('mt4Balance/getList',{
+      //   // mt4Uid : MT4账号
+      //   // type : 类型 : 
+      //   // page : 页码，默认1
+      //   // limit : 每页个数，默认10
+      //   // st : 起始时间，格式yyyy
+      //   // et : 结束时间（包含），格式yyyy
+      //   mt4Uid:this.$store.state.mt4AC.currentMt4Uid,
+      //   type:'withdraw',
+      //   // page:,
+      //   // limit:,
+      //   // st:,
+      //   // et:,
+      // })
+      this.$store.dispatch('wallet/getWallet')
+      // this.$store.dispatch('mt4Balance/list')
       // this.$modal.info({
       //   title: 'This is a notification message',
       //   content: `<h2>hahahah</h2>`,

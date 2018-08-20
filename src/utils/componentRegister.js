@@ -22,7 +22,8 @@ import {
   Col,
   Row,
   Alert,
-  Steps
+  Steps,
+  Breadcrumb,
 } from 'vue-antd-ui';
 import MainLayout from './../components/layout/MainLayout.vue'
 const widget1 = () =>
@@ -87,7 +88,9 @@ registerComponentChild(Vue, Col)
 Vue.component(Col.name, Col)
 registerComponentChild(Vue, Row)
 Vue.component(Row.name, Row)
-registerComponentChild(Vue, Alert)
 Vue.component(Alert.name, Alert)
 registerComponentChild(Vue, Steps)
 Vue.component(Steps.name, Steps)
+registerComponentChild(Vue, Alert)
+Vue.component(Breadcrumb.name, Breadcrumb)
+registerComponentChild(Vue, Breadcrumb)

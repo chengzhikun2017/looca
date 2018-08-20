@@ -7,10 +7,44 @@ const isPC = helper.isPC()
 
 export default {
   namespaced: true,
-  state: {},
+  state: {
+    list:[],
+    listGot:false,
+    ttlQty:0,
+    ttlPage:0,
+  },
   getters: {},
   mutations: {
   },
   actions: {
+    getCurrentHistory({state},params){
+      state.listGot = false
+      // state.loadingList = true
+      if(params===undefined){
+        params = {}
+      }
+      var promise = fetch({
+        url: "trade/history",
+        params:{
+          mt4Uid:vueApp.$store.state.mt4AC.currentMt4Uid,
+          page:params.page||1,
+          limit:params.limit||10
+        },
+      },{
+        showLoading:false,
+      })
+      promise.then(res => {
+        state.list = res.list
+        state.ttlQty = res.total
+        state.ttlPage = res.pages
+        console.log('%c getCurrentHistory','color:red',res)
+      })
+      .finally(() => {
+        // state.loadingList = false 
+        state.listGot = true
+      })
+      return promise
+    },
   }
 }
+  
