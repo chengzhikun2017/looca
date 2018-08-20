@@ -1,5 +1,5 @@
 <template>
-  <div class="l-card-dc" flex>
+  <div class="l-card-dc" :class="{'card2': type === 2}" flex>
     <div class="card-logo">
       <!-- <img src="" alt=""> -->
     </div>
@@ -26,6 +26,10 @@ export default {
   props: {
     info: {
       required: true,
+    },
+    type: {
+      type: Number,
+      default: 1
     }
   },
   methods: {
@@ -82,6 +86,22 @@ export default {
     font-size: 20px;
     &:hover{
       cursor: pointer;
+    }
+  }
+  &.card2 {
+    margin: 0;
+    padding: 15px;
+    .edit-box {
+      display: none;
+    }
+    .bank-name {
+      line-height: 28px;
+    }
+    .card {
+      line-height: 24px;
+    }
+    .bank-address, .card-owner {
+      line-height: 20px;
     }
   }
 }

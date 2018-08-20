@@ -21,7 +21,8 @@ import {
   Radio,
   Col,
   Row,
-  Alert
+  Alert,
+  Steps
 } from 'vue-antd-ui';
 import MainLayout from './../components/layout/MainLayout.vue'
 const widget1 = () =>
@@ -88,3 +89,5 @@ registerComponentChild(Vue, Row)
 Vue.component(Row.name, Row)
 registerComponentChild(Vue, Alert)
 Vue.component(Alert.name, Alert)
+registerComponentChild(Vue, Steps)
+Vue.component(Steps.name, Steps)

@@ -16,6 +16,7 @@ const mt4_bind = ()=> import( '../pages/mt4_bind.vue')
 const mt4_modifypwd = ()=> import( '../pages/mt4_modifypwd.vue')
 const mt4_findpwd = ()=> import( '../pages/mt4_findpwd.vue')
 const trade_wallet = ()=> import( '../pages/trade_wallet.vue')
+const trade_withdraw = ()=> import( '../pages/trade_withdraw.vue')
 
 
 
@@ -87,6 +88,7 @@ crmRoutes = crmRoutes.concat(
   newRoute('/mt4_findpwd', 'mt4_findpwd', mt4_findpwd),
   newRoute('/mt4_create/:server', 'mt4_create', mt4_create),
   newRoute('/trade_wallet', 'trade_wallet', trade_wallet),
+  newRoute('/trade_withdraw', 'trade_withdraw', trade_withdraw),
 )
 
 
