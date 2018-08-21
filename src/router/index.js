@@ -16,9 +16,9 @@ const mt4_bind = ()=> import( '../pages/mt4_bind.vue')
 const mt4_modifypwd = ()=> import( '../pages/mt4_modifypwd.vue')
 const mt4_findpwd = ()=> import( '../pages/mt4_findpwd.vue')
 const mt4_trade_history = ()=> import( '../pages/mt4_trade_history.vue')
-const trade_wallet = ()=> import( '../pages/trade_wallet.vue')
-const trade_wallet_withdraw = ()=> import( '../pages/trade_wallet_withdraw.vue')
-const trade_wallet_recharge = ()=> import( '../pages/trade_wallet_recharge.vue')
+const wallet = ()=> import( '../pages/wallet.vue')
+const wallet_withdraw = ()=> import( '../pages/wallet_withdraw.vue')
+const wallet_recharge = ()=> import( '../pages/wallet_recharge.vue')
 
 
 
@@ -90,9 +90,9 @@ crmRoutes = crmRoutes.concat(
   newRoute('/mt4_create/:server', 'mt4_create', mt4_create),
   newRoute('/mt4_trade_history', 'mt4_trade_history', mt4_trade_history),
   newRoute('/mt4_findpwd', 'mt4_findpwd', mt4_findpwd),
-  newRoute('/trade_wallet', 'trade_wallet', trade_wallet),
-  newRoute('/trade_wallet_withdraw', 'trade_wallet_withdraw', trade_wallet_withdraw),
-  newRoute('/trade_wallet_recharge', 'trade_wallet_recharge', trade_wallet_recharge),
+  newRoute('/wallet', 'wallet', wallet),
+  newRoute('/wallet_withdraw', 'wallet_withdraw', wallet_withdraw),
+  newRoute('/wallet_recharge', 'wallet_recharge', wallet_recharge),
 )
 
 
