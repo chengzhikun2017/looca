@@ -62,8 +62,9 @@
         </a-form>
       </div>
     </div>
-    <div v-if="current === 2" class="trade_withdraw-content" flex="dir:top main:center cross:center">
-        <a-icon class="tarde_withdraw-icon" type="check-circle" />
+    <div v-if="current === 2" class="trade_withdraw-content">
+      <div v-if="false" class="trade_withdraw-content-success" flex="dir:top main:center cross:center">
+        <a-icon class="tarde_withdraw-icon-success" type="check-circle" />
         <div class="tarde_withdraw-content-title">操作成功</div>
         <p>预计1-2个工作日到账</p>
         <div class="tarde_withdraw-table" >
@@ -86,6 +87,14 @@
             </a-form-item>
           </a-form>
         </div>
+      </div>
+      <div class="trade_withdraw-content-error" flex="dir:top main:center cross:center">
+        <a-icon class="tarde_withdraw-icon-error" type="close-circle" />
+        <div class="tarde_withdraw-content-title">操作失败</div>
+        <p>系统异常，请稍后再试</p>
+        <a-button type='primary'>
+          重新提交
+        </a-button>
       </div>
     </div>
   </div>
@@ -144,12 +153,15 @@ export default {
         width: 100%;
         max-width: 460px;
       }
-      .tarde_withdraw-icon {
+      .tarde_withdraw-icon-success, .tarde_withdraw-icon-error {
         margin-top: 20px;
         margin-bottom: 24px;
         font-size: 72px;
         line-height: 72px;
         color: #52c41a;
+      }
+      .tarde_withdraw-icon-error {
+        color: #f5222d;
       }
       .tarde_withdraw-content-title {
         font-size: 24px;
