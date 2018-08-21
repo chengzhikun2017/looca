@@ -10,11 +10,29 @@ export default {
     brokerage:0,
     balance:0,
     totalBrokerage:0,
+    currency:{
+      usd2rmb:{
+        rate:null,
+        updateTime:null,
+        collectTime:null,
+      },
+    },
   },
   getters: {},
   mutations: {
   },
   actions: {
+    getCurrency({state}){
+      fetch({
+        url:'tool/dollar2RMBRate',
+      })
+      .then(res=>{
+        console.log('%c currnecy res','color:red',res)
+        state.currency.usd2rmb.rate = res.rate
+        state.currency.usd2rmb.updateTime = res.updateTime
+        state.currency.usd2rmb.collectTime = res.collectTime
+      })
+    },
     getWallet({state}){
       let promise = fetch({
         url:'balance/wallet'

@@ -2,7 +2,7 @@
   <div class="trade_wallet-page">
     <div class="trade_wallet-list">
       <div class="trade_wallet-list-title">余额</div>
-      <div class="trade_wallet-list-content">$343.44</div>
+      <div class="trade_wallet-list-content">${{money.balance}}</div>
       <div class="trade_wallet-list-opt">
         <a-button type='primary' class="trade_wallet-list-btn">
           充值
@@ -18,9 +18,9 @@
     <div class="tarde_wallet-divider"></div>
     <div class="trade_wallet-list">
       <div class="trade_wallet-list-title">可提现佣金分红</div>
-      <div class="trade_wallet-list-content">$343.44</div>
+      <div class="trade_wallet-list-content">${{money.brokerage}}</div>
       <div class="trade_wallet-list-opt">
-        <a-button type='primary' class="trade_wallet-list-btn">
+        <a-button type='primary' @click="go('/wallet_withdraw')" class="trade_wallet-list-btn">
           提现至余额
         </a-button>
       </div>
@@ -28,7 +28,7 @@
     <div class="tarde_wallet-divider"></div>
     <div class="trade_wallet-list">
       <div class="trade_wallet-list-title">累计佣金分红</div>
-      <div class="trade_wallet-list-content">$343.44</div>
+      <div class="trade_wallet-list-content">${{money.totalBrokerage}}</div>
       <div class="trade_wallet-list-opt">
         <a-button type='primary' class="trade_wallet-list-btn">
           查看分红记录
@@ -39,6 +39,7 @@
 </template>
 <script>
 import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
+import helper from './../utils/helper.js'
 export default {
   name: 'trade_wallet',
   data() {
@@ -50,10 +51,13 @@ export default {
     this.getWallet()
   },
   methods: {
+    go(path){
+      helper.goPage(path)
+    },
     ...mapActions('wallet',['getWallet'])
   },
   computed: {
-    ...mapState('wallet',[])
+    ...mapState('wallet',['money',])
   },
   components: {
   }

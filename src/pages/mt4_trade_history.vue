@@ -44,6 +44,7 @@
   {
     title:"orderId",
     dataIndex:"orderId",
+    sorter:true,
     // scopedSlots: { customRender: 'action' },
   },{
     title:"数量",
