@@ -38,16 +38,23 @@
   </div>
 </template>
 <script>
+import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
 export default {
   name: 'trade_wallet',
   data() {
     return {
+
     }
   },
-  methods: {
-
+  created(){
+    this.getWallet()
   },
-  computed: {},
+  methods: {
+    ...mapActions('wallet',['getWallet'])
+  },
+  computed: {
+    ...mapState('wallet',[])
+  },
   components: {
   }
 }

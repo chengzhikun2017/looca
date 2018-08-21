@@ -70,6 +70,7 @@
 // 
 const config = {
   user:{title:'个人信息'},
+  mine_wallet:{title:"我的钱包",link:"mine_wallet",rootKey:'user'},
   mine_cards:{title:"我的银行卡",link:"mine_cards",rootKey:'user'},
   mine_real:{title:"实名信息",link:"mine_real",rootKey:'user'},
   modifypwd:{title:"修改密码",link:"modifypwd",rootKey:'user'},
@@ -88,6 +89,9 @@ const config = {
   _3:{title:"出金申请",link:"mt4_findpwd",rootKey:'mt4_trade'},
   _4:{title:"出入金记录",link:"mt4_findpwd",rootKey:'mt4_trade'},
 
+  wallet:{title:'资产管理'},
+  wallet_review:{title:"我的钱包",link:"wallet_review",rootKey:'wallet'},
+  wallet_withdraw:{title:"余额提现",link:"wallet_withdraw",rootKey:'wallet'},
 }
 import { mapState, mapMutations
 , mapActions, mapGetters } from 'vuex'
@@ -108,9 +112,8 @@ export default {
       },
       config,
       menuConfig:[
-        {
+        {//user
           key:'user',
-          title:'个人信息',
           link:null,
           icon:'user',
           ...config.user,
@@ -119,9 +122,8 @@ export default {
             config.mine_real,
             config.modifypwd,
           ],
-        }, {
+        }, {//mt4_account
           key:'mt4_account',
-          title:'个人信息',
           link:null,
           icon:'user',
           ...config.mt4_account,
@@ -132,10 +134,8 @@ export default {
             config.mt4_bind,
             config.mt4_findpwd,
           ],
-        }
-        , {
+        }, {//mt4_trade
           key:'mt4_trade',
-          title:'MT4交易管理',
           link:null,
           icon:'user',
           ...config.mt4_trade,
@@ -145,6 +145,15 @@ export default {
             // config.mt4_modifypwd,
             // config.mt4_bind,
             // config.mt4_findpwd,
+          ],
+        },{//wallet
+          key:'wallet',
+          link:null,
+          icon:'user',
+          ...config.wallet,
+          children:[
+            config.wallet_review,
+            config.wallet_withdraw,
           ],
         }
       ],
@@ -224,6 +233,9 @@ export default {
   watch:{
     routePath(path){
       this.current = [path]
+      if(!this.config[path]){
+        return
+      }
       let rootKey = this.config[path].rootKey
       this.openKeys = [rootKey]
       // let paths =[]
