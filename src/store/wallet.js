@@ -93,7 +93,6 @@ export default {
       fetch({
         url:'balance/alipay/account',
       }).then(res=>{
-        console.log('%c res pay info','color:red',res)
         state.payInfo = res
       })
     },

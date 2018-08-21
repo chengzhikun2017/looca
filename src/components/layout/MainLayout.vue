@@ -85,9 +85,9 @@ const config = {
   mt4_trade:{title:'MT4交易管理'},
   mt4_trade_history:{title:"交易记录：持仓和历史记录",link:"mt4_trade_history",rootKey:'mt4_trade'},
   _1:{title:"我要跟单：前往activ8",link:"mt4_findpwd",rootKey:'mt4_trade'},
-  _2:{title:"在线入金",link:"mt4_findpwd",rootKey:'mt4_trade'},
-  _3:{title:"出金申请",link:"mt4_findpwd",rootKey:'mt4_trade'},
-  _4:{title:"出入金记录",link:"mt4_findpwd",rootKey:'mt4_trade'},
+  mt4_recharge:{title:"在线入金",link:"mt4_recharge",rootKey:'mt4_trade'},
+  mt4_withdraw:{title:"出金申请",link:"mt4_withdraw",rootKey:'mt4_trade'},
+  mt4_money_bill:{title:"出入金记录",link:"mt4_money_bill",rootKey:'mt4_trade'},
 
   wallet:{title:'资产管理'},
   wallet_review:{title:"我的钱包",link:"wallet_review",rootKey:'wallet'},
@@ -111,52 +111,6 @@ export default {
       header: {
       },
       config,
-      menuConfig:[
-        {//user
-          key:'user',
-          link:null,
-          icon:'user',
-          ...config.user,
-          children:[
-            config.mine_cards,
-            config.mine_real,
-            config.modifypwd,
-          ],
-        }, {//mt4_account
-          key:'mt4_account',
-          link:null,
-          icon:'user',
-          ...config.mt4_account,
-          children:[
-            config.mt4_create,
-            config.mt4_overview,
-            config.mt4_modifypwd,
-            config.mt4_bind,
-            config.mt4_findpwd,
-          ],
-        }, {//mt4_trade
-          key:'mt4_trade',
-          link:null,
-          icon:'user',
-          ...config.mt4_trade,
-          children:[
-            config.mt4_trade_history,
-            // config.mt4_overview,
-            // config.mt4_modifypwd,
-            // config.mt4_bind,
-            // config.mt4_findpwd,
-          ],
-        },{//wallet
-          key:'wallet',
-          link:null,
-          icon:'user',
-          ...config.wallet,
-          children:[
-            config.wallet_review,
-            config.wallet_withdraw,
-          ],
-        }
-      ],
       keyPath:[],
       //item 从 store 中获取
     }
@@ -249,6 +203,53 @@ export default {
     },
   },
   computed: {
+    menuConfig(){
+      return [
+      {//user
+        key:'user',
+        link:null,
+        icon:'user',
+        ...config.user,
+        children:[
+          config.mine_cards,
+          config.mine_real,
+          config.modifypwd,
+        ],
+      }, {//mt4_account
+        key:'mt4_account',
+        link:null,
+        icon:'user',
+        ...config.mt4_account,
+        children:[
+          config.mt4_create,
+          config.mt4_overview,
+          config.mt4_modifypwd,
+          config.mt4_bind,
+          config.mt4_findpwd,
+        ],
+      }, {//mt4_trade
+        key:'mt4_trade',
+        link:null,
+        icon:'user',
+        ...config.mt4_trade,
+        children:[
+          config.mt4_trade_history,
+          config.mt4_recharge,
+          config.mt4_withdraw,
+          config.mt4_money_bill,
+        ],
+      },{//wallet
+        key:'wallet',
+        link:null,
+        icon:'user',
+        ...config.wallet,
+        children:[
+          config.wallet_review,
+          config.wallet_withdraw,
+        ],
+      }
+    ]
+    },
     routePath(){
       return this.$route.path.split('/')[1]
     },

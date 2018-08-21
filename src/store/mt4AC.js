@@ -26,14 +26,21 @@ export default {
     },
   },
   actions: {
-    getList({state}) {
+    getList({state,dispatch}) {
       state.listGot = false
       state.loadingList = true
       var promise = fetch({
         url: "mt4Account/list",
+      },{
+        rejectErr:true,
       })
       promise.then(res => {
         state.list = res
+      })
+      .catch(err=>{
+        if(err.error === 20003){
+          dispatch('mt4AC/getList')
+        }
       })
       .finally(() => {
         state.loadingList = false 

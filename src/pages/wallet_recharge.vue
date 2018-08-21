@@ -100,6 +100,7 @@
   </div>
 </template>
 <script>
+import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
 export default {
   data() {
     return {
@@ -128,7 +129,8 @@ export default {
     },
     handleChange() {
     }
-  }
+  },
+
 }
 </script>
 

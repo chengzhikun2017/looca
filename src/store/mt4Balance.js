@@ -33,8 +33,10 @@ export default {
       let promise = fetch({
         url:'mt4Balance/withdraw',
         params:{
-          mt4Uid,
+          mt4Uid:mt4Uid,
         },
+      },{
+        rejectErr:true,
       })
       return promise
     },
@@ -46,6 +48,8 @@ export default {
           mt4Uid,
           amount,
         },
+      },{
+        rejectErr:true,
       })
       return promise
     },

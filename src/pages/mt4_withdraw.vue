@@ -4,15 +4,15 @@
       title="确认信息"
       style="top: 20px;"
       :visible="confirmVisible"
-      @ok="() => next()"
+      @ok="onConfirmed"
       @cancel="() => {this.confirmVisible=false}"
       okText="确认出金"
       cancelText="取消"
     >
-      <p>MT4账号：<span class="mt4_withdraw-confirm-account">754658423</span></p>
+      <p>MT4账号：<span class="mt4_withdraw-confirm-account">{{currentMt4Uid}}</span></p>
     </a-modal>
     <div class="mt4_withdraw-title">
-      <a-steps :current="current">
+      <a-steps :current="current" :status="stepStatus">
         <a-step v-for="item in steps" :key="item.title" :title="item.title" />
       </a-steps>
     </div>
@@ -27,7 +27,7 @@
         <a-form @submit="handleSubmit">
           <a-form-item :wrapperCol="{ span: 18 }" label='MT4账号' :labelCol="{ span: 6 }">
             <div class="mt4_withdraw-input">
-              <a-input placeholder="默认根据账户显示" type="password" ref="inputPassword">
+              <a-input placeholder="默认根据账户显示" disabled :value="currentMt4Uid" >
               </a-input>
             </div>
           </a-form-item>
@@ -46,36 +46,42 @@
         <p class="mt4_withdraw-content-note-item">电话：34223</p>
       </div>
     </div>
-    <div v-if="current === 1" class="mt4_withdraw-content">
-      <div class="mt4_withdraw-content-success" flex="dir:top main:center cross:center">
+    <div v-if="current === 1 " class="mt4_withdraw-content">
+      <div v-if="rechargeSucceed" class="mt4_withdraw-content-success" flex="dir:top main:center cross:center">
         <a-icon class="mt4_withdraw-icon-success" type="check-circle" />
         <div class="mt4_withdraw-content-title">出金成功</div>
         <div class="mt4_withdraw-table" >
           <a-form @submit="handleSubmit">
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='MT4账号' :labelCol="{ span: 6 }" >
-              <span>611738961</span>
+              <span>611738961 {{successResponse.mt4Uid}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='出金金额' :labelCol="{ span: 6 }" >
-              <span>$1023.22</span>
+              <span>$1023.22 {{successResponse.dollar}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='手续费' :labelCol="{ span: 6 }" >
-              <span>正在计算</span>
+              <span v-if="!successResponse.serviceFee">
+                正在计算
+              </span>
+              <span v-if="successResponse.serviceFee">
+                {{successResponse.serviceFee|money}}
+              </span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='MT4订单号' :labelCol="{ span: 6 }" >
-              <span>41799017</span>
+              <span>41799017 {{successResponse.orderId}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='业务编号' :labelCol="{ span: 6 }" >
-              <span>20180819203640110004</span>
+              <span>20180819203640110004 {{successResponse.tradeNo}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='提交时间' :labelCol="{ span: 6 }" >
-              <span>2018-08-20 12:24:33</span>
+              <span>2018-08-20 12:24:33 {{successResponse.createTime | timeFull}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='状态' :labelCol="{ span: 6 }" >
-              <span>正在处理</span>
+              <!-- //出金状态：0正在处理、1完成、2失败 -->
+              <span>正在处理 {{successResponse.status}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 24}">
               <div class="bttn-box mt4_withdraw-table-btn">
-                <a-button type='primary' htmlType='submit'>
+                <a-button type='primary'>
                   查看出入金流水
                 </a-button>
               </div>
@@ -83,11 +89,11 @@
           </a-form>
         </div>
       </div>
-      <div v-if="false" class="mt4_withdraw-content-error" flex="dir:top main:center cross:center">
+      <div v-if="rechargeFailed" class="mt4_withdraw-content-error" flex="dir:top main:center cross:center">
         <a-icon class="mt4_withdraw-icon-error" type="close-circle" />
         <div class="mt4_withdraw-content-title">出金失败</div>
         <p>账户同步失败，请重试</p>
-        <a-button type='primary'>
+        <a-button type='primary' @click.native="failedBack">
           返回
         </a-button>
       </div>
@@ -95,19 +101,43 @@
   </div>
 </template>
 <script>
+import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
+const defaultData = {
+  current: 0,
+  steps: [{
+    title: '填写出金信息',
+  }, {
+    title: '完成',
+  }],
+  confirmVisible: false,
+  rechargeSucceed:false,
+  successResponse:{},
+  rechargeFailed:false,
+}
 export default {
   data() {
     return {
-      current: 0,
-      steps: [{
-        title: '填写出金信息',
-      }, {
-        title: '完成',
-      }],
-      confirmVisible: false
+      ...defaultData,
     }
   },
   methods: {
+    failedBack(){
+      Object.assign(this,defaultData)
+    },
+    onConfirmed(){
+      this.withdraw(
+        this.currentMt4Uid
+      ).then((res) => {
+        this.rechargeSucceed = true
+        this.successResponse = res
+      }).catch((err) => {
+        console.log('%c err','color:red',err)
+        this.rechargeFailed = true
+        this.steps[1].title="失败"
+      }).finally(() => {
+        this.next() 
+      })
+    },
     next() {
       this.current++
       this.confirmVisible = false
@@ -119,8 +149,20 @@ export default {
       this.confirmVisible = true
     },
     handleChange() {
-    }
-  }
+    },
+    ...mapActions('mt4Balance',['withdraw']),
+  },
+  computed:{
+    stepStatus(){
+      //      wait process finish error
+      if(this.rechargeFailed){
+        return "error"
+      }
+      return "finish"
+    },
+    ...mapState('mt4AC',['currentMt4Uid']),
+    ...mapState('wallet',['money']),
+  },
 }
 </script>
 

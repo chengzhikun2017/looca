@@ -16,6 +16,7 @@ const mt4_bind = ()=> import( '../pages/mt4_bind.vue')
 const mt4_modifypwd = ()=> import( '../pages/mt4_modifypwd.vue')
 const mt4_findpwd = ()=> import( '../pages/mt4_findpwd.vue')
 const mt4_trade_history = ()=> import( '../pages/mt4_trade_history.vue')
+const mt4_money_bill = ()=> import( '../pages/mt4_money_bill.vue')
 const mt4_withdraw = ()=> import( '../pages/mt4_withdraw.vue')
 const mt4_recharge = ()=> import( '../pages/mt4_recharge.vue')
 const wallet = ()=> import( '../pages/wallet.vue')
@@ -99,6 +100,7 @@ crmRoutes = crmRoutes.concat(
   newRoute('/wallet', 'wallet', wallet),
   newRoute('/wallet_withdraw', 'wallet_withdraw', wallet_withdraw),
   newRoute('/wallet_recharge', 'wallet_recharge', wallet_recharge),
+  newRoute('/mt4_money_bill', 'mt4_money_bill', mt4_money_bill),
 )
 
 
