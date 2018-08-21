@@ -6,23 +6,26 @@
       </a-steps>
     </div>
     <div v-if="current === 0" class="trade_withdraw-content" flex="dir:top main:center cross:center">
+      <a-alert class="tarde_withdraw-alert" message="人民币汇率:6.8321" type="info" showIcon closable />
       <div class="tarde_withdraw-table">
         <a-form @submit="handleSubmit">
           <a-form-item :wrapperCol="{ span: 18 }" label='钱包余额' :labelCol="{ span: 6 }" >
-            <span>$3333</span>
+            <span>$3333（人民币金额 ¥8888）</span>
           </a-form-item>
-          <a-form-item :wrapperCol="{ span: 18 }" label='提现金额' :labelCol="{ span: 6 }" >
-            <a-input placeholder="请输入金额" type="password" ref="inputPassword">
-              <!-- <a-icon slot="prefix" type="user" /> -->
-            </a-input>
+          <a-form-item :wrapperCol="{ span: 18 }" label='提现金额' :labelCol="{ span: 6 }" :help="'人民币金额 ¥1000'">
+            <div class="tarde_withdraw-input">
+              <a-input placeholder="请输入金额" type="password" ref="inputPassword">
+              </a-input>
+            </div>
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 18 }" label='银行卡：' :labelCol="{ span: 6 }" >
-            <a-select defaultValue="lucy">
-              <a-select-option value="jack">Jack</a-select-option>
-              <a-select-option value="lucy">Lucy</a-select-option>
-              <a-select-option value="disabled" disabled>Disabled</a-select-option>
-              <a-select-option value="Yiminghe">yiminghe</a-select-option>
-            </a-select>
+            <div class="tarde_withdraw-input">
+              <a-select defaultValue="lucy">
+                <a-select-option value="jack">中国银行(7634)</a-select-option>
+                <a-select-option value="lucy">中国工商银行(4364)</a-select-option>
+                <a-select-option value="Yiminghe">中国农业银行(3544)</a-select-option>
+              </a-select>
+            </div>
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 24}">
             <div class="bttn-box">
@@ -39,7 +42,7 @@
       <div class="tarde_withdraw-table">
         <a-form @submit="handleSubmit">
           <a-form-item :wrapperCol="{ span: 18 }" label='提现金额' :labelCol="{ span: 6 }" >
-            ¥<span>3333</span>
+            ¥<span>3333</span> （人民币金额 ¥8888）
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 18 }" label='银行卡：' :labelCol="{ span: 6 }" >
             <div class="trade_withdraw-card">
@@ -69,7 +72,7 @@
               <span>中国银行(8769)</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="tarde_withdraw-table-item" label='提现金额' :labelCol="{ span: 6 }" >
-              <span class="tarde_withdraw-money">3333</span>元
+              <span class="tarde_withdraw-money">$3333</span><div class="tarde_withdraw-money-note">（人民币：¥8888，汇率：6.1817）</div>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 24}">
               <div class="bttn-box tarde_withdraw-table-btn">
@@ -162,6 +165,7 @@ export default {
         .tarde_withdraw-money {
           font-size: 24px;
           font-weight: 500;
+          color: #f5222d;
         }
         .tarde_withdraw-table-item {
           background: #fafafa;
@@ -182,7 +186,10 @@ export default {
         padding:0 40px 10px;
       }
       .tarde_withdraw-table-item {
-          padding: 10px;
+        padding: 10px;
+      }
+      .tarde_withdraw-input {
+        padding-right: 38px;
       }
       .tarde_withdraw-table-btn {
         padding-left: 30px;
@@ -190,6 +197,9 @@ export default {
       }
       .trade_withdraw-card {
         padding-right: 38px;
+      }
+      .tarde_withdraw-money-note {
+        display: inline-block;
       }
     }
   }
