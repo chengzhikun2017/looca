@@ -134,28 +134,9 @@ export default {
 
 <style lang="scss" scoped>
   $prefix: "wallet_recharge";
+  @import '@/styles/steps/index.scss';
   .#{$prefix}-page {
-    .#{$prefix}-title {
-      font-size: 18px;
-      padding-bottom: 10px;
-    }
     .#{$prefix}-content {
-      margin-top: 16px;
-      margin-bottom: 40px;
-      .#{$prefix}-icon-success {
-        margin-top: 20px;
-        margin-bottom: 24px;
-        font-size: 72px;
-        line-height: 72px;
-        color: #52c41a;
-      }
-      .#{$prefix}-content-title {
-        font-size: 24px;
-        color: rgba(0,0,0,.85);
-        font-weight: 500;
-        line-height: 32px;
-        margin-bottom: 16px;
-      }
       .#{$prefix}-table {
         width: 100%;
         max-width: 460px;
@@ -218,50 +199,15 @@ export default {
           font-size: 12px !important;
         }
       }
-      .#{$prefix}-content-note {
-        margin: 15px;
-        padding:10px 0;
-        width: 100%;
-        border-top: 1px solid #ccc;
-        .#{$prefix}-content-note-title {
-          color: rgba(0,0,0,.45);
-          font-size: 14px;
-        }
-        .#{$prefix}-content-note-item {
-          color: rgba(0,0,0,.45);
-          font-size: 12px;
-          line-height: 1.5;
-          margin-bottom: 5px;
-        }
-      }
     }
   }
   @media (min-width: 575px) {
     .#{$prefix}-page {
-      padding: 20px;
-      .#{$prefix}-title {
-        padding:0 40px 10px;
-      }
       .#{$prefix}-input {
         padding-right: 38px;
       }
       .#{$prefix}-table-btn {
         padding-left: 30px;
-      }
-      .#{$prefix}-content {
-        .#{$prefix}-content-note {
-          padding:15px 36px;
-          margin: 20px;
-          .#{$prefix}-content-note-title {
-            font-size: 16px;
-            margin: 0 0 8px;
-            line-height: 32px;
-          }
-          .#{$prefix}-content-note-item {
-            font-size: 14px;
-            margin: 3px;
-          }
-        }
       }
     }
   }

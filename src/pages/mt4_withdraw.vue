@@ -126,33 +126,13 @@ export default {
 
 <style lang="scss" scoped>
   $prefix: "mt4_withdraw";
+  @import '@/styles/steps/index.scss';
+
   .#{$prefix}-page {
-    .#{$prefix}-title {
-      font-size: 18px;
-      padding-bottom: 10px;
-    }
     .#{$prefix}-content {
-      margin-top: 16px;
-      margin-bottom: 40px;
       .#{$prefix}-alert {
         width: 100%;
         max-width: 460px;
-      }
-      .#{$prefix}-icon-success, .#{$prefix}-icon-error {
-        font-size: 60px;
-        margin-bottom: 10px;
-        line-height: 48px;
-        color: #52c41a;
-      }
-      .#{$prefix}-icon-error {
-        color: #f5222d;
-      }
-      .#{$prefix}-content-title {
-        font-size: 18px;
-        color: rgba(0,0,0,.85);
-        font-weight: 500;
-        line-height: 32px;
-        margin-bottom: 16px;
       }
       .#{$prefix}-table {
         margin-bottom: 20px;
@@ -169,42 +149,11 @@ export default {
           margin-bottom: 0 !important;
         }
       }
-      .#{$prefix}-content-note {
-        margin: 15px;
-        padding:10px 0;
-        width: 100%;
-        border-top: 1px solid #ccc;
-        .#{$prefix}-content-note-title {
-          color: rgba(0,0,0,.45);
-          font-size: 14px;
-        }
-        .#{$prefix}-content-note-item {
-          color: rgba(0,0,0,.45);
-          font-size: 12px;
-          line-height: 1.5;
-          margin-bottom: 5px;
-        }
-      }
     }
   }
 
   @media (min-width: 575px) {
     .#{$prefix}-page {
-      padding: 20px;
-      .#{$prefix}-content {
-        .#{$prefix}-icon-success, .#{$prefix}-icon-error {
-          margin-top: 20px;
-          margin-bottom: 24px;
-          font-size: 72px;
-          line-height: 72px;
-        }
-        .#{$prefix}-content-title {
-          font-size: 24px;
-        }
-      }
-      .#{$prefix}-title {
-        padding:0 40px 10px;
-      }
       .#{$prefix}-table {
         margin-top: 20px;
       }
@@ -223,21 +172,6 @@ export default {
       }
       .#{$prefix}-money-note {
         display: inline-block;
-      }
-      .#{$prefix}-content {
-        .#{$prefix}-content-note {
-          padding:15px 36px;
-          margin: 20px;
-          .#{$prefix}-content-note-title {
-            font-size: 16px !important;
-            margin: 2px 0;
-            line-height: 32px;
-          }
-          .#{$prefix}-content-note-item {
-            font-size: 14px;
-            margin: 3px;
-          }
-        }
       }
     }
   }

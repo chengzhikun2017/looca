@@ -119,33 +119,12 @@ export default {
 
 <style lang="scss" scoped>
   $prefix: "mt4_recharge";
+  @import '@/styles/steps/index.scss';
   .#{$prefix}-page {
-    .#{$prefix}-title {
-      font-size: 18px;
-      padding-bottom: 10px;
-    }
     .#{$prefix}-content {
-      margin-top: 16px;
-      margin-bottom: 40px;
       .#{$prefix}-alert {
         width: 100%;
         max-width: 460px;
-      }
-      .#{$prefix}-icon-success, .#{$prefix}-icon-error {
-        font-size: 60px;
-        margin-bottom: 10px;
-        line-height: 48px;
-        color: #52c41a;
-      }
-      .#{$prefix}-icon-error {
-        color: #f5222d;
-      }
-      .#{$prefix}-content-title {
-        font-size: 18px;
-        color: rgba(0,0,0,.85);
-        font-weight: 500;
-        line-height: 32px;
-        margin-bottom: 16px;
       }
       .#{$prefix}-table {
         margin-bottom: 20px;
@@ -170,21 +149,6 @@ export default {
 
   @media (min-width: 575px) {
     .#{$prefix}-page {
-      padding: 20px;
-      .#{$prefix}-content {
-        .#{$prefix}-icon-success, .#{$prefix}-icon-error {
-          margin-top: 20px;
-          margin-bottom: 24px;
-          font-size: 72px;
-          line-height: 72px;
-        }
-        .#{$prefix}-content-title {
-          font-size: 24px;
-        }
-      }
-      .#{$prefix}-title {
-        padding:0 40px 10px;
-      }
       .#{$prefix}-table-item {
         padding: 10px;
       }
