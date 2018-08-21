@@ -15,7 +15,7 @@
         </a-button>
       </div>
     </div>
-    <div class="tarde_wallet-divider"></div>
+    <div class="trade_wallet-divider"></div>
     <div class="trade_wallet-list">
       <div class="trade_wallet-list-title">可提现佣金分红</div>
       <div class="trade_wallet-list-content">$343.44</div>
@@ -25,7 +25,7 @@
         </a-button>
       </div>
     </div>
-    <div class="tarde_wallet-divider"></div>
+    <div class="trade_wallet-divider"></div>
     <div class="trade_wallet-list">
       <div class="trade_wallet-list-title">累计佣金分红</div>
       <div class="trade_wallet-list-content">$343.44</div>
@@ -70,7 +70,7 @@ export default {
       margin-bottom: 10px;
     }
   }
-  .tarde_wallet-divider {
+  .trade_wallet-divider {
     display: block;
     height: 1px;
     width: 100%;
