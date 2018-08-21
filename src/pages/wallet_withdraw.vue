@@ -141,50 +141,29 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  .wallet_withdraw-page {
-    .wallet_withdraw-title {
-      font-size: 18px;
-      padding-bottom: 10px;
-    }
-    .wallet_withdraw-content {
-      margin-top: 16px;
-      margin-bottom: 40px;
-      .wallet_withdraw-alert {
+  $prefix: "wallet_withdraw";
+  @import '@/styles/steps/index.scss';
+  .#{$prefix}-page {
+    .#{$prefix}-content {
+      .#{$prefix}-alert {
         width: 100%;
         max-width: 460px;
       }
-      .wallet_withdraw-icon-success, .wallet_withdraw-icon-error {
-        margin-top: 20px;
-        margin-bottom: 24px;
-        font-size: 72px;
-        line-height: 72px;
-        color: #52c41a;
-      }
-      .wallet_withdraw-icon-error {
-        color: #f5222d;
-      }
-      .wallet_withdraw-content-title {
-        font-size: 24px;
-        color: rgba(0,0,0,.85);
-        font-weight: 500;
-        line-height: 32px;
-        margin-bottom: 16px;
-      }
-      .wallet_withdraw-table {
+      .#{$prefix}-table {
         margin-bottom: 20px;
         width: 100%;
         max-width: 460px;
-        .wallet_withdraw-money {
+        .#{$prefix}-money {
           font-size: 24px;
           font-weight: 500;
           color: #f5222d;
         }
-        .wallet_withdraw-table-item {
+        .#{$prefix}-table-item {
           background: #fafafa;
           padding: 10px;
           margin-bottom: 0 !important;
         }
-        .wallet_withdraw-table-btn {
+        .#{$prefix}-table-btn {
           margin-top: 20px;
         }
       }
@@ -192,25 +171,21 @@ export default {
   }
 
   @media (min-width: 575px) {
-    .wallet_withdraw-page {
-      padding: 20px;
-      .wallet_withdraw-title {
-        padding:0 40px 10px;
-      }
-      .wallet_withdraw-table-item {
+    .#{$prefix}-page {
+      .#{$prefix}-table-item {
         padding: 10px;
       }
-      .wallet_withdraw-input {
+      .#{$prefix}-input {
         padding-right: 38px;
       }
-      .wallet_withdraw-table-btn {
+      .#{$prefix}-table-btn {
         padding-left: 30px;
         margin-top: 20px;
       }
-      .wallet_withdraw-card {
+      .#{$prefix}-card {
         padding-right: 38px;
       }
-      .wallet_withdraw-money-note {
+      .#{$prefix}-money-note {
         display: inline-block;
       }
     }
