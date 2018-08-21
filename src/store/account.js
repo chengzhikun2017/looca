@@ -181,7 +181,6 @@ export default {
       })
       promise.then(res => {
         if (res.data && res.data.userId) {
-          // dispatch('getUserInfo')
           helper.getInitialInfo()
         } else {
           state.isLoged = false

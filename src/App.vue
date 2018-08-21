@@ -19,8 +19,7 @@
 </template>
 <script>
 import Log from './components/views/log.vue'
-import { mapState, mapMutations
-, mapActions, mapGetters } from 'vuex'
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import router from './router/index.js'
 import Loading from './components/loading.vue'
 import { Message } from 'vue-antd-ui'
@@ -29,11 +28,7 @@ export default {
   data() {
     return {
       name: 'App',
-      // func:()=>{
-      //   console.log(this.name)
-      // },
       setHeader: () => {
-
       }
     }
   },
@@ -43,7 +38,6 @@ export default {
       this.$store.dispatch('wallet/getCurrency')
     },120000)
     this.$store.dispatch('wallet/getPayAccount')
-    // console.log('%c app created','color:red',this)
   },
   provide() {
     return {
@@ -85,7 +79,7 @@ export default {
   },
   methods: {
     test() {
-      console.log('%c h','color:red',this.$store.state)
+      console.log('%c h','color:red',this.$store)
       // this.$store.dispatch('mt4Balance/list')
       // this.$modal.info({
       //   title: 'This is a notification message',
