@@ -1,25 +1,25 @@
 <template>
-  <div class="trade_withdraw-page">
-    <div class="trade_withdraw-title">
+  <div class="wallet_withdraw-page">
+    <div class="wallet_withdraw-title">
       <a-steps :current="current">
         <a-step v-for="item in steps" :key="item.title" :title="item.title" />
       </a-steps>
     </div>
-    <div v-if="current === 0" class="trade_withdraw-content" flex="dir:top main:center cross:center">
-      <a-alert class="tarde_withdraw-alert" message="人民币汇率:6.8321" type="info" showIcon closable />
-      <div class="tarde_withdraw-table">
+    <div v-if="current === 0" class="wallet_withdraw-content" flex="dir:top main:center cross:center">
+      <a-alert class="wallet_withdraw-alert" message="人民币汇率:6.8321" type="info" showIcon closable />
+      <div class="wallet_withdraw-table">
         <a-form @submit="handleSubmit">
           <a-form-item :wrapperCol="{ span: 18 }" label='钱包余额' :labelCol="{ span: 6 }" >
             <span>$3333（人民币金额 ¥8888）</span>
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 18 }" label='提现金额' :labelCol="{ span: 6 }" :help="'人民币金额 ¥1000'">
-            <div class="tarde_withdraw-input">
+            <div class="wallet_withdraw-input">
               <a-input placeholder="请输入金额" type="password" ref="inputPassword">
               </a-input>
             </div>
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 18 }" label='银行卡：' :labelCol="{ span: 6 }" >
-            <div class="tarde_withdraw-input">
+            <div class="wallet_withdraw-input">
               <a-select defaultValue="lucy">
                 <a-select-option value="jack">中国银行(7634)</a-select-option>
                 <a-select-option value="lucy">中国工商银行(4364)</a-select-option>
@@ -37,15 +37,15 @@
         </a-form>
       </div>
     </div>
-    <div v-if="current === 1" class="trade_withdraw-content" flex="dir:top main:center cross:center">
-      <a-alert class="tarde_withdraw-alert" message="人民币汇率:6.8321" type="info" showIcon closable />
-      <div class="tarde_withdraw-table">
+    <div v-if="current === 1" class="wallet_withdraw-content" flex="dir:top main:center cross:center">
+      <a-alert class="wallet_withdraw-alert" message="人民币汇率:6.8321" type="info" showIcon closable />
+      <div class="wallet_withdraw-table">
         <a-form @submit="handleSubmit">
           <a-form-item :wrapperCol="{ span: 18 }" label='提现金额' :labelCol="{ span: 6 }" >
             ¥<span>3333</span> （人民币金额 ¥8888）
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 18 }" label='银行卡：' :labelCol="{ span: 6 }" >
-            <div class="trade_withdraw-card">
+            <div class="wallet_withdraw-card">
               <Card :info="card" :type="2"></Card>
             </div>
           </a-form-item>
@@ -62,21 +62,21 @@
         </a-form>
       </div>
     </div>
-    <div v-if="current === 2" class="trade_withdraw-content">
-      <div v-if="false" class="trade_withdraw-content-success" flex="dir:top main:center cross:center">
-        <a-icon class="tarde_withdraw-icon-success" type="check-circle" />
-        <div class="tarde_withdraw-content-title">操作成功</div>
+    <div v-if="current === 2" class="wallet_withdraw-content">
+      <div v-if="false" class="wallet_withdraw-content-success" flex="dir:top main:center cross:center">
+        <a-icon class="wallet_withdraw-icon-success" type="check-circle" />
+        <div class="wallet_withdraw-content-title">操作成功</div>
         <p>预计1-2个工作日到账</p>
-        <div class="tarde_withdraw-table" >
+        <div class="wallet_withdraw-table" >
           <a-form @submit="handleSubmit">
-            <a-form-item :wrapperCol="{ span: 18 }" class="tarde_withdraw-table-item" label='提现账户：' :labelCol="{ span: 6 }" >
+            <a-form-item :wrapperCol="{ span: 18 }" class="wallet_withdraw-table-item" label='提现账户：' :labelCol="{ span: 6 }" >
               <span>中国银行(8769)</span>
             </a-form-item>
-            <a-form-item :wrapperCol="{ span: 18 }" class="tarde_withdraw-table-item" label='提现金额' :labelCol="{ span: 6 }" >
-              <span class="tarde_withdraw-money">$3333</span><div class="tarde_withdraw-money-note">（人民币：¥8888，汇率：6.1817）</div>
+            <a-form-item :wrapperCol="{ span: 18 }" class="wallet_withdraw-table-item" label='提现金额' :labelCol="{ span: 6 }" >
+              <span class="wallet_withdraw-money">$3333</span><div class="wallet_withdraw-money-note">（人民币：¥8888，汇率：6.1817）</div>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 24}">
-              <div class="bttn-box tarde_withdraw-table-btn">
+              <div class="bttn-box wallet_withdraw-table-btn">
                 <a-button type='primary' htmlType='submit'>
                   再提一笔
                 </a-button>
@@ -88,9 +88,9 @@
           </a-form>
         </div>
       </div>
-      <div class="trade_withdraw-content-error" flex="dir:top main:center cross:center">
-        <a-icon class="tarde_withdraw-icon-error" type="close-circle" />
-        <div class="tarde_withdraw-content-title">操作失败</div>
+      <div class="wallet_withdraw-content-error" flex="dir:top main:center cross:center">
+        <a-icon class="wallet_withdraw-icon-error" type="close-circle" />
+        <div class="wallet_withdraw-content-title">操作失败</div>
         <p>系统异常，请稍后再试</p>
         <a-button type='primary'>
           重新提交
@@ -141,50 +141,50 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-  .trade_withdraw-page {
-    .trade_withdraw-title {
+  .wallet_withdraw-page {
+    .wallet_withdraw-title {
       font-size: 18px;
       padding-bottom: 10px;
     }
-    .trade_withdraw-content {
+    .wallet_withdraw-content {
       margin-top: 16px;
       margin-bottom: 40px;
-      .tarde_withdraw-alert {
+      .wallet_withdraw-alert {
         width: 100%;
         max-width: 460px;
       }
-      .tarde_withdraw-icon-success, .tarde_withdraw-icon-error {
+      .wallet_withdraw-icon-success, .wallet_withdraw-icon-error {
         margin-top: 20px;
         margin-bottom: 24px;
         font-size: 72px;
         line-height: 72px;
         color: #52c41a;
       }
-      .tarde_withdraw-icon-error {
+      .wallet_withdraw-icon-error {
         color: #f5222d;
       }
-      .tarde_withdraw-content-title {
+      .wallet_withdraw-content-title {
         font-size: 24px;
         color: rgba(0,0,0,.85);
         font-weight: 500;
         line-height: 32px;
         margin-bottom: 16px;
       }
-      .tarde_withdraw-table {
+      .wallet_withdraw-table {
         margin-bottom: 20px;
         width: 100%;
         max-width: 460px;
-        .tarde_withdraw-money {
+        .wallet_withdraw-money {
           font-size: 24px;
           font-weight: 500;
           color: #f5222d;
         }
-        .tarde_withdraw-table-item {
+        .wallet_withdraw-table-item {
           background: #fafafa;
           padding: 10px;
           margin-bottom: 0 !important;
         }
-        .tarde_withdraw-table-btn {
+        .wallet_withdraw-table-btn {
           margin-top: 20px;
         }
       }
@@ -192,25 +192,25 @@ export default {
   }
 
   @media (min-width: 575px) {
-    .trade_withdraw-page {
+    .wallet_withdraw-page {
       padding: 20px;
-      .trade_withdraw-title {
+      .wallet_withdraw-title {
         padding:0 40px 10px;
       }
-      .tarde_withdraw-table-item {
+      .wallet_withdraw-table-item {
         padding: 10px;
       }
-      .tarde_withdraw-input {
+      .wallet_withdraw-input {
         padding-right: 38px;
       }
-      .tarde_withdraw-table-btn {
+      .wallet_withdraw-table-btn {
         padding-left: 30px;
         margin-top: 20px;
       }
-      .trade_withdraw-card {
+      .wallet_withdraw-card {
         padding-right: 38px;
       }
-      .tarde_withdraw-money-note {
+      .wallet_withdraw-money-note {
         display: inline-block;
       }
     }

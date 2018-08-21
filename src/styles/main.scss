@@ -32,8 +32,17 @@
     }
   }
 }
+.phone {
+  display: none !important;
+}
 
 @media (max-width: 575px) {
+  .pc {
+    display: none !important;
+  }
+  .phone {
+    display: block !important;
+  }
   #app {
     .ant-form-item-label {
       // position: absolute;
