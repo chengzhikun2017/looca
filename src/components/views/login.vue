@@ -1,7 +1,6 @@
 <template>
   <div class="l-login">
     <a-form @submit="handleSubmit">
-      <!-- component  input key hasFeedback -->
       <a-form-item :wrapperCol="{ span: 24 }" :validateStatus="input.status.phone.validateStatus" :help="input.status.phone.help">
         <a-input placeholder="手机号" ref="inputPhone" v-model="input.values.phone" @blur="validate('phone')" @focus="clearValidation('phone')">
           <a-icon slot="prefix" type="user" />
@@ -19,11 +18,11 @@
         <span class="forget-pwd" @click="forgetPwd">忘记密码</span>
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 24}">
-        <div class="bttn-box">
+        <!-- <div class="bttn-box"> -->
           <a-button type='primary' htmlType='submit'>
             登录
           </a-button>
-        </div>
+        <!-- </div> -->
       </a-form-item>
     </a-form>
   </div>

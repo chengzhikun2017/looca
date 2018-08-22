@@ -35,11 +35,11 @@
         </a-checkbox>
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 24}">
-        <div class="bttn-box">
+        <!-- <div class="bttn-box"> -->
           <a-button type='primary' htmlType='submit'>
             {{isFindpwd?"修改密码并重新登录":"注册并登录"}}
           </a-button>
-        </div>
+        <!-- </div> -->
       </a-form-item>
     </a-form>
   </div>
@@ -226,7 +226,7 @@ export default {
 
 </style>
 <style lang="scss">
-.signup-vue {
+.l-signup {
   .ant-input-suffix {
     height: 100%;
     right: 0;
