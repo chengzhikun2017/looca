@@ -92,7 +92,7 @@
       <div v-if="rechargeFailed" class="mt4_withdraw-content-error" flex="dir:top main:center cross:center">
         <a-icon class="mt4_withdraw-icon-error" type="close-circle" />
         <div class="mt4_withdraw-content-title">出金失败</div>
-        <p>账户同步失败，请重试</p>
+        <p>{{errorResponse.message}}</p>
         <a-button type='primary' @click.native="failedBack">
           返回
         </a-button>
@@ -112,6 +112,7 @@ const defaultData = {
   confirmVisible: false,
   rechargeSucceed:false,
   successResponse:{},
+  errorResponse:{},
   rechargeFailed:false,
 }
 export default {
@@ -133,6 +134,7 @@ export default {
       }).catch((err) => {
         console.log('%c err','color:red',err)
         this.rechargeFailed = true
+        this.errorResponse = err
         this.steps[1].title="失败"
       }).finally(() => {
         this.next() 
@@ -158,7 +160,7 @@ export default {
       if(this.rechargeFailed){
         return "error"
       }
-      return "finish"
+      return "process"
     },
     ...mapState('mt4AC',['currentMt4Uid']),
     ...mapState('wallet',['money']),

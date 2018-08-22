@@ -3,12 +3,12 @@
     <a-form @submit="handleSubmit">
       <!-- component  input key -->
       <a-form-item :wrapperCol="{ span: 24 }" :validateStatus="input.status.phone.validateStatus" :help="input.status.phone.help">
-        <a-input placeholder="请输入手机号" ref="inputPhone" v-model="input.values.phone" @blur="onPhoneBlur" @focus="clearValidation('phone')">
+        <a-input size=large placeholder="请输入手机号" ref="inputPhone" v-model="input.values.phone" @blur="onPhoneBlur" @focus="clearValidation('phone')">
           <a-icon slot="prefix" type="user" />
         </a-input>
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 24 }" :validateStatus="input.status.captcha.validateStatus" :help="input.status.captcha.help">
-        <a-input placeholder="4位图片验证码" v-model="input.values.captcha" @blur="validate('captcha')" @focus="onFocusCaptcha">
+        <a-input size=large placeholder="4位图片验证码" v-model="input.values.captcha" @blur="validate('captcha')" @focus="onFocusCaptcha">
           <a-icon slot="prefix" type="picture" />
           <div class="captcha-box" slot="suffix">
             <img :src="captchaSrc" class="captcha" ref="captchaImg" alt="获取图片码" @click='getCaptcha'>
@@ -17,15 +17,15 @@
         </a-input>
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 24 }" :validateStatus="input.status.code.validateStatus" :help="input.status.code.help">
-        <a-input placeholder="6位手机验证码" v-model="input.values.code" @blur="validate('code')" @focus="clearValidation('code')">
+        <a-input size=large placeholder="6位手机验证码" v-model="input.values.code" @blur="validate('code')" @focus="clearValidation('code')">
           <a-icon slot="prefix" type="exclamation-circle-o" />
           <!-- <div class="captcha-box" slot="suffix"></div> -->
           <!-- <img :src="captchaSrc" alt="" class="captch"> -->
-          <a-button slot="suffix" :type="codeBtnType" @click.native="sendVerifyCode" :loading="sendingCode" :ghost="codeBtnDisabled">{{codeBtnMsg}}</a-button>
+          <a-button size=large slot="suffix" :type="codeBtnType" @click.native="sendVerifyCode" :loading="sendingCode" :ghost="codeBtnDisabled">{{codeBtnMsg}}</a-button>
         </a-input>
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 24 }" type="password" :validateStatus="input.status.password.validateStatus" :help="input.status.password.help">
-        <a-input placeholder="密码，至少8位数字+字母" v-model="input.values.password" @focus="clearValidation('password')" type="password" @blur="validate('password')">
+        <a-input size=large placeholder="密码，至少8位数字+字母" v-model="input.values.password" @focus="clearValidation('password')" type="password" @blur="validate('password')">
           <a-icon slot="prefix" type="lock" />
         </a-input>
       </a-form-item>
@@ -36,7 +36,7 @@
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 24}">
         <!-- <div class="bttn-box"> -->
-          <a-button type='primary' htmlType='submit'>
+          <a-button size=large type='primary' htmlType='submit'>
             {{isFindpwd?"修改密码并重新登录":"注册并登录"}}
           </a-button>
         <!-- </div> -->
@@ -212,7 +212,7 @@ export default {
 </script>
 <style lang='scss' scoped>
 .captcha-box {
-  width: 75px;
+  width: 92px;
   border: 1px solid transparent;
   height: 100%;
   overflow: hidden;

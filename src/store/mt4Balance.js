@@ -13,9 +13,9 @@ export default {
 
   },
   getters: {},
-  mutations: {},
+  mutations: {},  
   actions: {
-    getList({}, params) {
+    getList({state}, params) {
       // mt4Uid：MT4账号
       // type：类型： withdraw出金、deposit入金、withdraw_follow_settlement跟单结算（出金的一种）
       // page：页码，默认1

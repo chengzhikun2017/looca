@@ -34,6 +34,7 @@ export default {
   },
   created() {
     this.checkSession()
+    this.$store.dispatch('wallet/getCurrency')
     setInterval(() => {
       this.$store.dispatch('wallet/getCurrency')
     },120000)

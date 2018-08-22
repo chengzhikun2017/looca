@@ -39,7 +39,7 @@ export default {
       })
       .catch(err=>{
         if(err.error === 20003){
-          dispatch('mt4AC/getList')
+          dispatch('getList')
         }
       })
       .finally(() => {

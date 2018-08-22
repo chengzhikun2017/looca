@@ -145,10 +145,10 @@ export default {
       return promise
     },
     withdraw({state},params) {
-      // dollar：提现金额美元，单位分
-      // bankCardId：银行卡id
-      // dollar2RMBRate：兑换汇率，/tool/dollar2RMBRate接口返回的rate
-      // dollarRateId：兑换汇率ID，/tool/dollar2RMBRate接口返回的id
+      // dollar : 提现金额美元，单位分
+      // bankCardId : 银行卡id
+      // dollar2RMBRate : 兑换汇率，/tool/dollar2RMBRate接口返回的rate
+      // dollarRateId : 兑换汇率ID，/tool/dollar2RMBRate接口返回的id
       let promise = fetch({
         url:'balance/withdraw',
         params:{
@@ -156,6 +156,8 @@ export default {
           dollar2RMBRate:state.currency.usd2rmb.rate,
           dollarRateId:state.currency.usd2rmb.id,
         },
+      },{
+        rejectErr:true
       })
       return promise
     },

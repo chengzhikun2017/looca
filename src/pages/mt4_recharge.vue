@@ -124,7 +124,7 @@ export default {
     onConfirmed(){
       this.deposit({
         mt4Uid:this.currentMt4Uid,
-        amount:this.formData.amount,
+        amount:this.formData.amount*100,
       }).then((res) => {
         this.rechargeSucceed = true
         this.successResponse = res

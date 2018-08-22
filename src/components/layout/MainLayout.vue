@@ -92,6 +92,7 @@ const config = {
   wallet:{title:'资产管理'},
   wallet_review:{title:"我的钱包",link:"wallet_review",rootKey:'wallet'},
   wallet_withdraw:{title:"余额提现",link:"wallet_withdraw",rootKey:'wallet'},
+  wallet_recharge:{title:"余额充值",link:"wallet_recharge",rootKey:'wallet'},
 }
 import { mapState, mapMutations
 , mapActions, mapGetters } from 'vuex'
@@ -246,6 +247,7 @@ export default {
         children:[
           config.wallet_review,
           config.wallet_withdraw,
+          config.wallet_recharge,
         ],
       }
     ]
