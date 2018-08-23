@@ -19,7 +19,7 @@
     >
       <div v-if="imageNum < 1&&!loading">
         <a-icon type="plus" />
-        <div class="ant-upload-text">Upload</div>
+        <div class="ant-upload-text">{{uploadText}}</div>
       </div>
     </a-upload>
   </div>
@@ -50,6 +50,10 @@ export default {
     // disabled: {
     //   default: false,
     // },
+    uploadText:{
+      default:'Upload',
+      type:String,
+    },
     url:{
       required:true,
       type:String,
