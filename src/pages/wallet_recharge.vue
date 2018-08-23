@@ -23,6 +23,7 @@
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 24}">
             <div class="bttn-box">
+
               <a-button type='primary' htmlType='submit'>
                 下一步
               </a-button>
@@ -40,8 +41,9 @@
           <img src="" alt="支付宝收款二维码">
         </div>
       </div>
+      <ImageUpload :editing="true" v-model="billImage" label="身份证反面 " />
       <div class="wallet_recharge-content-upload-dragger pc">
-        <a-upload-dragger name="file" :multiple="true" action="//jsonplaceholder.typicode.com/posts/" @change="handleChange">
+        <a-upload-dragger name="file" :multiple="true" action="/api/upload/image" @change="handleChange">
           <p class="ant-upload-drag-icon">
             <a-icon type="inbox" />
           </p>
@@ -66,6 +68,9 @@
           </div>
         </a-upload>
       </div>
+      <a-button @click="prev">
+        上一步
+      </a-button>
       <a-button type="primary" @click="next">下一步</a-button>
       <div class="wallet_recharge-content-note">
         <h3 class="wallet_recharge-content-note-title">重要提示</h3>
@@ -100,10 +105,12 @@
   </div>
 </template>
 <script>
+import ImageUpload from './../components/container/imageUpload.vue'
 import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
 export default {
   data() {
     return {
+      billImage:null,
       current: 0,
       steps: [{
         title: '充值金额',
@@ -130,7 +137,9 @@ export default {
     handleChange() {
     }
   },
-
+  components:{
+    ImageUpload,
+  },
 }
 </script>
 
