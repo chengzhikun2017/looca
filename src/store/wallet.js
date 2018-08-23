@@ -14,6 +14,10 @@ export default {
     },
     payList:[],
     payListTtl:0,
+    payListTilPage:0,
+    withdrawList:[],
+    withdrawListTtl:0,
+    withdrawListTilPage:0,
     currency:{
       usd2rmb:{
         id:null,
@@ -48,13 +52,14 @@ export default {
         params:{
           page:params.page||1,
           limit:params.limit||10,
-          st,
-          et,
+          st:params.st,
+          et:params.et,
         },
       })
       promise.then((res) => {
         state.payList = res.list
         state.payListTtl = res.total
+        state.payListTilPage = res.pages
         console.log('%c wallet list','color:red',res) 
       })
       return promise
@@ -69,13 +74,14 @@ export default {
         params:{
           page:params.page||1,
           limit:params.limit||10,
-          st,
-          et,
+          st:params.st,
+          et:params.et,
         },
       })
       promise.then((res) => {
-        state.payList = res.list
-        state.payListTtl = res.total
+        state.withdrawList = res.list
+        state.withdrawListTtl = res.total
+        state.withdrawListTilPage = res.pages
         console.log('%c wallet list','color:red',res) 
       })
       return promise
@@ -130,6 +136,7 @@ export default {
       // alipayAccountId :支付宝收款账号ID /balance/alipay/account接口返回的id
       // dollar2RMBRate :兑换汇率，/tool/dollar2RMBRate接口返回的rate
       // dollarRateId :兑换汇率ID，/tool/dollar2RMBRate接口返回的id
+      
       // dollar :充值金额美元，单位分
       // remark :备注
       // remarkUrl :账单图片url，通过/image/upload上传返回的url

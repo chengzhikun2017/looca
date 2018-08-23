@@ -199,7 +199,6 @@ export default {
         url: "/auth/info"
       })
       promise.then(res=>{
-        console.log(res)
         state.authInfo = res
       })
       return promise

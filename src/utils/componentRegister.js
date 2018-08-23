@@ -24,6 +24,7 @@ import {
   Alert,
   Steps,
   Breadcrumb,
+  DatePicker,
 } from 'vue-antd-ui';
 import MainLayout from './../components/layout/MainLayout.vue'
 const widget1 = () =>
@@ -44,7 +45,7 @@ Vue.component("widget4", widget4)
 Vue.component("widget5", widget5)
 Vue.prototype.$message = Message
 Vue.prototype.$modal = Modal
-console.log('%c Modal','color:red',Modal)
+// console.log('%c Modal','color:red',Modal)
 function registerComponentChild(vue, parentAntComponent) {
   var parent = parentAntComponent
   for (let key in parent) {
@@ -95,3 +96,5 @@ Vue.component(Steps.name, Steps)
 registerComponentChild(Vue, Alert)
 Vue.component(Breadcrumb.name, Breadcrumb)
 registerComponentChild(Vue, Breadcrumb)
+Vue.component(DatePicker.name, DatePicker)
+registerComponentChild(Vue, DatePicker)

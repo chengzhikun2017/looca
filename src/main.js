@@ -7,7 +7,8 @@ import store from './store'
 
 // flex.css
 import 'flex.css'
-
+import moment from 'moment'
+console.log('%c moment','color:red',moment())
 import helper from './utils/helper.js'
 // import MainLayout from './components/layout/MainLayout.vue'
 import "./styles/main.scss"

@@ -84,7 +84,6 @@ const config = {
 
   mt4_trade:{title:'MT4交易管理'},
   mt4_trade_history:{title:"交易记录：持仓和历史记录",link:"mt4_trade_history",rootKey:'mt4_trade'},
-  _1:{title:"我要跟单：前往activ8",link:"mt4_findpwd",rootKey:'mt4_trade'},
   mt4_recharge:{title:"在线入金",link:"mt4_recharge",rootKey:'mt4_trade'},
   mt4_withdraw:{title:"出金申请",link:"mt4_withdraw",rootKey:'mt4_trade'},
   mt4_money_bill:{title:"出入金记录",link:"mt4_money_bill",rootKey:'mt4_trade'},
@@ -93,6 +92,7 @@ const config = {
   wallet_review:{title:"我的钱包",link:"wallet_review",rootKey:'wallet'},
   wallet_withdraw:{title:"余额提现",link:"wallet_withdraw",rootKey:'wallet'},
   wallet_recharge:{title:"余额充值",link:"wallet_recharge",rootKey:'wallet'},
+  wallet_history:{title:"钱包记录",link:"wallet_history",rootKey:'wallet'},
 }
 import { mapState, mapMutations
 , mapActions, mapGetters } from 'vuex'
@@ -248,6 +248,7 @@ export default {
           config.wallet_review,
           config.wallet_withdraw,
           config.wallet_recharge,
+          config.wallet_history,
         ],
       }
     ]
