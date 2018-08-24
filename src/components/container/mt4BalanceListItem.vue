@@ -15,7 +15,7 @@
             </div>
           </div>
           <div class="mt4_balance_list_item-summary-note">
-            [支付宝转账/佣金提现]
+            [MT4订单号：4756438756438 跟单结算]
           </div>
         </div>
         <div class="mt4_balance_list_item-summary-status"  flex-box="0">
@@ -36,7 +36,7 @@
     <transition name="slide">
       <div v-if="isDetailShow" class="mt4_balance_list_item-detail">
         <div class="mt4_balance_list_item-detail-item">
-          MT4订单号：4756438756438
+          MT4账号：475643875
         </div>
         <div class="mt4_balance_list_item-detail-item">
           流水号：6456763284238432
@@ -69,75 +69,6 @@
 </script>
 <style lang="scss">
   $prefix: "mt4_balance_list_item";
-  .#{$prefix} {
-    width: 100%;
-    .#{$prefix}-content {
-      padding:0 5px;
-      .#{$prefix}-summary {
-        .#{$prefix}-summary-title {
-          font-size: 16px;
-        }
-        .#{$prefix}-summary-money {
-          padding-left: 15px;
-          font-size: 16px;
-          font-weight: 500;
-        }
-        .#{$prefix}-summary-charge {
-          padding-right: 10px;
-          font-size: 13px;
-          color: #aaa;
-        }
-        .#{$prefix}-summary-status {
-          font-size: 14px;
-        }
-        .#{$prefix}-summary-note {
-          padding-top: 6px;
-          font-size: 12px;
-          color: #666;
-          line-height: 12px;
-        }
-      }
-      .#{$prefix}-others {
-        .#{$prefix}-others-time {
-          font-size: 12px;
-          color: #aaa;
-        }
-        .#{$prefix}-others-turnoff {
-          color: #1890ff;
-          font-size: 18px;
-          padding:0 3px;
-        }
-      }
-    }
-    .#{$prefix}-divider {
-      margin: 0 5px;
-      border-top: 1px dashed #b7eb8f;
-    }
-    .#{$prefix}-detail {
-      padding:5px 5px 0;
-      .#{$prefix}-detail-item {
-        font-size: 13px;
-      }
-      .#{$prefix}-detail-item-button {
-        padding-top: 3px;
-        font-size: 13px;
-        color: #1890ff;
-      }
-    }
-  }
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .3s;
-  }
-  .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-    opacity: 0;
-  }
-  .slide-enter-active, .slide-leave-active {
-    transition: all .3s ease;
-  }
-  .slide-enter, .slide-leave-to
-  /* .slide-fade-leave-active for below version 2.1.8 */ {
-    transform: translateY(-20px);
-    opacity: 0;
-  }
+  @import '@/styles/listitem/index.scss';
 </style>
 

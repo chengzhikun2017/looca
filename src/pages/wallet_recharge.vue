@@ -23,7 +23,6 @@
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 24}">
             <div class="bttn-box">
-
               <a-button type='primary' @click="rechargeNext">
                 下一步
               </a-button>
@@ -32,47 +31,44 @@
         </a-form>
       </div>
     </div>
-    <div v-if="current === 1" class="wallet_recharge-content" flex="dir:top main:center cross:center">
-      <div class="wallet_recharge-content-pay" flex="dir:top main:center cross:center">
-        <div class="wallet_recharge-content-pay-way">请使用支付宝APP</div>
-        <div class="wallet_recharge-content-pay-note">扫一扫付款（元）</div>
-        <div class="wallet_recharge-content-pay-money">{{formData.amount*usdRate*100 | money}}</div>
-        <div class="wallet_recharge-content-pay-qrcode">
-          <img :src="payInfo.qrcodeUrl" alt="支付宝收款二维码">
-        </div>
-      </div>
-      <ImageUpload :editing="true" v-model="billImageUrl" uploadText="上传账单详情截图" label="支付凭证" />
-      <a-input v-model="remark" placeholder="备注"></a-input>
-      <div class="wallet_recharge-content-upload-dragger pc">
-        <!-- <a-upload-dragger name="file" :multiple="true" action="/api/upload/image" @change="handleChange">
-          <p class="ant-upload-drag-icon">
-            <a-icon type="inbox" />
-          </p>
-          <p class="ant-upload-text">将文件拖到此处, 或点击上传</p>
-          <p class="ant-upload-hint">上传账单详情截图</p>
-        </a-upload-dragger> -->
-      </div>
-      <!-- <div class="wallet_recharge-content-upload phone">
-        <a-upload
-          name="avatar"
-          listType="picture-card"
-          class="avatar-uploader"
-          :showUploadList="false"
-          action="//jsonplaceholder.typicode.com/posts/"
-          :beforeUpload="beforeUpload"
-          @change="handleChange"
-        >
-          <img v-if="imageUrl" :src="imageUrl" alt="" />
-          <div v-else>
-              <a-icon :type="loading ? 'loading' : 'plus'" />
-              <div class="ant-upload-text">Upload</div>
+    <div v-if="current === 1" class="wallet_recharge-content">
+      <a-row class="wallet_recharge-content-grid">
+        <a-col :xs="24" :sm="12">
+          <div class="wallet_recharge-content-pay" flex="dir:top main:center cross:center">
+            <div class="wallet_recharge-content-pay-way">请使用支付宝APP</div>
+            <div class="wallet_recharge-content-pay-note">扫一扫付款（元）</div>
+            <div class="wallet_recharge-content-pay-money">{{formData.amount*usdRate*100 | money}}</div>
+            <div class="wallet_recharge-content-pay-qrcode">
+              <img :src="payInfo.qrcodeUrl" alt="支付宝收款二维码">
+            </div>
+            <div class="wallet_recharge-content-upload phone">
+              <ImageUpload :editing="true" v-model="billImageUrl" uploadText="上传账单详情截图" label="支付凭证" />
+            </div>
           </div>
-        </a-upload>
-      </div> -->
-      <a-button @click="prev">
-        上一步
-      </a-button>
-      <a-button type="primary" @click="onConfirmed">提交</a-button>
+        </a-col>
+        <a-col :xs="24" :sm="12">
+          <div class="wallet_recharge-table" >
+            <a-form>
+              <a-form-item class="pc" :wrapperCol="{ span: 24}" label='支付完成后上传' :labelCol="{ span: 24 }">
+                <ImageUpload :editing="true" v-model="billImageUrl" uploadText="上传账单详情截图" label="支付凭证" />
+              </a-form-item>
+              <a-form-item :wrapperCol="{ span: 16}" label='备注' :labelCol="{ span: 24 }">
+                <a-input type="textarea" v-model="remark" placeholder="请输入"></a-input>
+              </a-form-item>
+              <a-form-item :wrapperCol="{ span: 24}">
+                <div class="wallet_recharge-btns">
+                  <a-button type="primary" @click="prev">
+                    上一步
+                  </a-button>
+                  <a-button type='primary' @click="onConfirmed">
+                    提交
+                  </a-button>
+                </div>
+              </a-form-item>
+            </a-form>
+          </div>
+        </a-col>
+      </a-row>
       <div class="wallet_recharge-content-note">
         <h3 class="wallet_recharge-content-note-title">重要提示</h3>
         <!-- 这里的提示信息是需要动态替换的 -->
@@ -281,6 +277,9 @@ export default {
   }
   @media (min-width: 575px) {
     .#{$prefix}-page {
+      .#{$prefix}-content-grid {
+        padding-top: 25px;
+      }
       .#{$prefix}-input {
         padding-right: 38px;
       }
