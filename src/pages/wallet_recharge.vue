@@ -78,7 +78,7 @@
       </div>
     </div>
     <div v-if="current === 2" class="wallet_recharge-content">
-      <div class="wallet_recharge-content-success" flex="dir:top main:center cross:center">
+      <div v-if="false" class="wallet_recharge-content-success" flex="dir:top main:center cross:center">
         <a-icon class="wallet_recharge-icon-success" type="check-circle" />
         <div class="wallet_recharge-content-title">操作成功</div>
         <p>请等待系统处理</p>
@@ -92,11 +92,20 @@
             </a-button>
           </div>
         </div>
-        <div class="wallet_recharge-content-note">
-          <h3 class="wallet_recharge-content-note-title">如有问题，请联系客服</h3>
-          <p class="wallet_recharge-content-note-item">电话：111</p>
-          <p class="wallet_recharge-content-note-item">QQ：11111</p>
-        </div>
+      </div>
+      <div v-if="true" class="wallet_recharge-content-error" flex="dir:top main:center cross:center">
+        <a-icon class="wallet_recharge-icon-error" type="close-circle" />
+        <div class="wallet_recharge-content-title">操作失败</div>
+        <!-- 错误信息不确定，你自行修改 -->
+        <p>充值失败，数据库维护中</p>
+        <a-button type='primary' @click="reset">
+          重新提交
+        </a-button>
+      </div>
+      <div class="wallet_recharge-content-note">
+        <h3 class="wallet_recharge-content-note-title">如有问题，请联系客服</h3>
+        <p class="wallet_recharge-content-note-item">电话：111</p>
+        <p class="wallet_recharge-content-note-item">QQ：11111</p>
       </div>
     </div>
   </div>
