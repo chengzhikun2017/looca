@@ -1,17 +1,29 @@
 <template>
   <div class="wallet_history-page">
-    <a-range-picker
-      :ranges="{ '今天': [moment(), moment()], '本月': [moment(), moment().endOf('month')] }"
-      :defaultValue="[moment().add(-1,'week'), moment()]"
-      @change="onDateRangeChange" 
-    />
-    <a-button @click="getWithdrawList" type="primary">search</a-button>
+    <div class="choose-box">
+      <a-radio-group v-model="listType" style="margin:8px">
+        <a-radio-button value="recharge">充值记录</a-radio-button>
+        <a-radio-button value="withdraw">提现记录</a-radio-button>
+      </a-radio-group>
+    </div>
+    <div class="search-box">
+      <a-range-picker
+        :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }"
+        :defaultValue="[moment().add(-6,'day'), moment()]"
+        @change="onDateRangeChange" 
+      />
+      <a-button @click="getWithdrawList" type="primary">search</a-button>
+    </div>
     <div>
       <a-table :columns="columns" :rowKey="rowKey" :dataSource="list" :pagination="pagination" :loading="loading" @change="handleTableChange" v-if="isPC">
-        <template slot="openTime" slot-scope="openTime">
-          <span class="time">
-           {{openTime|timeFull}}
-         </span>
+        <template slot="cardNum" slot-scope="cardNum">
+           {{cardNum|bankCard}}
+        </template>
+        <template slot="money" slot-scope="money">
+           {{money|money}}
+        </template>
+        <template slot="withdrawStatus" slot-scope="withdrawStatus">
+           {{withdrawStatus|withdrawStatus}}
         </template>
         <template slot="createTime" slot-scope="createTime">
           <span class="time">
@@ -23,27 +35,28 @@
   </div>
 </template>
 <script>
-const columns = [
+const payColumns = [
   {
     title: 'ID',
-    dataIndex: 'mt4Uid',
+    dataIndex: 'id',
   }, {
     title: '充值类型',
-    dataIndex: 'mt4Uid11',
+    dataIndex: 'payWay',
   },
   {
     title: "金额",
-    dataIndex: "orderId",
+    dataIndex: "dollar",
     // sorter: true,
     // scopedSlots: { customRender: 'action' },
   }, {
     title: "业务流水号",
-    dataIndex: "amount",
+    dataIndex: "tradeNo",
     // width: '60px',
   }, {
     title: "状态",
-    dataIndex: "openPrice",
-    width: "90px",
+    dataIndex: "status",
+    // "status": 1, //状态：1付款完成等待审核，  2 完成充值 ， 3 付款无效
+    // width: "90px",
   }, {
     title: "创建时间",
     dataIndex: "createTime",
@@ -60,15 +73,47 @@ const columns = [
   //   width: '20%',
   // },
 ];
+const withdrawColums = [
+  {
+    title: 'ID',
+    dataIndex: 'id',
+  },
+  {
+    title: "金额",
+    dataIndex: "dollar",
+    // sorter: true,
+    scopedSlots: { customRender: 'money' },
+  },  {
+    title: '银行卡',
+    dataIndex: 'bankCardNum',
+    scopedSlots: { customRender: 'cardNum' },
+  },{
+    title: "业务流水号",
+    dataIndex: "tradeNo",
+    width: '200px',
+  }, {
+    title: "状态",
+    dataIndex: "status",
+    scopedSlots: { customRender: 'withdrawStatus' },
+    // "status": 1, //状态：1等待转账， 2 转账完成 ， 3 撤销申请
+
+    // width: "90px",
+  }, {
+    title: "创建时间",
+    dataIndex: "createTime",
+    width: "150px",
+    scopedSlots: { customRender: 'createTime' },
+  },
+]
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 export default {
   name: 'wallet_history',
   data() {
     return {
       loading: false,
-      columns: columns,
+      listType:'recharge',
       pagination: {
-        pageSize: 10,
+        pageSize: 2,
         showSizeChanger: true,
         current: 1,
         size: 'small',
@@ -81,9 +126,25 @@ export default {
   created(){
     this.getWithdrawList()
   },
+  filters:{
+    withdrawStatus(v){
+      switch(v){
+        case 1:return "等待转账";
+        case 2:return "转账完成";
+        case 3:return "撤销申请";
+      }
+    },
+    payStatus(v){
+      switch(v){
+        case 1:return "等待审核";
+        case 2:return "完成充值";
+        case 3:return "付款无效";
+      }
+    },
+  },
   methods: {
     onDateRangeChange(date, dateString){
-      console.log('%c date, dateString','color:red',date, dateString)
+      // console.log('%c date, dateString','color:red',date, dateString)
       this.startDate = dateString[0]
       this.endDate = dateString[1]
     },
@@ -91,7 +152,6 @@ export default {
       return record.orderId
     },
     handleTableChange(pagination) {
-      console.log('%c pagination', 'color:red', pagination)
       this.pagination = pagination
       this.getList()
     },
@@ -99,11 +159,8 @@ export default {
       
     },
     getWithdrawList() {
-      this._getWithdrawList({
-        page: this.pagination.current,
-        limit: this.pagination.pageSize,
-        st:this.startDate,
-        et:this.endDate,
+      this._getWithdrawList(this.params).then(res=>{
+        this.pagination.total = res.total
       })
     },
     ...mapActions('wallet', {
@@ -112,6 +169,23 @@ export default {
     }),
   },
   computed: {
+    params(){
+      return {
+        page: this.pagination.current,
+        limit: this.pagination.pageSize,
+        st:this.startDate,
+        et:this.endDate,
+      }
+    },
+    getList(){
+      return this.getWithdrawList
+    },
+    columns(){
+      return withdrawColums
+    },
+    list(){
+      return this.withdrawList
+    },
     ...mapState('wallet', [
       'payList',
       'payListTtl',
@@ -121,15 +195,17 @@ export default {
       'withdrawListTilPage',
       ]),
     ...mapState('app', ['isPC']),
-    list(){
-      return this.payList
-    },
+
   },
   components: {},
 }
 
 </script>
 <style lang='scss' scoped>
-
+.search-box{
+  padding:8px 8px;
+  display: flex;
+  
+}
 
 </style>
