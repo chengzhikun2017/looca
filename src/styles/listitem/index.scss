@@ -4,11 +4,11 @@
     padding:0 5px;
     .#{$prefix}-summary {
       .#{$prefix}-summary-title {
-        font-size: 16px;
+        font-size: 15px;
       }
       .#{$prefix}-summary-money {
-        padding-left: 15px;
-        font-size: 16px;
+        padding-left: 10px;
+        font-size: 15px;
         font-weight: 500;
       }
       .#{$prefix}-summary-charge {
@@ -20,15 +20,21 @@
         font-size: 14px;
       }
       .#{$prefix}-summary-note {
-        padding-top: 6px;
+        padding-top: 3px;
         font-size: 12px;
         color: #666;
         line-height: 12px;
+        .#{$prefix}-summary-note-item {
+          padding-right: 5px;
+        }
       }
     }
     .#{$prefix}-others {
       .#{$prefix}-others-time {
+        padding-top: 5px;
+        padding-bottom: 5px;
         font-size: 12px;
+        line-height: 14px;
         color: #aaa;
       }
       .#{$prefix}-others-turnoff {
@@ -40,7 +46,7 @@
   }
   .#{$prefix}-divider {
     margin: 0 5px;
-    border-top: 1px dashed #b7eb8f;
+    border-top: 1px dashed #ccc;
   }
   .#{$prefix}-detail {
     padding:5px 5px 0;
