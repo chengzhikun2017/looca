@@ -5,26 +5,28 @@
         <div flex-box="1" flex="dir:top">
           <div flex="cross:center">
             <div class="mt4_balance_list_item-summary-title" flex-box="0">
-              出金
+              MT4订单号 3333333
             </div>
             <div class="mt4_balance_list_item-summary-money" flex-box="1">
-              $1000
             </div>
             <div class="mt4_balance_list_item-summary-charge" flex-box="0">
-              手续费 正在计算中
+              USDGDP
             </div>
           </div>
           <div class="mt4_balance_list_item-summary-note">
-            [MT4订单号：4756438756438 跟单结算]
+            <span class="mt4_balance_list_item-summary-note-item"><a-icon type="login" /> 1.7232</span>
+            <span class="mt4_balance_list_item-summary-note-item"><a-icon type="logout" /> 1.7463</span>
+            <span class="mt4_balance_list_item-summary-note-item"><a-icon type="fork" /> BUY</span>
           </div>
         </div>
-        <div class="mt4_balance_list_item-summary-status"  flex-box="0">
-          完成
+        <div class="mt4_balance_list_item-summary-status green" flex-box="0">
+          $6.433
         </div>
       </div>
       <div class="mt4_balance_list_item-others" flex="cross:center">
         <div class="mt4_balance_list_item-others-time" flex-box="1">
-          2018-08-23 10:22:22
+          <div>开仓时间：2018-12-12 12:12:12</div>
+          <div>平仓时间：2018-12-12 12:12:12</div>
         </div>
         <div class="mt4_balance_list_item-others-turnoff" @click="toggle" flex-box="0">
           <a-icon v-if="!isDetailShow" type="down-circle" />
@@ -38,8 +40,13 @@
         <div class="mt4_balance_list_item-detail-item">
           MT4账号：475643875
         </div>
-        <div class="mt4_balance_list_item-detail-item">
-          流水号：6456763284238432
+        <div class="mt4_balance_list_item-detail-item" flex="main:justify">
+          <span>手续费：$0</span>
+          <span>库存费：$23.33</span>
+        </div>
+        <div class="mt4_balance_list_item-detail-item" flex="main:justify">
+          <span>止损价：$23.33</span>
+          <span>止盈价：$23.33</span>
         </div>
       </div>
     </transition>
@@ -70,5 +77,11 @@
 <style lang="scss">
   $prefix: "mt4_balance_list_item";
   @import '@/styles/listitem/index.scss';
+  .green {
+    color: #52c41a;
+  }
+  .red {
+    color: #f5222d;
+  }
 </style>
 

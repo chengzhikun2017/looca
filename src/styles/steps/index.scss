@@ -1,4 +1,6 @@
 .#{$prefix}-page {
+  max-width: 888px;
+  margin: 0 auto;
   .#{$prefix}-title {
     font-size: 18px;
     padding-bottom: 10px;
@@ -59,7 +61,7 @@
       }
       .#{$prefix}-content-note {
         padding:15px 36px;
-        margin: 20px;
+        margin: 20px 0;
         .#{$prefix}-content-note-title {
           font-size: 16px;
           margin: 0 0 8px;

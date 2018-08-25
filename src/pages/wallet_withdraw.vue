@@ -51,7 +51,7 @@
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 24}">
             <div class="bttn-box">
-              
+
               <a-button type='primary' @click.native="prev">
                 上一步
               </a-button>
@@ -93,7 +93,7 @@
         <a-icon class="wallet_withdraw-icon-error" type="close-circle" />
         <div class="wallet_withdraw-content-title">操作失败</div>
         <p>{{errorResponse.message}}</p>
-        <a-button @click.native="failedBack">
+        <a-button type='primary' @click.native="failedBack">
           重新提交
         </a-button>
       </div>
@@ -165,7 +165,7 @@ export default {
         this.errorResponse = err
         this.steps[2].title="失败"
       }).finally(() => {
-        this.next() 
+        this.next()
       })
     },
     withdrawNext() {
@@ -178,7 +178,7 @@ export default {
     checkValid(){
       let amount = this.formData.amount
       if(amount<this.MIN_AMOUNT){
-        this.input.status.amount = 
+        this.input.status.amount =
           inputHelper.createStatus(2,'金额不能小于'+this.MIN_AMOUNT+'美金')
         return false
       }
