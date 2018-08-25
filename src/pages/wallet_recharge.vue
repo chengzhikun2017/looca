@@ -1,7 +1,7 @@
 <template>
   <div class="wallet_recharge-page">
     <div class="wallet_recharge-title">
-      <a-steps :current="current">
+      <a-steps :current="current" :status="stepStatus">
         <a-step v-for="item in steps" :key="item.title" :title="item.title" />
       </a-steps>
     </div>
@@ -23,7 +23,7 @@
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 24}">
             <div class="bttn-box">
-              <a-button type='primary' @click="rechargeNext">
+              <a-button type='primary' @click="goPayQR">
                 下一步
               </a-button>
             </div>
@@ -53,7 +53,7 @@
                 <ImageUpload :editing="true" v-model="billImageUrl" uploadText="上传账单详情截图" label="支付凭证" />
               </a-form-item>
               <a-form-item :wrapperCol="{ span: 16}" label='备注' :labelCol="{ span: 24 }">
-                <a-input type="textarea" v-model="remark" placeholder="请输入"></a-input>
+                <a-input type="textarea" v-model="remark" placeholder="如需备注请输入"></a-input>
               </a-form-item>
               <a-form-item :wrapperCol="{ span: 24}">
                 <div class="wallet_recharge-btns">
@@ -78,7 +78,7 @@
       </div>
     </div>
     <div v-if="current === 2" class="wallet_recharge-content">
-      <div v-if="false" class="wallet_recharge-content-success" flex="dir:top main:center cross:center">
+      <div v-if="rechargeSucceed" class="wallet_recharge-content-success" flex="dir:top main:center cross:center">
         <a-icon class="wallet_recharge-icon-success" type="check-circle" />
         <div class="wallet_recharge-content-title">操作成功</div>
         <p>请等待系统处理</p>
@@ -87,17 +87,17 @@
             <a-button type='primary' @click="reset">
               继续充值
             </a-button>
-            <a-button type='primary'>
+            <a-button type='primary' @click="goPage('/wallet_history')">
               查看账单
             </a-button>
           </div>
         </div>
       </div>
-      <div v-if="true" class="wallet_recharge-content-error" flex="dir:top main:center cross:center">
+      <div v-if="rechargeFailed" class="wallet_recharge-content-error" flex="dir:top main:center cross:center">
         <a-icon class="wallet_recharge-icon-error" type="close-circle" />
         <div class="wallet_recharge-content-title">操作失败</div>
         <!-- 错误信息不确定，你自行修改 -->
-        <p>充值失败，数据库维护中</p>
+        <p>{{errorResponse.message}}</p>
         <a-button type='primary' @click="reset">
           重新提交
         </a-button>
@@ -183,12 +183,11 @@ export default {
         this.next()
       })
     },
-    rechargeNext() {
+    goPayQR() {
       if (!this.checkValid()) {
         return
       }
       this.next()
-      // this.confirmVisible = true
     },
     checkValid() {
       let amount = this.formData.amount
@@ -211,6 +210,13 @@ export default {
   computed:{
     usdRate() {
       return this.currency.usd2rmb.rate
+    },
+    stepStatus(){
+      //      wait process finish error
+      if(this.rechargeFailed){
+        return "error"
+      }
+      return "process"
     },
     ...mapState('wallet',['payInfo','currency']),
   },

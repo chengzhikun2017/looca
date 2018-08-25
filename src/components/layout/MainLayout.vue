@@ -222,7 +222,7 @@ export default {
         icon:'user',
         ...config.mt4_account,
         children:[
-          config.mt4_create,
+          // config.mt4_create,
           config.mt4_overview,
           config.mt4_modifypwd,
           config.mt4_bind,

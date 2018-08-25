@@ -100,7 +100,15 @@ export default {
     findPwd({},mt4Uid){
       var promise = fetch({
         url:"mt4Account/findPwd",
-        mt4Uid,
+        params:{
+          mt4Uid,
+        },
+      }).then(() => {
+        vueApp.$modal.info({
+            title: '找回密码',
+            content: `新密码已发送至实名账户邮箱`,
+            onOk() {},
+        }) 
       })
       return promise
     },
