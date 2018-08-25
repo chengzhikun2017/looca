@@ -49,10 +49,7 @@
       </div>
       <a-button type="primary" @click.native="selectCreation">立即开户</a-button>
     </div>
-    <div class="loading" v-if="!listGot">
-      加载中...
-    </div>  
-    <div v-if="listGot">
+    <div>
       <a-table :columns="columns"
           :rowKey="rowKey"
           :dataSource="list"
@@ -68,11 +65,11 @@
           {{createTime|timeFull}}
         </template>
         <template slot="action" slot-scope="text, record, index">
-          <a-button type="primary">立即入金</a-button>
-          <a-button @click.native="onSelectCurrent(record,index)" v-if="currentMt4Uid!=record.mt4Uid" type="primary">
+          <a-button size="small" type="primary">立即入金</a-button>
+          <a-button size="small" @click.native="onSelectCurrent(record,index)" v-if="currentMt4Uid!=record.mt4Uid" type="primary">
             登录
           </a-button>
-          <a-button @click.native="onSelectCurrent(record,index)" v-if="currentMt4Uid==record.mt4Uid"  disabled >
+          <a-button size="small" @click.native="onSelectCurrent(record,index)" v-if="currentMt4Uid==record.mt4Uid"  disabled >
             已登录
           </a-button>
           <!-- <span>{{text}}{{record}}</span> -->
@@ -192,9 +189,9 @@ export default {
       pagination: {
         defaultPageSize:10,
         showSizeChanger:true,
-        current:3,
+        current:1,
       },
-      loading: false,
+      // loading: false,
       // columns,
       allColumns,
     }
@@ -240,6 +237,9 @@ export default {
     ...mapMutations('mt4AC',['setCurrent'])
   },
   computed: {
+    loading(){
+      return !this.listGot
+    },
     columns(){
       let arr = this.columnsShow.map((item) => {
         return this.allColumns[item]

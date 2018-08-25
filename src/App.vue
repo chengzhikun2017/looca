@@ -34,10 +34,10 @@ export default {
   },
   created() {
     this.checkSession()
-    this.$store.dispatch('wallet/getCurrency')
-    setInterval(() => {
-      this.$store.dispatch('wallet/getCurrency')
-    },120000)
+    // this.$store.dispatch('wallet/getCurrency')
+    // setInterval(() => {
+    //   this.$store.dispatch('wallet/getCurrency')
+    // },120000)
     this.$store.dispatch('wallet/getPayAccount')
   },
   provide() {

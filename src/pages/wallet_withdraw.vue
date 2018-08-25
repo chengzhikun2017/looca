@@ -138,6 +138,7 @@ export default {
   },
   created(){
     this.getListDC()
+    this.getCurrency()
   },
   methods: {
     next() {
@@ -185,7 +186,7 @@ export default {
       return true
     },
     ...mapActions('cards',['getListDC']),
-    ...mapActions('wallet',['withdraw']),
+    ...mapActions('wallet',['withdraw','getCurrency']),
   },
   computed:{
     usdRate(){

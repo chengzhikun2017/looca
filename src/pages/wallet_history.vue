@@ -12,7 +12,7 @@
         :defaultValue="[moment().add(-6,'day'), moment()]"
         @change="onDateRangeChange" 
       />
-      <a-button @click="getWithdrawList" type="primary">search</a-button>
+      <a-button @click="getList" type="primary">search</a-button>
     </div>
     <div>
       <a-table :columns="columns" :rowKey="rowKey" :dataSource="list" :pagination="pagination" :loading="loading" @change="handleTableChange" v-if="isPC">
@@ -22,8 +22,14 @@
         <template slot="money" slot-scope="money">
            {{money|money}}
         </template>
+        <template slot="payway" slot-scope="payway">
+           {{payway|payway}}
+        </template>
         <template slot="withdrawStatus" slot-scope="withdrawStatus">
            {{withdrawStatus|withdrawStatus}}
+        </template>
+        <template slot="payStatus" slot-scope="payStatus">
+           {{payStatus|payStatus}}
         </template>
         <template slot="createTime" slot-scope="createTime">
           <span class="time">
@@ -42,25 +48,25 @@ const payColumns = [
   }, {
     title: '充值类型',
     dataIndex: 'payWay',
+    scopedSlots: { customRender: 'payway' },
+    // alipay_personal为支付宝转账，brokerage为佣金提现
   },
   {
     title: "金额",
     dataIndex: "dollar",
-    // sorter: true,
-    // scopedSlots: { customRender: 'action' },
+    scopedSlots: { customRender: 'money' },
   }, {
     title: "业务流水号",
     dataIndex: "tradeNo",
-    // width: '60px',
   }, {
     title: "状态",
     dataIndex: "status",
-    // "status": 1, //状态：1付款完成等待审核，  2 完成充值 ， 3 付款无效
-    // width: "90px",
+    scopedSlots: { customRender: 'payStatus' },
+    //1付款完成等待审核， 2完成充值 ， 3付款无效
   }, {
     title: "创建时间",
     dataIndex: "createTime",
-    width: "150px",
+    width: "160px",
     scopedSlots: { customRender: 'createTime' },
   },
   // {
@@ -71,6 +77,7 @@ const payColumns = [
   //   //   { text: 'Female', value: 'female' },
   //   // ],
   //   width: '20%',
+  //   sorter: true,
   // },
 ];
 const withdrawColums = [
@@ -81,7 +88,6 @@ const withdrawColums = [
   {
     title: "金额",
     dataIndex: "dollar",
-    // sorter: true,
     scopedSlots: { customRender: 'money' },
   },  {
     title: '银行卡',
@@ -97,11 +103,10 @@ const withdrawColums = [
     scopedSlots: { customRender: 'withdrawStatus' },
     // "status": 1, //状态：1等待转账， 2 转账完成 ， 3 撤销申请
 
-    // width: "90px",
   }, {
     title: "创建时间",
     dataIndex: "createTime",
-    width: "150px",
+    width: "160px",
     scopedSlots: { customRender: 'createTime' },
   },
 ]
@@ -119,6 +124,7 @@ export default {
         size: 'small',
         total: 0,
       },
+      loading:false,
       startDate:'',
       endDate:'',
     }
@@ -141,6 +147,12 @@ export default {
         case 3:return "付款无效";
       }
     },
+    payway(v){
+      switch(v){
+        case 'alipay_personal':return "支付宝转账";
+        case 'brokerage':return "佣金提现";
+      }
+    },
   },
   methods: {
     onDateRangeChange(date, dateString){
@@ -149,24 +161,49 @@ export default {
       this.endDate = dateString[1]
     },
     rowKey(record) {
-      return record.orderId
+      return record.id
     },
     handleTableChange(pagination) {
       this.pagination = pagination
       this.getList()
     },
-    getTimePeriod(){
-      
+    getPayList(){
+      this.loading = true
+      this._getPayList(this.params).then(res=>{
+        this.pagination.total = res.total
+      })
+      .finally(() => {
+        this.loading = false 
+      })
     },
     getWithdrawList() {
+      this.loading = true
       this._getWithdrawList(this.params).then(res=>{
         this.pagination.total = res.total
+      })
+      .finally(() => {
+        this.loading = false 
       })
     },
     ...mapActions('wallet', {
       _getWithdrawList:'getWithdrawList',
       _getPayList:'getPayList',
     }),
+  },
+  watch:{
+    listType(value){
+      if(this.listType === "recharge"){
+        Object.assign(this.pagination,{
+          current:1,
+          total:this.payListTilPage,
+        })
+      }else if(this.listType === "withdraw"){
+        Object.assign(this.pagination,{
+          current:1,
+          total:this.withdrawListTilPage,
+        })
+      }
+    },
   },
   computed: {
     params(){
@@ -178,13 +215,25 @@ export default {
       }
     },
     getList(){
-      return this.getWithdrawList
+      if(this.listType === "recharge"){
+        return this.getPayList
+      }else if(this.listType === "withdraw"){
+        return this.getWithdrawList
+      }
     },
     columns(){
-      return withdrawColums
+      if(this.listType === "recharge"){
+        return payColumns
+      }else if(this.listType === "withdraw"){
+        return withdrawColums
+      }
     },
     list(){
-      return this.withdrawList
+      if(this.listType === "recharge"){
+        return this.payList
+      }else if(this.listType === "withdraw"){
+        return this.withdrawList
+      }
     },
     ...mapState('wallet', [
       'payList',
@@ -205,7 +254,7 @@ export default {
 .search-box{
   padding:8px 8px;
   display: flex;
-  
+
 }
 
 </style>

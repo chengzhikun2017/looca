@@ -4,6 +4,16 @@ import { vueApp } from './../main.js'
 const platform = helper.getPlatForm()
 const isPC = helper.isPC()
 
+class emptyList{
+  constructor(){
+    this.payList=[]
+    this.payListTtl=0
+    this.payListTilPage=0
+    this.withdrawList=[]
+    this.withdrawListTtl=0
+    this.withdrawListTilPage=0
+  }
+}
 export default {
   namespaced: true,
   state:{
@@ -40,6 +50,9 @@ export default {
     },
   },
   mutations: {
+    resetList(state){
+      Object.assign(state,new emptyList)
+    },
   },
   actions: {
     getPayList({state},params){
@@ -55,7 +68,7 @@ export default {
           st:params.st,
           et:params.et,
         },
-      })
+      },{showLoading:false})
       promise.then((res) => {
         state.payList = res.list
         state.payListTtl = res.total
@@ -77,7 +90,7 @@ export default {
           st:params.st,
           et:params.et,
         },
-      })
+      },{showLoading:false})
       promise.then((res) => {
         state.withdrawList = res.list
         state.withdrawListTtl = res.total
@@ -105,6 +118,7 @@ export default {
     getCurrency({state}){
       fetch({
         url:'tool/dollar2RMBRate',
+      },{
       })
       .then(res=>{
         console.log('%c currnecy res','color:red',res)

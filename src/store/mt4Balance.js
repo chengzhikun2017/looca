@@ -4,28 +4,34 @@ import { vueApp } from './../main.js'
 const platform = helper.getPlatForm()
 const isPC = helper.isPC()
 
+class defaultState{
+  constructor() {
+    this.list = []
+    this.ttlQty = 0
+    this.ttlPage = 0
+  }
+}
 export default {
   namespaced: true,
-  state: {
-    list: [],
-    ttlQty: 0,
-    ttlPage: 0,
-
-  },
+  state: new defaultState,
   getters: {},
-  mutations: {},  
+  mutations: {
+    resetList(state){
+      Object.assign(state,new defaultState)
+    },
+  },  
   actions: {
     getList({state}, params) {
-      // mt4Uid：MT4账号
-      // type：类型： withdraw出金、deposit入金、withdraw_follow_settlement跟单结算（出金的一种）
-      // page：页码，默认1
-      // limit：每页个数，默认10
-      // st：起始时间，格式yyyy-mm-dd，
-      // et：结束时间（包含），格式yyyy-mm-dd，前端可以默认筛选最近一周数据
+      // mt4Uid : MT4账号
+      // type : 类型 :  withdraw出金、deposit入金、withdraw_follow_settlement跟单结算（出金的一种）
+      // page : 页码，默认1
+      // limit : 每页个数，默认10
+      // st : 起始时间，格式yyyy-mm-dd，
+      // et : 结束时间（包含），格式yyyy-mm-dd，前端可以默认筛选最近一周数据
       let promise = fetch({
         url: 'mt4Balance/list',
         params,
-      })
+      },{showLoading:false})
       promise.then(res => {
         state.list = res.list
         state.ttlQty = res.total

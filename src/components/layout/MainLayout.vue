@@ -18,7 +18,7 @@
           <a-icon type="user" />
           <span class="nav-text">test 4</span>
         </a-menu-item> -->
-        <a-sub-menu :key="topMenu.key" v-for="topMenu in menuConfig">
+        <a-sub-menu :key="topMenu.key" v-for="topMenu in menuConfig" v-if="!topMenu.hide">
           <span slot="title"><a-icon :type="topMenu.icon" /><span>{{topMenu.title}}</span></span>
           <a-menu-item v-for="subMenu in topMenu.children"  :key="subMenu.link">{{subMenu.title}}</a-menu-item>
         </a-sub-menu>
@@ -230,6 +230,7 @@ export default {
         ],
       }, {//mt4_trade
         key:'mt4_trade',
+        hide:this.list.length===0,
         link:null,
         icon:'user',
         ...config.mt4_trade,
@@ -262,7 +263,8 @@ export default {
     siderHeight() {
       return this.windowHeight - 64 + 'px'
     },
-    ...mapState('app', ['windowHeight', 'isPC'])
+    ...mapState('app', ['windowHeight', 'isPC']),
+    ...mapState('mt4AC', ['list']),
   },
   components: {
     NavUser,NavMt4,

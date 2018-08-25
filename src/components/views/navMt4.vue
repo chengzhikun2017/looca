@@ -1,14 +1,22 @@
 <template>
-  <div class="l-nav-mt4" v-if="listGot">
+  <div class="l-nav-mt4" v-if="listGot&&this.list.length>0">
     <a-menu mode="horizontal" :subMenuCloseDelay='0.2' :subMenuOpenDelay="0.3">
       <a-sub-menu>
         <span class="title" slot="title">
           <a-icon type="laptop"/>
-          <span class="mt4-ac">{{currentMt4Uid||'1324232'}}</span>
+          <span class="mt4-ac">{{currentMt4Uid}}</span>
         </span>
         <!-- <a-menu-item-group title="Item 1"> -->
         <a-menu-item :key="mt4.mt4Uid" @click.native="onClickItem(mt4)" v-for="mt4 in list">
-          {{mt4.mt4Uid}}{{ mt4.mt4Uid===currentMt4Uid?' 已登录':''}}
+          
+          <div class="l-nav-mt4-account-item">
+            <span>
+              {{mt4.mt4Uid}}
+            </span>
+            <a-button size="small" disabled v-if='mt4.mt4Uid===currentMt4Uid'>
+              已登录
+            </a-button>
+          </div>
         </a-menu-item>
         <!-- <a-menu-item key="setting:2" @click.native="logout">Loo账户登出</a-menu-item> -->
         <!-- </a-menu-item-group> -->
@@ -51,13 +59,13 @@ export default {
   }
   .ant-menu-root {
   }
+
 }
 .mt4-ac{
   padding-left: 5px;
 }
 </style>
 <style lang="scss">
-
 .l-nav-mt4 {
   .ant-menu-submenu-title {
     padding: 0 10px;
@@ -83,7 +91,12 @@ export default {
     border: 0;
   }
 }
-
+.l-nav-mt4-account-item{
+  width: 160px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .ant-menu-submenu ul.ant-menu-vertical.ant-menu-sub {
   min-width: 10px;
   .ant-menu-item-selected{

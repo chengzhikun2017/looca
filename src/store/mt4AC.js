@@ -24,9 +24,19 @@ export default {
     resetList(s){
       s.list = []
     },
+    resetCurrent(s){
+      helper.removeLocal('currentMt4Uid')
+    },
+
   },
+
   actions: {
-    getList({state,dispatch}) {
+    setDefaultCurrent({state,commit}){
+      if(!helper.getLocalStorage('currentMt4Uid')){
+        commit('setCurrent',state.list[0].mt4Uid)
+      }
+    },
+    getList({state,dispatch,commit}) {
       state.listGot = false
       state.loadingList = true
       var promise = fetch({
@@ -35,7 +45,9 @@ export default {
         rejectErr:true,
       })
       promise.then(res => {
+        console.log('%c setCurrent','color:red',res)
         state.list = res
+        dispatch('setDefaultCurrent')
       })
       .catch(err=>{
         if(err.error === 20003){

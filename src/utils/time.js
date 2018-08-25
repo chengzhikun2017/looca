@@ -23,7 +23,7 @@ function getTimeString(AdDate, AiStart = 0, AiEnd, cfg = {}) {
     var dNow = new Date(AdDate);
   }
   if (cfg.connectorDate === undefined) {
-    cfg.connectorDate = '/'
+    cfg.connectorDate = '-'
   }
   if (cfg.connectorTime === undefined) {
     cfg.connectorTime = ':'

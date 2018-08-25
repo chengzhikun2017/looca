@@ -152,7 +152,6 @@ export default {
     }
   },
   methods: {
-
     next() {
       this.current++
     },
@@ -201,7 +200,10 @@ export default {
       return true
     },
     ...mapActions('cards', ['getListDC']),
-    ...mapActions('wallet', ['recharge']),
+    ...mapActions('wallet', ['recharge','getCurrency']),
+  },
+  created(){
+    this.getCurrency()
   },
   components:{
     ImageUpload,

@@ -11,6 +11,9 @@ export default class helper {
   static getLocalStorage(key){
     return localStorage[key]
   }
+  static removeLocal(key){
+    localStorage.removeItem(key)
+  }
   static urlConcat(url, obj) {
     var str = '',
       queryArr = []
@@ -137,24 +140,16 @@ export default class helper {
   }
 
   static resetInitialInfo() {
-    // vueApp.$store.commit('cards/clearListCC')
-    // vueApp.$store.commit('cards/clearListDC')
     vueApp.$store.commit('account/reset')
     vueApp.$store.commit('mt4AC/resetList')
-    // vueApp.$store.commit('share/resetReport')
-    // vueApp.$store.dispatch('market/resetList')
-    // vueApp.$store.commit('order/clearProductList')
+    vueApp.$store.commit('mt4AC/resetCurrent')
+    vueApp.$store.commit('mt4Balance/resetList')
+    vueApp.$store.commit('wallet/resetList')
   }
 
   static getInitialInfo() {
-    // vueApp.$store.dispatch('cards/getListCC')
-    // vueApp.$store.dispatch('cards/getListDC')
     vueApp.$store.dispatch('account/getAuthInfo')
     vueApp.$store.dispatch('account/getUserInfo')
     vueApp.$store.dispatch('mt4AC/getList')
-    // vueApp.$store.dispatch('order/productsListGet')
-    // vueApp.$store.dispatch('share/getCount')
-    // vueApp.$store.dispatch('share/viewCount')
-
   }
 }
