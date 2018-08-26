@@ -90,15 +90,12 @@ export default {
       this.$emit('img_uploaded',url)
     },
     onremove(e){
-      console.log('%c on remove','color:red',e)
       this.imageNum--
       this.fileList = []
     },
     handleChange(info) {
       this.fileList =info.fileList
-      console.log('%c upload change info', 'color:red', info)
       if (info.file.status === 'uploading') {
-        // console.log('%c loading~~~','color:red',)
         // console.log(info.file, info.fileList);
       }
       if (info.file.status === 'done') {
@@ -112,18 +109,20 @@ export default {
       }
     },
     beforeUpload(file) {
-      this.loading = true
       this.imageNum++
-      // console.log('%c file beforeUpload','color:red',file)
-      const isJPG = file.type === 'image/jpeg'
-      if (!isJPG) {
-        this.$message.error('You can only upload JPG file!')
+      console.log('%c file beforeUpload','color:red',file)
+      const isImage = /^imag1e/.test(file.type)
+      if (!isImage) {
+        this.$message.error('You can only upload image!')
       }
-      const isLt2M = file.size / 1024 / 1024 < 2
-      if (!isLt2M) {
-        this.$message.error('Image must smaller than 2MB!')
+      const isLt5M = file.size / 1024 / 1024 < 5
+      if (!isLt5M) {
+        this.$message.error('图片大小不能超过5MB!')
       }
-      return isJPG && isLt2M
+      if(isImage && isLt5M){
+        this.loading = true
+      }
+      return isImage && isLt5M
     },
     handleCancel() {
       this.previewVisible = false
