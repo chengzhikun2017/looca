@@ -9,7 +9,7 @@
       <div class="bank-address">{{info.bankBranch || '未知'}}</div>
       <div class="card-owner">{{info.name || '未知'}}</div>
     </div>
-    <span class="edit-box" @click="deleteCard">
+    <span class="edit-box l-pointer" @click="deleteCard">
       <a-icon type="delete" />
     </span>
   </div>
@@ -33,8 +33,15 @@ export default {
     }
   },
   methods: {
+
     deleteCard(){
-      this.delDC(this.info.cardNum)
+      this.$modal.confirm({
+        title:"删除银行卡",
+        content:`确认删除尾号为${this.info.cardNum.slice(-4)}的银行卡`,
+        onOk:()=>{
+          this.delDC(this.info.cardNum)
+        }
+      })
       // .then(() => {
       //   this.$message.info('删除成功')
       // })
@@ -83,9 +90,6 @@ export default {
     right: 0;
     top: 0;
     font-size: 20px;
-    &:hover{
-      cursor: pointer;
-    }
   }
   &.card2 {
     margin: 0;
