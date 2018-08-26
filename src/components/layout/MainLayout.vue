@@ -19,15 +19,13 @@
           <span class="nav-text">test 4</span>
         </a-menu-item> -->
         <a-sub-menu :key="topMenu.key" v-for="topMenu in menuConfig" v-if="!topMenu.hide">
-          <span slot="title"><a-icon :type="topMenu.icon" /><span>{{topMenu.title}}</span></span>
-          <a-menu-item v-for="subMenu in topMenu.children"  :key="subMenu.link">{{subMenu.title}}</a-menu-item>
+          <span slot="title">
+            <a-icon :type="topMenu.icon"/>
+            <span>{{topMenu.title}}</span>
+          </span>
+          <a-menu-item v-for="subMenu in topMenu.children" v-if="!subMenu.hide"  :key="subMenu.link">{{subMenu.title}}</a-menu-item>
         </a-sub-menu>
 
-        <a-sub-menu key="agent">
-          <span slot="title"><a-icon type="mail" /><span>代理推广</span></span>
-          <a-menu-item key="33">我的推广</a-menu-item>
-          <a-menu-item key="55">返利记录</a-menu-item>
-        </a-sub-menu>
       </a-menu>
       <div class="logo" />
     </a-layout-sider>
@@ -93,6 +91,10 @@ const config = {
   wallet_withdraw:{title:"余额提现",link:"wallet_withdraw",rootKey:'wallet'},
   wallet_recharge:{title:"余额充值",link:"wallet_recharge",rootKey:'wallet'},
   wallet_history:{title:"钱包记录",link:"wallet_history",rootKey:'wallet'},
+
+  agent:{title:"代理推广"},
+  agent_promote:{title:"我的推广",link:"agent_promote",rootKey:'agent'},
+
 }
 import { mapState, mapMutations
 , mapActions, mapGetters } from 'vuex'
@@ -212,12 +214,13 @@ export default {
         icon:'user',
         ...config.user,
         children:[
-          config.mine_cards,
+          {...config.mine_cards,hide:!this.realNameAuthed},
           config.mine_real,
           config.modifypwd,
         ],
       }, {//mt4_account
         key:'mt4_account',
+        hide:!this.realNameAuthed,
         link:null,
         icon:'user',
         ...config.mt4_account,
@@ -242,6 +245,7 @@ export default {
         ],
       },{//wallet
         key:'wallet',
+        hide:!this.realNameAuthed,
         link:null,
         icon:'user',
         ...config.wallet,
@@ -251,7 +255,15 @@ export default {
           config.wallet_recharge,
           config.wallet_history,
         ],
-      }
+      },{//agent
+        key:'agent',
+        link:null,
+        icon:'user',
+        ...config.agent,
+        children:[
+          config.agent_promote,
+        ],
+      },
     ]
     },
     routePath(){
@@ -265,6 +277,7 @@ export default {
     },
     ...mapState('app', ['windowHeight', 'isPC']),
     ...mapState('mt4AC', ['list']),
+    ...mapGetters('account', ['realNameAuthed']),
   },
   components: {
     NavUser,NavMt4,

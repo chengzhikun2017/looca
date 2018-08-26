@@ -128,11 +128,9 @@ export default {
     getWallet({state}){
       let promise = fetch({
         url:'balance/wallet'
-      },{
-        simple:true
       })
       promise.then((res) => {
-        state.wallet = res
+        state.money = res
       })
       return promise
     },

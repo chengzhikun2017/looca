@@ -113,7 +113,9 @@ export default {
 
 </style>
 <style lang="scss">
-
+#app .l-log .ant-form-item {
+    margin-bottom: 20px;
+}
 .l-log{
   .ant-tabs-nav{
     width: 100%;
@@ -123,5 +125,6 @@ export default {
     margin-right: 0;
     text-align: center;
   }
+
 }
 </style>

@@ -7,9 +7,12 @@
         showIcon
       >
         <div v-if="authStatus === '认证失败'" slot="description">
-          {{authInfo.remark}}
+          {{authInfo.remark}} 
         </div>
-        <div v-else slot="description">修改认证资料需提交后台审核</div>
+        <div v-else slot="description">
+          修改认证资料需提交后台审核
+          <a-button size="small" type="primary" @click="getAuthInfo">刷新</a-button>
+        </div>
       </a-alert>
     </div>
     <a-form>
@@ -122,7 +125,7 @@ export default {
         email: this.formData.email,
       }
     },
-    ...mapActions('account', ['authVerify']),
+    ...mapActions('account', ['authVerify','getAuthInfo']),
   },
   watch:{
     isRealNamed(v){

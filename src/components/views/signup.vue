@@ -101,7 +101,7 @@ export default {
         return 
       }
       let params = this.getParams()
-      this.signup(params)
+      this.submitFunc(params)
     },
     getParams(){
       let { phone, code, password } = this.formData
@@ -176,9 +176,16 @@ export default {
     checkValid(){
       return this.input.validate(['code','password'])
     },
-    ...mapActions('account', ['getVerifyCode', 'signup', 'isPhoneRegister'])
+    ...mapActions('account', ['getVerifyCode', 'signup', 'isPhoneRegister','findPwd'])
   },
   computed: {
+    submitFunc(){
+      if(this.isFindpwd){
+        return this.findPwd
+      }else{
+        return this.signup
+      }
+    },
     codeBtnType() {
       // if(this.sendingCode){
       //   return "loading"

@@ -47,7 +47,11 @@ class defaultAccountInfo {
 export default {
   namespaced: true,
   state: new defaultAccountInfo(),
-  getters: {},
+  getters: {
+    realNameAuthed(state){
+      return state.authInfo.status === 1
+    },
+  },
   mutations: {
     shareInfoSet(s, { qudao, ancestor, uid }) {
       // console.log('shareInfoSet commit',qudao,ancestor,uid)
@@ -193,13 +197,16 @@ export default {
       })
       return promise
     },
-    getAuthInfo({state}) {
+    getAuthInfo({state,getters}) {
       // 0等待认证、1等待审核、2认证通过、3认证失败 
       var promise = fetch({
         url: "/auth/info"
       })
       promise.then(res=>{
         state.authInfo = res
+        if(!getters.realNameAuthed){
+          helper.goPage('/mine_real')
+        }
       })
       return promise
     },
