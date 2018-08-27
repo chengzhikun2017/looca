@@ -2,15 +2,15 @@
   <div class="wallet-page">
     <div class="wallet-list">
       <div class="wallet-list-title">余额</div>
-      <div class="wallet-list-content">$343.44</div>
+      <div class="wallet-list-content">${{money.balance|money}}343.44</div>
       <div class="wallet-list-opt">
-        <a-button type='primary' class="wallet-list-btn">
+        <a-button type='primary' class="wallet-list-btn" @click="goPage('wallet_recharge')">
           充值
         </a-button>
-        <a-button type='primary' class="wallet-list-btn">
+        <a-button type='primary' class="wallet-list-btn" @click="goPage('wallet_withdraw')">
           提现
         </a-button>
-        <a-button type='primary' class="wallet-list-btn">
+        <a-button type='primary' class="wallet-list-btn" @click="goPage('wallet_history')">
           查看流水
         </a-button>
       </div>
@@ -18,9 +18,9 @@
     <div class="wallet-divider"></div>
     <div class="wallet-list">
       <div class="wallet-list-title">可提现佣金分红</div>
-      <div class="wallet-list-content">$343.44</div>
+      <div class="wallet-list-content">${{money.brokerage|money}}343.44</div>
       <div class="wallet-list-opt">
-        <a-button type='primary' class="wallet-list-btn">
+        <a-button type='primary' class="wallet-list-btn" @click="goPage('wallet_withdraw')">
           提现至余额
         </a-button>
       </div>
@@ -28,9 +28,9 @@
     <div class="wallet-divider"></div>
     <div class="wallet-list">
       <div class="wallet-list-title">累计佣金分红</div>
-      <div class="wallet-list-content">$343.44</div>
+      <div class="wallet-list-content">${{money.totalBrokerage|money}}343.44</div>
       <div class="wallet-list-opt">
-        <a-button type='primary' class="wallet-list-btn">
+        <a-button type='primary' class="wallet-list-btn" @click="goPage('wallet_history')">
           查看分红记录
         </a-button>
       </div>
@@ -38,6 +38,8 @@
   </div>
 </template>
 <script>
+import helper from '../utils/helper.js'
+import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
 export default {
   name: 'wallet',
   data() {
@@ -45,9 +47,13 @@ export default {
     }
   },
   methods: {
-
+    goPage(path){
+      helper.goPage(path)
+    },
   },
-  computed: {},
+  computed: {
+    ...mapState('wallet',['money'])
+  },
   components: {
   }
 }

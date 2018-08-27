@@ -68,7 +68,7 @@
 // 
 const config = {
   user:{title:'个人信息'},
-  mine_wallet:{title:"我的钱包",link:"mine_wallet",rootKey:'user'},
+  mine_wallet:{title:"我的钱包",link:"wallet_review",rootKey:'user'},
   mine_cards:{title:"我的银行卡",link:"mine_cards",rootKey:'user'},
   mine_real:{title:"实名信息",link:"mine_real",rootKey:'user'},
   modifypwd:{title:"修改密码",link:"modifypwd",rootKey:'user'},
@@ -215,6 +215,7 @@ export default {
         ...config.user,
         children:[
           {...config.mine_cards,hide:!this.realNameAuthed},
+          config.mine_wallet,
           config.mine_real,
           config.modifypwd,
         ],
@@ -246,6 +247,7 @@ export default {
       },{//wallet
         key:'wallet',
         hide:!this.realNameAuthed,
+        hide:true,
         link:null,
         icon:'user',
         ...config.wallet,

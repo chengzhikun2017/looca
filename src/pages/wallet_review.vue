@@ -2,15 +2,15 @@
   <div class="trade_wallet-page">
     <div class="trade_wallet-list">
       <div class="trade_wallet-list-title">余额</div>
-      <div class="trade_wallet-list-content">${{money.balance}}</div>
+      <div class="trade_wallet-list-content">${{money.balance | money}}</div>
       <div class="trade_wallet-list-opt">
-        <a-button type='primary' class="trade_wallet-list-btn">
+        <a-button type='primary' class="wallet-list-btn" @click="go('/wallet_recharge')">
           充值
         </a-button>
-        <a-button type='primary' class="trade_wallet-list-btn">
+        <a-button type='primary' class="wallet-list-btn" @click="go('/wallet_withdraw')">
           提现
         </a-button>
-        <a-button type='primary' class="trade_wallet-list-btn">
+        <a-button type='primary' class="wallet-list-btn" @click="go('/wallet_history')">
           查看流水
         </a-button>
       </div>
@@ -18,7 +18,7 @@
     <div class="tarde_wallet-divider"></div>
     <div class="trade_wallet-list">
       <div class="trade_wallet-list-title">可提现佣金分红</div>
-      <div class="trade_wallet-list-content">${{money.brokerage}}</div>
+      <div class="trade_wallet-list-content">${{money.brokerage | money}}</div>
       <div class="trade_wallet-list-opt">
         <a-button type='primary' @click="go('/wallet_withdraw')" class="trade_wallet-list-btn">
           提现至余额
@@ -28,9 +28,9 @@
     <div class="tarde_wallet-divider"></div>
     <div class="trade_wallet-list">
       <div class="trade_wallet-list-title">累计佣金分红</div>
-      <div class="trade_wallet-list-content">${{money.totalBrokerage}}</div>
+      <div class="trade_wallet-list-content">${{money.totalBrokerage | money}}</div>
       <div class="trade_wallet-list-opt">
-        <a-button type='primary' class="trade_wallet-list-btn">
+        <a-button type='primary' class="trade_wallet-list-btn" @click="go('/wallet_history')">
           查看分红记录
         </a-button>
       </div>
