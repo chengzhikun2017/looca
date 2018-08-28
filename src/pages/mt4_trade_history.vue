@@ -9,8 +9,9 @@
     <div class="search-box">
       <a-range-picker
         :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }"
-        :defaultValue="[moment().add(-6,'day'), moment()]"
+        :defaultValue="[defaultStart,defaultEnd]"
         @change="onDateRangeChange" 
+        v-model="selectDate"
       />
       <a-button @click="getList" type="primary">search</a-button>
     </div>
@@ -96,26 +97,36 @@
     dataIndex:"profit",
     // width:'60px',
   },{
-    title:"orderId",
-    dataIndex:"ord123erId",
-  }];
+    title:"symbol",
+    dataIndex:"symbol",
+  },{
+    title:"actionType",
+    dataIndex:"actionType",
+  },];
 import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
+const defaultStart =moment().add(-26,'day')
+const defaultEnd = moment()
+const FORMAT = "YYYY-MM-DD"
 export default {
   name:'mt4_trade_history',
   data() {
     return {
+      selectDate:null,
       listType:'trade',
       loading: false,
       columns:columns,
-      startDate:'',
-      endDate:'',
-      _pagination:{
-        current:0,
-      },
+      defaultStart,
+      defaultEnd,
+      startDate:defaultStart.format(FORMAT),
+      endDate:defaultEnd.format(FORMAT),
+      currentPage:0,
+      // _pagination:{
+      //   current:0,
+      // },
     }
   },
   created(){
-    // this.getList()
+    this.getList()
     // setTimeout(()=> {
     // this.getTradeHistory()
     // }, 3000);
@@ -130,19 +141,25 @@ export default {
       return record.orderId
     },
     handleTableChange(pagination){
+      this.currentPage = pagination.current
+      // this._pagination = Object.assign({},pagination)
       console.log('%c pagination','color:red',pagination)
-      this._pagination = pagination
       this.$nextTick(() => {
-         
-      this.getList()
+        if(this.listType==="trade"){
+          this.getList()
+        }
       })
     },
     getList(){
+      this.loading = true
       this._getList({
         page:this.pagination.current,
         limit:this.pagination.pageSize,
         st:this.startDate,
         et:this.endDate,
+      })
+      .finally(() => {
+        this.loading = false 
       })
     },
     ...mapActions('trade',{
@@ -152,15 +169,27 @@ export default {
   },
   computed: {
     pagination(){
-      let pagination = this._pagination
-      console.log('%c this pagination','color:red',pagination)
-      return Object.assign({
-        pageSize:10,
-        showSizeChanger:true,
-        size:'small',
-        total:this._list.ttlQty,
-      },pagination)
+      return {
+        pageSize: 10,
+        showSizeChanger: true,
+        size: 'small',
+        total: this._list.ttlQty,
+        current:this.currentPage,
+      }
     },
+    // pagination: {
+    //   get() {
+    //     let pagination = this._pagination
+    //     console.log('%c this pagination', 'color:red', pagination)
+    //     return Object.assign({
+    //       pageSize: 10,
+    //       showSizeChanger: true,
+    //       size: 'small',
+    //       total: this._list.ttlQty,
+    //       current:0,
+    //     }, pagination)
+    //   },
+    // },
     _getList(){
       return this[`${this.listType}ListGet`]
     },
@@ -175,6 +204,11 @@ export default {
     ...mapState('mt4AC',['currentMt4Uid']),
   },
   watch:{
+    listType(value){
+      this.$nextTick(() => {
+        this.getList() 
+      })
+    },
     ttlQty(v){
       this.pagination.total = v
     },

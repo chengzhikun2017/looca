@@ -40,10 +40,10 @@ export default {
   name: 'mt4_create',
   data() {
     let newInput = new inputHelper.newInput(['password','password2','repassword','repassword2'])
-    ValidationSet.password(newInput,'password')
-    ValidationSet.password(newInput,'repassword')
-    ValidationSet.password(newInput,'password2')
-    ValidationSet.password(newInput,'repassword2')
+    ValidationSet.mt4Pwd(newInput,'password')
+    ValidationSet.mt4Pwd(newInput,'repassword')
+    ValidationSet.mt4Pwd(newInput,'password2')
+    ValidationSet.mt4Pwd(newInput,'repassword2')
     return {
       input: newInput,
     }

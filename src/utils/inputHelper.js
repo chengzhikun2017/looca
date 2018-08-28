@@ -133,8 +133,8 @@ ValidationSet.id = function(input,keyName){
   input.setValidation(keyName, (value) => {
     if (!value) {
       return inputHelper.statusEmpty
-    } else if (!regs.password.test(value)) {
-      // return inputHelper.createStatus(2, "不正确")
+    } else if (!regs.ID.test(value)) {
+      return inputHelper.createStatus(2, "身份证号码格式不正确")
     }
   })
 }

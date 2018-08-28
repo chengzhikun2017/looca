@@ -20,6 +20,12 @@ export default {
     list:[],
     ttlQty:0,
     ttlPage:0,
+    summeray:{
+      loss:0, //亏损笔数
+      total:0, //总笔数
+      win:0, //盈利笔数
+      profit:0, //总实际盈利
+    },
   },
   getters: {},
   mutations: {
@@ -71,9 +77,9 @@ export default {
         showLoading:false,
       })
       promise.then(res => {
-        state.openList.list = res.list
-        state.openList.ttlQty = res.total
-        state.openList.ttlPage = res.pages
+        state.openList.list = res
+        state.openList.ttlQty = res.length
+        // state.openList.ttlPage = res.pages
         console.log('%c getOpenHistory','color:red',res)
       })
       .finally(() => {
@@ -85,11 +91,14 @@ export default {
         url:"trade/count",
         params:{
           mt4Uid: vueApp.$store.state.mt4AC.currentMt4Uid,
-          page:params.page||1,
-          limit:params.limit||10,
-          st:params.st,
-          et:params.et,
+          // page:params.page||1,
+          // limit:params.limit||10,
+          // st:params.st,
+          // et:params.et,
         },
+      })
+      promise.then((res) => {
+        state.summeray = res 
       })
       return promise
     },

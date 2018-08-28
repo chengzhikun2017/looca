@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import moment from 'moment'
-
+window.moment = moment
 Vue.prototype.$showLoading = (loadingText) => {
   vueApp.$store.commit('feedback/showLoading', loadingText)
 }
