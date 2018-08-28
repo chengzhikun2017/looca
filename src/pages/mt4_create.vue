@@ -101,7 +101,7 @@ export default {
     title(){
       if(this.type === 'demo'){
         return "创建模拟账户"
-      }else{
+      }else if(this.type === 'live'){
         return "创建实名账户"
       }
     },

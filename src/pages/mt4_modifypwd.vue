@@ -26,31 +26,26 @@
     </div>
     <div class="form-box">
       <a-form @submit="handleSubmit">
-        <a-form-item v-if="showModifyTrade" :wrapperCol="{ span: 18 }" label='原交易密码' :labelCol="{ span: 6 }" :validateStatus="input.status.tradePwd.validateStatus" :help="input.status.tradePwd.help">
-          <a-input placeholder="请输入原交易密码" type="password" ref="inputtradePwd" v-model="input.values.tradePwd" @blur="validate('tradePwd')" @focus="clearValidation('tradePwd')">
+        <a-form-item :wrapperCol="{ span: 18 }" label='原交易密码' :labelCol="{ span: 6 }" :validateStatus="input.status.tradePwd.validateStatus" :help="input.status.tradePwd.help">
+          <a-input placeholder="请输入原交易密码" ref="inputtradePwd" v-model="input.values.tradePwd" @blur="validate('tradePwd')" @focus="clearValidation('tradePwd')">
           </a-input>
         </a-form-item>
         <a-form-item v-if="showModifyTrade" :wrapperCol="{ span: 18 }" label='新交易密码' :labelCol="{ span: 6 }" :validateStatus="input.status.newTradePwd.validateStatus" :help="input.status.newTradePwd.help">
-          <a-input placeholder="请输入新交易密码" type="password" ref="inputnewTradePwd" v-model="input.values.newTradePwd" @blur="validate('newTradePwd')" @focus="clearValidation('newTradePwd')">
+          <a-input placeholder="请输入新交易密码" ref="inputnewTradePwd" v-model="input.values.newTradePwd" @blur="validate('newTradePwd')" @focus="clearValidation('newTradePwd')">
           </a-input>
         </a-form-item>
-        <a-form-item v-if="showModifyTrade" :wrapperCol="{ span: 18 }" label='重复交易密码' :labelCol="{ span: 6 }" :validateStatus="input.status.renewTradePwd.validateStatus" :help="input.status.renewTradePwd.help">
-          <a-input placeholder="请再次输入新的交易密码" type="password" ref="inputrenewTradePwd" v-model="input.values.renewTradePwd" @blur="validate('renewTradePwd')" @focus="clearValidation('renewTradePwd')">
+        <!-- <a-form-item v-if="showModifyTrade" :wrapperCol="{ span: 18 }" label='重复交易密码' :labelCol="{ span: 6 }" :validateStatus="input.status.renewTradePwd.validateStatus" :help="input.status.renewTradePwd.help">
+          <a-input placeholder="请再次输入新的交易密码" ref="inputrenewTradePwd" v-model="input.values.renewTradePwd" @blur="validate('renewTradePwd')" @focus="clearValidation('renewTradePwd')">
           </a-input>
-        </a-form-item>
-
-        <a-form-item v-if="showModifyRead" :wrapperCol="{ span: 18 }" label='原只读密码' :labelCol="{ span: 6 }" :validateStatus="input.status.readPwd.validateStatus" :help="input.status.readPwd.help">
-          <a-input placeholder="请输入原只读密码" type="password" ref="readPwd" v-model="input.values.readPwd" @blur="validate('readPwd')" @focus="clearValidation('readPwd')">
-          </a-input>
-        </a-form-item>
+        </a-form-item> -->
         <a-form-item v-if="showModifyRead" :wrapperCol="{ span: 18 }" label='新只读密码' :labelCol="{ span: 6 }" :validateStatus="input.status.newReadPwd.validateStatus" :help="input.status.newReadPwd.help">
-          <a-input placeholder="请输入新只读密码" type="password" ref="inputnewReadPwd" v-model="input.values.newReadPwd" @blur="validate('newReadPwd')" @focus="clearValidation('newReadPwd')">
+          <a-input placeholder="请输入新只读密码" ref="inputnewReadPwd" v-model="input.values.newReadPwd" @blur="validate('newReadPwd')" @focus="clearValidation('newReadPwd')">
           </a-input>
         </a-form-item>
-        <a-form-item v-if="showModifyRead" :wrapperCol="{ span: 18 }" label='重复只读密码' :labelCol="{ span: 6 }" :validateStatus="input.status.renewReadPwd.validateStatus" :help="input.status.renewReadPwd.help">
-          <a-input placeholder="请再次输入新的只读密码" type="password" ref="inputrenewReadPwd" v-model="input.values.renewReadPwd" @blur="validate('renewReadPwd')" @focus="clearValidation('renewReadPwd')">
+        <!-- <a-form-item v-if="showModifyRead" :wrapperCol="{ span: 18 }" label='重复只读密码' :labelCol="{ span: 6 }" :validateStatus="input.status.renewReadPwd.validateStatus" :help="input.status.renewReadPwd.help">
+          <a-input placeholder="请再次输入新的只读密码" ref="inputrenewReadPwd" v-model="input.values.renewReadPwd" @blur="validate('renewReadPwd')" @focus="clearValidation('renewReadPwd')">
           </a-input>
-        </a-form-item>
+        </a-form-item> -->
 
         <a-form-item :wrapperCol="{ span: 24}">
           <div class="bttn-box">
@@ -71,11 +66,10 @@ import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 export default {
   name: 'mt4_modifypwd',
   data() {
-    let newInput = new inputHelper.newInput(['tradePwd', 'newTradePwd', 'renewTradePwd', 'readPwd', 'newReadPwd', 'renewReadPwd'])
+    let newInput = new inputHelper.newInput(['tradePwd', 'newTradePwd', 'renewTradePwd', 'newReadPwd', 'renewReadPwd'])
     ValidationSet.password(newInput,'tradePwd')
     ValidationSet.password(newInput,'newTradePwd')
     ValidationSet.password(newInput,'renewTradePwd')
-    ValidationSet.password(newInput,'readPwd')
     ValidationSet.password(newInput,'newReadPwd')
     ValidationSet.password(newInput,'renewReadPwd')
     return {
@@ -101,13 +95,12 @@ export default {
       }else if(this.type === 'read'){
         params = this.getParamsRead()
       }
-      console.log('%c params','color:red',params)
       this.modifyPwd(params)
     },
     getParamsRead(){
       return {
         mt4Uid:this.currentMt4Uid,
-        password:this.formData.readPwd,
+        password:this.formData.tradePwd,
         newPassword:this.formData.newReadPwd,
         type:'investor',
       }
@@ -122,20 +115,17 @@ export default {
     },
     checkValid(){
       let flag = true
-      // if(!this.validateAll()){
-      //   return false
+      // let data = this.formData
+      // if(data.newTradePwd!==data.renewTradePwd){
+      //   this.input.status.newTradePwd = inputHelper.createStatus(2,'两次输入密码不一致')
+      //   this.input.status.renewTradePwd = inputHelper.createStatus(2,'两次输入密码不一致')
+      //   flag = false
       // }
-      let data = this.formData
-      if(data.newTradePwd!==data.renewTradePwd){
-        this.input.status.newTradePwd = inputHelper.createStatus(2,'两次输入密码不一致')
-        this.input.status.renewTradePwd = inputHelper.createStatus(2,'两次输入密码不一致')
-        flag = false
-      }
-      if(data.newReadPwd!==data.renewReadPwd){
-        this.input.status.newReadPwd = inputHelper.createStatus(2,'两次输入密码不一致')
-        this.input.status.renewReadPwd = inputHelper.createStatus(2,'两次输入密码不一致')
-        flag = false
-      }
+      // if(data.newReadPwd!==data.renewReadPwd){
+      //   this.input.status.newReadPwd = inputHelper.createStatus(2,'两次输入密码不一致')
+      //   this.input.status.renewReadPwd = inputHelper.createStatus(2,'两次输入密码不一致')
+      //   flag = false
+      // }
       return flag
     }, 
     ...mapActions('mt4AC',['modifyPwd'])

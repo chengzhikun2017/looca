@@ -1,6 +1,20 @@
 <template>
   <div class="mt4_trade_history-page">
-     <div v-if="listGot">
+    <div class="choose-box">
+      <a-radio-group v-model="listType" style="margin:8px">
+        <a-radio-button value="trade">交易记录</a-radio-button>
+        <a-radio-button value="open">持仓订单</a-radio-button>
+      </a-radio-group>
+    </div>
+    <div class="search-box">
+      <a-range-picker
+        :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }"
+        :defaultValue="[moment().add(-6,'day'), moment()]"
+        @change="onDateRangeChange" 
+      />
+      <a-button @click="getList" type="primary">search</a-button>
+    </div>
+     <div>
        <a-table :columns="columns"
            :rowKey="rowKey"
            :dataSource="list"
@@ -90,51 +104,73 @@ export default {
   name:'mt4_trade_history',
   data() {
     return {
+      listType:'trade',
       loading: false,
       columns:columns,
-      pagination:{
-        pageSize:10,
-        showSizeChanger:true,
-        current:3,
-        size:'small',
-        total:0,
+      startDate:'',
+      endDate:'',
+      _pagination:{
+        current:0,
       },
     }
   },
   created(){
-    this.getCurrentHistory()
+    // this.getList()
     // setTimeout(()=> {
-    // this.getCurrentHistory()
+    // this.getTradeHistory()
     // }, 3000);
   },
   methods: {
+    onDateRangeChange(date, dateString){
+      // console.log('%c date, dateString','color:red',date, dateString)
+      this.startDate = dateString[0]
+      this.endDate = dateString[1]
+    },
     rowKey(record){
       return record.orderId
     },
     handleTableChange(pagination){
       console.log('%c pagination','color:red',pagination)
-      this.pagination = pagination
+      this._pagination = pagination
+      this.$nextTick(() => {
+         
       this.getList()
-    },
-    getList(){
-      this.getCurrentHistory({
-        page:this.pagination.current,
-        limit:this.pagination.pageSize,
       })
     },
-    ...mapActions('trade',['getCurrentHistory']),
+    getList(){
+      this._getList({
+        page:this.pagination.current,
+        limit:this.pagination.pageSize,
+        st:this.startDate,
+        et:this.endDate,
+      })
+    },
+    ...mapActions('trade',{
+      tradeListGet:"getTradeHistory",
+      openListGet:"getOpenHistory",
+    }),
   },
   computed: {
-    // pagination:{
-    //   get(){
-    //     return this._pagination
-    //   },
-    //   set(v){
-    //     // v.total = this.ttlQty
-    //     this._pagination = v
-    //   },
-    // },
-    ...mapState('trade',['listGot','list','ttlQty']),
+    pagination(){
+      let pagination = this._pagination
+      console.log('%c this pagination','color:red',pagination)
+      return Object.assign({
+        pageSize:10,
+        showSizeChanger:true,
+        size:'small',
+        total:this._list.ttlQty,
+      },pagination)
+    },
+    _getList(){
+      return this[`${this.listType}ListGet`]
+    },
+    _list(){
+      return this[`${this.listType}List`] || {}
+    },
+    list(){
+      return this._list.list
+    },
+    ...mapState('trade',['summeray','tradeList','openList']),
     ...mapState('app',['isPC']),
     ...mapState('mt4AC',['currentMt4Uid']),
   },
