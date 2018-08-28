@@ -30,7 +30,7 @@
         </a-sub-menu>
       </a-menu>
       <div class="logo" flex="main:center cross:center">
-        <img class="logo-image" src="@/assets/display/logo.png" alt="">
+        <img class="logo-image" src="@/assets/display/logo1.png" alt="">
         <div class="logo-title">乐恺环球</div>
       </div>
     </a-layout-sider>
@@ -292,7 +292,7 @@ export default {
     padding-top: 3px;
     padding-left: 10px;
     color: white;
-    font-size: 24px;
+    font-size: 22px;
   }
 }
 .nav-user{
@@ -332,6 +332,9 @@ export default {
       height: 100%;
       overflow-y:auto;
     }
+  }
+  .ant-menu-dark {
+    background: rgba(0,0,0,.65);
   }
 }
 </style>
