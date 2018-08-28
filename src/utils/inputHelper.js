@@ -80,10 +80,20 @@ class input {
 }
 var ValidationSet ={}
 
+ValidationSet.bankCard = function(input,keyName){
+  input.setValidation(keyName, (value) => {
+    if (!value) {
+      return inputHelper.createStatusEmpty('卡号')
+    } else if (!regs.bankCard.test(value)) {
+      return inputHelper.createStatus(2, "卡号格式不正确")
+    }
+  })
+}
+
 ValidationSet.phone = function(input,keyName){
   input.setValidation(keyName, (value) => {
     if (!value) {
-      return inputHelper.statusEmpty
+      return inputHelper.createStatusEmpty('手机号码')
     } else if (!regs.phone.test(value)) {
       return inputHelper.createStatus(2, "手机格式不正确")
     }
@@ -93,17 +103,23 @@ ValidationSet.phone = function(input,keyName){
 ValidationSet.password = function(input,keyName){
   input.setValidation(keyName, (value) => {
     if (!value) {
-      return inputHelper.statusEmpty
+      return inputHelper.createStatusEmpty('密码')
     } else if (!regs.password.test(value)) {
       return inputHelper.createStatus(2, "密码格式不正确")
     }
   })
 }
-
+ValidationSet.name = function(input,keyName){
+  input.setValidation(keyName, (value) => {
+    if (!value) {
+      return inputHelper.createStatusEmpty('姓名')
+    } 
+  })
+}
 ValidationSet.mt4Pwd = function(input,keyName){
   input.setValidation(keyName, (value) => {
     if (!value) {
-      return inputHelper.statusEmpty
+      return inputHelper.createStatusEmpty('密码')
     } else if (!regs.mt4Pwd.test(value)) {
       return inputHelper.createStatus(2, "密码格式不正确")
     }
@@ -112,7 +128,7 @@ ValidationSet.mt4Pwd = function(input,keyName){
 ValidationSet.code6 = function(input,keyName){
   input.setValidation(keyName, (value) => {
     if (!value) {
-      return inputHelper.statusEmpty
+      return inputHelper.createStatusEmpty('验证码')
     } else if (!regs.code6.test(value)) {
       return inputHelper.createStatus(2, "验证码格式不正确")
     }
@@ -122,7 +138,7 @@ ValidationSet.code6 = function(input,keyName){
 ValidationSet.code4 = function(input,keyName){
   input.setValidation(keyName, (value) => {
     if (!value) {
-      return inputHelper.statusEmpty
+      return inputHelper.createStatusEmpty('验证码')
     } else if (!regs.code4.test(value)) {
       return inputHelper.createStatus(2, "验证码格式不正确")
     }
@@ -132,9 +148,19 @@ ValidationSet.code4 = function(input,keyName){
 ValidationSet.id = function(input,keyName){
   input.setValidation(keyName, (value) => {
     if (!value) {
-      return inputHelper.statusEmpty
+      return inputHelper.createStatusEmpty('身份证号码')
     } else if (!regs.ID.test(value)) {
       return inputHelper.createStatus(2, "身份证号码格式不正确")
+    }
+  })
+}
+
+ValidationSet.email = function(input,keyName){
+  input.setValidation(keyName, (value) => {
+    if (!value) {
+      return inputHelper.createStatusEmpty('邮箱')
+    } else if (!regs.ID.test(value)) {
+      return inputHelper.createStatus(2, "邮箱格式不正确")
     }
   })
 }
@@ -185,7 +211,9 @@ class InputHelper {
       help: help,
     }
   }
-
+  createStatusEmpty(inputName){
+    this.createStatus(2,inputName+'不能为空')
+  }
   get statusEmpty() {
     return Object.assign({},this._status.empty)
   }

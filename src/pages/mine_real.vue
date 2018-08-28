@@ -83,10 +83,13 @@ import ImageUpload from './../components/container/imageUpload.vue'
 
 
 export default {
-  name: 'mine_real',
+name: 'mine_real',
   mixins: [inputMixin],
   data() {
     var newInput = new inputHelper.newInput(['name', 'email', 'idCardNo'])
+    ValidationSet.email(newInput,'email')
+    ValidationSet.name(newInput,'name')
+    ValidationSet.id(newInput,'idCardNo')
     return {
       input: newInput,
       editing: true,

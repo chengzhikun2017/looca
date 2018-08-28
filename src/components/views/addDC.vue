@@ -42,9 +42,10 @@ export default {
   mixins: [inputMixin],
   data() {
     var newInput = new inputHelper.newInput(["name", "cardNo", "bankName", "bankBranch", ])
-    newInput.values.cardNo = "6212261001020165509"
-    newInput.values.name = "黄树栋"
-    newInput.values.bankName = "工商银行"
+    ValidationSet.bankCard(newInput,"cardNo")
+    // newInput.values.cardNo = "6212261001020165509"
+    // newInput.values.name = "黄树栋"
+    // newInput.values.bankName = "工商银行"
     return {
       input: newInput
     }

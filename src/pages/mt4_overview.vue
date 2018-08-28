@@ -18,7 +18,7 @@
         </a-radio-group>
       </div>
     </a-modal>
-    <div class="header">
+    <div class="header" v-if="false">
       <p class="text">**实名认证后方可开户</p>
       <div class="colum-filter"  v-if=false>
         <label for="" class="label">
@@ -56,7 +56,7 @@
           :pagination="pagination"
           :loading="loading"
           @change="handleTableChange"
-          v-if="isPC"
+          v-if="isPC&&false"
         >
         <template slot="balanceFee" slot-scope="balanceFee">
           {{balanceFee|money}}
@@ -82,6 +82,7 @@
 
 <script>
 import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
+import ListItem from "./../components/container/mt4AccountListItem.vue"
 import helper from '../utils/helper.js'
   //PC可配置 显示列
   //
@@ -249,7 +250,9 @@ export default {
     ...mapState('mt4AC',['list','currentMt4Uid','listGot']),
     ...mapState('app',['isPC']),
   },
-  components: {},
+  components: {
+    ListItem,
+  },
 }
 </script>
 
