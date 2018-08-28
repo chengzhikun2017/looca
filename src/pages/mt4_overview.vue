@@ -49,6 +49,16 @@
       </div>
       <a-button type="primary" @click.native="selectCreation">立即开户</a-button>
     </div>
+<!--     <div>
+      <a-list
+        itemLayout="horizontal"
+        :dataSource="list"
+      >
+        <a-list-item slot="renderItem" slot-scope="item, index">
+          <ListItem :mt4="item"></ListItem>
+        </a-list-item>
+      </a-list>
+    </div> -->
     <div>
       <a-table :columns="columns"
           :rowKey="rowKey"
@@ -63,6 +73,9 @@
         </template>
         <template slot="createTime" slot-scope="createTime">
           {{createTime|timeFull}}
+        </template>
+        <template slot="list" slot-scope="text, record, index">
+          <ListItem :mt4="record"></ListItem>
         </template>
         <template slot="action" slot-scope="text, record, index">
           <a-button size="small" type="primary">立即入金</a-button>
@@ -84,6 +97,13 @@
 import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
 import ListItem from "./../components/container/mt4AccountListItem.vue"
 import helper from '../utils/helper.js'
+  const singleColum = [
+  {
+    title: '',
+    dataIndex: 'mt4Uid',
+    scopedSlots: { customRender: 'list' },
+  },
+  ]
   //PC可配置 显示列
   //
   const allColumns = {
@@ -242,6 +262,7 @@ export default {
       return !this.listGot
     },
     columns(){
+      return singleColum
       let arr = this.columnsShow.map((item) => {
         return this.allColumns[item]
       })

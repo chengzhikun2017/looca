@@ -4,17 +4,17 @@
       <div class="mt4_account_list_item-account" >
         <div class="mt4_account_list_item-account-box" flex>
           <div class="mt4_account_list_item-account-box-label">MT4账号：</div>
-          <div class="mt4_account_list_item-account-box-input">6323232</div>
+          <div class="mt4_account_list_item-account-box-input">{{mt4.mt4Uid}}</div>
         </div>
         <div class="mt4_account_list_item-account-box" flex>
           <div class="mt4_account_list_item-account-box-label">名称：</div>
-          <div class="mt4_account_list_item-account-box-input">陶雨</div>
+          <div class="mt4_account_list_item-account-box-input">{{mt4.fullName}}</div>
         </div>
       </div>
       <div class="mt4_account_list_item-introduce" flex-box="1" flex="main:center cross:center">
         <div class="mt4_account_list_item-balance" flex-box="1" flex="dir:top main:center cross:center">
           <div>余额</div>
-          <div class="money">$3333.333</div>
+          <div class="money">${{mt4.balanceFee | money}}</div>
         </div>
         <div class="mt4_account_list_item-trade" flex-box="1" flex="dir:top main:center cross:center">
           <div>持仓亏盈</div>
@@ -45,10 +45,16 @@
   export default {
     name: 'mt4_account_list_item',
     props: {
-      data: {
+      mt4: {
         type: Object,
-        default: () => {}
+        default(){
+          return {
+
+          }
+        }
       }
+    },
+    created(){
     },
     data() {
       return {

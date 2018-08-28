@@ -2,30 +2,34 @@
   <a-layout id="appLayout">
     <a-layout-sider breakpoint="lg" v-model="collapsed" collapsedWidth="0" @collapse="onCollapse" ref="sider">
       <a-menu ref="menu" theme="dark" mode="inline" :openKeys="openKeys" @openChange="onOpenChange" v-model="current" @click="onItemClick">
-        <!-- <a-menu-item key="1" @click.native="go('/test5')" @click="onItemClick">
-          <a-icon type="user" />
-          <span class="nav-text">test 5</span>
-        </a-menu-item>
-        <a-menu-item key="2" @click.native="go('/test2')">
-          <a-icon type="video-camera" />
-          <span class="nav-text">test 2</span>
-        </a-menu-item>
-        <a-menu-item key="3">
-          <a-icon type="upload" />
-          <span class="nav-text">test 3</span>
-        </a-menu-item>
-        <a-menu-item key="4">
-          <a-icon type="user" />
-          <span class="nav-text">test 4</span>
-        </a-menu-item> -->
-        <a-sub-menu :key="topMenu.key" v-for="topMenu in menuConfig" v-if="!topMenu.hide">
+
+        <component 
+          v-for="topMenu in menuConfig"
+          :is="topMenu.noChild?'aMenuItem':'aSubMenu'"
+          :key="topMenu.noChild?topMenu.link:topMenu.key"
+          v-if="!topMenu.hide"
+        >
+          <span slot="title" v-if="!topMenu.noChild">
+            <a-icon :type="topMenu.icon"/>
+            <span>{{topMenu.title}}</span>
+          </span>
+          <a-menu-item v-for="subMenu in topMenu.children" v-if="!subMenu.hide&&!topMenu.noChild"  :key="subMenu.link">{{subMenu.title}}</a-menu-item>
+
+          <a-icon type="pie-chart" v-if="topMenu.noChild"  />
+          <span v-if="topMenu.noChild">{{topMenu.title}}</span>
+
+        </component>
+
+        <!-- <a-sub-menu :key="topMenu.key" v-for="topMenu in menuConfig" v-if="!topMenu.hide">
           <span slot="title">
             <a-icon :type="topMenu.icon"/>
             <span>{{topMenu.title}}</span>
           </span>
           <a-menu-item v-for="subMenu in topMenu.children" v-if="!subMenu.hide"  :key="subMenu.link">{{subMenu.title}}</a-menu-item>
         </a-sub-menu>
-
+        <a-menu-item  key="mt4_overview">
+          <a-icon type="pie-chart" />
+        </a-menu-item> -->
       </a-menu>
       <div class="logo" flex="main:center cross:center">
         <img class="logo-image" src="@/assets/display/logo1.png" alt="">
@@ -60,7 +64,7 @@
           <slot></slot>
         </div>
       </a-layout-content>
-      <a-layout-footer style="textAlign: center" v-if="!isPC">
+      <a-layout-footer style="textAlign: center" v-if="isPC">
         Ant Design ©2016 Created by Ant UED
       </a-layout-footer>
     </a-layout>
@@ -71,17 +75,16 @@
 //
 const config = {
   user:{title:'个人信息'},
-  mine_wallet:{title:"我的钱包",link:"wallet_review",rootKey:'user'},
   mine_cards:{title:"我的银行卡",link:"mine_cards",rootKey:'user'},
   mine_real:{title:"实名信息",link:"mine_real",rootKey:'user'},
   modifypwd:{title:"修改密码",link:"modifypwd",rootKey:'user'},
 
   mt4_account:{title:'MT4账户管理'},
-  mt4_create:{title:"开立账户",link:"mt4_create",rootKey:'mt4_account'},
-  mt4_overview:{title:"账号列表",link:"mt4_overview",rootKey:'mt4_account'},
-  mt4_modifypwd:{title:"修改密码",link:"mt4_modifypwd",rootKey:'mt4_account'},
-  mt4_bind:{title:"绑定账号",link:"mt4_bind",rootKey:'mt4_account'},
-  mt4_findpwd:{title:"忘记密码",link:"mt4_findpwd",rootKey:'mt4_account'},
+  mt4_create:{title:"开立账户",link:"mt4_create",rootKey:'mt4_overview'},
+  mt4_overview:{title:"MT4账户",link:"mt4_overview",isRoot:true},
+  mt4_modifypwd:{title:"修改密码",link:"mt4_modifypwd",rootKey:'mt4_overview'},
+  mt4_bind:{title:"绑定账号",link:"mt4_bind",rootKey:'mt4_overview'},
+  mt4_findpwd:{title:"忘记密码",link:"mt4_findpwd",rootKey:'mt4_overview'},
 
   mt4_trade:{title:'MT4交易管理'},
   mt4_trade_history:{title:"交易记录：持仓和历史记录",link:"mt4_trade_history",rootKey:'mt4_trade'},
@@ -90,7 +93,7 @@ const config = {
   mt4_money_bill:{title:"出入金记录",link:"mt4_money_bill",rootKey:'mt4_trade'},
 
   wallet:{title:'资产管理'},
-  wallet_review:{title:"我的钱包",link:"wallet_review",rootKey:'wallet'},
+  wallet_review:{title:"我的钱包",link:"wallet_review",rootKey:'user'},
   wallet_withdraw:{title:"余额提现",link:"wallet_withdraw",rootKey:'wallet'},
   wallet_recharge:{title:"余额充值",link:"wallet_recharge",rootKey:'wallet'},
   wallet_history:{title:"钱包记录",link:"wallet_history",rootKey:'wallet'},
@@ -104,6 +107,8 @@ import { mapState, mapMutations
 import helper from './../../utils/helper.js'
 import NavUser from './../views/navUser.vue'
 import NavMt4 from './../views/navMt4.vue'
+import {Menu} from 'vue-antd-ui'
+
 export default {
   name: 'MainLayout',
   data() {
@@ -196,7 +201,7 @@ export default {
       if(!this.config[path]){
         return
       }
-      let rootKey = this.config[path].rootKey
+      let rootKey = this.config[path].rootKey || path
       this.openKeys = [rootKey]
       // let paths =[]
       // // // let rootKey =this.config[path].rootKey
@@ -218,28 +223,28 @@ export default {
         ...config.user,
         children:[
           {...config.mine_cards,hide:!this.realNameAuthed},
-          config.mine_wallet,
+          config.wallet_review,
           config.mine_real,
           config.modifypwd,
         ],
-      }, {//mt4_account
-        key:'mt4_account',
+      },  {//mt4_account
+        // key:'mt4_overview',
+        noChild:true,
         hide:!this.realNameAuthed,
-        link:null,
-        icon:'user',
-        ...config.mt4_account,
+        // link:"mt4_overview",
+        ...config.mt4_overview,
         children:[
-          // config.mt4_create,
-          config.mt4_overview,
+          config.mt4_create,
           config.mt4_modifypwd,
           config.mt4_bind,
           config.mt4_findpwd,
         ],
-      }, {//mt4_trade
+      },{//mt4_trade
         key:'mt4_trade',
         hide:this.list.length===0,
         link:null,
         icon:'user',
+        hide:true,
         ...config.mt4_trade,
         children:[
           config.mt4_trade_history,
@@ -286,6 +291,8 @@ export default {
   },
   components: {
     NavUser,NavMt4,
+    // SubMenu:Menu.SubMenu,
+    // MenuItem:Menu.Item,
   },
 }
 
@@ -301,6 +308,7 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
+  overflow:hidden;
   .logo-image {
     width: auto;
     height: 46px;
