@@ -27,7 +27,10 @@
         </a-sub-menu>
 
       </a-menu>
-      <div class="logo" />
+      <div class="logo" flex="main:center cross:center">
+        <img class="logo-image" src="@/assets/display/logo1.png" alt="">
+        <div class="logo-title">乐恺环球</div>
+      </div>
     </a-layout-sider>
     <a-layout @click.native="onMainBodyClick">
       <a-layout-header :style="{ background: '#fff', padding: 0 }">
@@ -65,7 +68,7 @@
 </template>
 <script>
 // 64+69+24
-// 
+//
 const config = {
   user:{title:'个人信息'},
   mine_wallet:{title:"我的钱包",link:"wallet_review",rootKey:'user'},
@@ -134,7 +137,7 @@ export default {
   },
   methods: {
     // init(){
-      
+
     // },
     // initOpenKeys(){
     //   console.log('%c routePath','color:red',this.routePath)
@@ -291,11 +294,23 @@ export default {
 .logo {
   width: 100%;
   height: 64px;
-  background: rgba(0, 111, 111, 1);
-  padding: 16px 0;
+  // background: rgba(0, 111, 111, 1);
+  // background: #f5222d;
+  background: #002140;
+  // background: linear-gradient(to bottom right, #fe7244 , #fe0000); /* 标准的语法 */
   position: absolute;
   top: 0;
   left: 0;
+  .logo-image {
+    width: auto;
+    height: 46px;
+  }
+  .logo-title {
+    padding-top: 3px;
+    padding-left: 10px;
+    color: white;
+    font-size: 22px;
+  }
 }
 .nav-user{
   height: 100%;
@@ -335,7 +350,8 @@ export default {
       overflow-y:auto;
     }
   }
-
+  .ant-menu-dark {
+    background: rgba(0,0,0,.65);
+  }
 }
-
 </style>
