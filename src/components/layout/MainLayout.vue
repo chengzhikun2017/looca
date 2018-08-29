@@ -16,7 +16,7 @@
           </span>
           <a-menu-item v-for="subMenu in topMenu.children" v-if="!subMenu.hide&&!topMenu.noChild"  :key="subMenu.link">{{subMenu.title}}</a-menu-item>
 
-          <a-icon type="pie-chart" v-if="topMenu.noChild"  />
+          <a-icon :type="topMenu.icon" v-if="topMenu.noChild"  />
           <span v-if="topMenu.noChild">{{topMenu.title}}</span>
 
         </component>
@@ -229,7 +229,6 @@ export default {
         }
       })
     },
-
     menuConfig(){
       return [
       {//user
@@ -248,6 +247,7 @@ export default {
         noChild:true,
         hide:!this.realNameAuthed,
         // link:"mt4_overview",
+        icon:'profile',
         ...config.mt4_overview,
         children:[
           config.mt4_create,
@@ -284,7 +284,7 @@ export default {
       },{//agent
         key:'agent',
         link:null,
-        icon:'user',
+        icon:'share-alt',
         ...config.agent,
         children:[
           config.agent_promote,

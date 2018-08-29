@@ -4,7 +4,6 @@
       <a-sub-menu>
         <span class="title" slot="title"><a-icon type="setting"/></span>
         <!-- <a-menu-item-group title="Item 1"> -->
-        <a-menu-item key="setting:1" @click.native="logout">Option </a-menu-item>
         <a-menu-item key="setting:2" @click.native="logout">Loo账户登出</a-menu-item>
         <!-- </a-menu-item-group> -->
         <!-- <a-menu-item-group title="Item 2"> -->

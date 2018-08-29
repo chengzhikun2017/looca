@@ -45,7 +45,6 @@ export default {
         rejectErr:true,
       })
       promise.then(res => {
-        console.log('%c setCurrent','color:red',res)
         state.list = res
         dispatch('setDefaultCurrent')
       })

@@ -6,9 +6,7 @@
           <a-icon type="laptop"/>
           <span class="mt4-ac">{{currentMt4Uid}}</span>
         </span>
-        <!-- <a-menu-item-group title="Item 1"> -->
-        <a-menu-item :key="mt4.mt4Uid" @click.native="onClickItem(mt4)" v-for="mt4 in list">
-          
+        <a-menu-item v-if='false' :key="mt4.mt4Uid" @click.native="onClickItem(mt4)" v-for="mt4 in list">
           <div class="l-nav-mt4-account-item">
             <span>
               {{mt4.mt4Uid}}
@@ -18,12 +16,6 @@
             </a-button>
           </div>
         </a-menu-item>
-        <!-- <a-menu-item key="setting:2" @click.native="logout">Loo账户登出</a-menu-item> -->
-        <!-- </a-menu-item-group> -->
-        <!-- <a-menu-item-group title="Item 2"> -->
-        <!-- <a-menu-item key="setting:3">Option 3</a-menu-item>
-          <a-menu-item key="setting:4">Option 4</a-menu-item> -->
-        <!-- </a-menu-item-group> -->
       </a-sub-menu>
     </a-menu>
   </div>

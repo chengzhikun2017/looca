@@ -62,6 +62,12 @@
     sorter:true,
     // scopedSlots: { customRender: 'action' },
   },{
+    title:"品种",
+    dataIndex:"symbol",
+  },{
+    title:"方向",
+    dataIndex:"actionType",
+  },{
     title:"数量",
     dataIndex:"amount",
     width:'60px',
@@ -96,12 +102,6 @@
     title:"获利",
     dataIndex:"profit",
     // width:'60px',
-  },{
-    title:"symbol",
-    dataIndex:"symbol",
-  },{
-    title:"actionType",
-    dataIndex:"actionType",
   },];
 import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
 const defaultStart =moment().add(-26,'day')

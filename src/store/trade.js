@@ -51,6 +51,7 @@ export default {
         showLoading:false,
       })
       promise.then(res => {
+        console.log('%c res','color:red',res)
         state.tradeList.list = res.list
         state.tradeList.ttlQty = res.total
         state.tradeList.ttlPage = res.pages
