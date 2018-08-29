@@ -49,16 +49,18 @@
       </div>
       <a-button type="primary" @click.native="selectCreation">立即开户</a-button>
     </div>
-<!--     <div>
+    <div>
       <a-list
         itemLayout="horizontal"
         :dataSource="list"
+        :split="false"
+        v-if="!isPC"
       >
         <a-list-item slot="renderItem" slot-scope="item, index">
-          <ListItem :mt4="item"></ListItem>
+          <ListItemMobile :mt4="item"></ListItemMobile>
         </a-list-item>
       </a-list>
-    </div> -->
+    </div>
     <div>
       <a-table :columns="columns"
           :rowKey="rowKey"
@@ -66,7 +68,7 @@
           :pagination="pagination"
           :loading="loading"
           @change="handleTableChange"
-          v-if="isPC&&false"
+          v-if="isPC"
         >
         <template slot="balanceFee" slot-scope="balanceFee">
           {{balanceFee|money}}
@@ -96,6 +98,7 @@
 <script>
 import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
 import ListItem from "./../components/container/mt4AccountListItem.vue"
+import ListItemMobile from "./../components/container/mt4AccountCard.vue"
 import helper from '../utils/helper.js'
   const singleColum = [
   {
@@ -139,31 +142,31 @@ import helper from '../utils/helper.js'
     },
   }
   const staticColums = [
-  {
-    title: 'MT4 ID',
-    dataIndex: 'mt4Uid',
-  },
-  {
-    title: '余额',
-    dataIndex: 'balanceFee',
-    scopedSlots: { customRender: 'balanceFee' },
-  },
-  {
-    title: '账户名',
-    dataIndex: 'fullName',
-  },
-  {
-    title: '杠杆',
-    dataIndex: 'leverage',
-  },
-  {
-    title: "action",
-    dataIndex: "action",
-    width:'35%',
-    scopedSlots: {
-      customRender: 'action'
+    {
+      title: 'MT4 ID',
+      dataIndex: 'mt4Uid',
     },
-  },
+    {
+      title: '余额',
+      dataIndex: 'balanceFee',
+      scopedSlots: { customRender: 'balanceFee' },
+    },
+    {
+      title: '账户名',
+      dataIndex: 'fullName',
+    },
+    {
+      title: '杠杆',
+      dataIndex: 'leverage',
+    },
+    {
+      title: "action",
+      dataIndex: "action",
+      width:'35%',
+      scopedSlots: {
+        customRender: 'action'
+      },
+    },
   ]
   const columns = [{
     title: 'MT4 ID',
@@ -218,7 +221,6 @@ export default {
     }
   },
   created(){
-    // this.fetch()
   },
   methods: {
     selectCreation(){
@@ -273,6 +275,7 @@ export default {
   },
   components: {
     ListItem,
+    ListItemMobile,
   },
 }
 </script>
@@ -306,6 +309,13 @@ export default {
       height: 100%;
       line-height: 32px;
     }
+  }
+}
+</style>
+<style lang='scss'>
+.mt4-overview-page{
+  .ant-list-item{
+    padding: 0;
   }
 }
 </style>

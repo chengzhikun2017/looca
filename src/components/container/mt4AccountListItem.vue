@@ -1,7 +1,7 @@
 <template>
   <div class="mt4_account_list_item">
     <div class="mt4_account_list_item-content" flex="main:center cross:center">
-      <div class="mt4_account_list_item-account" >
+      <div class="mt4_account_list_item-account">
         <div class="mt4_account_list_item-account-box" flex>
           <div class="mt4_account_list_item-account-box-label">MT4账号：</div>
           <div class="mt4_account_list_item-account-box-input">{{mt4.mt4Uid}}</div>
@@ -18,21 +18,27 @@
         </div>
         <div class="mt4_account_list_item-trade" flex-box="1" flex="dir:top main:center cross:center">
           <div>持仓亏盈</div>
-          <div class="red money">-$333.33（2笔）</div>
+          <div class="red money" v-if="mt4.openOrderProfit>=0">
+            ${{mt4.openOrderProfit | money}}（{{mt4.openOrderNum}}笔）
+          </div>
+          <div class="green money" v-if="mt4.openOrderProfit<0">
+            -${{-mt4.openOrderProfit | money}}（{{mt4.openOrderNum}}笔）
+          </div>
+          <div class=" money" v-if="mt4.openOrderProfit==null">-</div>
         </div>
       </div>
       <div class="mt4_account_list_item-options" flex-box="0">
-        <a-button class="mt4_account_list_item-btn" type="primary" size="small">入金</a-button>
-        <a-button class="mt4_account_list_item-btn" type="primary" size="small">出金</a-button>
-        <a-button class="mt4_account_list_item-btn" type="primary" size="small">跟单</a-button>
-        <a-button class="mt4_account_list_item-btn" type="primary" size="small">交易报表</a-button>
+        <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goAction('/mt4_recharge')">入金</a-button>
+        <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goAction('/mt4_withdraw')">出金</a-button>
+        <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goAction('/unknown')">跟单</a-button>
+        <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goAction('/mt4_trade_history')">交易报表</a-button>
         <a-dropdown>
           <a-button class="mt4_account_list_item-btn" type="primary" size="small">更多</a-button>
           <a-menu slot="overlay">
-            <a-menu-item>
+            <a-menu-item @click="goAction('/mt4_modifypwd')">
               修改密码
             </a-menu-item>
-            <a-menu-item>
+            <a-menu-item @click="goAction('/mt4_findpwd')">
               找回密码
             </a-menu-item>
           </a-menu>
@@ -42,51 +48,52 @@
   </div>
 </template>
 <script>
-  export default {
-    name: 'mt4_account_list_item',
-    props: {
-      mt4: {
-        type: Object,
-        default(){
-          return {
+import mt4Account  from '../mixin/mt4Account.js'
+export default {
+  name: 'mt4_account_list_item',
+  mixins:[mt4Account],
+  props: {
+    // mt4: {
+    //   type: Object,
+    //   default () {
+    //     return {
 
-          }
-        }
-      }
-    },
-    created(){
-    },
-    data() {
-      return {
-      }
-    }
+    //     }
+    //   }
+    // }
+  },
+  created() {},
+  data() {
+    return {}
   }
+}
+
 </script>
 <style lang="scss">
-  $prefix: "mt4_account_list_item";
-  @import '@/styles/listitem/index.scss';
-  .#{$prefix} {
-    .#{$prefix}-account {
-      min-width: 200px;
-      .#{$prefix}-account-box {
-        .#{$prefix}-account-box-label {
-          width: 100px;
-          text-align: right;
-        }
-        .#{$prefix}-account-box-input {
-          text-align: left;
-        }
+$prefix: "mt4_account_list_item";
+@import '@/styles/listitem/index.scss';
+.#{$prefix} {
+  .#{$prefix}-account {
+    min-width: 200px;
+    .#{$prefix}-account-box {
+      .#{$prefix}-account-box-label {
+        width: 100px;
+        text-align: right;
+      }
+      .#{$prefix}-account-box-input {
+        text-align: left;
       }
     }
-    .#{$prefix}-btn {
-      font-size: 13px;
-    }
-    .red {
-      color:#f5222d;
-    }
-    .green {
-      color:#52c41a;
-    }
   }
-</style>
+  .#{$prefix}-btn {
+    font-size: 13px;
+  }
+  .red {
+    color: #f5222d;
+  }
+  .green {
+    color: #52c41a;
+  }
+}
 
+</style>

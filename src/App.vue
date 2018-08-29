@@ -64,19 +64,19 @@ export default {
         return this.routerMatchedComponent && this.routerMatchedComponent.__header
       }
     },
-    path: {
-      cached: false,
-      get() {
-        return this.$route.path
-      }
-    },
+    // path: {
+    //   cached: false,
+    //   get() {
+    //     return this.$route.path
+    //   }
+    // },
     ...mapState('app', ['platform']),
     ...mapState('account', ['isLoged']),
   },
   watch: {
-    path(oldV, newV) {
-      console.log(oldV, newV)
-    },
+    // path(oldV, newV) {
+    //   // console.log(oldV, newV)
+    // },
   },
   methods: {
     test() {

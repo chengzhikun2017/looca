@@ -1,34 +1,40 @@
 <template>
-  <div class="mt4_account_card">
+  <div class="mt4_account_card-vue">
     <div class="mt4_account_card-content">
       <div class="mt4_account_card-account" flex="main:justify">
-        <span class="mt4_account_card-account-user">MT4账号：6323232</span>
-        <span class="mt4_account_card-account-name">陶雨</span>
+        <span class="mt4_account_card-account-user">MT4账号：{{mt4.mt4Uid}}</span>
+        <span class="mt4_account_card-account-name">{{mt4.fullName}}</span>
       </div>
       <div class="mt4_account_card-introduce" flex="main:center cross:center">
         <div class="mt4_account_card-balance" flex-box="1" flex="dir:top main:center cross:center">
           <div>余额</div>
-          <div class="money">$3333.333</div>
+          <div class="money">${{mt4.balanceFee | money}}</div>
         </div>
         <div class="mt4_account_card-trade" flex-box="1" flex="dir:top main:center cross:center">
           <div>持仓亏盈</div>
-          <div class="red money">-$333.33（2笔）</div>
+          <div class="red money" v-if="mt4.openOrderProfit>=0">
+            ${{mt4.openOrderProfit | money}}（{{mt4.openOrderNum}}笔）
+          </div>
+          <div class="green money" v-if="mt4.openOrderProfit<0">
+            -${{-mt4.openOrderProfit | money}}（{{mt4.openOrderNum}}笔）
+          </div>
+          <div class=" money" v-if="mt4.openOrderProfit==null">-</div>
         </div>
       </div>
     </div>
     <div class="mt4_account_card-options" flex="">
-      <div class="mt4_account_card-btn" flex-box="1">入金</div>
-      <div class="mt4_account_card-btn" flex-box="1">出金</div>
-      <div class="mt4_account_card-btn" flex-box="1">跟单</div>
-      <div class="mt4_account_card-btn" flex-box="1">交易报表</div>
+      <div class="mt4_account_card-btn" flex-box="1" @click="goAction('/mt4_recharge')">入金</div>
+      <div class="mt4_account_card-btn" flex-box="1" @click="goAction('/mt4_withdraw')">出金</div>
+      <div class="mt4_account_card-btn" flex-box="1" @click="goAction('/unknown')">跟单</div>
+      <div class="mt4_account_card-btn" flex-box="1" @click="goAction('/mt4_trade_history')">交易报表</div>
       <a-dropdown  class="mt4_account_card-btn" flex-box="1">
         <div>更多</div>
         <a-menu slot="overlay">
           <a-menu-item>
-            <a href="javascript:;">修改密码</a>
+            <a href="javascript:;" @click="goAction('/mt4_modifypwd')">修改密码</a>
           </a-menu-item>
           <a-menu-item>
-            <a href="javascript:;">找回密码</a>
+            <a href="javascript:;" @click="goAction('/mt4_findpwd')">找回密码</a>
           </a-menu-item>
         </a-menu>
       </a-dropdown>
@@ -36,14 +42,13 @@
   </div>
 </template>
 <script>
+  import mt4Account  from '../mixin/mt4Account.js'
   import {getTimeString} from '@/utils/time.js'
   export default {
     name: 'mt4_account_list_item',
+    mixins:[mt4Account],
     props: {
-      data: {
-        type: Object,
-        default: () => {}
-      }
+      
     },
     data() {
       return {
@@ -59,7 +64,8 @@
 </script>
 <style lang="scss">
   $prefix: "mt4_account_card";
-  .#{$prefix} {
+  .#{$prefix}-vue {
+    width: 100%;
     margin-bottom: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;

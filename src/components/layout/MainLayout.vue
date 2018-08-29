@@ -2,13 +2,14 @@
   <a-layout id="appLayout">
     <a-layout-sider breakpoint="lg" v-model="collapsed" collapsedWidth="0" @collapse="onCollapse" ref="sider">
       <a-menu ref="menu" theme="dark" mode="inline" :openKeys="openKeys" @openChange="onOpenChange" v-model="current" @click="onItemClick">
-
         <component 
           v-for="topMenu in menuConfig"
           :is="topMenu.noChild?'aMenuItem':'aSubMenu'"
-          :key="topMenu.noChild?topMenu.link:topMenu.key"
+          :key="topMenu.noChild?topMenu.link:topMenu.key" 
           v-if="!topMenu.hide"
         >
+        <!-- 有子菜单用 key做key, 无子菜单用link -->
+        <!-- link 需唯一（有些不稳健， 可以考虑重复link加标识符  link+'~~1'） -->
           <span slot="title" v-if="!topMenu.noChild">
             <a-icon :type="topMenu.icon"/>
             <span>{{topMenu.title}}</span>
@@ -19,17 +20,6 @@
           <span v-if="topMenu.noChild">{{topMenu.title}}</span>
 
         </component>
-
-        <!-- <a-sub-menu :key="topMenu.key" v-for="topMenu in menuConfig" v-if="!topMenu.hide">
-          <span slot="title">
-            <a-icon :type="topMenu.icon"/>
-            <span>{{topMenu.title}}</span>
-          </span>
-          <a-menu-item v-for="subMenu in topMenu.children" v-if="!subMenu.hide"  :key="subMenu.link">{{subMenu.title}}</a-menu-item>
-        </a-sub-menu>
-        <a-menu-item  key="mt4_overview">
-          <a-icon type="pie-chart" />
-        </a-menu-item> -->
       </a-menu>
       <div class="logo" flex="main:center cross:center">
         <img class="logo-image" src="@/assets/display/logo1.png" alt="">
@@ -87,10 +77,10 @@ const config = {
   mt4_findpwd:{title:"忘记密码",link:"mt4_findpwd",rootKey:'mt4_overview'},
 
   mt4_trade:{title:'MT4交易管理'},
-  mt4_trade_history:{title:"交易记录：持仓和历史记录",link:"mt4_trade_history",rootKey:'mt4_trade'},
-  mt4_recharge:{title:"在线入金",link:"mt4_recharge",rootKey:'mt4_trade'},
-  mt4_withdraw:{title:"出金申请",link:"mt4_withdraw",rootKey:'mt4_trade'},
-  mt4_money_bill:{title:"出入金记录",link:"mt4_money_bill",rootKey:'mt4_trade'},
+  mt4_trade_history:{title:"交易记录：持仓和历史记录",link:"mt4_trade_history",rootKey:'mt4_overview'},
+  mt4_recharge:{title:"在线入金",link:"mt4_recharge",rootKey:'mt4_overview'},
+  mt4_withdraw:{title:"出金申请",link:"mt4_withdraw",rootKey:'mt4_overview'},
+  mt4_money_bill:{title:"出入金记录",link:"mt4_money_bill",rootKey:'mt4_overview'},
 
   wallet:{title:'资产管理'},
   wallet_review:{title:"我的钱包",link:"wallet_review",rootKey:'user'},
@@ -113,7 +103,6 @@ export default {
   name: 'MainLayout',
   data() {
     return {
-      rootSubmenuKeys: ['user', 'mt4_account', 'mt4_trade'],
       openKeys: [''],
       mode: 'inline',
       theme: 'light',
@@ -151,13 +140,16 @@ export default {
     //   let rootKey = this.config[path].rootKey
     //   this.openKeys = [rootKey]
     // },
-    onOpenChange(openKeys) {
+    closeOtherSubMenu(openKeys){
       const latestOpenKey = openKeys.find(key => this.openKeys.indexOf(key) === -1)
       if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
         this.openKeys = openKeys
       } else {
         this.openKeys = latestOpenKey ? [latestOpenKey] : []
       }
+    },
+    onOpenChange(openKeys) {
+      this.closeOtherSubMenu(openKeys)
     },
     onMainBodyClick() {
       this.hideMobileSider()
@@ -183,7 +175,6 @@ export default {
       }
     },
     onItemClick(e) {
-      console.log('%c loglog','color:red',arguments)
       this.go('/'+e.key)
       this.keyPath=e.keyPath.reverse()
       this.hideMobileSider()
@@ -194,15 +185,30 @@ export default {
     go(path) {
       helper.goPage(path)
     },
-  },
-  watch:{
-    routePath(path){
+    setOpenKeysByPath(path){
       this.current = [path]
       if(!this.config[path]){
         return
       }
       let rootKey = this.config[path].rootKey || path
       this.openKeys = [rootKey]
+    },
+    setKeyPathByPath(path){
+      let keyPath = []
+      let rootKey = this.config[path].rootKey
+      keyPath.unshift(path)
+      while(rootKey){
+        keyPath.unshift(rootKey)
+        rootKey = this.config[rootKey].rootKey
+      }
+      this.keyPath = keyPath
+      console.log('%c keyPath ','color:red',keyPath)
+    },
+  },
+  watch:{
+    routePath(path){
+      this.setOpenKeysByPath(path)
+      this.setKeyPathByPath(path)
       // let paths =[]
       // // // let rootKey =this.config[path].rootKey
       // while(rootKey){
@@ -214,6 +220,16 @@ export default {
     },
   },
   computed: {
+    rootSubmenuKeys(){
+      return this.menuConfig.map((item) => {
+        if(item.noChild!==true) {
+          return item.key
+        }else{
+          return item.link
+        }
+      })
+    },
+
     menuConfig(){
       return [
       {//user
