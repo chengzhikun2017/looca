@@ -39,7 +39,7 @@
             <div class="wallet_recharge-content-pay-note">扫一扫付款（元）</div>
             <div class="wallet_recharge-content-pay-money">{{formData.amount*usdRate*100 | money}}</div>
             <div class="wallet_recharge-content-pay-qrcode">
-              <img :src="payInfo.qrcodeUrl" alt="支付宝收款二维码">
+              <img style="width: 100%" :src="payInfo.qrcodeUrl" alt="支付宝收款二维码">
             </div>
             <div class="wallet_recharge-content-upload phone">
               <ImageUpload :editing="true" v-model="billImageUrl" uploadText="上传账单详情截图" label="支付凭证" />
@@ -72,8 +72,8 @@
       <div class="wallet_recharge-content-note">
         <h3 class="wallet_recharge-content-note-title">重要提示</h3>
         <!-- 这里的提示信息是需要动态替换的 -->
-        <p class="wallet_recharge-content-note-item">1. 支付宝实名校验：陶雨xxx，若错误请勿继续转账</p>
-        <p class="wallet_recharge-content-note-item">2. 转账备注填写：17702103430（LoocoGlobal账号）</p>
+        <p class="wallet_recharge-content-note-item">1. 支付宝实名校验：{{payInfo.name}}，若错误请勿继续转账</p>
+        <p class="wallet_recharge-content-note-item">2. 转账备注填写：{{phone}}（LoocoGlobal账号）</p>
         <p class="wallet_recharge-content-note-item">3. 转账完成后，前往我的>账单，截图该笔账单详情</p>
       </div>
     </div>
@@ -219,6 +219,7 @@ export default {
       return "process"
     },
     ...mapState('wallet',['payInfo','currency']),
+    ...mapState('account',['phone']),
   },
 }
 </script>
