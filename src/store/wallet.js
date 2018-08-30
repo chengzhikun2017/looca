@@ -128,6 +128,8 @@ export default {
     getWallet({state}){
       let promise = fetch({
         url:'balance/wallet'
+      },{
+        showLoading:false,
       })
       promise.then((res) => {
         state.money = res
@@ -161,6 +163,16 @@ export default {
           alipayAccountId:state.payInfo.id,
         },
       })
+      return promise
+    },
+    payByBrokerage({state},dollar){
+      let promise = fetch({
+        url:'balance/payByBrokerage',
+        params:{
+          dollar,
+        },
+      })
+      
       return promise
     },
     withdraw({state},params) {

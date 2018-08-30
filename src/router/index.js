@@ -24,6 +24,7 @@ const wallet_review = ()=> import( '../pages/wallet_review.vue')
 const wallet_withdraw = ()=> import( '../pages/wallet_withdraw.vue')
 const wallet_recharge = ()=> import( '../pages/wallet_recharge.vue')
 const wallet_history = ()=> import( '../pages/wallet_history.vue')
+const brokerage_withdraw = ()=> import( '../pages/brokerage_withdraw.vue')
 
 
 
@@ -103,6 +104,7 @@ crmRoutes = crmRoutes.concat(
   newRoute('/wallet_history', 'wallet_history', wallet_history),
   newRoute('/wallet_recharge', 'wallet_recharge', wallet_recharge),
   newRoute('/mt4_money_bill', 'mt4_money_bill', mt4_money_bill),
+  newRoute('/brokerage_withdraw', 'brokerage_withdraw', brokerage_withdraw),
 )
 
 

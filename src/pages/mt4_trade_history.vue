@@ -14,6 +14,22 @@
         v-model="selectDate"
       />
       <a-button @click="getList" type="primary">search</a-button>
+      <span v-if="syncSuccess">最新数据</span>
+      <span v-if="!syncSuccess">非最新数据，最近交易记录存在未同步可能，建议稍后再刷新</span>
+    </div>
+    <div class="summary">
+        <span>
+          亏损笔数:{{summary.loss}}
+        </span>
+        <span>
+          总笔数:{{summary.total}}
+        </span>
+        <span>
+          盈利笔数:{{summary.win}}
+        </span>
+        <span>
+          总实际盈利:${{summary.profit | money}}
+        </span>
     </div>
      <div>
        <a-table :columns="columns"
@@ -165,6 +181,7 @@ export default {
     ...mapActions('trade',{
       tradeListGet:"getTradeHistory",
       openListGet:"getOpenHistory",
+      getTradeCount:'getTradeCount',
     }),
   },
   computed: {
@@ -199,7 +216,10 @@ export default {
     list(){
       return this._list.list
     },
-    ...mapState('trade',['summeray','tradeList','openList']),
+    syncSuccess(){
+      return this._list.syncSuccess
+    },
+    ...mapState('trade',['summary','tradeList','openList']),
     ...mapState('app',['isPC']),
     ...mapState('mt4AC',['currentMt4Uid']),
   },

@@ -49,7 +49,7 @@ export default {
   state: new defaultAccountInfo(),
   getters: {
     realNameAuthed(state){
-      return state.authInfo.status === 1
+      return state.authInfo.status === 2
     },
   },
   mutations: {

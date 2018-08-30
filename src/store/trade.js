@@ -8,6 +8,7 @@ export default {
   namespaced: true,
   state: {
     tradeList:{
+      syncSuccess:false,
       list:[],
       ttlPage:0,
       ttlQty:0,
@@ -16,11 +17,9 @@ export default {
       list:[],
       ttlPage:0,
       ttlQty:0,
+      syncSuccess:false,
     },
-    list:[],
-    ttlQty:0,
-    ttlPage:0,
-    summeray:{
+    summary:{
       loss:0, //亏损笔数
       total:0, //总笔数
       win:0, //盈利笔数
@@ -34,7 +33,7 @@ export default {
     },
   },
   actions: {
-    getTradeHistory({state},params){
+    getTradeHistory({state,dispatch},params){
       if(params===undefined){
         params = {}
       }
@@ -51,10 +50,12 @@ export default {
         showLoading:false,
       })
       promise.then(res => {
+        dispatch('getTradeCount')
         console.log('%c res','color:red',res)
-        state.tradeList.list = res.list
-        state.tradeList.ttlQty = res.total
-        state.tradeList.ttlPage = res.pages
+        state.tradeList.list = res.data.list
+        state.tradeList.ttlQty = res.data.total
+        state.tradeList.ttlPage = res.data.pages
+        state.tradeList.syncSuccess = res.syncSuccess
         console.log('%c getTradeHistory','color:red',res)
       })
       .finally(() => {
@@ -78,9 +79,9 @@ export default {
         showLoading:false,
       })
       promise.then(res => {
-        state.openList.list = res
-        state.openList.ttlQty = res.length
-        // state.openList.ttlPage = res.pages
+        state.openList.list = res.data
+        state.openList.ttlQty = res.data.length
+        state.openList.syncSuccess = res.syncSuccess
         console.log('%c getOpenHistory','color:red',res)
       })
       .finally(() => {
@@ -99,7 +100,7 @@ export default {
         },
       })
       promise.then((res) => {
-        state.summeray = res 
+        state.summary = res 
       })
       return promise
     },

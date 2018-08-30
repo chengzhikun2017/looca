@@ -48,7 +48,7 @@ export default function fetch(options, {
   }
   const instance = axios.create({
     // 超时时间设置
-    timeout: 60000,
+    timeout: 20000,
     // 请求的host设置
     baseURL: apiUrl,
     // 通过cookies进行认证
