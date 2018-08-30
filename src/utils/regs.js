@@ -13,6 +13,9 @@
     //   msg: '请输入正确的手机号',
     // }
   }
+  get amount(){
+    return /\d+/
+  }
   get password() {
     let reg = /.{8,}/
     return reg

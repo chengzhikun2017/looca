@@ -106,6 +106,9 @@ export default {
           dollar,
         },
       })
+      promise.then((res) => {
+         vueApp.$message.info("提现成功")
+      })
       return promise
     },
     getPayAccount({state}){
@@ -172,7 +175,7 @@ export default {
           dollar,
         },
       })
-      
+
       return promise
     },
     withdraw({state},params) {

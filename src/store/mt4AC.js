@@ -64,7 +64,7 @@ export default {
       return promise
     },
     create({}, params) {
-      console.log('%c params','color:red',params)
+      // console.log('%c params','color:red',params)
       let promise = fetch({
         //server: 服务器: live实盘，demo模拟盘
         //password: 交易密码（必须包含数字和字母，6位以上）

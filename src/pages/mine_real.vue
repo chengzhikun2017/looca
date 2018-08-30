@@ -104,11 +104,9 @@ name: 'mine_real',
     }
   },
   created() {
-    console.log('%c isRealNamed','color:red',this.isRealNamed)
     if(this.isRealNamed){
       this.initData()
     }
-
   },
   methods: {
     initData(){

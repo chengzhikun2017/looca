@@ -87,6 +87,7 @@ const config = {
   wallet_withdraw:{title:"余额提现",link:"wallet_withdraw",rootKey:'wallet_review'},
   wallet_recharge:{title:"余额充值",link:"wallet_recharge",rootKey:'wallet_review'},
   wallet_history:{title:"钱包记录",link:"wallet_history",rootKey:'wallet_review'},
+  brokerage_withdraw:{title:"钱包记录",link:"brokerage_withdraw",rootKey:'wallet_review'},
 
   agent:{title:"代理推广"},
   agent_promote:{title:"我的推广",link:"agent_promote",rootKey:'agent'},
@@ -185,14 +186,23 @@ export default {
     go(path) {
       helper.goPage(path)
     },
-    // setOpenKeysByPath(path){
-    //   this.current = [path]
-    //   if(!this.config[path]){
-    //     return
-    //   }
-    //   let rootKey = this.config[path].rootKey || path
-    //   this.openKeys = [rootKey]
-    // },
+    setCurrent(keyPath){
+      this.current = [keyPath[0]]
+      if(keyPath[1]){
+        this.current.push(keyPath[1])
+      }
+    },
+    setOpenKeys(keyPath){
+      this.openKeys = [keyPath[0]]
+    },
+    setOpenKeysByPath(path){
+      this.current = [path]
+      if(!this.config[path]){
+        return
+      }
+      let rootKey = this.config[path].rootKey || path
+      this.openKeys = [rootKey]
+    },
     setKeyPathByPath(path){
       let keyPath = []
       let rootKey = this.config[path].rootKey
@@ -202,26 +212,15 @@ export default {
         rootKey = this.config[rootKey].rootKey
       }
       this.keyPath = keyPath
-      this.openKeys = [keyPath[0]]
-      this.current = [keyPath[0]]
-      if(keyPath[1]){
-        this.current.push(keyPath[1])
-      }
-      console.log('%c keyPath ','color:red',keyPath)
+      return keyPath
     },
   },
   watch:{
     routePath(path){
-      // this.setOpenKeysByPath(path)
-      this.setKeyPathByPath(path)
-      // let paths =[]
-      // // // let rootKey =this.config[path].rootKey
-      // while(rootKey){
-      //   console.log('%c rootKey','color:red',rootKey)
-      //   paths.push(this.config[rootKey])
-      //   rootKey = this.config[rootKey].rootKey
-      // }
-      // this.keyPath = paths
+      let keyPath = this.setKeyPathByPath(path)
+      console.log('%c keyPath','color:red',)
+      this.setCurrent(keyPath)
+      this.setOpenKeys(keyPath)
     },
   },
   computed: {
