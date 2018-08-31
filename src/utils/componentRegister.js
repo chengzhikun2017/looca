@@ -25,6 +25,7 @@ import {
   Steps,
   Breadcrumb,
   DatePicker,
+  Card
 } from 'vue-antd-ui';
 import MainLayout from './../components/layout/MainLayout.vue'
 const widget1 = () =>
@@ -98,3 +99,4 @@ Vue.component(Breadcrumb.name, Breadcrumb)
 registerComponentChild(Vue, Breadcrumb)
 Vue.component(DatePicker.name, DatePicker)
 registerComponentChild(Vue, DatePicker)
+Vue.component(Card.name, Card)

@@ -25,7 +25,9 @@ const wallet_withdraw = ()=> import( '../pages/wallet_withdraw.vue')
 const wallet_recharge = ()=> import( '../pages/wallet_recharge.vue')
 const wallet_history = ()=> import( '../pages/wallet_history.vue')
 
-
+const agent_promote = ()=> import( '../pages/agent_promote.vue')
+const mine_customers = ()=> import( '../pages/mine_customers.vue')
+const rebate_record = ()=> import( '../pages/rebate_record.vue')
 
 /**
  * test part
@@ -103,6 +105,9 @@ crmRoutes = crmRoutes.concat(
   newRoute('/wallet_history', 'wallet_history', wallet_history),
   newRoute('/wallet_recharge', 'wallet_recharge', wallet_recharge),
   newRoute('/mt4_money_bill', 'mt4_money_bill', mt4_money_bill),
+  newRoute('/agent_promote', 'agent_promote', agent_promote),
+  newRoute('/mine_customers', 'mine_customers', mine_customers),
+  newRoute('/rebate_record', 'rebate_record', rebate_record),
 )
 
 
