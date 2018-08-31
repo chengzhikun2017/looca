@@ -1,20 +1,18 @@
 <template>
-  <div class="my_customer-page">
-    <table class="my_customer-cardTable">
+  <div class="agent_profit_overview-page">
+    <table class="agent_profit_overview-cardTable">
       <thead>
         <tr>
-          <th>总客户</th>
-          <th>一级客户</th>
-          <th>二级客户</th>
-          <th>三级客户</th>
+          <th>总收入</th>
+          <th>点差收入</th>
+          <th>跟单收入</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>39</td>
-          <td>39</td>
-          <td>39</td>
-          <td>39</td>
+          <td>$33.44</td>
+          <td>$33.44</td>
+          <td>$33.44</td>
         </tr>
       </tbody>
     </table>
@@ -24,6 +22,11 @@
       <a-select-option value="jack">二级</a-select-option>
       <a-select-option value="jack">三级</a-select-option>
     </a-select>
+    <a-select defaultValue="lucy" style="width: 120px">
+      <a-select-option value="jack">点差</a-select-option>
+      <a-select-option value="jack">跟单</a-select-option>
+    </a-select>
+    <a-range-picker />
     <a-table bordered :dataSource="dataSource" :columns="columns">
     </a-table>
   </div>
@@ -45,6 +48,12 @@
           title: '关系',
           dataIndex: 'operation',
         }, {
+          title: '金额',
+          dataIndex: 'operation',
+        }, {
+          title: '类型',
+          dataIndex: 'operation',
+        }, {
           title: '时间',
           dataIndex: 'operation',
         }],
@@ -54,7 +63,7 @@
   }
 </script>
 <style lang="scss">
-  $prefix: "my_customer";
+  $prefix: "agent_profit_overview";
   @import '@/styles/utils/cardTable.scss';
 </style>
 
