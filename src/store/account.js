@@ -49,7 +49,7 @@ export default {
   state: new defaultAccountInfo(),
   getters: {
     realNameAuthed(state){
-      return state.authInfo.status === 1
+      return state.authInfo.status === 2
     },
   },
   mutations: {
@@ -203,6 +203,7 @@ export default {
         url: "/auth/info"
       })
       promise.then(res=>{
+        // res.status = 1
         state.authInfo = res
         if(!getters.realNameAuthed){
           helper.goPage('/mine_real')

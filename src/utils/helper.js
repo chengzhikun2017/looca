@@ -38,8 +38,6 @@ export default class helper {
     reader.readAsDataURL(img)
   }
   static goPage(path, callback, stopGo) {
-    console.log('%c go page','color:red',)
-    console.log('go page ', path)
     if (stopGo) {
       // HGJ_VUE.hgjAlert('服务暂时关闭')
       return

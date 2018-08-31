@@ -20,7 +20,7 @@
       <div class="trade_wallet-list-title">可提现佣金分红</div>
       <div class="trade_wallet-list-content">${{money.brokerage | money}}</div>
       <div class="trade_wallet-list-opt">
-        <a-button type='primary' @click="go('/wallet_withdraw')" class="trade_wallet-list-btn">
+        <a-button type='primary' @click="go('/brokerage_withdraw')" class="trade_wallet-list-btn">
           提现至余额
         </a-button>
       </div>

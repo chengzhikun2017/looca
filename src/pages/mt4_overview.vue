@@ -317,5 +317,8 @@ export default {
   .ant-list-item{
     padding: 0;
   }
+  .ant-table-thead{
+    display: none;
+  }
 }
 </style>

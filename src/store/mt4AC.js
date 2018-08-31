@@ -8,6 +8,7 @@ class defaultMt4InfoAC {
     this.list = []
     this.listGot = false
     this.loadingList = false
+    this.syncSuccess = false
     this.currentMt4Uid = helper.getLocalStorage('currentMt4Uid')
   }
 }
@@ -43,10 +44,12 @@ export default {
         url: "mt4Account/list",
       },{
         rejectErr:true,
+        showLoading:false,
       })
       promise.then(res => {
-        console.log('%c setCurrent','color:red',res)
-        state.list = res
+        console.log('%c res mt4 account ','color:red',res)
+        state.list = res.data
+        state.syncSuccess = res.syncSuccess
         dispatch('setDefaultCurrent')
       })
       .catch(err=>{
@@ -61,7 +64,7 @@ export default {
       return promise
     },
     create({}, params) {
-      console.log('%c params','color:red',params)
+      // console.log('%c params','color:red',params)
       let promise = fetch({
         //server: 服务器: live实盘，demo模拟盘
         //password: 交易密码（必须包含数字和字母，6位以上）

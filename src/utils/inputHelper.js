@@ -70,6 +70,7 @@ class input {
     for(let key in validations){
       validations[key]()
     }
+    console.log('%c this.allValid','color:red',this)
     return this.allValid
   }
   clearValues(){
@@ -159,7 +160,17 @@ ValidationSet.email = function(input,keyName){
   input.setValidation(keyName, (value) => {
     if (!value) {
       return inputHelper.createStatusEmpty('邮箱')
-    } else if (!regs.ID.test(value)) {
+    } else if (!regs.email.test(value)) {
+      return inputHelper.createStatus(2, "邮箱格式不正确")
+    }
+  })
+}
+
+ValidationSet.amount = function(input,keyName){
+  input.setValidation(keyName, (value) => {
+    if (!value) {
+      return inputHelper.createStatusEmpty('金额')
+    } else if (!regs.amount.test(value)) {
       return inputHelper.createStatus(2, "邮箱格式不正确")
     }
   })
@@ -212,7 +223,7 @@ class InputHelper {
     }
   }
   createStatusEmpty(inputName){
-    this.createStatus(2,inputName+'不能为空')
+    return this.createStatus(2,inputName+'不能为空')
   }
   get statusEmpty() {
     return Object.assign({},this._status.empty)

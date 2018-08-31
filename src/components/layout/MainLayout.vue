@@ -16,7 +16,7 @@
           </span>
           <a-menu-item v-for="subMenu in topMenu.children" v-if="!subMenu.hide&&!topMenu.noChild"  :key="subMenu.link">{{subMenu.title}}</a-menu-item>
 
-          <a-icon type="pie-chart" v-if="topMenu.noChild"  />
+          <a-icon :type="topMenu.icon" v-if="topMenu.noChild"  />
           <span v-if="topMenu.noChild">{{topMenu.title}}</span>
 
         </component>
@@ -84,9 +84,10 @@ const config = {
 
   wallet:{title:'资产管理'},
   wallet_review:{title:"我的钱包",link:"wallet_review",rootKey:'user'},
-  wallet_withdraw:{title:"余额提现",link:"wallet_withdraw",rootKey:'wallet'},
-  wallet_recharge:{title:"余额充值",link:"wallet_recharge",rootKey:'wallet'},
-  wallet_history:{title:"钱包记录",link:"wallet_history",rootKey:'wallet'},
+  wallet_withdraw:{title:"余额提现",link:"wallet_withdraw",rootKey:'wallet_review'},
+  wallet_recharge:{title:"余额充值",link:"wallet_recharge",rootKey:'wallet_review'},
+  wallet_history:{title:"钱包记录",link:"wallet_history",rootKey:'wallet_review'},
+  brokerage_withdraw:{title:"钱包记录",link:"brokerage_withdraw",rootKey:'wallet_review'},
 
   agent:{title:"代理推广"},
   agent_promote:{title:"我的推广",link:"agent_promote",rootKey:'agent'},
@@ -106,7 +107,7 @@ export default {
       openKeys: [''],
       mode: 'inline',
       theme: 'light',
-      current: ['4'],
+      current: [],
       collapsed: false,
       header: {
       },
@@ -185,6 +186,15 @@ export default {
     go(path) {
       helper.goPage(path)
     },
+    setCurrent(keyPath){
+      this.current = [keyPath[0]]
+      if(keyPath[1]){
+        this.current.push(keyPath[1])
+      }
+    },
+    setOpenKeys(keyPath){
+      this.openKeys = [keyPath[0]]
+    },
     setOpenKeysByPath(path){
       this.current = [path]
       if(!this.config[path]){
@@ -202,21 +212,15 @@ export default {
         rootKey = this.config[rootKey].rootKey
       }
       this.keyPath = keyPath
-      console.log('%c keyPath ','color:red',keyPath)
+      return keyPath
     },
   },
   watch:{
     routePath(path){
-      this.setOpenKeysByPath(path)
-      this.setKeyPathByPath(path)
-      // let paths =[]
-      // // // let rootKey =this.config[path].rootKey
-      // while(rootKey){
-      //   console.log('%c rootKey','color:red',rootKey)
-      //   paths.push(this.config[rootKey])
-      //   rootKey = this.config[rootKey].rootKey
-      // }
-      // this.keyPath = paths
+      let keyPath = this.setKeyPathByPath(path)
+      console.log('%c keyPath','color:red',)
+      this.setCurrent(keyPath)
+      this.setOpenKeys(keyPath)
     },
   },
   computed: {
@@ -229,7 +233,6 @@ export default {
         }
       })
     },
-
     menuConfig(){
       return [
       {//user
@@ -248,6 +251,7 @@ export default {
         noChild:true,
         hide:!this.realNameAuthed,
         // link:"mt4_overview",
+        icon:'profile',
         ...config.mt4_overview,
         children:[
           config.mt4_create,
@@ -284,7 +288,7 @@ export default {
       },{//agent
         key:'agent',
         link:null,
-        icon:'user',
+        icon:'share-alt',
         ...config.agent,
         children:[
           config.agent_promote,

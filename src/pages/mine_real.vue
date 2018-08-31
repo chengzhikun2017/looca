@@ -9,8 +9,8 @@
       <div class="mine_real-status">
         <alert
           showIcon :type="alertType"
-          :title="authStatus"
-          :message="authStatus === '认证失败' ? authInfo.remark : '修改认证资料需提交后台审'"
+          :title="authStatusText"
+          :message="authStatus === 3 ? authInfo.remark : '修改认证资料需提交后台审'"
           >
           <div slot="description" class="mine_real-status-description">
             <h3 class="mine_real-status-description-title">重要提示</h3>
@@ -43,15 +43,15 @@
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 24}" v-if="editing">
             <div class="bttn-box">
-              <a-button  @click.native="editing=false" htmlType='submit'>
+              <a-button v-if="authStatus===1"  @click.native="editing=false" htmlType='submit'>
                 取消
               </a-button>
               <a-button type='primary' @click.native="handleSubmit" htmlType='submit'>
-                提交
+                {{authStatus===0?"提交":"重新提交"}}
               </a-button>
             </div>
           </a-form-item>
-          <a-form-item :wrapperCol="{ span: 24}" v-if="!editing">
+          <a-form-item :wrapperCol="{ span: 24}" v-if="!editing&&authInfo.status!==2">
             <div class="bttn-box">
               <a-button @click="editing=true">
                 编辑
@@ -95,20 +95,20 @@ name: 'mine_real',
       editing: true,
       idCardUrl:'',
       idCardUrl2:'',
-      current: 0,
-      steps: [{
-        title: '填写开户资料'
-      }, {
-        title: '完成'
-      }],
+      // current: 0,
+      // steps: [{
+      //   title: '填写开户资料'
+      // }, {
+      //   title: '等待审核'
+      // }, {
+      //   title: '完成'
+      // }],
     }
   },
   created() {
-    console.log('%c isRealNamed','color:red',this.isRealNamed)
     if(this.isRealNamed){
       this.initData()
     }
-
   },
   methods: {
     initData(){
@@ -117,7 +117,11 @@ name: 'mine_real',
       this.formData.name = this.authInfo.name
       this.formData.email = this.authInfo.email
       this.formData.idCardNo = this.authInfo.idCardNo
-      this.editing = false
+      if(this.authInfo.status===3){
+        this.editing = true
+      }else{
+        this.editing = false
+      }
     },
     handleSubmit() {
       this.$modal.confirm({
@@ -152,6 +156,11 @@ name: 'mine_real',
     ...mapActions('account', ['authVerify','getAuthInfo']),
   },
   watch:{
+    authStatus(status){
+      if(status===2){
+        this.current = 2
+      }
+    },
     isRealNamed(v){
       if(v){
         this.initData()
@@ -159,6 +168,33 @@ name: 'mine_real',
     }
   },
   computed: {
+    current(){
+      let current = 0
+      switch(this.authStatus){
+        case 0: current = 0;break;
+        case 1: current = 1;break;
+        case 2:
+        case 3:current =2;break;
+      }
+      return current
+    },
+    // editing(){
+    //   // if(this.authStatus===2){
+    //   //   return false
+    //   // }
+    // },
+    steps(){
+      return [{
+        title: '填写开户资料'
+      }, {
+        title: '等待审核'
+      }, {
+        title: this.authStatus ===3 ?'认证失败':'完成'
+      }]
+    },
+    authStatus(){
+      return this.authInfo.status
+    },
     ...mapState('account', ['authInfo', 'isRealNamed']),
     alertType() {
       switch(this.authInfo && this.authInfo.status) {
@@ -169,7 +205,7 @@ name: 'mine_real',
         default: return 'info';
       }
     },
-    authStatus() {
+    authStatusText() {
       switch(this.authInfo && this.authInfo.status) {
         case 0: return '等待认证';
         case 1: return '等待审核';
@@ -180,7 +216,7 @@ name: 'mine_real',
     },
     stepStatus(){
       //      wait process finish error
-      if(this.rechargeFailed){
+      if(this.authStatus===3){
         return "error"
       }
       return "process"
