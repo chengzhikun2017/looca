@@ -20,7 +20,8 @@ const handleUnPayed = (err) => {
 function handleWrongCode(res) {
   vueApp.$message.error(res.message)
 }
-const handleFetchError = (err) => {
+const handleFetchError = (err,options) => {
+  console.error("err",err,options)
   if (/network error/ig.test(err)) {
     vueApp.$modal.info({
       title: '网络错误',
@@ -48,7 +49,7 @@ export default function fetch(options, {
   }
   const instance = axios.create({
     // 超时时间设置
-    timeout: 20000,
+    timeout: 60000,
     // 请求的host设置
     baseURL: apiUrl,
     // 通过cookies进行认证
@@ -93,7 +94,7 @@ export default function fetch(options, {
       })
       .catch(err => {
         console.log('err', err)
-        handleFetchError(err)
+        handleFetchError(err,options)
       })
       .finally(() => {
         if (showLoading && vueApp) {

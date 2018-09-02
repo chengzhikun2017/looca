@@ -6,8 +6,9 @@
         <a-radio-button value="deposit">入金</a-radio-button>
         <a-radio-button value="withdraw_follow_settlement">出金（跟单结算）</a-radio-button>
       </a-radio-group>
+      <Mt4Select></Mt4Select>
       <a-range-picker :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }" :defaultValue="[moment().add(-6,'day'), moment()]" @change="onDateRangeChange" />
-      <a-button @click="getList" type="primary">search</a-button>
+      <a-button @click="getList" type="primary">查询</a-button>
     </div>
     <div>
       <a-table :columns="columns" :rowKey="rowKey" :dataSource="list" :pagination="pagination" :loading="loading" @change="handleTableChange" v-if="isPC">
@@ -36,6 +37,7 @@
   </div>
 </template>
 <script>
+const Mt4Select = ()=> import( '../components/views/mt4Select.vue')
 const columns = [
   {
     title: 'ID',
@@ -154,7 +156,9 @@ export default {
     ...mapState('mt4Balance', ['list','ttlQty','ttlPage']),
     ...mapState('app', ['isPC']),
   },
-  components: {},
+  components: {
+    Mt4Select,
+  },
 }
 
 </script>

@@ -18,6 +18,7 @@
         </a-radio-group>
       </div>
     </a-modal>
+
     <div class="header" v-if="false">
       <p class="text">**实名认证后方可开户</p>
       <div class="colum-filter"  v-if=false>
@@ -49,12 +50,13 @@
       </div>
       <a-button type="primary" @click.native="selectCreation">立即开户</a-button>
     </div>
+      <Mt4SyncFail  :success="!!!syncSuccess&&!loading" :reSyncFunc="getList"> </Mt4SyncFail>
     <div>
       <a-list
         itemLayout="horizontal"
         :dataSource="list"
         :split="false"
-        v-if="!isPC"
+        v-if="!isPC&&syncSuccess"
       >
         <a-list-item slot="renderItem" slot-scope="item, index">
           <ListItemMobile :mt4="item"></ListItemMobile>
@@ -68,7 +70,7 @@
           :pagination="pagination"
           :loading="loading"
           @change="handleTableChange"
-          v-if="isPC"
+          v-if="isPC&&syncSuccess"
         >
         <template slot="balanceFee" slot-scope="balanceFee">
           {{balanceFee|money}}
@@ -100,6 +102,7 @@ import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
 import ListItem from "./../components/container/mt4AccountListItem.vue"
 import ListItemMobile from "./../components/container/mt4AccountCard.vue"
 import helper from '../utils/helper.js'
+const Mt4SyncFail = ()=> import( '../components/container/mt4SyncFail.vue')
   const singleColum = [
   {
     title: '',
@@ -244,7 +247,6 @@ export default {
       return record.mt4Uid
     },
     onChange(value){
-      console.log(arguments)
       this.columnsShow = value
     },
     onSearch(e){
@@ -257,7 +259,8 @@ export default {
       console.log(pagination,filters,sorter);
       this.pagination = Object.assign({},pagination)
     },
-    ...mapMutations('mt4AC',['setCurrent'])
+    ...mapMutations('mt4AC',['setCurrent']),
+    ...mapActions('mt4AC',['getList']),
   },
   computed: {
     loading(){
@@ -270,10 +273,11 @@ export default {
       })
       return arr.concat(staticColums)
     },
-    ...mapState('mt4AC',['list','currentMt4Uid','listGot']),
+    ...mapState('mt4AC',['list','currentMt4Uid','listGot','syncSuccess']),
     ...mapState('app',['isPC']),
   },
   components: {
+    Mt4SyncFail,
     ListItem,
     ListItemMobile,
   },

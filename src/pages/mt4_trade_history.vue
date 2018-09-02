@@ -1,23 +1,28 @@
 <template>
   <div class="mt4_trade_history-page">
     <div class="choose-box">
+      
+    </div>
+    <div class="search-box">
       <a-radio-group v-model="listType" style="margin:8px">
         <a-radio-button value="trade">交易记录</a-radio-button>
         <a-radio-button value="open">持仓订单</a-radio-button>
       </a-radio-group>
-    </div>
-    <div class="search-box">
+      <Mt4Select></Mt4Select>
+      &nbsp;
       <a-range-picker
         :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }"
         :defaultValue="[defaultStart,defaultEnd]"
         @change="onDateRangeChange" 
         v-model="selectDate"
       />
-      <a-button @click="getList" type="primary">search</a-button>
-      <span v-if="syncSuccess">最新数据</span>
-      <span v-if="!syncSuccess">非最新数据，最近交易记录存在未同步可能，建议稍后再刷新</span>
+      &nbsp;
+      <a-button @click="getList" type="primary">查询</a-button>
     </div>
-    <div class="summary">
+    <Mt4SyncFail  :success="!!!syncSuccess&&!loading" :reSyncFunc="getList"> </Mt4SyncFail>
+    <a-alert type="success" v-if="syncSuccess && listType==='trade'">
+      <p class="summary" slot="description">
+        <!-- <label for="">总览：</label> -->
         <span>
           亏损笔数:{{summary.loss}}
         </span>
@@ -30,8 +35,9 @@
         <span>
           总实际盈利:${{summary.profit | money}}
         </span>
-    </div>
-     <div>
+      </p>
+    </a-alert> 
+     <div class="list-box" v-if="syncSuccess">
        <a-table :columns="columns"
            :rowKey="rowKey"
            :dataSource="list"
@@ -56,6 +62,10 @@
 </template>
 
 <script>
+
+const Mt4SyncFail = ()=> import( '../components/container/mt4SyncFail.vue')
+const Mt4Select = ()=> import( '../components/views/mt4Select.vue')
+
   const columns = [{
     title: 'MT4 ID',
     dataIndex: 'mt4Uid',
@@ -233,17 +243,34 @@ export default {
       this.pagination.total = v
     },
     currentMt4Uid(v){
-      this.getList()
+      // this.getList()
     },
   },
-  components: {},
+  components: {
+    Mt4Select,
+    Mt4SyncFail,
+  },
 }
 </script>
 
 <style lang='scss' scoped>
-
+.list-box{
+  margin-top: 10px;
+}
+.summary{
+  margin-bottom: 0;
+  span{
+    margin-right: 15px;
+  }
+}
 .time{
   font-size: 12px;
+}
+.search-box {
+  display: flex;
+  /*justify-content: center;*/
+  flex-wrap: wrap;
+  align-items: center;
 }
 </style>
 <style lang='scss'>

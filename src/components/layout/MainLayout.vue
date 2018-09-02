@@ -2,23 +2,16 @@
   <a-layout id="appLayout">
     <a-layout-sider breakpoint="lg" v-model="collapsed" collapsedWidth="0" @collapse="onCollapse" ref="sider">
       <a-menu ref="menu" theme="dark" mode="inline" :openKeys="openKeys" @openChange="onOpenChange" v-model="current" @click="onItemClick">
-        <component 
-          v-for="topMenu in menuConfig"
-          :is="topMenu.noChild?'aMenuItem':'aSubMenu'"
-          :key="topMenu.noChild?topMenu.link:topMenu.key" 
-          v-if="!topMenu.hide"
-        >
-        <!-- 有子菜单用 key做key, 无子菜单用link -->
-        <!-- link 需唯一（有些不稳健， 可以考虑重复link加标识符  link+'~~1'） -->
+        <component v-for="topMenu in menuConfig" :is="topMenu.noChild?'aMenuItem':'aSubMenu'" :key="topMenu.noChild?topMenu.link:topMenu.key" v-if="!topMenu.hide">
+          <!-- 有子菜单用 key做key, 无子菜单用link -->
+          <!-- link 需唯一（有些不稳健， 可以考虑重复link加标识符  link+'~~1'） -->
           <span slot="title" v-if="!topMenu.noChild">
             <a-icon :type="topMenu.icon"/>
             <span>{{topMenu.title}}</span>
           </span>
-          <a-menu-item v-for="subMenu in topMenu.children" v-if="!subMenu.hide&&!topMenu.noChild"  :key="subMenu.link">{{subMenu.title}}</a-menu-item>
-
-          <a-icon :type="topMenu.icon" v-if="topMenu.noChild"  />
+          <a-menu-item v-for="subMenu in topMenu.children" v-if="!subMenu.hide&&!topMenu.noChild" :key="subMenu.link">{{subMenu.title}}</a-menu-item>
+          <a-icon :type="topMenu.icon" v-if="topMenu.noChild" type="link" />
           <span v-if="topMenu.noChild">{{topMenu.title}}</span>
-
         </component>
       </a-menu>
       <div class="logo" flex="main:center cross:center">
@@ -30,26 +23,31 @@
       <a-layout-header :style="{ background: '#fff', padding: 0 }">
         <slot name="header"></slot>
         <div class="nav-user">
-            <NavMt4></NavMt4>
-            <NavUser></NavUser>
+          <!-- <NavMt4></NavMt4> -->
+          <NavUser></NavUser>
         </div>
       </a-layout-header>
       <a-layout-content :style="{ margin: '24px 16px 0' }">
-          <div class="breadcrumb">
-            <a-breadcrumb>
-              <a-breadcrumb-item>{{''}}</a-breadcrumb-item>
-              <a-breadcrumb-item :key='key' v-for="key in keyPath">
-                <a href="javascript:void(0)" v-if="config[key].link" @click="go('/'+key)">
-                  {{config[key].title}}
-                </a>
-                <span v-else>
-                  {{config[key].title}}
-                </span>
-              </a-breadcrumb-item>
-              <!-- <a-breadcrumb-item><a href="">Application Center</a></a-breadcrumb-item> -->
-              <!-- <a-breadcrumb-item>An Application</a-breadcrumb-item> -->
-            </a-breadcrumb>
-          </div>
+        <div class="breadcrumb">
+          <a-breadcrumb separator=">">
+            <a-breadcrumb-item>{{''}}</a-breadcrumb-item>
+            <a-breadcrumb-item :key='key' v-for="key in keyPath">
+              <a href="javascript:void(0)" v-if="config[key].link" @click="go('/'+key)">
+                <a-icon :type="config[key].icon" v-if="config[key].icon"></a-icon>
+                {{config[key].title}}
+              </a>
+              <span v-else>
+                <a-icon :type="config[key].icon" v-if="config[key].icon"></a-icon>
+                {{config[key].title}}
+              </span>
+            </a-breadcrumb-item>
+            <!-- <a-breadcrumb-item><a href="">Application Center</a></a-breadcrumb-item> -->
+            <!-- <a-breadcrumb-item>An Application</a-breadcrumb-item> -->
+          </a-breadcrumb>
+          <span class="back-icon l-pointer-blue" @click="goUpLv" v-if="showBackIcon">
+            <a-icon type="arrow-left" />
+          </span>
+        </div>
         <div class="content" :style="{height:contentHeight}">
           <slot></slot>
         </div>
@@ -64,41 +62,45 @@
 // 64+69+24
 //
 const config = {
-  user:{title:'个人信息'},
-  mine_cards:{title:"我的银行卡",link:"mine_cards",rootKey:'user'},
-  mine_real:{title:"实名信息",link:"mine_real",rootKey:'user'},
-  modifypwd:{title:"修改密码",link:"modifypwd",rootKey:'user'},
+  user: { title: '个人信息', icon: 'user', },
+  mine_cards: { title: "我的银行卡", link: "mine_cards", rootKey: 'user' },
+  mine_real: { title: "实名信息", link: "mine_real", rootKey: 'user' },
+  modifypwd: { title: "修改密码", link: "modifypwd", rootKey: 'user' },
 
-  mt4_account:{title:'MT4账户管理'},
-  mt4_create:{title:"开立账户",link:"mt4_create",rootKey:'mt4_overview'},
-  mt4_overview:{title:"MT4账户",link:"mt4_overview",isRoot:true},
-  mt4_modifypwd:{title:"修改密码",link:"mt4_modifypwd",rootKey:'mt4_overview'},
-  mt4_bind:{title:"绑定账号",link:"mt4_bind",rootKey:'mt4_overview'},
-  mt4_findpwd:{title:"忘记密码",link:"mt4_findpwd",rootKey:'mt4_overview'},
+  mt4_account: { title: 'MT4账户管理' },
+  mt4_create: { title: "开立账户", link: "mt4_create", rootKey: 'mt4_overview' },
+  mt4_overview: { title: "MT4账户", link: "mt4_overview", isRoot: true },
+  mt4_modifypwd: { title: "修改密码", link: "mt4_modifypwd", rootKey: 'mt4_overview' },
+  mt4_bind: { title: "绑定账号", link: "mt4_bind", rootKey: 'mt4_overview' },
+  mt4_findpwd: { title: "忘记密码", link: "mt4_findpwd", rootKey: 'mt4_overview' },
 
-  mt4_trade:{title:'MT4交易管理'},
-  mt4_trade_history:{title:"交易记录：持仓和历史记录",link:"mt4_trade_history",rootKey:'mt4_overview'},
-  mt4_recharge:{title:"在线入金",link:"mt4_recharge",rootKey:'mt4_overview'},
-  mt4_withdraw:{title:"出金申请",link:"mt4_withdraw",rootKey:'mt4_overview'},
-  mt4_money_bill:{title:"出入金记录",link:"mt4_money_bill",rootKey:'mt4_overview'},
+  mt4_trade: { title: 'MT4交易管理' },
+  mt4_trade_history: { title: "交易记录：持仓和历史记录", link: "mt4_trade_history", rootKey: 'mt4_overview' },
+  mt4_recharge: { title: "在线入金", link: "mt4_recharge", rootKey: 'mt4_overview' },
+  mt4_withdraw: { title: "出金申请", link: "mt4_withdraw", rootKey: 'mt4_overview' },
+  mt4_money_bill: { title: "出入金记录", link: "mt4_money_bill", rootKey: 'user' },
 
-  wallet:{title:'资产管理'},
-  wallet_review:{title:"我的钱包",link:"wallet_review",rootKey:'user'},
-  wallet_withdraw:{title:"余额提现",link:"wallet_withdraw",rootKey:'wallet_review'},
-  wallet_recharge:{title:"余额充值",link:"wallet_recharge",rootKey:'wallet_review'},
-  wallet_history:{title:"钱包记录",link:"wallet_history",rootKey:'wallet_review'},
-  brokerage_withdraw:{title:"钱包记录",link:"brokerage_withdraw",rootKey:'wallet_review'},
+  wallet: { title: '资产管理' },
+  wallet_review: { title: "我的钱包", link: "wallet_review", rootKey: 'user' },
+  wallet_withdraw: { title: "余额提现", link: "wallet_withdraw", rootKey: 'wallet_review' },
+  wallet_recharge: { title: "余额充值", link: "wallet_recharge", rootKey: 'wallet_review' },
+  wallet_history: { title: "钱包记录", link: "wallet_history", rootKey: 'wallet_review' },
+  brokerage_withdraw: { title: "钱包记录", link: "brokerage_withdraw", rootKey: 'wallet_review' },
 
-  agent:{title:"代理推广"},
-  agent_promote:{title:"我的推广",link:"agent_promote",rootKey:'agent'},
+  agent: { title: "代理推广" },
+  agent_promote: { title: "我的推广", link: "agent_promote", rootKey: 'agent' },
 
 }
-import { mapState, mapMutations
-, mapActions, mapGetters } from 'vuex'
+import {
+  mapState,
+  mapMutations,
+  mapActions,
+  mapGetters
+} from 'vuex'
 import helper from './../../utils/helper.js'
 import NavUser from './../views/navUser.vue'
 import NavMt4 from './../views/navMt4.vue'
-import {Menu} from 'vue-antd-ui'
+import { Menu } from 'vue-antd-ui'
 
 export default {
   name: 'MainLayout',
@@ -109,10 +111,9 @@ export default {
       theme: 'light',
       current: [],
       collapsed: false,
-      header: {
-      },
+      header: {},
       config,
-      keyPath:[],
+      keyPath: [],
       //item 从 store 中获取
     }
   },
@@ -124,11 +125,13 @@ export default {
     }
   },
 
-  created() {
-  },
+  created() {},
   mounted() {
     // this.initOpenKeys()
     this.initSider()
+    this.$nextTick(() => {
+      this.setMenuCurrent()
+    })
   },
   methods: {
     // init(){
@@ -141,7 +144,7 @@ export default {
     //   let rootKey = this.config[path].rootKey
     //   this.openKeys = [rootKey]
     // },
-    closeOtherSubMenu(openKeys){
+    closeOtherSubMenu(openKeys) {
       const latestOpenKey = openKeys.find(key => this.openKeys.indexOf(key) === -1)
       if (this.rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
         this.openKeys = openKeys
@@ -176,8 +179,8 @@ export default {
       }
     },
     onItemClick(e) {
-      this.go('/'+e.key)
-      this.keyPath=e.keyPath.reverse()
+      this.go('/' + e.key)
+      this.keyPath = e.keyPath.reverse()
       this.hideMobileSider()
     },
     onCollapse(collapsed, type) {
@@ -186,117 +189,141 @@ export default {
     go(path) {
       helper.goPage(path)
     },
-    setCurrent(keyPath){
+    setCurrent(keyPath) {
       this.current = [keyPath[0]]
-      if(keyPath[1]){
+      if (keyPath[1]) {
         this.current.push(keyPath[1])
       }
     },
-    setOpenKeys(keyPath){
+    setOpenKeys(keyPath) {
       this.openKeys = [keyPath[0]]
     },
-    setOpenKeysByPath(path){
-      this.current = [path]
-      if(!this.config[path]){
-        return
-      }
-      let rootKey = this.config[path].rootKey || path
-      this.openKeys = [rootKey]
+    // setOpenKeysByPath(path) {
+    //   this.current = [path]
+    //   if (!this.config[path]) {
+    //     return
+    //   }
+    //   let rootKey = this.config[path].rootKey || path
+    //   this.openKeys = [rootKey]
+    // },
+    goUpLv() {
+      helper.goPage('/'+this.topLvKey)
     },
-    setKeyPathByPath(path){
+    setKeyPathByPath(path) {
       let keyPath = []
+      // console.log('%c path','color:red',path)
+      // console.log('%c this.config','color:red',this.config)
       let rootKey = this.config[path].rootKey
       keyPath.unshift(path)
-      while(rootKey){
+      while (rootKey) {
         keyPath.unshift(rootKey)
         rootKey = this.config[rootKey].rootKey
       }
       this.keyPath = keyPath
       return keyPath
     },
-  },
-  watch:{
-    routePath(path){
-      let keyPath = this.setKeyPathByPath(path)
-      console.log('%c keyPath','color:red',)
+    setMenuCurrent(){
+      if(!this.routePath){
+        return
+      }
+      let keyPath = this.setKeyPathByPath(this.routePath)
       this.setCurrent(keyPath)
       this.setOpenKeys(keyPath)
     },
   },
+  watch: {
+    routePath(path) {
+      this.setMenuCurrent()
+    },
+  },
   computed: {
-    rootSubmenuKeys(){
+    topLvKey(){
+      return this.keyPath[this.keyPath.length-2]
+    },
+    showBackIcon(){
+      if(this.config[this.topLvKey]){
+        return this.config[this.topLvKey].link
+      }
+    },
+    rootSubmenuKeys() {
       return this.menuConfig.map((item) => {
-        if(item.noChild!==true) {
+        if (item.noChild !== true) {
           return item.key
-        }else{
+        } else {
           return item.link
         }
       })
     },
-    menuConfig(){
-      return [
-      {//user
-        key:'user',
-        link:null,
-        icon:'user',
+    // menuConfigObj(){
+    //   let config = {} 
+    //   this.menuConfig.forEach((item,index) => {
+    //     config[item.key] = item
+    //   })
+    //   return config
+    // },
+    menuConfig() {
+      return [{ //user
+        key: 'user',
+        link: null,
+        icon: 'user',
         ...config.user,
-        children:[
-          {...config.mine_cards,hide:!this.realNameAuthed},
+        children: [
+          { ...config.mine_cards, hide: !this.realNameAuthed },
           config.wallet_review,
           config.mine_real,
           config.modifypwd,
+          config.mt4_money_bill,
         ],
-      },  {//mt4_account
+      }, { //mt4_account
         // key:'mt4_overview',
-        noChild:true,
-        hide:!this.realNameAuthed,
+        noChild: true,
+        hide: !this.realNameAuthed,
         // link:"mt4_overview",
-        icon:'profile',
+        icon: 'profile',
         ...config.mt4_overview,
-        children:[
+        children: [
           config.mt4_create,
           config.mt4_modifypwd,
           config.mt4_bind,
           config.mt4_findpwd,
         ],
-      },{//mt4_trade
-        key:'mt4_trade',
-        hide:this.list.length===0,
-        link:null,
-        icon:'user',
-        hide:true,
+      }, { //mt4_trade
+        key: 'mt4_trade',
+        hide: this.list.length === 0,
+        link: null,
+        icon: 'user',
+        hide: true,
         ...config.mt4_trade,
-        children:[
+        children: [
           config.mt4_trade_history,
           config.mt4_recharge,
           config.mt4_withdraw,
           config.mt4_money_bill,
         ],
-      },{//wallet
-        key:'wallet',
-        hide:!this.realNameAuthed,
-        hide:true,
-        link:null,
-        icon:'user',
+      }, { //wallet
+        key: 'wallet',
+        hide: !this.realNameAuthed,
+        hide: true,
+        link: null,
+        icon: 'user',
         ...config.wallet,
-        children:[
+        children: [
           config.wallet_review,
           config.wallet_withdraw,
           config.wallet_recharge,
           config.wallet_history,
         ],
-      },{//agent
-        key:'agent',
-        link:null,
-        icon:'share-alt',
+      }, { //agent
+        key: 'agent',
+        link: null,
+        icon: 'share-alt',
         ...config.agent,
-        children:[
+        children: [
           config.agent_promote,
         ],
-      },
-    ]
+      }, ]
     },
-    routePath(){
+    routePath() {
       return this.$route.path.split('/')[1]
     },
     contentHeight() {
@@ -305,12 +332,14 @@ export default {
     siderHeight() {
       return this.windowHeight - 64 + 'px'
     },
+
     ...mapState('app', ['windowHeight', 'isPC']),
     ...mapState('mt4AC', ['list']),
     ...mapGetters('account', ['realNameAuthed']),
   },
   components: {
-    NavUser,NavMt4,
+    NavUser,
+    NavMt4,
     // SubMenu:Menu.SubMenu,
     // MenuItem:Menu.Item,
   },
@@ -318,17 +347,30 @@ export default {
 
 </script>
 <style lang='scss' scoped>
+.breadcrumb {
+  position: relative;
+
+  .back-icon {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin:auto 0;
+    padding:0 5px;
+    right: 0;
+    font-size: 22px;
+    display: flex;
+  }
+}
+
 .logo {
   width: 100%;
-  height: 64px;
-  // background: rgba(0, 111, 111, 1);
+  height: 64px; // background: rgba(0, 111, 111, 1);
   // background: #f5222d;
-  background: #002140;
-  // background: linear-gradient(to bottom right, #fe7244 , #fe0000); /* 标准的语法 */
+  background: #002140; // background: linear-gradient(to bottom right, #fe7244 , #fe0000); /* 标准的语法 */
   position: absolute;
   top: 0;
   left: 0;
-  overflow:hidden;
+  overflow: hidden;
   .logo-image {
     width: auto;
     height: 46px;
@@ -340,7 +382,8 @@ export default {
     font-size: 22px;
   }
 }
-.nav-user{
+
+.nav-user {
   height: 100%;
   position: absolute;
   right: 20px;
@@ -348,6 +391,7 @@ export default {
   display: flex;
   align-items: center;
 }
+
 .content {
   padding: 24px;
   background: #fff;
@@ -355,9 +399,11 @@ export default {
   overflow: auto;
   position: relative;
 }
-.breadcrumb{
+
+.breadcrumb {
   margin-bottom: 10px;
 }
+
 </style>
 <style lang="scss">
 #appLayout {
@@ -366,20 +412,24 @@ export default {
   .ant-menu-submenu-title {
     text-align: left;
   }
-  .ant-layout-header{
+  .ant-breadcrumb-separator {
+    margin: 2px;
+  }
+  .ant-layout-header {
     position: relative;
   }
-  .ant-layout-sider{
+  .ant-layout-sider {
     height: 100%;
     .ant-menu-root {
       padding-top: 64px;
       max-height: 100%;
       height: 100%;
-      overflow-y:auto;
+      overflow-y: auto;
     }
   }
   .ant-menu-dark {
-    background: rgba(0,0,0,.65);
+    background: rgba(0, 0, 0, .65);
   }
 }
+
 </style>

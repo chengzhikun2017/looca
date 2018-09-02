@@ -6,6 +6,13 @@
       opacity: 0.7;
     }
   }
+  .l-pointer-blue {
+    &:hover {
+      cursor: pointer;
+      opacity: 0.7;
+      color:#40a9ff;
+    }
+  }
   .ant-btn,
   .ant-input {
     // height:40px;

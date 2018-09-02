@@ -1,45 +1,45 @@
 <template>
-  <div class="l-nav-mt4" v-if="listGot&&this.list.length>0">
-    <a-menu mode="horizontal" :subMenuCloseDelay='0.2' :subMenuOpenDelay="0.3">
-      <a-sub-menu>
-        <span class="title" slot="title">
-          <a-icon type="laptop"/>
-          <span class="mt4-ac">{{currentMt4Uid}}</span>
-        </span>
-        <a-menu-item v-if='showSelect' :key="mt4.mt4Uid" @click.native="onClickItem(mt4)" v-for="mt4 in list">
-          <div class="l-nav-mt4-account-item">
-            <span>
-              {{mt4.mt4Uid}}
-            </span>
-            <a-button size="small" disabled v-if='mt4.mt4Uid===currentMt4Uid'>
-              已登录
-            </a-button>
-          </div>
-        </a-menu-item>
-      </a-sub-menu>
-    </a-menu>
-  </div>
+  <!-- v-if="listGot&&this.list.length>0" -->
+  <span class="l-mt4-select" >
+    MT4账号:
+    <a-select  v-model="selectedId" style="width: 120px" @change="handleChange">
+      <a-select-option :key="mt4.mt4Uid" :value="mt4.mt4Uid" v-for="mt4 in list">
+        {{mt4.mt4Uid}}
+      </a-select-option>
+    </a-select>
+  </span>
 </template>
 
 <script>
 import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
 export default {
-  name:'navMt4',
+  name:'mt4Select',
   data() {
     return {
-      
+      selectedId:null,
     }
   },
   props:{
+    type:{
+      type:Number,
+      default:1,//
+    },
     showSelect:{
       type:Boolean,
       default:false,
     },
   },
+  created(){
+    this.selectedId=this.currentMt4Uid
+  },
   methods: {
-    onClickItem(mt4){
-      this.setCurrent(mt4.mt4Uid)
+    handleChange(id){
+      // console.log('%c changed','color:red',e)
+      this.setCurrent(id)
     },
+    // onClickItem(mt4){
+    //   this.setCurrent(mt4.mt4Uid)
+    // },
     ...mapMutations('mt4AC',['setCurrent'])
   },
   computed: {
@@ -50,7 +50,8 @@ export default {
 </script>
 
 <style lang='scss' scoped>
-.l-nav-mt4 {
+.l-mt4-select{
+  display: inline-block;
   .title {
     color: #999;
     transition: .2s;
@@ -64,7 +65,7 @@ export default {
 }
 </style>
 <style lang="scss">
-.l-nav-mt4 {
+.l-mt4-select{
   .ant-menu-submenu-title {
     padding: 0 10px;
     &:hover{
@@ -117,3 +118,4 @@ export default {
   overflow: auto;
 }
 </style>
+

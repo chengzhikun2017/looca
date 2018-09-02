@@ -1,4 +1,5 @@
 <template>
+<a-locale-provider :locale="zh_CN">
   <div id="app">
     <MainLayout headerType="0">
       <keep-alive>
@@ -16,8 +17,11 @@
     <Log v-if="isLoged!==true"></Log>
     <Loading ></Loading>
   </div>
+</a-locale-provider>
 </template>
 <script>
+  import zh_CN from 'vue-antd-ui/lib/locale-provider/zh_CN';
+  import 'moment/locale/zh-cn';
 import Log from './components/views/log.vue'
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import router from './router/index.js'
@@ -28,6 +32,7 @@ export default {
   data() {
     return {
       name: 'App',
+      zh_CN,
       setHeader: () => {
       }
     }

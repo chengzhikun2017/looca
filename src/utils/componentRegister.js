@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import {
   Button,
+  LocaleProvider,
   Carousel,
   Icon,
   Menu,
@@ -58,6 +59,7 @@ function registerComponentChild(vue, parentAntComponent) {
 
 Vue.component("MainLayout", MainLayout)
 Vue.component(Button.name, Button)
+Vue.component(LocaleProvider.name, LocaleProvider)
 Vue.component(Modal.name, Modal)
 Vue.component(Upload.name, Upload)
 registerComponentChild(Vue, Upload)
