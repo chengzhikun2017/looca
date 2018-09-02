@@ -1,0 +1,32 @@
+.#{$prefix}-note {
+  margin: 15px;
+  padding:10px 0;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  .#{$prefix}-note-title {
+    color: rgba(0,0,0,.45);
+    font-size: 14px;
+  }
+  .#{$prefix}-note-item {
+    color: rgba(0,0,0,.45);
+    font-size: 12px;
+    line-height: 1.5;
+    margin-bottom: 5px;
+  }
+}
+
+@media (min-width: 575px) {
+  .#{$prefix}-note {
+    padding:15px 36px;
+    margin: 20px 0;
+    .#{$prefix}-note-title {
+      font-size: 16px;
+      margin: 0 0 8px;
+      line-height: 32px;
+    }
+    .#{$prefix}-note-item {
+      font-size: 14px;
+      margin: 3px;
+    }
+  }
+}

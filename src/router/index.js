@@ -26,7 +26,9 @@ const wallet_recharge = ()=> import( '../pages/wallet_recharge.vue')
 const wallet_history = ()=> import( '../pages/wallet_history.vue')
 const brokerage_withdraw = ()=> import( '../pages/brokerage_withdraw.vue')
 
-
+const agent_promote = ()=> import( '../pages/agent_promote.vue')
+const agent_overview = ()=> import( '../pages/agent_overview.vue')
+const agent_profit_overview = ()=> import( '../pages/agent_profit_overview.vue')
 
 /**
  * test part
@@ -104,6 +106,9 @@ crmRoutes = crmRoutes.concat(
   newRoute('/wallet_history', 'wallet_history', wallet_history),
   newRoute('/wallet_recharge', 'wallet_recharge', wallet_recharge),
   newRoute('/mt4_money_bill', 'mt4_money_bill', mt4_money_bill),
+  newRoute('/agent_promote', 'agent_promote', agent_promote),
+  newRoute('/agent_overview', 'agent_overview', agent_overview),
+  newRoute('/agent_profit_overview', 'agent_profit_overview', agent_profit_overview),
   newRoute('/brokerage_withdraw', 'brokerage_withdraw', brokerage_withdraw),
 )
 

@@ -35,12 +35,12 @@
       <a-row class="wallet_recharge-content-grid">
         <a-col :xs="24" :sm="12">
           <div class="wallet_recharge-content-pay" flex="dir:top main:center cross:center">
-            <div class="wallet_recharge-content-pay-way">请使用支付宝APP</div>
-            <div class="wallet_recharge-content-pay-note">扫一扫付款（元）</div>
-            <div class="wallet_recharge-content-pay-money">{{formData.amount*usdRate*100 | money}}</div>
+            <!-- <div class="wallet_recharge-content-pay-way">请使用支付宝APP</div>
+            <div class="wallet_recharge-content-pay-note">扫一扫付款（元）</div> -->
             <div class="wallet_recharge-content-pay-qrcode">
               <img style="width: 100%" :src="payInfo.qrcodeUrl" alt="支付宝收款二维码">
             </div>
+            <div class="wallet_recharge-content-pay-money">{{formData.amount*usdRate*100 | money}}</div>
             <div class="wallet_recharge-content-upload phone">
               <ImageUpload :editing="true" v-model="billImageUrl" uploadText="上传账单详情截图" label="支付凭证" />
             </div>
@@ -265,8 +265,10 @@ export default {
           margin-bottom: 10px;
           width: 100%;
           max-width: 160px;
-          height: 160px;
           background: #fafafa;
+          img {
+            width: 100%;
+          }
           .#{$prefix}-content-pay-qrcode-image {
             width: 100%;
           }

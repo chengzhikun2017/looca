@@ -1,0 +1,28 @@
+.#{$prefix}-cardTable {
+  width: 100%;
+  max-width: 600px;
+  th {
+    font-size: 16px;
+    color: #999;
+    line-height: 2;
+    text-align: center;
+  }
+  td {
+    font-size: 16px;
+    line-height: 1.5;
+    font-weight: 500;
+    color: #333;
+    text-align: center;
+  }
+}
+
+@media (min-width: 575px) {
+  .#{$prefix}-cardTable {
+    th {
+      text-align: left;
+    }
+    td {
+      text-align: left;
+    }
+  }
+}
