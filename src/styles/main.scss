@@ -1,5 +1,13 @@
+.important-info{
+  font-weight: bold;
+  color:#f5222d;
+  font-size: 16px;
+}
 #app {
+
   height: 100%;
+
+
   .l-pointer {
     &:hover {
       cursor: pointer;

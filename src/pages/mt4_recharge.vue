@@ -9,9 +9,25 @@
       okText="确认入金"
       cancelText="取消"
     >
+      <p class="important-info">您将使用钱包余额入金</p>
       <p>MT4账号：<span class="mt4_recharge-confirm-account">{{currentMt4Uid}}</span></p>
-      <p>入金金额：$<span class="mt4_recharge-confirm-money">{{formData.amount}}</span></p>
+      <p>钱包余额：<span class="mt4_recharge-confirm-account">${{money.balance | money}}</span></p>
+      <p>入金金额：<span class="mt4_recharge-confirm-money">${{formData.amount}}</span></p>
     </a-modal>
+<!--     <a-modal
+      title="提示"
+      style="top: 20px;"
+      :visible="confirmVisible"
+      @ok="onConfirmed"
+      @cancel="confirmVisible=false"
+      okText="确认入金"
+      cancelText="取消"
+    >
+      <p class="important-info">您将使用钱包余额入金</p>
+      <p>MT4账号：<span class="mt4_recharge-confirm-account">{{currentMt4Uid}}</span></p>
+      <p>钱包余额：<span class="mt4_recharge-confirm-account">${{money.balance | money}}</span></p>
+      <p>入金金额：<span class="mt4_recharge-confirm-money">${{formData.amount}}</span></p>
+    </a-modal> -->
     <div class="mt4_recharge-title">
       <a-steps :current="current">
         <a-step v-for="item in steps" :key="item.title" :title="item.title" />
@@ -91,6 +107,7 @@
   </div>
 </template>
 <script>
+import helper from '../utils/helper.js'
 import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
 import inputMixin from './../components/mixin/input.js'
 import inputHelper from './../utils/inputHelper.js'
@@ -144,6 +161,17 @@ export default {
     },
     handleSubmit() {
       if(!this.checkValid()){
+        return
+      }
+      if(this.formData.amount*100>this.money.balance){
+        this.$modal.confirm({
+          title:"余额不足",
+          content:"您将使用钱包余额入金",
+          okText:"前往充值",
+          onOk:()=>{
+            helper.goPage('/wallet_recharge')
+          }
+        })
         return
       }
       this.confirmVisible = true

@@ -31,6 +31,10 @@ export default {
     }
   },
   props:{
+    type:{
+      type:Number,
+      default:1,//
+    },
     showSelect:{
       type:Boolean,
       default:false,

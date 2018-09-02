@@ -18,7 +18,7 @@
         </a-radio-group>
       </div>
     </a-modal>
-
+    
     <div class="header" v-if="false">
       <p class="text">**实名认证后方可开户</p>
       <div class="colum-filter"  v-if=false>

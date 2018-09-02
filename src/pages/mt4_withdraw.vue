@@ -10,6 +10,7 @@
       cancelText="取消"
     >
       <p>MT4账号：<span class="mt4_withdraw-confirm-account">{{currentMt4Uid}}</span></p>
+      <p class="important-info">出金至钱包余额，如需提现，请到我的钱包里申请提现</p>
     </a-modal>
     <div class="mt4_withdraw-title">
       <a-steps :current="current" :status="stepStatus">
