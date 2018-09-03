@@ -1,13 +1,13 @@
 <template>
   <a-alert
-    message="Success Text"
+    message="同步失败"
     type="warning"
     v-if="success"
     showIcon
   >
     <p slot="description">
-      <span>同步失败，请重新刷新</span>
-      <a-button type="primary" @click="reSyncFunc">重新请求</a-button>
+      <span>最新数据同步失败，如需查看最新数据，请稍后点击刷新尝试，或者前往MT4客户端查看</span>
+      <a-button type="primary" @click="reSyncFunc">刷新</a-button>
     </p>
   </a-alert>
 </template>

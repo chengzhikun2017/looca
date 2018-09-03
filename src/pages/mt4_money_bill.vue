@@ -82,6 +82,7 @@ const columns = [
   }, 
 
 ]
+import helper from '../utils/helper.js'
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 export default {
   name: 'mt4_money_bill',
@@ -122,6 +123,9 @@ export default {
     },
   },
   methods: {
+    goPage(path){
+      helper.goPage(path)
+    },
     rowKey(record) {
       return record.orderId
     },

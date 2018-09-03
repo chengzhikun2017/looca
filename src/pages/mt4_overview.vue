@@ -50,7 +50,18 @@
       </div>
       <a-button type="primary" @click.native="selectCreation">立即开户</a-button>
     </div>
-      <Mt4SyncFail  :success="!!!syncSuccess&&!loading" :reSyncFunc="getList"> </Mt4SyncFail>
+    <div class="default-info">
+      <span>
+        剩余可入金金额：${{money.balance | money}}
+      </span>
+      <a-button size="small" type="primary" @click="goPage('/mt4_trade_history')">
+        交易报表
+      </a-button>
+      <a-button size="small" type="primary" @click="goPage('/mt4_money_bill')">
+        出入金记录
+      </a-button>
+    </div>
+    <Mt4SyncFail  :success="!!!syncSuccess&&!loading" :reSyncFunc="getList"> </Mt4SyncFail>
     <div>
       <a-list
         itemLayout="horizontal"
@@ -70,7 +81,7 @@
           :pagination="pagination"
           :loading="loading"
           @change="handleTableChange"
-          v-if="isPC&&syncSuccess"
+          v-if="isPC"
         >
         <template slot="balanceFee" slot-scope="balanceFee">
           {{balanceFee|money}}
@@ -224,8 +235,12 @@ export default {
     }
   },
   created(){
+    this.setDefaultCurrent()
   },
   methods: {
+    goPage(path){
+      helper.goPage(path)
+    },
     selectCreation(){
       this.showModal = true
     },
@@ -260,7 +275,7 @@ export default {
       this.pagination = Object.assign({},pagination)
     },
     ...mapMutations('mt4AC',['setCurrent']),
-    ...mapActions('mt4AC',['getList']),
+    ...mapActions('mt4AC',['getList','setDefaultCurrent']),
   },
   computed: {
     loading(){
@@ -275,6 +290,7 @@ export default {
     },
     ...mapState('mt4AC',['list','currentMt4Uid','listGot','syncSuccess']),
     ...mapState('app',['isPC']),
+    ...mapState('wallet',['money']),
   },
   components: {
     Mt4SyncFail,
@@ -286,6 +302,14 @@ export default {
 
 <style lang='scss' scoped>
 .mt4-overview-page{
+  .default-info{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    button{
+      margin-left: 5px;
+    }
+  }
   .header{
     text-align: right;
     margin-bottom: 24px;

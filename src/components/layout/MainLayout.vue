@@ -64,7 +64,7 @@
 const config = {
   user: { title: '个人信息', icon: 'user', },
   mine_cards: { title: "我的银行卡", link: "mine_cards", rootKey: 'user' },
-  mine_real: { title: "实名信息", link: "mine_real", rootKey: 'user' },
+  mine_real: { title: "开户信息", link: "mine_real", rootKey: 'user' },
   modifypwd: { title: "修改密码", link: "modifypwd", rootKey: 'user' },
 
   mt4_account: { title: 'MT4账户管理' },
@@ -78,7 +78,7 @@ const config = {
   mt4_trade_history: { title: "交易记录：持仓和历史记录", link: "mt4_trade_history", rootKey: 'mt4_overview' },
   mt4_recharge: { title: "在线入金", link: "mt4_recharge", rootKey: 'mt4_overview' },
   mt4_withdraw: { title: "出金申请", link: "mt4_withdraw", rootKey: 'mt4_overview' },
-  mt4_money_bill: { title: "出入金记录", link: "mt4_money_bill", rootKey: 'user' },
+  mt4_money_bill: { title: "出入金记录", link: "mt4_money_bill", rootKey: 'mt4_overview' },
 
   wallet: { title: '资产管理' },
   wallet_review: { title: "我的钱包", link: "wallet_review", rootKey: 'user' },
@@ -268,11 +268,10 @@ export default {
         icon: 'user',
         ...config.user,
         children: [
-          { ...config.mine_cards, hide: !this.realNameAuthed },
-          config.wallet_review,
           config.mine_real,
+          config.wallet_review,
+          { ...config.mine_cards, hide: !this.realNameAuthed },
           config.modifypwd,
-          config.mt4_money_bill,
         ],
       }, { //mt4_account
         // key:'mt4_overview',
@@ -286,6 +285,7 @@ export default {
           config.mt4_modifypwd,
           config.mt4_bind,
           config.mt4_findpwd,
+          config.mt4_money_bill,
         ],
       }, { //mt4_trade
         key: 'mt4_trade',
