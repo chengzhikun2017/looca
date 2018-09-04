@@ -10,6 +10,7 @@
       <a-range-picker :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }" :defaultValue="[moment().add(-6,'day'), moment()]" @change="onDateRangeChange" />
       <a-button @click="getList" type="primary">查询</a-button>
     </div>
+    <div class="mt4_money_bill-search-table-divider"></div>
     <div>
       <a-table :columns="columns" :rowKey="rowKey" :dataSource="list" :pagination="pagination" :loading="loading" @change="handleTableChange" v-if="isPC">
         <template slot="cardNum" slot-scope="cardNum">
@@ -79,7 +80,7 @@ const columns = [
     dataIndex: "createTime",
     scopedSlots: { customRender: 'createTime' },
     // width: '60px',
-  }, 
+  },
 
 ]
 import helper from '../utils/helper.js'
@@ -148,12 +149,12 @@ export default {
   computed: {
     params(){
       return {
-        mt4Uid:this.currentMt4Uid, 
-        type:this.listType, 
-        page:this.pagination.current, 
-        limit:this.pagination.pageSize, 
-        st:this.startDate, 
-        et:this.endDate, 
+        mt4Uid:this.currentMt4Uid,
+        type:this.listType,
+        page:this.pagination.current,
+        limit:this.pagination.pageSize,
+        st:this.startDate,
+        et:this.endDate,
       }
     },
     ...mapState('mt4AC', ['currentMt4Uid']),
@@ -167,6 +168,6 @@ export default {
 
 </script>
 <style lang='scss' scoped>
-
-
+  $prefix: "mt4_money_bill";
+  @import '@/styles/utils/divider.scss'
 </style>
