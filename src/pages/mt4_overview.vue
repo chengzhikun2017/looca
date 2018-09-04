@@ -235,7 +235,9 @@ export default {
     }
   },
   created(){
-    this.setDefaultCurrent()
+    if(this.list.length>0){
+      this.setDefaultCurrent()
+    }
   },
   methods: {
     goPage(path){
@@ -277,6 +279,13 @@ export default {
     ...mapMutations('mt4AC',['setCurrent']),
     ...mapActions('mt4AC',['getList','setDefaultCurrent']),
   },
+  watch:{
+    listLength(value){
+      if(value>0){
+        this.setDefaultCurrent()
+      }
+    },
+  },
   computed: {
     loading(){
       return !this.listGot
@@ -287,6 +296,9 @@ export default {
         return this.allColumns[item]
       })
       return arr.concat(staticColums)
+    },
+    listLength(){
+      return this.list.length
     },
     ...mapState('mt4AC',['list','currentMt4Uid','listGot','syncSuccess']),
     ...mapState('app',['isPC']),
@@ -306,6 +318,8 @@ export default {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    margin-bottom: 8px;
+    padding-right: 12px;
     button{
       margin-left: 5px;
     }

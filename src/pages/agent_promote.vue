@@ -51,7 +51,10 @@
   export default {
     data () {
       return {}
-    }
+    },
+    created(){
+      // this.$showPageLoading()  
+    },
   }
 </script>
 <style lang="scss">

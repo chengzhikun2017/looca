@@ -49,6 +49,7 @@
           </span>
         </div>
         <div class="content" :style="{height:contentHeight}">
+          <Loading></Loading>
           <slot></slot>
         </div>
       </a-layout-content>
@@ -101,7 +102,7 @@ import helper from './../../utils/helper.js'
 import NavUser from './../views/navUser.vue'
 import NavMt4 from './../views/navMt4.vue'
 import { Menu } from 'vue-antd-ui'
-
+import Loading from '../pageLoading.js'
 export default {
   name: 'MainLayout',
   data() {
@@ -340,6 +341,7 @@ export default {
   components: {
     NavUser,
     NavMt4,
+    Loading,
     // SubMenu:Menu.SubMenu,
     // MenuItem:Menu.Item,
   },

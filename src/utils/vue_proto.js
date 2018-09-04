@@ -7,4 +7,10 @@ Vue.prototype.$showLoading = (loadingText) => {
 Vue.prototype.$hideLoading = () => {
   vueApp.$store.commit('feedback/hideLoading')
 }
+Vue.prototype.$showPageLoading = (loadingText) => {
+  vueApp.$store.commit('feedback/showPageLoading', loadingText)
+}
+Vue.prototype.$hidePageLoading = () => {
+  vueApp.$store.commit('feedback/hidePageLoading')
+}
 Vue.prototype.moment = moment

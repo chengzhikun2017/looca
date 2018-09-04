@@ -1,5 +1,5 @@
 <template>
-  <div class="l-loading" v-if='isLoading>0'>
+  <div class="l-loading" v-if='showLoading'>
     <div class="container l-position-cc">
       <a-spin size="large" tip="loading"></a-spin>
     </div>
@@ -17,6 +17,12 @@ export default {
   },
   methods: {},
   computed: {
+    showLoading(){
+      return this.isLoading
+    },
+    text(){
+      return this.loadingText
+    },
     ...mapState('feedback',['isLoading','loadingText'])
   },
   components: {},
@@ -25,7 +31,7 @@ export default {
 
 <style lang='scss' scoped>
 .l-loading{
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 100%;
   background: rgba(255, 255, 255, 0.7);
