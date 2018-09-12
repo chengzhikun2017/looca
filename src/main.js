@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-
+import events from 'events'
 // flex.css
 import 'flex.css'
 import moment from 'moment'
@@ -48,6 +48,23 @@ Vue.config.keyCodes = {
 }
 Vue.config.performace = true
 
+const Bus = new events()
+router.beforeEach((to,from,next)=>{
+
+  let isloged =  store.state.account.isLoged
+  // console.log('%c // store.account.isLoged','color:red',isloged)
+  // store.account.isLoged
+  if(isloged){
+    console.log('%c log in ','color:red',)
+    next()
+  }else{
+    Bus.on('app_loged',() => {
+      console.log('%c log in fired ','color:red',)
+      next() 
+    })
+  }
+})
+
 /* eslint-disable no-new */
 var vueApp = new Vue({
   el: '#app',
@@ -56,5 +73,8 @@ var vueApp = new Vue({
   components: { App, },
   template: '<App/>'
 })
+vueApp.$bus = Bus
+
+
 window.vueApp = vueApp
 export  {vueApp}

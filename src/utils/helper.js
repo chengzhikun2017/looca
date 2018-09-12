@@ -155,7 +155,7 @@ export default class helper {
   }
 
   static getInitialInfo() {
-    // vueApp.$emit("app_loged")
+    vueApp.$bus.emit('app_loged')
     vueApp.$store.dispatch('account/getAuthInfo')
     vueApp.$store.dispatch('account/getUserInfo')
     vueApp.$store.dispatch('mt4AC/getList')
