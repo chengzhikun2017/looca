@@ -24,6 +24,7 @@ export default {
   mutations: {
     setCurrent(s, id) {
       s.currentMt4Uid = id
+      helper.resetStoreTrade()
       helper.saveToLocal('currentMt4Uid', id)
     },
 

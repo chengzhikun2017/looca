@@ -1,6 +1,7 @@
 <template>
   <div class="test3">
-    <div  v-infinite-scroll="handleInfiniteOnLoad" :infinite-scroll-disabled="busy" :infinite-scroll-distance="80">
+    <DateRange ></DateRange>
+    <div  v-infinite-scroll="handleInfiniteOnLoad" v-if=false :infinite-scroll-disabled="busy" :infinite-scroll-distance="80">
       <a-list :dataSource="data">
         <a-list-item slot="renderItem" slot-scope="item, index">
           <a class="test" :href="item.actionType">{{item.symbol}}</a>
@@ -15,6 +16,8 @@
   </div>
 </template>
 <script>
+const DateRange = ()=> import( '../../components/container/DateRange.vue')
+
 import Vue from 'vue'
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 export default {
@@ -72,7 +75,9 @@ export default {
   computed: {
     ...mapState('trade',['tradeList']),
   },
-  components: {},
+  components: {
+    DateRange,
+  },
 }
 
 </script>

@@ -70,7 +70,7 @@
         itemLayout="horizontal"
         :dataSource="list"
         :split="false"
-        v-if="!isPC&&syncSuccess"
+        v-if="!isPC"
       >
         <a-list-item slot="renderItem" slot-scope="item, index">
           <ListItemMobile :mt4="item"></ListItemMobile>

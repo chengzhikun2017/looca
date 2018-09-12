@@ -263,9 +263,6 @@ export default {
           password,
         },
       })
-      promise.then(res => {
-        dispatch('account/getUserInfo')
-      })
       return promise
     },
   }

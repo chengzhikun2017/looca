@@ -3,33 +3,35 @@ import helper from '../utils/helper.js'
 import { vueApp } from './../main.js'
 const platform = helper.getPlatForm()
 const isPC = helper.isPC()
-
-export default {
-  namespaced: true,
-  state: {
-    tradeList: {
+class defaultTradeState{
+  constructor() {
+    this.tradeList =  {
       syncSuccess: false,
       list: [],
       ttlPage: 0,
       ttlQty: 0,
-    },
-    openList: {
+    }
+    this.openList = { 
       list: [],
       ttlPage: 0,
       ttlQty: 0,
       syncSuccess: false,
-    },
-    summary: {
+    }
+    this.summary = { 
       loss: null, //亏损笔数
       total: null, //总笔数
       win: null, //盈利笔数
       profit: null, //总实际盈利
-    },
-  },
+    }
+  }
+}
+export default {
+  namespaced: true,
+  state: new defaultTradeState,
   getters: {},
   mutations: {
     reset(state) {
-
+      Object.assign(state,new defaultTradeState)
     },
   },
   actions: {

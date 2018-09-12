@@ -21,7 +21,7 @@
           <a-icon slot="prefix" type="exclamation-circle-o" />
           <!-- <div class="captcha-box" slot="suffix"></div> -->
           <!-- <img :src="captchaSrc" alt="" class="captch"> -->
-          <a-button size=large slot="suffix" :type="codeBtnType" @click.native="sendVerifyCode" :loading="sendingCode" :ghost="codeBtnDisabled">{{codeBtnMsg}}</a-button>
+          <a-button size=large slot="suffix" :type="codeBtnType" @click.native="sendVerifyCode" :loading="sendingCode" :disabled="codeBtnDisabled">{{codeBtnMsg}}</a-button>
         </a-input>
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 24 }" type="password" :validateStatus="input.status.password.validateStatus" :help="input.status.password.help">
@@ -36,9 +36,9 @@
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 24}">
         <!-- <div class="bttn-box"> -->
-          <a-button size=large type='primary' htmlType='submit'>
-            {{isFindpwd?"修改密码并重新登录":"注册并登录"}}
-          </a-button>
+        <a-button size=large type='primary' htmlType='submit'>
+          {{isFindpwd?"重新设置密码":"注册并登录"}}
+        </a-button>
         <!-- </div> -->
       </a-form-item>
     </a-form>
@@ -46,8 +46,12 @@
 </template>
 <script>
 import regs from './../../utils/regs.js'
-import { mapState, mapMutations
-, mapActions, mapGetters } from 'vuex'
+import {
+  mapState,
+  mapMutations,
+  mapActions,
+  mapGetters
+} from 'vuex'
 import inputHelper from './../../utils/inputHelper.js'
 import { ValidationSet } from './../../utils/inputHelper.js'
 import inputMixin from './../../components/mixin/input.js'
@@ -97,13 +101,23 @@ export default {
     },
     handleSubmit() {
       console.log(this.checkValid())
-      if(!this.checkValid()){
-        return 
+      if (!this.checkValid()) {
+        return
       }
       let params = this.getParams()
-      this.submitFunc(params)
+      let promise = this.submitFunc(params)
+      if (this.isFindpwd) {
+        promise.then(() => {
+          this.$message.info("设置成功")
+          this.setFindPwd(false)
+        })
+      }
+
     },
-    getParams(){
+    findPassword() {
+      return
+    },
+    getParams() {
       let { phone, code, password } = this.formData
       return {
         phone,
@@ -113,11 +127,11 @@ export default {
       }
     },
     onPhoneBlur() {
-      if(!this.validate('phone')){
+      if (!this.validate('phone')) {
         return
       }
       // if (this.valid.phone) {
-      if(this.type==2){
+      if (this.type == 2) {
         return
       }
       let status = this.input.status
@@ -153,11 +167,11 @@ export default {
     },
     sendVerifyCode() {
       let valid = this.valid
-      if(!valid.captcha){
+      if (!valid.captcha) {
         this.$message.error('图片验证码不正确')
         return
       }
-      if(this.codeBtnDisabled){
+      if (this.codeBtnDisabled) {
         return
       }
       let phone = this.formData.phone
@@ -173,16 +187,17 @@ export default {
           this.sendingCode = false
         })
     },
-    checkValid(){
-      return this.input.validate(['code','password'])
+    checkValid() {
+      return this.input.validate(['code', 'password'])
     },
-    ...mapActions('account', ['getVerifyCode', 'signup', 'isPhoneRegister','findPwd'])
+    ...mapMutations('account', ['setFindPwd']),
+    ...mapActions('account', ['getVerifyCode', 'signup', 'isPhoneRegister', 'findPwd'])
   },
   computed: {
-    submitFunc(){
-      if(this.isFindpwd){
+    submitFunc() {
+      if (this.isFindpwd) {
         return this.findPwd
-      }else{
+      } else {
         return this.signup
       }
     },
@@ -210,8 +225,7 @@ export default {
     },
   },
   watch: {
-    'formData.phone' (v) {
-    },
+    'formData.phone' (v) {},
   },
   components: {},
 }
@@ -241,9 +255,8 @@ export default {
   .ant-btn {
     width: 100%;
   }
-  .ant-input-suffix .ant-btn{
+  .ant-input-suffix .ant-btn {
     width: 120px;
-
   }
 }
 

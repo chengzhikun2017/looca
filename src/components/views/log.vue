@@ -125,6 +125,9 @@ export default {
     margin-right: 0;
     text-align: center;
   }
-
+  .ant-tabs-nav-container-scrolling
+  .ant-tabs-tab-next.ant-tabs-tab-arrow-show, .ant-tabs-tab-prev.ant-tabs-tab-arrow-show{
+    margin:0;
+  }
 }
 </style>

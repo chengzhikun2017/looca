@@ -3,7 +3,23 @@
     <div class="choose-box">
       
     </div>
-    <div class="search-box">
+    <SearchToggle>
+      <a-radio-group v-model="listType" >
+        <a-radio-button value="trade">交易记录</a-radio-button>
+        <a-radio-button value="open">持仓订单</a-radio-button>
+      </a-radio-group>
+      <div class="mobile-date-box">
+        开始时间： 
+        <a-date-picker @change="onStartChange" />
+      </div>
+      <div class="mobile-date-box">
+        结束时间：
+        <a-date-picker @change="onEndChange" />
+      </div>
+      <Mt4Select></Mt4Select>
+      <a-button @click="getList" type="primary">查询</a-button>
+    </SearchToggle>
+    <div class="search-box pc">
       <a-radio-group v-model="listType" style="margin:8px">
         <a-radio-button value="trade">交易记录</a-radio-button>
         <a-radio-button value="open">持仓订单</a-radio-button>
@@ -64,24 +80,17 @@
 <script>
 
 const Mt4SyncFail = ()=> import( '../components/container/mt4SyncFail.vue')
+const SearchToggle = ()=> import( '../components/container/SearchToggle.vue')
 const Mt4Select = ()=> import( '../components/views/mt4Select.vue')
 
-  const columns = [{
-    title: 'MT4 ID',
-    dataIndex: 'mt4Uid',
-    // sorter: true,
-    // width: '20%',
-    // scopedSlots: { customRender: 'name' },
+const columns = [{
+  title: 'MT4 ID',
+  dataIndex: 'mt4Uid',
+  // sorter: true,
+  // width: '20%',
+  // scopedSlots: { customRender: 'name' },
   }, 
-  // {
-  //   title: '名字',
-  //   dataIndex: 'fullName',
-  //   // filters: [
-  //   //   { text: 'Male', value: 'male' },
-  //   //   { text: 'Female', value: 'female' },
-  //   // ],
-  //   width: '20%',
-  // },
+
   {
     title:"orderId",
     dataIndex:"orderId",
@@ -128,9 +137,9 @@ const Mt4Select = ()=> import( '../components/views/mt4Select.vue')
     title:"获利",
     dataIndex:"profit",
     // width:'60px',
-  },];
+},];
 import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
-const defaultStart =moment().add(-26,'day')
+const defaultStart =moment().add(-7,'day')
 const defaultEnd = moment()
 const FORMAT = "YYYY-MM-DD"
 export default {
@@ -152,10 +161,9 @@ export default {
     }
   },
   created(){
-    this.getList()
-    // setTimeout(()=> {
-    // this.getTradeHistory()
-    // }, 3000);
+    // if(this.isPC){
+      this.getList()
+    // }
   },
   methods: {
     onDateRangeChange(date, dateString){
@@ -204,19 +212,6 @@ export default {
         current:this.currentPage,
       }
     },
-    // pagination: {
-    //   get() {
-    //     let pagination = this._pagination
-    //     console.log('%c this pagination', 'color:red', pagination)
-    //     return Object.assign({
-    //       pageSize: 10,
-    //       showSizeChanger: true,
-    //       size: 'small',
-    //       total: this._list.ttlQty,
-    //       current:0,
-    //     }, pagination)
-    //   },
-    // },
     _getList(){
       return this[`${this.listType}ListGet`]
     },
@@ -249,11 +244,17 @@ export default {
   components: {
     Mt4Select,
     Mt4SyncFail,
+    SearchToggle,
   },
 }
 </script>
 
 <style lang='scss' scoped>
+
+.search-box.phone {
+  border:1px solid red;
+
+}
 .list-box{
   margin-top: 10px;
 }
