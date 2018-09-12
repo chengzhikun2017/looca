@@ -1,8 +1,8 @@
 <template>
   <div class="mt4-overview-page">
     <a-modal
-      title="Title"
-      :visible="showModal"
+      title="选择开户类型"
+      :visible="showCreateModal"
       @ok="onCreateOK"
       :confirmLoading="confirmLoading"
       @cancel="onCreateCancel"
@@ -51,13 +51,16 @@
       <a-button type="primary" @click.native="selectCreation">立即开户</a-button>
     </div>
     <div class="default-info">
+      <div class="btn-box">
+        <a-button size="small"  type="primary" @click="showCreateModal=true" >新增账户</a-button>
+      </div>
       <span>
         剩余可入金金额：${{money.balance | money}}
       </span>
-      <a-button size="small" type="primary" @click="goPage('/mt4_trade_history')">
+      <a-button size="small" v-if="list.length>0" type="primary" @click="goPage('/mt4_trade_history')">
         交易报表
       </a-button>
-      <a-button size="small" type="primary" @click="goPage('/mt4_money_bill')">
+      <a-button size="small" v-if="list.length>0" type="primary" @click="goPage('/mt4_money_bill')">
         出入金记录
       </a-button>
     </div>
@@ -211,7 +214,7 @@ export default {
   data() {
     return {
       createType:'live',
-      showModal: false,
+      showCreateModal: false,
       confirmLoading:false,
       columnsShow:allIndex,
       value: undefined,
@@ -244,7 +247,7 @@ export default {
       helper.goPage(path)
     },
     selectCreation(){
-      this.showModal = true
+      this.showCreateModal = true
     },
     onSelectCurrent(mt4,index){
       this.setCurrent(mt4.mt4Uid)
@@ -255,10 +258,10 @@ export default {
       }else{
         helper.goPage('/mt4_create/'+this.createType)
       }
-      this.showModal = false
+      this.showCreateModal = false
     },
     onCreateCancel(){
-      this.showModal = false
+      this.showCreateModal = false
     },
     rowKey(record){
       return record.mt4Uid
@@ -320,6 +323,12 @@ export default {
     align-items: center;
     margin-bottom: 8px;
     padding-right: 12px;
+    position: relative;
+    .btn-box {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
     button{
       margin-left: 5px;
     }

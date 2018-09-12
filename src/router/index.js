@@ -156,22 +156,22 @@ var router = new Router({
   routes: routes
 })
 
-router.beforeEach((to,from,next)=>{
+// router.beforeEach((to,from,next)=>{
 
-  console.log('%c to','color:red',to)
-  return 
-  let isloged =  true
-  store.account.isLoged
-  if(isloged){
-    console.log('%c log in ','color:red',)
-    next()
-  }else{
-    // vueApp.$on('app_loged',() => {
-    //   console.log('%c log in fired ','color:red',)
-    //   next() 
-    // })
-  }
-})
+//   console.log('%c to','color:red',to)
+//   return 
+//   let isloged =  true
+//   // store.account.isLoged
+//   if(isloged){
+//     console.log('%c log in ','color:red',)
+//     next()
+//   }else{
+//     // vueApp.$on('app_loged',() => {
+//     //   console.log('%c log in fired ','color:red',)
+//     //   next() 
+//     // })
+//   }
+// })
 // router.beforeEach((to, from, next) => {
 //   // console.log('router',to,from)
 //   // console.log('first enter app',router.firstEnter,router)
