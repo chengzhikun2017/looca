@@ -18,7 +18,7 @@ export default {
   methods: {},
   computed: {
     showLoading(){
-      return this.isLoading
+      return this.isLoading>0
     },
     text(){
       return this.loadingText

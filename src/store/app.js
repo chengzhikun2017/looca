@@ -4,6 +4,7 @@
 // } from '../../utils/fetch.js'
 import {vueApp} from '../main.js'
 import helper from '../utils/helper.js'
+console.log('%c helper','color:red',helper)
 const platform = helper.getPlatForm()
 const isPC = helper.isPC()
 const isWX = helper.isWeixin()

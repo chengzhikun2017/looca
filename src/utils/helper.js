@@ -133,21 +133,32 @@ export default class helper {
     return _toString.call(value) === "[object String]"
   }
 
-  static isNullObj(obj){
-    
+  static isNullObj(obj , deep = false){
+    return Object.keys(obj).find(key=>{
+      if(!!obj[key]) {
+        return true;
+      }
+    })
+  }
+
+  static isPrimitiveVariable(value){
+    // {} []
   }
 
   static resetInitialInfo() {
     vueApp.$store.commit('account/reset')
     vueApp.$store.commit('mt4AC/resetList')
-    vueApp.$store.commit('mt4AC/resetCurrent')
     vueApp.$store.commit('mt4Balance/resetList')
     vueApp.$store.commit('wallet/resetList')
+
+    vueApp.$store.commit('mt4AC/resetCurrent')
   }
 
   static getInitialInfo() {
+    // vueApp.$emit("app_loged")
     vueApp.$store.dispatch('account/getAuthInfo')
     vueApp.$store.dispatch('account/getUserInfo')
     vueApp.$store.dispatch('mt4AC/getList')
+    vueApp.$store.dispatch('wallet/getPayAccount')
   }
 }

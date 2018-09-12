@@ -203,10 +203,9 @@ export default {
         url: "/auth/info"
       })
       promise.then(res=>{
-        // res.status = 1
         state.authInfo = res
         if(!getters.realNameAuthed){
-          helper.goPage('/mine_real')
+          // helper.goPage('/mine_real')
         }
       })
       return promise

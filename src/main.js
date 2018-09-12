@@ -16,7 +16,10 @@ import "./utils/componentRegister.js"
 import "./utils/filters.js"
 import "./utils/directives.js"
 import "./utils/vue_proto.js"
+import infiniteScroll from 'vue-infinite-scroll'
+Vue.use(infiniteScroll)
 Vue.config.productionTip = true
+// Vue.prototype.__test="test"
 // Vue.config.errorHandler = function (err, vm, info) {
 //   console.log('%c vue error handle:::','color:#c0c')
 //   console.log('%c error',err)

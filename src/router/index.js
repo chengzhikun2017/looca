@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import config from '../config.js'
-
+// import {vueApp} from '../main.js'
+// import store from './../store/index.js'
 // import crm_index from '../pages/crm_index.vue'
 
 const findpwd = ()=> import( '../pages/findpwd.vue')
@@ -33,6 +34,7 @@ const agent_profit_overview = ()=> import( '../pages/agent_profit_overview.vue')
 /**
  * test part
  */
+// import test3 from  './../pages/test/test3.vue'
 const test1 = () =>  import ('./../pages/test/test1.vue')
 const test2 = () =>  import ('./../pages/test/test2.vue')
 const test3 = () =>  import ('./../pages/test/test3.vue')
@@ -112,9 +114,10 @@ crmRoutes = crmRoutes.concat(
   newRoute('/brokerage_withdraw', 'brokerage_withdraw', brokerage_withdraw),
 )
 
+console.log('%c test3','color:red',test3)
 
-// var indexPageArr = newRoute('/index_page', 'index_page', index_page, {
-  var indexPageArr = newRoute('/mine_real', 'mine_real', mine_real, {
+// var indexPageArr = newRoute('/test3', 'test3', test3, {
+var indexPageArr = newRoute('/mine_real', 'mine_real', mine_real, {
 })
 // meta: {
 //   keepAlive: true //需要被缓存
@@ -153,7 +156,22 @@ var router = new Router({
   routes: routes
 })
 
+router.beforeEach((to,from,next)=>{
 
+  console.log('%c to','color:red',to)
+  return 
+  let isloged =  true
+  store.account.isLoged
+  if(isloged){
+    console.log('%c log in ','color:red',)
+    next()
+  }else{
+    // vueApp.$on('app_loged',() => {
+    //   console.log('%c log in fired ','color:red',)
+    //   next() 
+    // })
+  }
+})
 // router.beforeEach((to, from, next) => {
 //   // console.log('router',to,from)
 //   // console.log('first enter app',router.firstEnter,router)

@@ -18,7 +18,7 @@
         </div>
         <div class="mt4_account_list_item-trade" flex-box="1" flex="dir:top main:center cross:center">
           <div>持仓亏盈</div>
-          <div class="red money" v-if="mt4.openOrderProfit>=0">
+          <div class="red money" v-if="mt4.openOrderProfit!==null&&mt4.openOrderProfit>=0">
             ${{mt4.openOrderProfit | money}}（{{mt4.openOrderNum}}笔）
           </div>
           <div class="green money" v-if="mt4.openOrderProfit<0">
@@ -28,7 +28,6 @@
         </div>
       </div>
       <div class="mt4_account_list_item-options" flex-box="0">
-        <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goAction('/mt4_money_bill')">出入金记录</a-button>
         <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goAction('/mt4_recharge')">入金</a-button>
         <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goAction('/mt4_withdraw')">出金</a-button>
         <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goAction('/unknown')">跟单</a-button>
@@ -36,6 +35,9 @@
         <a-dropdown>
           <a-button class="mt4_account_list_item-btn" type="primary" size="small">更多</a-button>
           <a-menu slot="overlay">
+            <a-menu-item @click="goAction('/mt4_money_bill')">
+              出入金记录
+            </a-menu-item>
             <a-menu-item @click="goAction('/mt4_modifypwd')">
               修改密码
             </a-menu-item>
@@ -49,12 +51,12 @@
   </div>
 </template>
 <script>
-import mt4Account  from '../mixin/mt4Account.js'
+import mt4Account from '../mixin/mt4Account.js'
 export default {
   name: 'mt4_account_list_item',
-  mixins:[mt4Account],
+  mixins: [mt4Account],
   props: {
-   
+
   },
   created() {},
   data() {

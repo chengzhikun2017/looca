@@ -43,7 +43,6 @@ export default {
     // setInterval(() => {
     //   this.$store.dispatch('wallet/getCurrency')
     // },120000)
-    this.$store.dispatch('wallet/getPayAccount')
   },
   provide() {
     return {
@@ -86,6 +85,7 @@ export default {
   methods: {
     test() {
       console.log('%c h','color:red',this.$store)
+      // this.$router.push('/test3')
       // this.$store.dispatch('mt4Balance/list')
       // this.$modal.info({
       //   title: 'This is a notification message',
@@ -109,6 +109,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 #app {
+  max-width: 2000px;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -117,6 +118,7 @@ export default {
 
 .test {
   position: fixed;
+  height: 50px;
   right: 140px;
   top: 40px;
   padding: 5px 10px;

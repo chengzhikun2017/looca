@@ -14,7 +14,7 @@
           <span v-if="topMenu.noChild">{{topMenu.title}}</span>
         </component>
       </a-menu>
-      <div class="logo" flex="main:center cross:center">
+      <div class="logo" flex="main:center cross:center" v-if="true">
         <img class="logo-image" src="@/assets/display/logo1.png" alt="">
         <div class="logo-title">乐恺环球</div>
       </div>
@@ -90,6 +90,8 @@ const config = {
 
   agent: { title: "代理推广" },
   agent_promote: { title: "我的推广", link: "agent_promote", rootKey: 'agent' },
+  agent_overview: { title: "我的客户", link: "agent_overview", rootKey: 'agent' },
+  agent_profit_overview: { title: "返现记录", link: "agent_profit_overview", rootKey: 'agent' },
 
 }
 import {
@@ -199,6 +201,10 @@ export default {
     setOpenKeys(keyPath) {
       this.openKeys = [keyPath[0]]
     },
+    onKeyPathEmpty(){
+      this.openKeys = []
+      this.current = []
+    },
     // setOpenKeysByPath(path) {
     //   this.current = [path]
     //   if (!this.config[path]) {
@@ -214,6 +220,9 @@ export default {
       let keyPath = []
       // console.log('%c path','color:red',path)
       // console.log('%c this.config','color:red',this.config)
+      if(!this.config[path]){
+        return []
+      }
       let rootKey = this.config[path].rootKey
       keyPath.unshift(path)
       while (rootKey) {
@@ -228,6 +237,11 @@ export default {
         return
       }
       let keyPath = this.setKeyPathByPath(this.routePath)
+      if(keyPath.length === 0){
+        this.onKeyPathEmpty()
+        return
+      }
+      console.log('%c keyPath','color:red',keyPath)
       this.setCurrent(keyPath)
       this.setOpenKeys(keyPath)
     },
@@ -321,6 +335,8 @@ export default {
         ...config.agent,
         children: [
           config.agent_promote,
+          config.agent_overview,
+          config.agent_profit_overview,
         ],
       }, ]
     },

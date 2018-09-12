@@ -38,6 +38,7 @@ const handleFetchError = (err,options) => {
 export default function fetch(options, {
   resolveAnyway = false,
   showLoading = 1,
+  showPageLoading = 0,
   rejectErr = false,
   simple = false,
 } = {}) {
@@ -46,6 +47,11 @@ export default function fetch(options, {
     vueApp.$showLoading()
   }else{
     showLoading = false
+  }
+  if (showPageLoading && vueApp) {
+    vueApp.$showPageLoading()
+  }else{
+    showPageLoading = false
   }
   const instance = axios.create({
     // 超时时间设置
@@ -99,6 +105,9 @@ export default function fetch(options, {
       .finally(() => {
         if (showLoading && vueApp) {
           vueApp.$hideLoading()
+        }
+        if (showPageLoading && vueApp) {
+          vueApp.$hidePageLoading()
         }
       })
   })

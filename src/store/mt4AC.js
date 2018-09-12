@@ -18,7 +18,7 @@ export default {
   state: new defaultMt4InfoAC(),
   getters: {
     hasCurrentStorage() {
-      return helper.getLocalStorage('currentMt4Uid')
+      return !!helper.getLocalStorage('currentMt4Uid')
     },
   },
   mutations: {

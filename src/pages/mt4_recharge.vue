@@ -68,22 +68,22 @@
         <div class="mt4_recharge-table" >
           <a-form >
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_recharge-table-item" label='MT4账号' :labelCol="{ span: 6 }" >
-              <span>611738961 {{successResponse.mt4Uid}}</span>
+              <span>{{successResponse.mt4Uid}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_recharge-table-item" label='入金金额' :labelCol="{ span: 6 }" >
-              <span>$1023.22 {{successResponse.dollar | money}}</span>
+              <span>${{successResponse.dollar | money}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_recharge-table-item" label='MT4订单号' :labelCol="{ span: 6 }" >
-              <span>41799017 {{successResponse.orderId}}</span>
+              <span>{{successResponse.orderId}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_recharge-table-item" label='业务编号' :labelCol="{ span: 6 }" >
-              <span>20180819203640120004 {{successResponse.tradeNo}}</span>
+              <span>{{successResponse.tradeNo}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_recharge-table-item" label='提交时间' :labelCol="{ span: 6 }" >
-              <span>2018-08-20 12:24:33 {{successResponse.createTime | timeFull}}</span>
+              <span>{{successResponse.createTime | timeFull}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_recharge-table-item" label='如今状态' :labelCol="{ span: 6 }" >
-              <span>0正在处理、1完成、2失败{{successResponse.status }}</span>
+              <span>{{successResponse.status | status }}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 24}">
               <div class="bttn-box mt4_recharge-table-btn">
@@ -134,6 +134,17 @@ export default {
     }
   },
   mixins: [inputMixin],
+  filters:{
+    status(value){
+      let status
+      switch(value){
+        case 0:status = "正在处理"; break;
+        case 1:status = "完成"; break;
+        case 2:status = "失败"; break;
+
+      }
+    },
+  },
   methods: {
     failedBack(){
       Object.assign(this,defaultData)

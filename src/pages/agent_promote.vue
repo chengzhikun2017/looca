@@ -10,9 +10,9 @@
       </thead>
       <tbody>
         <tr>
-          <td>小喽喽</td>
-          <td>$33.44</td>
-          <td>39</td>
+          <td>{{shareInfo.level | agentLevel}}</td>
+          <td>${{incomeSummary.total | money}}</td>
+          <td>{{guestSummary.total}}</td>
         </tr>
       </tbody>
     </table>
@@ -21,11 +21,11 @@
         推广二维码
       </div>
       <div class="agent_promote-content-image">
-        二维码图片
+        <img :src="shareInfo.qrcodeUrl">
       </div>
       <div class="agent_promote-content-link">
         <div>推广链接</div>
-        <div>http://www.xx.com?ss=dd</div>
+        <div>{{shareInfo.link}}</div>
       </div>
     </div>
     <div class="agent_promote-note">
@@ -48,18 +48,29 @@
   </div>
 </template>
 <script>
-  export default {
-    data () {
-      return {}
-    },
-    created(){
-      // this.$showPageLoading()  
-    },
-  }
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
+export default {
+  data() {
+    return {}
+  },
+  computed: {
+    ...mapState("share", ['shareInfo']),
+    ...mapGetters('share', ['incomeSummary', 'guestSummary'])
+  },
+  methods: {
+    ...mapActions("share", ['getShareInfo', 'getGuestCount', 'getIncomeCount']),
+  },
+  created() {
+    this.getShareInfo()
+    this.getGuestCount()
+    this.getIncomeCount()
+  },
+}
+
 </script>
 <style lang="scss">
-  $prefix: "agent_promote";
-  @import '@/styles/utils/cardTable.scss';
-  @import '@/styles/utils/note.scss';
-</style>
+$prefix: "agent_promote";
+@import '@/styles/utils/cardTable.scss';
+@import '@/styles/utils/note.scss';
 
+</style>

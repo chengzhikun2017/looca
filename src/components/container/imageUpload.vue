@@ -111,7 +111,7 @@ export default {
     beforeUpload(file) {
       this.imageNum++
       console.log('%c file beforeUpload','color:red',file)
-      const isImage = /^imag1e/.test(file.type)
+      const isImage = /^image/.test(file.type)
       if (!isImage) {
         this.$message.error('You can only upload image!')
       }
