@@ -16,7 +16,7 @@
         </tr>
       </tbody>
     </table>
-    <div class="agent_promote-content">
+    <div class="agent_promote-content" :flex="'dir:top cross:' + 'start'">
       <div class="agent_promote-content-title">
         推广二维码
       </div>
@@ -72,5 +72,34 @@ export default {
 $prefix: "agent_promote";
 @import '@/styles/utils/cardTable.scss';
 @import '@/styles/utils/note.scss';
+  .#{$prefix}-page {
+    .#{$prefix}-content {
+      margin:20px 0;
+      padding:20px 0;
+      .#{$prefix}-content-title {
+        font-weight: 800;
+        margin-bottom: 10px;
+      }
+      .#{$prefix}-content-image {
+        max-width: 160px;
+        height: 160px;
+        background: blue;
+        img {
+          width: 100%;
+        }
+      }
+      .#{$prefix}-content-link {
+        margin-top: 10px;
+        font-size: 13px;
+      }
+    }
+  }
+  @media (min-width: 575px) {
+    .#{$prefix}-page {
+    }
+  }
+  @import '@/styles/utils/cardTable.scss';
+  @import '@/styles/utils/note.scss';
+</style>
 
 </style>

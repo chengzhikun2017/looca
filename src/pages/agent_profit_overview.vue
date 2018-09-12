@@ -16,17 +16,21 @@
         </tr>
       </tbody>
     </table>
-    <a-select defaultValue="lucy" style="width: 120px">
-      <a-select-option value="jack">所有</a-select-option>
-      <a-select-option value="jack">一级</a-select-option>
-      <a-select-option value="jack">二级</a-select-option>
-      <a-select-option value="jack">三级</a-select-option>
-    </a-select>
-    <a-select defaultValue="lucy" style="width: 120px">
-      <a-select-option value="jack">点差</a-select-option>
-      <a-select-option value="jack">跟单</a-select-option>
-    </a-select>
-    <a-range-picker />
+    <div class="agent_profit_overview-data-search-divider"></div>
+    <div class="agent_profit_overview-search">
+      <a-select defaultValue="lucy" style="width: 120px">
+        <a-select-option value="jack">所有</a-select-option>
+        <a-select-option value="jack">一级</a-select-option>
+        <a-select-option value="jack">二级</a-select-option>
+        <a-select-option value="jack">三级</a-select-option>
+      </a-select>
+      <a-select defaultValue="lucy" style="width: 120px">
+        <a-select-option value="jack">点差</a-select-option>
+        <a-select-option value="jack">跟单</a-select-option>
+      </a-select>
+      <a-range-picker />
+    </div>
+    <div class="agent_profit_overview-search-table-divider"></div>
     <a-table bordered :dataSource="dataSource" :columns="columns">
     </a-table>
   </div>
@@ -65,5 +69,6 @@
 <style lang="scss">
   $prefix: "agent_profit_overview";
   @import '@/styles/utils/cardTable.scss';
+  @import '@/styles/utils/divider.scss';
 </style>
 
