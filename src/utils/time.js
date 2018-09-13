@@ -14,6 +14,7 @@ function getTimeString(AdDate, AiStart = 0, AiEnd, cfg = {}) {
       AiEnd = 19
     }
   }
+
   function pad0(num) {
     return num >= 10 ? num : "0" + num;
   };
@@ -34,21 +35,29 @@ function getTimeString(AdDate, AiStart = 0, AiEnd, cfg = {}) {
   let iD = pad0(dNow.getDate());
   let iMonth = pad0(dNow.getMonth() + 1);
   let iY = dNow.getFullYear();
-  let sNow,sNowDay,sNowTime;
+  let sNow, sNowDay, sNowTime;
   if (cfg.connectorDate === 'char') {
-    sNowDay=iY + '年' + iMonth + '月' + iD + "日"
-    sNowTime=iH + cfg.connectorTime + iM + cfg.connectorTime + iS
-    sNow = sNowDay +' '+sNowTime
+    sNowDay = iY + '年' + iMonth + '月' + iD + "日"
+    sNowTime = iH + cfg.connectorTime + iM + cfg.connectorTime + iS
+    sNow = sNowDay + ' ' + sNowTime
   } else {
-    sNowDay=iY + cfg.connectorDate + iMonth + cfg.connectorDate + iD 
-    sNowTime=iH + cfg.connectorTime + iM + cfg.connectorTime + iS;
-    sNow = sNowDay +' '+sNowTime
+    sNowDay = iY + cfg.connectorDate + iMonth + cfg.connectorDate + iD
+    sNowTime = iH + cfg.connectorTime + iM + cfg.connectorTime + iS;
+    sNow = sNowDay + ' ' + sNowTime
   }
   return sNow.slice(AiStart, AiEnd);
 };
-const TimeUtil = {}
-TimeUtil.getTimeString = getTimeString
-export {
-  getTimeString,dayQtyOfMonth,getStampByDate
+var format = {
+  day: "YYYY-MM-DD",
 }
+
+export {
+  format,
+  getTimeString,
+}
+const TimeUtil = {
+  format,
+  getTimeString,
+}
+
 export default TimeUtil

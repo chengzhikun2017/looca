@@ -3,6 +3,10 @@
     <div class="l-search-box phone" :class="show?'show':'hide'">
       <div class="container">
         <slot></slot>
+        <div class="btn-box">
+          <a-button @click="onCancel">取消</a-button>
+          <a-button type="primary" @click="onOk">确认</a-button>
+        </div>
       </div>
       <div class="search-toggle " @click="toggle">
         <a-icon type="filter" v-if="!show" />
@@ -19,7 +23,17 @@ export default {
       show: true
     }
   },
+  props:{
+  },
   methods: {
+    onCancel(){
+      this.show = false
+      this.$emit('cancel')
+    },
+    onOk(){
+      this.show = false
+      this.$emit('ok')
+    },
     toggle() {
       this.show = !this.show;
     },
@@ -43,6 +57,7 @@ export default {
     right: 0;
     z-index: 2;
     top: 0;
+    line-height: 1;
   }
   .container {
     width: 100%;
@@ -53,6 +68,11 @@ export default {
     z-index: 2;
     background: #fff;
     padding: 10px;
+    .btn-box {
+      margin-top: 15px;
+      padding-right: 20px;
+      text-align: right;
+    }
   }
 }
 

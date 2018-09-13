@@ -53,12 +53,10 @@ export default {
       })
       promise.then(res => {
           dispatch('getTradeCount')
-          console.log('%c res', 'color:red', res)
           state.tradeList.list = res.data.list
           state.tradeList.ttlQty = res.data.total
           state.tradeList.ttlPage = res.data.pages
           state.tradeList.syncSuccess = res.syncSuccess
-          console.log('%c getTradeHistory', 'color:red', res)
         })
         .finally(() => {})
       return promise

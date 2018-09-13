@@ -8,7 +8,6 @@ import events from 'events'
 // flex.css
 import 'flex.css'
 import moment from 'moment'
-console.log('%c moment','color:red',moment())
 import helper from './utils/helper.js'
 // import MainLayout from './components/layout/MainLayout.vue'
 import "./styles/main.scss"
@@ -55,11 +54,9 @@ router.beforeEach((to,from,next)=>{
   // console.log('%c // store.account.isLoged','color:red',isloged)
   // store.account.isLoged
   if(isloged){
-    console.log('%c log in ','color:red',)
     next()
   }else{
     Bus.on('app_loged',() => {
-      console.log('%c log in fired ','color:red',)
       next() 
     })
   }

@@ -1,6 +1,13 @@
 <template>
   <div class="test3">
-    <DateRange ></DateRange>
+    <box>
+      <l-search-item>
+        <DateRange @dateRangeChange="onChange"></DateRange>
+      </l-search-item>
+      <l-search-item>
+        <DateRange @dateRangeChange="onChange"></DateRange>
+      </l-search-item>
+    </box>
     <div  v-infinite-scroll="handleInfiniteOnLoad" v-if=false :infinite-scroll-disabled="busy" :infinite-scroll-distance="80">
       <a-list :dataSource="data">
         <a-list-item slot="renderItem" slot-scope="item, index">
@@ -17,6 +24,7 @@
 </template>
 <script>
 const DateRange = ()=> import( '../../components/container/DateRange.vue')
+const box = ()=> import( '../../components/container/SearchToggle.vue')
 
 import Vue from 'vue'
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
@@ -38,6 +46,9 @@ export default {
     this.getData()
   },
   methods: {
+    onChange(date,strs){
+      console.log('%c on date range change','color:red',date,strs)
+    },
     getData(callback){
       console.log('%c get data','color:red',)
       let params = {
@@ -76,7 +87,7 @@ export default {
     ...mapState('trade',['tradeList']),
   },
   components: {
-    DateRange,
+    DateRange,box,
   },
 }
 

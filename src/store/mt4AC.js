@@ -51,10 +51,8 @@ export default {
         showLoading: false,
       })
       promise.then(res => {
-          console.log('%c res mt4 account ', 'color:red', res)
           state.list = res.data
           state.syncSuccess = res.syncSuccess
-          console.log('%c getters.hasCurrentStorage','color:red',getters.hasCurrentStorage)
           if (!getters.hasCurrentStorage) {
             dispatch('setDefaultCurrent')
           }

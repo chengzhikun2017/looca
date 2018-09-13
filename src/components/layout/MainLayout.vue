@@ -1,5 +1,5 @@
 <template>
-  <a-layout id="appLayout">
+  <a-layout id="appLayout" :class="isPC?'pc':'phone'">
     <a-layout-sider breakpoint="lg" v-model="collapsed" collapsedWidth="0" @collapse="onCollapse" ref="sider">
       <a-menu ref="menu" theme="dark" mode="inline" :openKeys="openKeys" @openChange="onOpenChange" v-model="current" @click="onItemClick">
         <component v-for="topMenu in menuConfig" :is="topMenu.noChild?'aMenuItem':'aSubMenu'" :key="topMenu.noChild?topMenu.link:topMenu.key" v-if="!topMenu.hide">
@@ -27,7 +27,7 @@
           <NavUser></NavUser>
         </div>
       </a-layout-header>
-      <a-layout-content :style="{ margin: '24px 16px 0' }">
+      <a-layout-content class="content-layout" >
         <div class="breadcrumb">
           <a-breadcrumb separator=">">
             <a-breadcrumb-item>{{''}}</a-breadcrumb-item>
@@ -48,7 +48,7 @@
             <a-icon type="arrow-left" />
           </span>
         </div>
-        <div class="content" :style="{height:contentHeight}">
+        <div class="content" :class="isPC?'':'phone'" :style="{height:contentHeight}">
           <Loading></Loading>
           <slot></slot>
         </div>
@@ -409,7 +409,16 @@ export default {
   display: flex;
   align-items: center;
 }
-
+.pc {
+  .content-layout{
+    margin:24px 16px 0;
+  }
+}
+.phone{
+ .content-layout{
+  margin: 24px 0 0;
+}
+}
 .content {
   padding: 24px;
   background: #fff;
@@ -417,7 +426,9 @@ export default {
   overflow: auto;
   position: relative;
 }
-
+.content.phone {
+  padding: 12px;
+}
 .breadcrumb {
   margin-bottom: 10px;
 }
