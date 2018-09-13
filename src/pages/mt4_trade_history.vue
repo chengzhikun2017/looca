@@ -1,23 +1,20 @@
 <template>
   <div class="mt4_trade_history-page">
     <div class="choose-box">
-      
     </div>
-    <SearchToggle>
-      <a-radio-group v-model="listType" >
-        <a-radio-button value="trade">交易记录</a-radio-button>
-        <a-radio-button value="open">持仓订单</a-radio-button>
-      </a-radio-group>
-      <div class="mobile-date-box">
-        开始时间： 
-        <a-date-picker @change="onStartChange" />
-      </div>
-      <div class="mobile-date-box">
-        结束时间：
-        <a-date-picker @change="onEndChange" />
-      </div>
-      <Mt4Select></Mt4Select>
-      <a-button @click="getList" type="primary">查询</a-button>
+    <SearchToggle v-if="!isPC" @ok="searchPhoneList">
+      <l-search-item>
+        <a-radio-group v-model="listType">
+          <a-radio-button value="trade">交易记录</a-radio-button>
+          <a-radio-button value="open">持仓订单</a-radio-button>
+        </a-radio-group>
+      </l-search-item>
+      <l-search-item>
+        <DateRange @dateRangeChange="onDateRangeChange" :defaultValue="[defaultStart,defaultEnd]"/>
+      </l-search-item>
+      <l-search-item>
+        <Mt4Select></Mt4Select>
+      </l-search-item>
     </SearchToggle>
     <div class="search-box pc">
       <a-radio-group v-model="listType" style="margin:8px">
@@ -26,16 +23,10 @@
       </a-radio-group>
       <Mt4Select></Mt4Select>
       &nbsp;
-      <a-range-picker
-        :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }"
-        :defaultValue="[defaultStart,defaultEnd]"
-        @change="onDateRangeChange" 
-        v-model="selectDate"
-      />
-      &nbsp;
-      <a-button @click="getList" type="primary">查询</a-button>
+      <a-range-picker :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }" :defaultValue="[defaultStart,defaultEnd]" @change="onDateRangeChange" v-model="selectDate" /> &nbsp;
+      <a-button @click="searchList" type="primary">查询</a-button>
     </div>
-    <Mt4SyncFail  :success="!!!syncSuccess&&!loading" :reSyncFunc="getList"> </Mt4SyncFail>
+    <Mt4SyncFail :success="!!!syncSuccess&&!loading" :reSyncFunc="getList"> </Mt4SyncFail>
     <a-alert type="success" v-if="syncSuccess && listType==='trade'">
       <p class="summary" slot="description">
         <!-- <label for="">总览：</label> -->
@@ -52,16 +43,9 @@
           总实际盈利:${{summary.profit | money}}
         </span>
       </p>
-    </a-alert> 
-     <div class="list-box" v-if="syncSuccess">
-       <a-table :columns="columns"
-           :rowKey="rowKey"
-           :dataSource="list"
-           :pagination="pagination"
-           :loading="loading"
-           @change="handleTableChange"
-           v-if="isPC"
-         >
+    </a-alert>
+    <div class="list-box" v-if="syncSuccess">
+      <a-table :columns="columns" :rowKey="rowKey" :dataSource="list" :pagination="pagination" :loading="loading" @change="handleTableChange" v-if="isPC">
         <template slot="openTime" slot-scope="openTime">
           <span class="time">
             {{openTime|timeFull}}
@@ -72,215 +56,311 @@
             {{closeTime|timeFull}}
           </span>
         </template>
-       </a-table>
-     </div>
+      </a-table>
+    </div>
+
+    <!-- data -->
+    <!-- nomore -->
+    <!-- slot item -->
+    <!-- loadmore -->
+    <div class="list-box phone"
+    v-infinite-scroll="getListPhone" 
+    :infinite-scroll-disabled="loading" 
+    :infinite-scroll-distance="80"
+    v-if="!isPC"
+    >
+      <a-list :dataSource="listData"  >
+        <!-- :loading="loading" -->
+        <a-list-item slot="renderItem" slot-scope="item, index">
+          <!-- <a class="test" :href="item.actionType">{{item.symbol}}</a> -->
+            <!-- <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /> -->
+          <!-- <div>Content</div> -->
+          <mt4TradeListItem :info="item"></mt4TradeListItem>
+        </a-list-item>
+        <div v-if="loading" class="demo-loading-container">
+          <a-spin />
+        </div>
+        <div class="footer" v-if="paramsPhone.nomore && listData.length>0" slot="footer">
+          ---没有啦---
+        </div>
+      </a-list>
+    </div>
   </div>
 </template>
-
 <script>
-
-const Mt4SyncFail = ()=> import( '../components/container/mt4SyncFail.vue')
-const SearchToggle = ()=> import( '../components/container/SearchToggle.vue')
-const Mt4Select = ()=> import( '../components/views/mt4Select.vue')
-
+const Mt4SyncFail = () =>
+  import ('../components/container/mt4SyncFail.vue')
+const SearchToggle = () =>
+  import ('../components/container/SearchToggle.vue')
+const Mt4Select = () =>
+  import ('../components/views/mt4Select.vue')
+const DateRange = () =>
+  import ('../components/container/DateRange.vue')
+const mt4TradeListItem = () =>
+  import ('../components/container/mt4TradeListItem.vue')
 const columns = [{
-  title: 'MT4 ID',
-  dataIndex: 'mt4Uid',
-  // sorter: true,
-  // width: '20%',
-  // scopedSlots: { customRender: 'name' },
-  }, 
-
+    title: 'MT4 ID',
+    dataIndex: 'mt4Uid',
+    // sorter: true,
+    // width: '20%',
+    // scopedSlots: { customRender: 'name' },
+  },
   {
-    title:"orderId",
-    dataIndex:"orderId",
-    sorter:true,
+    title: "orderId",
+    dataIndex: "orderId",
+    sorter: true,
     // scopedSlots: { customRender: 'action' },
-  },{
-    title:"品种",
-    dataIndex:"symbol",
-  },{
-    title:"方向",
-    dataIndex:"actionType",
-  },{
-    title:"数量",
-    dataIndex:"amount",
-    width:'60px',
-  },{
-    title:"开仓价",
-    dataIndex:"openPrice",
-    width:"90px",
-  },{
-    title:"开仓时间",
-    dataIndex:"openTime",
-    width:"150px",
+  }, {
+    title: "品种",
+    dataIndex: "symbol",
+  }, {
+    title: "方向",
+    dataIndex: "actionType",
+  }, {
+    title: "数量",
+    dataIndex: "amount",
+    width: '60px',
+  }, {
+    title: "开仓价",
+    dataIndex: "openPrice",
+    width: "90px",
+  }, {
+    title: "开仓时间",
+    dataIndex: "openTime",
+    width: "150px",
     scopedSlots: { customRender: 'openTime' },
-  },{
-    title:"平仓价",
-    dataIndex:"closePrice",
-    width:"90px",
-  },{
-    title:"平仓时间",
-    dataIndex:"closeTime",
-    width:"150px",
+  }, {
+    title: "平仓价",
+    dataIndex: "closePrice",
+    width: "90px",
+  }, {
+    title: "平仓时间",
+    dataIndex: "closeTime",
+    width: "150px",
     scopedSlots: { customRender: 'closeTime' },
-  },{
-    title:"止损价",
-    dataIndex:"stopLoss",
-  },{
-    title:"止盈价",
-    dataIndex:"takeProfit",
-  },{
-    title:"隔夜利息",
-    dataIndex:"rollver",
-  },{
-    title:"获利",
-    dataIndex:"profit",
+  }, {
+    title: "止损价",
+    dataIndex: "stopLoss",
+  }, {
+    title: "止盈价",
+    dataIndex: "takeProfit",
+  }, {
+    title: "隔夜利息",
+    dataIndex: "rollver",
+  }, {
+    title: "获利",
+    dataIndex: "profit",
     // width:'60px',
-},];
-import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
-const defaultStart =moment().add(-7,'day')
+  },
+];
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
+const defaultStart = moment().add(-71, 'day')
 const defaultEnd = moment()
 const FORMAT = "YYYY-MM-DD"
+class defaultParamsPhone{
+  constructor(){
+    this.limit=10
+    this.page=0
+    this.nomore=false
+  }
+}
 export default {
-  name:'mt4_trade_history',
+  name: 'mt4_trade_history',
   data() {
     return {
-      selectDate:null,
-      listType:'trade',
+      listData:[],
+      selectDate: null,
+      listType: 'trade',
       loading: false,
-      columns:columns,
+      columns: columns,
       defaultStart,
       defaultEnd,
-      startDate:defaultStart.format(FORMAT),
-      endDate:defaultEnd.format(FORMAT),
-      currentPage:0,
+      startDate: defaultStart.format(FORMAT),
+      endDate: defaultEnd.format(FORMAT),
+      currentPage: 1,
+      paramsPhone:new defaultParamsPhone,
       // _pagination:{
       //   current:0,
       // },
     }
   },
-  created(){
-    // if(this.isPC){
+  created() {
+    if(this.isPC){
       this.getList()
-    // }
+    }else{
+      this.getListPhone()
+    }
   },
   methods: {
-    onDateRangeChange(date, dateString){
+    searchList(){
+      this.resetParams
+      this.getList()
+    },
+    resetParams(){
+      this.currentPage = 1
+    },
+    onDateRangeChange(date, dateString) {
       // console.log('%c date, dateString','color:red',date, dateString)
       this.startDate = dateString[0]
       this.endDate = dateString[1]
     },
-    rowKey(record){
+    rowKey(record) {
       return record.orderId
     },
-    handleTableChange(pagination){
+    handleTableChange(pagination) {
       this.currentPage = pagination.current
       // this._pagination = Object.assign({},pagination)
-      console.log('%c pagination','color:red',pagination)
+      console.log('%c pagination', 'color:red', pagination)
       this.$nextTick(() => {
-        if(this.listType==="trade"){
+        if (this.listType === "trade") {
           this.getList()
         }
       })
     },
-    getList(){
+    resetPhoneList(){
+      this.listData = []
+      this.paramsPhone = new defaultParamsPhone
+    },
+    searchPhoneList(){
+      this.resetPhoneList()
+      this.getListPhone()
+    },
+    getListPhone(){
+      if(this.paramsPhone.nomore === true) {
+        return
+      }
+      this.paramsPhone.page++
       this.loading = true
       this._getList({
-        page:this.pagination.current,
-        limit:this.pagination.pageSize,
-        st:this.startDate,
-        et:this.endDate,
+        st: this.startDate,
+        et: this.endDate,
+        ...this.paramsPhone
+      })
+      .then(() => {
+        this.list.forEach((item) => {
+          this.listData.push(item) 
+        })
+        if(this.listData.length >= this._list.ttlQty ){
+          this.paramsPhone.nomore = true
+        }
       })
       .finally(() => {
-        this.loading = false 
+        this.loading = false
       })
     },
-    ...mapActions('trade',{
-      tradeListGet:"getTradeHistory",
-      openListGet:"getOpenHistory",
-      getTradeCount:'getTradeCount',
+    getList() {
+      this.loading = true
+      this._getList({
+        page: this.pagination.current,
+        limit: this.pagination.pageSize,
+        st: this.startDate,
+        et: this.endDate,
+      })
+      .finally(() => {
+        this.loading = false
+      })
+    },
+    ...mapActions('trade', {
+      tradeListGet: "getTradeHistory",
+      openListGet: "getOpenHistory",
+      getTradeCount: 'getTradeCount',
     }),
   },
   computed: {
-    pagination(){
+    pagination() {
       return {
         pageSize: 10,
         showSizeChanger: true,
         size: 'small',
         total: this._list.ttlQty,
-        current:this.currentPage,
+        current: this.currentPage,
       }
     },
-    _getList(){
+    _getList() {
       return this[`${this.listType}ListGet`]
     },
-    _list(){
+    _list() {
       return this[`${this.listType}List`] || {}
     },
-    list(){
+    list() {
       return this._list.list
     },
-    syncSuccess(){
+    syncSuccess() {
       return this._list.syncSuccess
     },
-    ...mapState('trade',['summary','tradeList','openList']),
-    ...mapState('app',['isPC']),
-    ...mapState('mt4AC',['currentMt4Uid']),
+    ...mapState('trade', ['summary', 'tradeList', 'openList']),
+    ...mapState('app', ['isPC']),
+    ...mapState('mt4AC', ['currentMt4Uid']),
   },
-  watch:{
-    listType(value){
+  watch: {
+    listType(value) {
       this.$nextTick(() => {
-        this.getList() 
+        this.getList()
       })
     },
-    ttlQty(v){
+    ttlQty(v) {
       this.pagination.total = v
     },
-    currentMt4Uid(v){
+    currentMt4Uid(v) {
       // this.getList()
     },
   },
   components: {
     Mt4Select,
     Mt4SyncFail,
+    DateRange,
     SearchToggle,
+    mt4TradeListItem,
   },
 }
+
 </script>
-
 <style lang='scss' scoped>
-
 .search-box.phone {
-  border:1px solid red;
-
+  border: 1px solid red;
 }
-.list-box{
+
+.list-box {
   margin-top: 10px;
 }
-.summary{
+
+.summary {
   margin-bottom: 0;
-  span{
+  span {
     margin-right: 15px;
   }
 }
-.time{
+
+.time {
   font-size: 12px;
 }
+
 .search-box {
   display: flex;
   /*justify-content: center;*/
   flex-wrap: wrap;
   align-items: center;
 }
+.list-box.phone {
+  .footer {
+    text-align: center;
+  }
+}
 </style>
 <style lang='scss'>
-.mt4_trade_history-page{
-  .ant-table-tbody{
+.demo-loading-container {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  text-align: center;
+}
+.mt4_trade_history-page {
+  .ant-table-tbody {
     font-size: 12px;
   }
-  .ant-table-tbody{
+  .ant-table-tbody {
     /*color:red;*/
   }
 }
+
 </style>

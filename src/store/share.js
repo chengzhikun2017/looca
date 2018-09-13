@@ -70,10 +70,10 @@ export default {
           state.incomeCount = res
         })
     },
-    getGuestList() {
+    getGuestList({state},params) {
       params = Object.assign({
         page: 1,
-        limit: 10,
+        limit: 9999,
         // depth: 级别， 1、2、3 ，不填写或者空字符为全部
       }, params)
       let promise = fetch({

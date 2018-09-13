@@ -9,7 +9,9 @@ Vue.filter('bankCard',function(value){
 Vue.filter('timeFull',function(value){
   return TimeUtil.getTimeString(value)
 })
-
+Vue.filter('timeDay',function(value){
+  return TimeUtil.getTimeString(value,0,10)
+})
 
 Vue.filter('money',function(value){
   return Number(value/100).toFixed(2)

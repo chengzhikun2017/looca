@@ -20,7 +20,7 @@ export default {
   name: 'SearchToggle',
   data() {
     return {
-      show: true
+      show: false
     }
   },
   props:{

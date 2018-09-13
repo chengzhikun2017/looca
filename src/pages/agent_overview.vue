@@ -11,55 +11,87 @@
       </thead>
       <tbody>
         <tr>
-          <td>39</td>
-          <td>39</td>
-          <td>39</td>
-          <td>39</td>
+          <td>{{guestSummary.total}}</td>
+          <td>{{guestSummary.lv1}}</td>
+          <td>{{guestSummary.lv2}}</td>
+          <td>{{guestSummary.lv3}}</td>
         </tr>
       </tbody>
     </table>
     <div class="agent_overview-data-search-divider"></div>
     <div class="agent_overview-search">
-      <a-select defaultValue="lucy" style="width: 120px">
-        <a-select-option value="jack">所有</a-select-option>
-        <a-select-option value="jack">一级</a-select-option>
-        <a-select-option value="jack">二级</a-select-option>
-        <a-select-option value="jack">三级</a-select-option>
+      <a-select style="width: 120px" v-model="queryLv" @change="getList">
+        <a-select-option v-for="item in lvs" :value="item.value">{{item.label}}</a-select-option>
       </a-select>
     </div>
     <div class="agent_overview-search-table-divider"></div>
-    <a-table bordered :dataSource="dataSource" :columns="columns">
+    <a-table :pagination=false bordered :dataSource="list" :columns="columns">
+        <template slot="createTime" slot-scope="createTime">
+          {{createTime | timeFull}}
+        </template>
+      
     </a-table>
   </div>
 </template>
 <script>
-  export default {
-    data () {
-      return {
-        columns: [{
-          title: 'id',
-          dataIndex: 'id',
-        }, {
-          title: '名字',
-          dataIndex: 'name',
-        }, {
-          title: '手机号',
-          dataIndex: 'phone',
-        }, {
-          title: '关系',
-          dataIndex: 'operation',
-        }, {
-          title: '时间',
-          dataIndex: 'operation',
-        }],
-        dataSource: []
-      }
+import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
+const agent_levels = [
+  {label:'所有',value:0},
+  {label:'一级',value:1},
+  {label:'二级',value:2},
+  {label:'三级',value:3},
+]
+export default {
+  data() {
+    return {
+      lvs:agent_levels,
+      queryLv:0,
+      columns: [
+      // {
+      //   title: 'id',
+      //   dataIndex: 'id',
+      // }, 
+      {
+        title: '名字',
+        dataIndex: 'name',
+      }, {
+        title: '手机号',
+        dataIndex: 'phone',
+      }, {
+        title: '关系',
+        dataIndex: 'depth',
+      }, {
+        title: '时间',
+        dataIndex: 'createTime',
+        scopedSlots: { customRender: 'createTime' },
+      }],
     }
-  }
+  },
+  created() {
+    this.getGuestCount()
+    this.getGuestList()
+  },
+  computed:{
+    list(){
+      return this.guestList.list
+    },
+    ...mapGetters('share',['guestSummary']),
+    ...mapState('share',['guestList']),
+  },
+  methods: {
+    getList(){
+      this.getGuestList({
+        depth: this.queryLv || null,
+      })
+    },
+    ...mapActions('share',['getGuestCount','getGuestList']),
+  },
+}
+
 </script>
 <style lang="scss">
-  $prefix: "agent_overview";
-  @import '@/styles/utils/cardTable.scss';
-  @import '@/styles/utils/divider.scss';
-</style>
+$prefix: "agent_overview";
+@import '@/styles/utils/cardTable.scss';
+@import '@/styles/utils/divider.scss';
 
+</style>

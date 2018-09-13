@@ -47,7 +47,21 @@ export default {
         }
       }
       this.onChange()
+    },
+    initDate(){
+      if(this.defaultValue){
+        this.startDate = this.defaultValue[0]
+        this.endDate= this.defaultValue[1]
+      }
+    },
+  },
 
+  created(){
+    this.initDate()
+  },
+  props:{
+    defaultValue: {
+      type:Array,
     },
   },
   computed: {

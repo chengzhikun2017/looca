@@ -99,6 +99,7 @@ export default {
       return this.$route.params.server
     },
     title(){
+      // type demo,live follow为跟单，normal为普通
       if(this.type === 'demo'){
         return "创建模拟账户"
       }else if(this.type === 'live'){

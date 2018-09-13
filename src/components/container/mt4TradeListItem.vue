@@ -5,28 +5,30 @@
         <div flex-box="1" flex="dir:top">
           <div flex="cross:center">
             <div class="mt4_balance_list_item-summary-title" flex-box="0">
-              MT4订单号 3333333
+              MT4订单号: {{info.orderId}}
             </div>
             <div class="mt4_balance_list_item-summary-money" flex-box="1">
             </div>
             <div class="mt4_balance_list_item-summary-charge" flex-box="0">
-              USDGDP
+              {{info.symbol}}
             </div>
           </div>
           <div class="mt4_balance_list_item-summary-note">
             <span class="mt4_balance_list_item-summary-note-item"><a-icon type="login" /> 1.7232</span>
             <span class="mt4_balance_list_item-summary-note-item"><a-icon type="logout" /> 1.7463</span>
-            <span class="mt4_balance_list_item-summary-note-item"><a-icon type="fork" /> BUY</span>
+            <span class="mt4_balance_list_item-summary-note-item"><a-icon type="fork" /> {{info.actionType}}</span>
           </div>
         </div>
-        <div class="mt4_balance_list_item-summary-status green" flex-box="0">
-          $6.433
+        <div class="mt4_balance_list_item-summary-status" 
+          :class="{'green':info.profit<0,'red':info.profit>0,}"  
+          flex-box="0">
+          ${{info.profit | money}}
         </div>
       </div>
       <div class="mt4_balance_list_item-others" flex="cross:center">
         <div class="mt4_balance_list_item-others-time" flex-box="1">
-          <div>开仓时间：2018-12-12 12:12:12</div>
-          <div>平仓时间：2018-12-12 12:12:12</div>
+          <div>开仓时间：{{info.openTime | timeFull}}</div>
+          <div>平仓时间：{{info.closeTime | timeFull}}</div>
         </div>
         <div class="mt4_balance_list_item-others-turnoff" @click="toggle" flex-box="0">
           <a-icon v-if="!isDetailShow" type="down-circle" />
@@ -38,15 +40,15 @@
     <transition name="slide">
       <div v-if="isDetailShow" class="mt4_balance_list_item-detail">
         <div class="mt4_balance_list_item-detail-item">
-          MT4账号：475643875
+          MT4账号：{{info.mt4Uid}}
         </div>
         <div class="mt4_balance_list_item-detail-item" flex="main:justify">
-          <span>手续费：$0</span>
+          <span>手续费：${{info.serviceFee | money}}</span>
           <span>库存费：$23.33</span>
         </div>
         <div class="mt4_balance_list_item-detail-item" flex="main:justify">
-          <span>止损价：$23.33</span>
-          <span>止盈价：$23.33</span>
+          <span>止损价：${{info.stopLoss | money}}</span>
+          <!-- <span>止盈价：${{info}}</span> -->
         </div>
       </div>
     </transition>
@@ -57,7 +59,7 @@
   export default {
     name: 'mt4_balance_list_item',
     props: {
-      data: {
+      info: {
         type: Object,
         default: () => {}
       }

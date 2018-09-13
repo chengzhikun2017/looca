@@ -25,7 +25,8 @@
       </div>
       <div class="agent_promote-content-link">
         <div>推广链接</div>
-        <div>{{shareInfo.link}}</div>
+        <a target="blank" :href="shareInfo.link">{{shareInfo.link}}</a>
+        <!-- <a-button>复制链接</a-button> -->
       </div>
     </div>
     <div class="agent_promote-note">

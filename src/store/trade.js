@@ -3,21 +3,21 @@ import helper from '../utils/helper.js'
 import { vueApp } from './../main.js'
 const platform = helper.getPlatForm()
 const isPC = helper.isPC()
-class defaultTradeState{
+class defaultTradeState {
   constructor() {
-    this.tradeList =  {
+    this.tradeList = {
       syncSuccess: false,
       list: [],
       ttlPage: 0,
       ttlQty: 0,
     }
-    this.openList = { 
+    this.openList = {
       list: [],
       ttlPage: 0,
       ttlQty: 0,
       syncSuccess: false,
     }
-    this.summary = { 
+    this.summary = {
       loss: null, //亏损笔数
       total: null, //总笔数
       win: null, //盈利笔数
@@ -31,7 +31,7 @@ export default {
   getters: {},
   mutations: {
     reset(state) {
-      Object.assign(state,new defaultTradeState)
+      Object.assign(state, new defaultTradeState)
     },
   },
   actions: {
@@ -52,7 +52,10 @@ export default {
         showLoading: false,
       })
       promise.then(res => {
-          dispatch('getTradeCount')
+        console.log('%c params','color:red',params)
+          if (params.page == 1) {
+            dispatch('getTradeCount',params)
+          }
           state.tradeList.list = res.data.list
           state.tradeList.ttlQty = res.data.total
           state.tradeList.ttlPage = res.data.pages
@@ -87,18 +90,18 @@ export default {
       return promise
     },
     getTradeCount({ state }, params) {
-      if (state.summary.loss !== null) {
-        return
-      }
       var promise = fetch({
         url: "trade/count",
         params: {
           mt4Uid: vueApp.$store.state.mt4AC.currentMt4Uid,
+          ...params,
           // page:params.page||1,
           // limit:params.limit||10,
           // st:params.st,
           // et:params.et,
         },
+      }, {
+        showLoading: false,
       })
       promise.then((res) => {
         state.summary = res

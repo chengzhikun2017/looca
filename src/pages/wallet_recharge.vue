@@ -111,7 +111,8 @@
   </div>
 </template>
 <script>
-    let newInput = new inputHelper.newInput(['amount','remark'])
+let newInput = new inputHelper.newInput(['amount','remark'])
+import helper from '../utils/helper.js'
 import inputMixin from './../components/mixin/input.js'
 import inputHelper from './../utils/inputHelper.js'
 import { ValidationSet } from './../utils/inputHelper.js'
@@ -182,6 +183,9 @@ export default {
       }).finally(() => {
         this.next()
       })
+    },
+    goPage(path){
+      helper.goPage(path)
     },
     goPayQR() {
       if (!this.checkValid()) {
