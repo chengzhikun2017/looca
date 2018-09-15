@@ -59,7 +59,7 @@ export default {
 </script>
 <style lang='scss' scoped>
 .l-log {
-  position: fixed;
+  position: absolute;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 1);

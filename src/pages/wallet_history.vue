@@ -12,7 +12,8 @@
         :defaultValue="[moment().add(-6,'day'), moment()]"
         @change="onDateRangeChange" 
       />
-      <a-button @click="getList" type="primary">search</a-button>
+      &nbsp;
+      <a-button @click="getList" type="primary">查看</a-button>
     </div>
     <div>
       <a-table :columns="columns" :rowKey="rowKey" :dataSource="list" :pagination="pagination" :loading="loading" @change="handleTableChange" v-if="isPC">

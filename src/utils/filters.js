@@ -46,3 +46,17 @@ Vue.filter('agentLevel',function(value){
   }
   return str
 })
+
+Vue.filter('guestDepth',function(value){
+  // 级别
+  // 1：股东
+  // 2：经理
+  // 3：组长
+  let str = ""
+  switch(value){
+    case 1: str = "一级";break;
+    case 2: str = "二级";break;
+    case 3: str = "三级";break;
+  }
+  return str
+})

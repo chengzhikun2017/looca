@@ -1,29 +1,33 @@
 <template>
   <div class="test3">
     <box>
-      <l-search-item>
+      <l-search-item >
         <DateRange @dateRangeChange="onChange"></DateRange>
       </l-search-item>
       <l-search-item>
         <DateRange @dateRangeChange="onChange"></DateRange>
       </l-search-item>
     </box>
-    <div  v-infinite-scroll="handleInfiniteOnLoad" v-if=false :infinite-scroll-disabled="busy" :infinite-scroll-distance="80">
+    <ListPhone v-if="false" :data="data" :loading="loading" :loadmore="getData">
+      <div slot-scope="props,index">{{props.item}}</div>
+    </ListPhone>
+    <!-- <div  v-infinite-scroll="handleInfiniteOnLoad" v-if=false :infinite-scroll-disabled="busy" :infinite-scroll-distance="80">
       <a-list :dataSource="data">
         <a-list-item slot="renderItem" slot-scope="item, index">
           <a class="test" :href="item.actionType">{{item.symbol}}</a>
-            <!-- <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /> -->
           <div>Content</div>
         </a-list-item>
         <div v-if="loading && !busy" class="demo-loading-container">
           <a-spin />
         </div>
       </a-list>
-    </div>
+    </div> -->
   </div>
 </template>
 <script>
+import _ from 'underscore'
 const DateRange = ()=> import( '../../components/container/DateRange.vue')
+const ListPhone = ()=> import( '../../components/container/ListPhone.vue')
 const box = ()=> import( '../../components/container/SearchToggle.vue')
 
 import Vue from 'vue'
@@ -56,13 +60,20 @@ export default {
         // et,
         page:this.currentPage,
       }
+      this.loading = true
       this.getTradeHistory()
       .then(() => {
-        this.tradeList.list.forEach((item) => {
-          this.data.push(item) 
-          this.currentPage++
-          callback&&callback()
-        })
+        if(this.data.length<10){
+          this.tradeList.list.forEach((item) => {
+            this.data.push(item)
+
+            this.currentPage++
+              callback && callback()
+          })
+        }
+      })
+      .finally(() => {
+        // this.loading = false 
       })
     },
     handleInfiniteOnLoad() {
@@ -73,11 +84,11 @@ export default {
         this.$message.warning('Infinite List loaded all')
         console.log('%c loaded all','color:red',)
         this.busy = true
-        this.loading = false
+        // this.loading = false
         return
       }
       this.getData(() => {
-        this.loading = false 
+        // this.loading = false 
       })
       
     },
@@ -87,7 +98,7 @@ export default {
     ...mapState('trade',['tradeList']),
   },
   components: {
-    DateRange,box,
+    DateRange,box,ListPhone,
   },
 }
 

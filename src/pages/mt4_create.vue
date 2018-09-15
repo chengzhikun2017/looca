@@ -1,6 +1,12 @@
 <template>
   <div class="mt4_create-page">
     <p class="title">{{title}}</p>
+    <div class="choose-type">
+      <a-radio-group name="radioGroup" v-model="type" v-if="server==='live'">
+        <a-radio value="normal">普通账户</a-radio>
+        <a-radio value="follow">跟单账户</a-radio>
+      </a-radio-group>
+    </div>
     <a-form @submit="handleSubmit">
       <a-form-item :wrapperCol="{ span: 18 }" label='交易密码' :labelCol="{ span: 6 }" :validateStatus="input.status.password.validateStatus" :help="input.status.password.help">
         <a-input placeholder="请输入交易密码" type="password" ref="inputPassword" v-model="input.values.password" @blur="validate('password')" @focus="clearValidation('password')">
@@ -46,15 +52,13 @@ export default {
     ValidationSet.mt4Pwd(newInput,'repassword2')
     return {
       input: newInput,
+      createType:'normal',
     }
   },
   mixins: [inputMixin],
-  created(){
-  },
+  // created(){
+  // },
   methods: {
-    cancelCreate(){
-      
-    },
     handleSubmit(){
       console.log('%c flag','color:red',this.checkValid())
       if(!this.checkValid()){
@@ -69,7 +73,8 @@ export default {
     },
     getParams(){
       return {
-        server:this.type,
+        server:this.server,
+        type:this.type,
         password:this.formData.password,
         password2:this.formData.password2,
       }
@@ -95,14 +100,14 @@ export default {
     ...mapActions("mt4AC",['create',])
   },
   computed: {
-    type(){
+    server(){
       return this.$route.params.server
     },
     title(){
       // type demo,live follow为跟单，normal为普通
-      if(this.type === 'demo'){
+      if(this.server === 'demo'){
         return "创建模拟账户"
-      }else if(this.type === 'live'){
+      }else if(this.server === 'live'){
         return "创建实名账户"
       }
     },

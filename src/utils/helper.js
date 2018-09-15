@@ -1,17 +1,25 @@
 import router from '../router'
 import config from '../config.js'
-import {vueApp} from '../main.js'
+import { vueApp } from '../main.js'
+const agent_levels = [
+  { label: '所有', value: 0 },
+  { label: '一级', value: 1 },
+  { label: '二级', value: 2 },
+  { label: '三级', value: 3 },
+]
 // import commonRemind from './commonRemind.js'
 const _toString = Object.prototype.toString
 export default class helper {
   static platform = null
-  static saveToLocal(key,value){
+  static agent_levels = agent_levels
+
+  static saveToLocal(key, value) {
     localStorage[key] = value
   }
-  static getLocalStorage(key){
+  static getLocalStorage(key) {
     return localStorage[key]
   }
-  static removeLocal(key){
+  static removeLocal(key) {
     localStorage.removeItem(key)
   }
   static urlConcat(url, obj) {
@@ -133,15 +141,15 @@ export default class helper {
     return _toString.call(value) === "[object String]"
   }
 
-  static isNullObj(obj , deep = false){
-    return Object.keys(obj).find(key=>{
-      if(!!obj[key]) {
+  static isNullObj(obj, deep = false) {
+    return Object.keys(obj).find(key => {
+      if (!!obj[key]) {
         return true;
       }
     })
   }
 
-  static isPrimitiveVariable(value){
+  static isPrimitiveVariable(value) {
     // {} []
   }
 

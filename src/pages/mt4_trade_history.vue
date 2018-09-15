@@ -23,7 +23,7 @@
       </a-radio-group>
       <Mt4Select></Mt4Select>
       &nbsp;
-      <a-range-picker :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }" :defaultValue="[defaultStart,defaultEnd]" @change="onDateRangeChange" v-model="selectDate" /> &nbsp;
+      <a-range-picker :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }" :defaultValue="[defaultStart,defaultEnd]" @change="onDateRangeChange"/> &nbsp;
       <a-button @click="searchList" type="primary">查询</a-button>
     </div>
     <Mt4SyncFail :success="!!!syncSuccess&&!loading" :reSyncFunc="getList"> </Mt4SyncFail>
@@ -44,7 +44,7 @@
         </span>
       </p>
     </a-alert>
-    <div class="list-box" v-if="syncSuccess">
+    <div class="list-box pc" v-if="syncSuccess">
       <a-table :columns="columns" :rowKey="rowKey" :dataSource="list" :pagination="pagination" :loading="loading" @change="handleTableChange" v-if="isPC">
         <template slot="openTime" slot-scope="openTime">
           <span class="time">
@@ -154,9 +154,8 @@ const columns = [{
   },
 ];
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
-const defaultStart = moment().add(-71, 'day')
-const defaultEnd = moment()
-const FORMAT = "YYYY-MM-DD"
+import dateRange from './../components/mixin/dateRange.js'
+
 class defaultParamsPhone{
   constructor(){
     this.limit=10
@@ -166,17 +165,13 @@ class defaultParamsPhone{
 }
 export default {
   name: 'mt4_trade_history',
+  mixins:[dateRange],
   data() {
     return {
       listData:[],
-      selectDate: null,
       listType: 'trade',
       loading: false,
-      columns: columns,
-      defaultStart,
-      defaultEnd,
-      startDate: defaultStart.format(FORMAT),
-      endDate: defaultEnd.format(FORMAT),
+      columns,
       currentPage: 1,
       paramsPhone:new defaultParamsPhone,
       // _pagination:{
