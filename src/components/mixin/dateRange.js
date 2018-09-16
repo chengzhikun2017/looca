@@ -1,5 +1,5 @@
 import time from './../../utils/time.js'
-const defaultStart = moment().add(-71, 'day')
+const defaultStart = moment().add(-371, 'day')
 const defaultEnd = moment()
 const FORMAT = time.format.day
 export default {

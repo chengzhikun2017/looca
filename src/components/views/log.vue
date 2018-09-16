@@ -1,13 +1,13 @@
 <template>
   <!-- <div class="l-log" v-if='false'> -->
   <div class="l-log" v-if='true'>
-    <div class="log-box">
+    <div class="log-box" :class="isPC?'':'phone'">
       <div class="header">
-        <img src="" alt="" class="log">
-        <span class="title">Loo&co</span>
+        <img src="../../assets/display/logo.png" alt="" class="logo">
+        <span class="title">Looco Global && 乐凯环球</span>
       </div>
-      <div class="tabs-box" >
-        <a-tabs defaultActiveKey="1" @change="callback"  v-if="!isFindpwd">
+      <div class="tabs-box">
+        <a-tabs :activeKey="activeKey"  @change="callback" v-if="!isFindpwd">
           <a-tab-pane tab="立即登录" key="1">
             <Log></Log>
           </a-tab-pane>
@@ -19,36 +19,44 @@
           <span class="back" @click='setFindPwd(false)'>
             <a-icon type="arrow-left" />
           </span>
-          <p class="header">
+          <p class="text">
             找回密码
           </p>
           <Sign :type="2"></Sign>
         </div>
       </div>
-      
     </div>
   </div>
 </template>
-
 <script>
-import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import Log from "./login.vue"
 import Sign from "./signup.vue"
 export default {
   name: 'log',
   data() {
     return {
-     
+      activeKey:'1',
+    }
+  },
+  provide(){
+    return {
+      switchTab:this.switchTab,
     }
   },
   methods: {
-    callback(...args) {
-      console.log('%c args', 'color:red', args)
+    switchTab(key){
+      this.activeKey = key
     },
-    ...mapMutations('account',['setFindPwd'])
+    callback(key) {
+      this.activeKey = key
+      // console.log('%c args', 'color:red', args)
+    },
+    ...mapMutations('account', ['setFindPwd'])
   },
   computed: {
-    ...mapState('account',['isFindpwd'])
+    ...mapState('account', ['isFindpwd']),
+    ...mapState('app', ['isPC']),
   },
   components: {
     Log,
@@ -66,30 +74,36 @@ export default {
   left: 0;
   top: 0;
   z-index: 2;
+  overflow: auto;
+  .logo {
+    width: 20px;
+  }
 }
-.find-pwd{
+
+.find-pwd {
   position: relative;
-  .back{
+  .back {
     font-size: 20px;
-    color:#1890ff;
+    color: #1890ff;
     position: absolute;
     left: 0;
     top: 0;
-    padding:0 5px;
-    :hover{
+    padding: 0 5px;
+     :hover {
       cursor: pointer;
       opacity: .6;
     }
   }
-  .header{
+  .text {
     text-align: right;
     height: 32px;
     font-size: 14px;
     line-height: 32px;
   }
 }
+
 .tabs-box {
-  padding:20px;
+  padding: 20px;
   padding-top: 40px;
   border-radius: 5px;
   background: #fff;
@@ -101,33 +115,58 @@ export default {
   margin-top: 80px;
   .header {
     height: 30px;
-    .title{
+    display: flex;
+    align-items: center;
+    .title {
       color: #eee;
       font-style: italic;
       font-weight: bold;
       font-size: 18px;
-      margin-left: 20px;
+      margin-left: 5px;
     }
+    .logo{
+      width: 20px;
+      height: 20px;
+    }
+  }
+}
+
+.log-box.phone {
+  margin-top: 50px;
+  .tabs-box{
+    padding-top: 20px;
   }
 }
 
 </style>
 <style lang="scss">
 #app .l-log .ant-form-item {
-    margin-bottom: 20px;
-}
-.l-log{
-  .ant-tabs-nav{
+  margin-bottom: 20px;
+  .ant-form-item{
+    display:flex;
+  }
+  .ant-form-item-label{
+    width: 25%;
+  }
+  .ant-form-item-control-wrapper{
     width: 100%;
   }
-  .ant-tabs-tab{
-    width:50%;
+}
+
+.l-log {
+
+  .ant-tabs-nav {
+    width: 100%;
+  }
+  .ant-tabs-tab {
+    width: 50%;
     margin-right: 0;
     text-align: center;
   }
-  .ant-tabs-nav-container-scrolling
-  .ant-tabs-tab-next.ant-tabs-tab-arrow-show, .ant-tabs-tab-prev.ant-tabs-tab-arrow-show{
-    margin:0;
+  .ant-tabs-nav-container-scrolling .ant-tabs-tab-next.ant-tabs-tab-arrow-show,
+  .ant-tabs-tab-prev.ant-tabs-tab-arrow-show {
+    margin: 0;
   }
 }
+
 </style>

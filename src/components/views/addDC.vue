@@ -43,6 +43,7 @@ export default {
   data() {
     var newInput = new inputHelper.newInput(["name", "cardNo", "bankName", "bankBranch", ])
     ValidationSet.bankCard(newInput,"cardNo")
+    ValidationSet.name(newInput,"name")
     // newInput.values.cardNo = "6212261001020165509"
     // newInput.values.name = "黄树栋"
     // newInput.values.bankName = "工商银行"
@@ -52,6 +53,9 @@ export default {
   },
   methods: {
     handleSubmit() {
+      if(!this.validateAll()){
+        return
+      }
       let params = this.getCardParms()
       this.addDC(params).then((res) => {
         this.$emit('success', this.input.values)

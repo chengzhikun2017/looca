@@ -29,11 +29,11 @@
           <a-icon slot="prefix" type="lock" />
         </a-input>
       </a-form-item>
-      <a-form-item :labelCol="{ span: 24 }" :wrapperCol="{ span: 24 }" v-if="isRegister">
+      <!-- <a-form-item :labelCol="{ span: 24 }" :wrapperCol="{ span: 24 }" v-if="isRegister">
         <a-checkbox>
           记住我
         </a-checkbox>
-      </a-form-item>
+      </a-form-item> -->
       <a-form-item :wrapperCol="{ span: 24}">
         <!-- <div class="bttn-box"> -->
         <a-button size=large type='primary' htmlType='submit'>
@@ -79,6 +79,7 @@ export default {
       type: Number,
     },
   },
+  inject: ['switchTab'],
   created() {
     this.getCaptcha()
   },
@@ -106,13 +107,13 @@ export default {
       }
       let params = this.getParams()
       let promise = this.submitFunc(params)
-      if (this.isFindpwd) {
-        promise.then(() => {
-          this.$message.info("设置成功")
+      promise.then(() => {
+        this.$message.info("设置成功")
+        if (this.isFindpwd) {
           this.setFindPwd(false)
-        })
-      }
-
+        }
+        this.isRegister && this.switchTab('1')
+      })
     },
     findPassword() {
       return
@@ -127,13 +128,16 @@ export default {
       }
     },
     onPhoneBlur() {
+      console.log('%c this.validate(phone)','color:red',this.validate('phone'))
+      console.log('%c isFindpwd','color:red',this.isFindpwd)
       if (!this.validate('phone')) {
         return
       }
       // if (this.valid.phone) {
-      if (this.type == 2) {
+      if (this.isFindpwd) {
         return
       }
+      console.log('%c validate phone','color:red',)
       let status = this.input.status
       status.phone = inputHelper.createStatus(-1)
       // status = {

@@ -10,14 +10,14 @@
         <alert
           showIcon :type="alertType"
           :title="authStatusText"
-          :message="authStatus === 3 ? authInfo.remark : '修改认证资料需提交后台审'"
+          :message="authStatus === 3 ? authInfo.remark : '请完成实名认证'"
           >
           <div slot="description" class="mine_real-status-description">
-            <h3 class="mine_real-status-description-title">重要提示</h3>
+            <h3 class="mine_real-status-description-title">温馨提示</h3>
             <!-- 这里的提示信息是需要动态替换的 -->
-            <p class="mine_real-status-description-item">1. xxx, 等小马文案</p>
-            <p class="mine_real-status-description-item">2. xxx, 等小马文案</p>
-            <p class="mine_real-status-description-item">3. xxx, 等小马文案</p>
+            <p class="mine_real-status-description-item">1.必须实名注册，否则无法体现</p>
+            <p class="mine_real-status-description-item">2.法院黑名单请更换实名，否则会影响账户使用</p>
+            <p class="mine_real-status-description-item">3.认证审核通过后，若要修改实名认证信息，请联系客服</p>
           </div>
         </alert>
       </div>
@@ -126,7 +126,7 @@ name: 'mine_real',
     handleSubmit() {
       this.$modal.confirm({
           title: '确认提交',
-          content: `提交实名信息后将进入人工审核阶段，已认证实名信息和状态将被覆盖`,
+          content: `提交实名信息后将进入人工审核阶段`,
           onCancel(){},
           cancelText:'取消',
           onOk:()=> {
@@ -207,7 +207,7 @@ name: 'mine_real',
     },
     authStatusText() {
       switch(this.authInfo && this.authInfo.status) {
-        case 0: return '等待认证';
+        case 0: return '待提交';
         case 1: return '等待审核';
         case 2: return '认证通过';
         case 3: return '认证失败';

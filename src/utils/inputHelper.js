@@ -17,6 +17,7 @@ class input {
           this.status[key] = inputHelper.right
           this.valid[key] = true
         }
+        return true
       }
     )
   }
@@ -59,9 +60,11 @@ class input {
       if(result===undefined){
         this.status[key] = inputHelper.right
         this.valid[key] = true
+        return true
       }else{
         this.valid[key] = false
         this.status[key] = result
+        return false
       }
     }
   }

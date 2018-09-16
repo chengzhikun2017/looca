@@ -46,7 +46,7 @@ export default {
     getGuestCount({ state }) {
       let promise = fetch({
           url: "share/guestCount",
-        })
+        },{showLoading:false})
         .then((res) => {
           state.guestCount = res
         })
@@ -55,17 +55,17 @@ export default {
     getShareInfo({ state }) {
       let promise = fetch({
           url: 'share/mine',
-        })
+        },{showLoading:false})
         .then(res => {
-          console.log('%c shareInfo', 'color:red', res)
           state.shareInfo = res
         })
       return promise
     },
-    getIncomeCount({ state }) {
+    getIncomeCount({ state },params) {
       let promise = fetch({
           url: 'share/incomeCount',
-        })
+          params,
+        },{showLoading:false})
         .then((res) => {
           state.incomeCount = res
         })
@@ -79,7 +79,7 @@ export default {
       let promise = fetch({
           url: 'share/guest',
           params,
-        })
+        },{showLoading:false})
         .then((res) => {
           state.guestList = res
         })
@@ -97,7 +97,7 @@ export default {
       let promise = fetch({
           url: 'share/income',
           params,
-        })
+        },{showLoading:false})
         .then((res) => {
           state.incomeList = res
         })

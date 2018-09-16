@@ -1,21 +1,7 @@
 <template>
   <div class="mt4_recharge-page">
-    <a-modal
-      title="确认信息"
-      style="top: 20px;"
-      :visible="confirmVisible"
-      @ok="onConfirmed"
-      @cancel="confirmVisible=false"
-      okText="确认入金"
-      cancelText="取消"
-    >
-      <p class="important-info">您将使用钱包余额入金</p>
-      <p>MT4账号：<span class="mt4_recharge-confirm-account">{{currentMt4Uid}}</span></p>
-      <p>钱包余额：<span class="mt4_recharge-confirm-account">${{money.balance | money}}</span></p>
-      <p>入金金额：<span class="mt4_recharge-confirm-money">${{formData.amount}}</span></p>
-    </a-modal>
 <!--     <a-modal
-      title="提示"
+      title="确认信息"
       style="top: 20px;"
       :visible="confirmVisible"
       @ok="onConfirmed"
@@ -119,7 +105,7 @@ const defaultData = {
   }, {
     title: '完成',
   }],
-  confirmVisible: false,
+  // confirmVisible: false,
   rechargeSucceed:false,
   successResponse:{},
   rechargeFailed:false,
@@ -129,7 +115,7 @@ export default {
     let newInput = new inputHelper.newInput(['amount'])
     return {
       input:newInput,
-      MIN_AMOUNT:1000,
+      MIN_AMOUNT:100,
       ...defaultData,
     }
   },
@@ -150,6 +136,9 @@ export default {
       Object.assign(this,defaultData)
     },
     onConfirmed(){
+      this.submit()
+    },
+    submit(){
       this.deposit({
         mt4Uid:this.currentMt4Uid,
         amount:this.formData.amount*100,
@@ -185,7 +174,7 @@ export default {
         })
         return
       }
-      this.confirmVisible = true
+      this.submit()
     },
     checkValid(){
       let amount = this.formData.amount

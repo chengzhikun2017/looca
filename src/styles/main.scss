@@ -7,9 +7,8 @@ body{
   overflow:hidden;
 }
 #app {
-
   height: 100%;
-
+  
   .l-pointer {
     &:hover {
       cursor: pointer;
@@ -76,6 +75,21 @@ body{
     display: block !important;
   }
   #app {
+    .phone {
+      .ant-form-item{
+        display:flex;
+        flex-wrap:no-wrap;
+      }
+      .ant-form-item-label{
+        // flex-basis:1;
+        width:25%;
+      }
+      .ant-form-item-control-wrapper{
+        // flex-basis:3;
+        width: 75%;
+        flex-grow:1;
+      }
+    }
     .ant-form-item-label {
       // position: absolute;
       height: 39px;
@@ -84,7 +98,7 @@ body{
       align-items: center;
     }
     .ant-form-item .ant-btn {
-      width: 100%; // max-width: 320px;
+      width:100%; 
     }
   }
 }

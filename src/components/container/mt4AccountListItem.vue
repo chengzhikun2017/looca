@@ -28,8 +28,8 @@
         </div>
       </div>
       <div class="mt4_account_list_item-options" flex-box="0">
-        <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goAction('/mt4_recharge')">入金</a-button>
-        <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goAction('/mt4_withdraw')">出金</a-button>
+        <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goRechage">入金</a-button>
+        <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goWithdraw">出金</a-button>
         <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goAction('/unknown')">跟单</a-button>
         <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goAction('/mt4_trade_history')">交易报表</a-button>
         <a-dropdown>
@@ -58,10 +58,15 @@ export default {
   props: {
 
   },
-  created() {},
   data() {
-    return {}
-  }
+    return {
+      rechargeConfirmVisible:false,
+      withdrawConfirmVisible:false,
+    }
+  },
+  created() {},
+  methods:{
+  },
 }
 
 </script>

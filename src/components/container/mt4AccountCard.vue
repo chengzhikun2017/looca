@@ -24,8 +24,8 @@
       </div>
     </div>
     <div class="mt4_account_card-options" flex="">
-      <div class="mt4_account_card-btn" flex-box="1" @click="goAction('/mt4_recharge')">入金</div>
-      <div class="mt4_account_card-btn" flex-box="1" @click="goAction('/mt4_withdraw')">出金</div>
+      <div class="mt4_account_card-btn" flex-box="1" @click="goRechage">入金</div>
+      <div class="mt4_account_card-btn" flex-box="1" @click="goWithdraw">出金</div>
       <div class="mt4_account_card-btn" flex-box="1" @click="goAction('/unknown')">跟单</div>
       <div class="mt4_account_card-btn" flex-box="1" @click="goAction('/mt4_trade_history')">交易报表</div>
       <a-dropdown  class="mt4_account_card-btn" flex-box="1">

@@ -81,7 +81,7 @@
       <div v-if="rechargeSucceed" class="wallet_recharge-content-success" flex="dir:top main:center cross:center">
         <a-icon class="wallet_recharge-icon-success" type="check-circle" />
         <div class="wallet_recharge-content-title">操作成功</div>
-        <p>请等待系统处理</p>
+        <p>请联系客服完成充值，10分钟到账</p>
         <div class="wallet_recharge-table" >
           <div class="bttn-box wallet_recharge-table-btn">
             <a-button type='primary' @click="reset">

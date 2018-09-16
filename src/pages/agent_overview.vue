@@ -35,14 +35,14 @@
     <div class="list phone">
       <a-list :dataSource="list"  >
         <a-list-item slot="renderItem" slot-scope="item, index">
-          <rebateListItem :info="item"></rebateListItem>
+          <guestListItem :info="item"></guestListItem>
         </a-list-item>
       </a-list>
     </div>
   </div>
 </template>
 <script>
-import rebateListItem from '../components/container/rebateListItem.vue'
+import guestListItem from '../components/container/guestListItem.vue'
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import helper from '../utils/helper.js' 
 const agent_levels = helper.agent_levels
@@ -97,7 +97,7 @@ export default {
     ...mapActions('share', ['getGuestCount', 'getGuestList']),
   },
   components: {
-    rebateListItem, 
+    guestListItem, 
   },
 }
 

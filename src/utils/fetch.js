@@ -94,7 +94,6 @@ export default function fetch(options, {
           }
           if (rejectErr) {
             reject(res)
-            // return
           }
         }
       })

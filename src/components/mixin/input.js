@@ -2,7 +2,7 @@ import inputHelper from './../../utils/inputHelper.js'
 export default {
   methods: {
     validate(key) {
-      this.input.validation[key]()
+      return this.input.validation[key]()
     },
     clearValidation(key) {
       this.input.clearStatus(key)

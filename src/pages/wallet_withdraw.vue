@@ -130,7 +130,7 @@ export default {
     let newInput = new inputHelper.newInput(['amount'])
     return {
       input: newInput,
-      MIN_AMOUNT: 1000,
+      MIN_AMOUNT: 100,
       ...defaultData,
     }
   },

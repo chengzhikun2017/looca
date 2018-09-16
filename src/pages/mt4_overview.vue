@@ -50,9 +50,10 @@
       </div>
       <a-button type="primary" @click.native="selectCreation">立即开户</a-button>
     </div>
-    <div class="default-info">
-      <div class="btn-box">
-        <a-button size="small"  type="primary" @click="showCreateModal=true" >新增账户</a-button>
+    <div class="default-info" :class="isPC?'':'phone'">
+      <div class="btn-box" :class="isPC?'':'phone'">
+        <a-button size="small" v-if="isPC"  type="primary" @click="showCreateModal=true" >新增账户</a-button>
+        <a class="link-btn" href="javascript:void(0)" v-if="!isPC" @click="showCreateModal=true" >新增账户</a>
       </div>
       <span>
         剩余可入金金额：${{money.balance | money}}
@@ -329,9 +330,24 @@ export default {
       left: 0;
       top: 0;
     }
+    .btn-box.phone {
+      position: fixed;
+      right: 5px;
+      left:auto;
+      top: 10px;
+      .link-btn{
+        &:active,&:hover{
+          text-decoration: none;
+        }
+      }
+      /*z-index:2;*/
+    }
     button{
       margin-left: 5px;
     }
+  }
+  .default-info.phone{
+    padding-right: 0;
   }
   .header{
     text-align: right;

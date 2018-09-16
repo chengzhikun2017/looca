@@ -115,7 +115,7 @@ export default {
       })
       return promise
     },
-    signup({ state }, { phone, password, code, save }) {
+    signup({ state , dispatch }, { phone, password, code, save }) {
       var promise = fetch({
         url: 'account/register',
         params: {
@@ -127,11 +127,12 @@ export default {
         }
       })
       promise.then(res => {
-        state.isLoged = true
-        helper.getInitialInfo()
-        if (save) {
-          saveAccount(phone, password)
-        }
+        this.checkSession()
+        // state.isLoged = true
+        // helper.getInitialInfo()
+        // if (save) {
+        //   saveAccount(phone, password)
+        // }
         //save to local
       })
       return promise
@@ -205,7 +206,9 @@ export default {
       promise.then(res=>{
         state.authInfo = res
         if(!getters.realNameAuthed){
-          // helper.goPage('/mine_real')
+          helper.goPage('/mine_real')
+        }else{
+          // helper.goPage('/mt4_overview')
         }
       })
       return promise

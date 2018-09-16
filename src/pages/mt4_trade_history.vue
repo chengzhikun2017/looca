@@ -90,14 +90,14 @@
 <script>
 const Mt4SyncFail = () =>
   import ('../components/container/mt4SyncFail.vue')
-const SearchToggle = () =>
-  import ('../components/container/SearchToggle.vue')
 const Mt4Select = () =>
   import ('../components/views/mt4Select.vue')
 const DateRange = () =>
   import ('../components/container/DateRange.vue')
 const mt4TradeListItem = () =>
   import ('../components/container/mt4TradeListItem.vue')
+import listPhone from './../components/mixin/listPhone.js'
+
 const columns = [{
     title: 'MT4 ID',
     dataIndex: 'mt4Uid',
@@ -165,7 +165,7 @@ class defaultParamsPhone{
 }
 export default {
   name: 'mt4_trade_history',
-  mixins:[dateRange],
+  mixins:[dateRange,listPhone],
   data() {
     return {
       listData:[],
@@ -188,7 +188,7 @@ export default {
   },
   methods: {
     searchList(){
-      this.resetParams
+      this.resetParams()
       this.getList()
     },
     resetParams(){
@@ -212,14 +212,14 @@ export default {
         }
       })
     },
-    resetPhoneList(){
-      this.listData = []
-      this.paramsPhone = new defaultParamsPhone
-    },
-    searchPhoneList(){
-      this.resetPhoneList()
-      this.getListPhone()
-    },
+    // resetPhoneList(){
+    //   this.listData = []
+    //   this.paramsPhone = new defaultParamsPhone
+    // },
+    // searchPhoneList(){
+    //   this.resetPhoneList()
+    //   this.getListPhone()
+    // },
     getListPhone(){
       if(this.paramsPhone.nomore === true) {
         return
@@ -265,7 +265,7 @@ export default {
     pagination() {
       return {
         pageSize: 10,
-        showSizeChanger: true,
+        // showSizeChanger: true,
         size: 'small',
         total: this._list.ttlQty,
         current: this.currentPage,
@@ -304,7 +304,6 @@ export default {
     Mt4Select,
     Mt4SyncFail,
     DateRange,
-    SearchToggle,
     mt4TradeListItem,
   },
 }

@@ -1,6 +1,7 @@
 <template>
 <a-locale-provider :locale="zh_CN">
   <div id="app">
+    <div id="__test"></div>
     <MainLayout headerType="0">
       <keep-alive>
         <router-view v-if="$route.meta.keepAlive" />
@@ -27,6 +28,7 @@ import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import router from './router/index.js'
 import Loading from './components/loading.vue'
 import { Message } from 'vue-antd-ui'
+import Vue from 'vue'
 export default {
   name: 'App',
   data() {
@@ -43,6 +45,8 @@ export default {
     // setInterval(() => {
     //   this.$store.dispatch('wallet/getCurrency')
     // },120000)
+    // var winHeight = $(window).height(); //获取当前页面高度
+    this.configAndroidKeyboard()
   },
   provide() {
     return {
@@ -50,6 +54,7 @@ export default {
     }
   },
   computed: {
+
     isTest() {
       return this.$store.state.app.isTest
     },
@@ -74,7 +79,7 @@ export default {
     //     return this.$route.path
     //   }
     // },
-    ...mapState('app', ['platform']),
+    ...mapState('app', ['platform','isAndroid']),
     ...mapState('account', ['isLoged']),
   },
   watch: {
@@ -83,6 +88,26 @@ export default {
     // },
   },
   methods: {
+    configAndroidKeyboard(){
+      if(!this.isAndroid){
+        return
+      }
+      var winHeight = window.innerHeight //获取当前页面高度
+      window.addEventListener('resize',()=>{
+        console.log('resize')
+        var currentHeight = window.innerHeight
+        console.log('%c heights','color:red',winHeight,currentHeight)
+        if(winHeight - currentHeight >50){
+          console.log('弹出')
+          vueApp.$emit("keyboard_show")
+          // document.body.style.height = winHeight + 'px'
+        }else{
+          vueApp.$emit("keyboard_hide")
+          console.log('收起')
+          // document.body.style.height = '100%'
+        }
+      })      
+    },
     test() {
       console.log('%c h','color:red',this.$store)
       // this.$router.push('/test3')

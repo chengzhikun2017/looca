@@ -18,9 +18,14 @@
         <img class="logo-image" src="@/assets/display/logo1.png" alt="">
         <div class="logo-title">乐恺环球</div>
       </div>
+      <div class="user-setting-box" :class="isPC?'':'phone'">
+        <div class="btn" @click="logout" >
+          <a-icon type="logout" />
+        </div>
+      </div>
     </a-layout-sider>
-    <a-layout @click.native="onMainBodyClick">
-      <a-layout-header :style="{ background: '#fff', padding: 0 }">
+    <a-layout @click.native="onMainBodyClick" >
+      <a-layout-header :style="{ background: '#fff', padding: 0 }" v-if="isPC">
         <slot name="header"></slot>
         <div class="nav-user">
           <!-- <NavMt4></NavMt4> -->
@@ -86,13 +91,12 @@ const config = {
   wallet_withdraw: { title: "余额提现", link: "wallet_withdraw", rootKey: 'wallet_review' },
   wallet_recharge: { title: "余额充值", link: "wallet_recharge", rootKey: 'wallet_review' },
   wallet_history: { title: "钱包记录", link: "wallet_history", rootKey: 'wallet_review' },
-  brokerage_withdraw: { title: "钱包记录", link: "brokerage_withdraw", rootKey: 'wallet_review' },
+  brokerage_withdraw: { title: "佣金提现", link: "brokerage_withdraw", rootKey: 'wallet_review' },
 
   agent: { title: "代理推广" },
   agent_promote: { title: "我的推广", link: "agent_promote", rootKey: 'agent' },
   agent_overview: { title: "我的客户", link: "agent_overview", rootKey: 'agent' },
   agent_profit_overview: { title: "返现记录", link: "agent_profit_overview", rootKey: 'agent' },
-
 }
 import {
   mapState,
@@ -102,7 +106,7 @@ import {
 } from 'vuex'
 import helper from './../../utils/helper.js'
 import NavUser from './../views/navUser.vue'
-import NavMt4 from './../views/navMt4.vue'
+// import NavMt4 from './../views/navMt4.vue'
 import { Menu } from 'vue-antd-ui'
 import Loading from '../pageLoading.js'
 export default {
@@ -245,6 +249,7 @@ export default {
       this.setCurrent(keyPath)
       this.setOpenKeys(keyPath)
     },
+    ...mapActions('account',['logout'])
   },
   watch: {
     routePath(path) {
@@ -344,7 +349,13 @@ export default {
       return this.$route.path.split('/')[1]
     },
     contentHeight() {
-      return this.windowHeight - (64 + 69 + 24) + 'px'
+      let height
+      if(this.isPC){
+        height = this.windowHeight - (64 + 24 + 69 ) 
+      }else {
+        height = this.windowHeight - 12 - 35
+      }
+      return height + 'px'
     },
     siderHeight() {
       return this.windowHeight - 64 + 'px'
@@ -356,7 +367,7 @@ export default {
   },
   components: {
     NavUser,
-    NavMt4,
+    // NavMt4,
     Loading,
     // SubMenu:Menu.SubMenu,
     // MenuItem:Menu.Item,
@@ -367,7 +378,6 @@ export default {
 <style lang='scss' scoped>
 .breadcrumb {
   position: relative;
-
   .back-icon {
     position: absolute;
     top: 0;
@@ -379,7 +389,9 @@ export default {
     display: flex;
   }
 }
-
+.phone .breadcrumb{
+  margin-left: 40px;
+}
 .logo {
   width: 100%;
   height: 64px; // background: rgba(0, 111, 111, 1);
@@ -416,7 +428,7 @@ export default {
 }
 .phone{
  .content-layout{
-  margin: 24px 0 0;
+  margin: 12px 0 0;
 }
 }
 .content {
@@ -432,14 +444,29 @@ export default {
 .breadcrumb {
   margin-bottom: 10px;
 }
-
+.user-setting-box.phone{
+  .btn{
+    padding:4px;
+    line-height: 1;
+  }
+  color:#fff;
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+}
 </style>
 <style lang="scss">
+.ant-layout-sider-children{
+  position: relative;
+}
 #appLayout {
   height: 100%;
   .ant-menu-item,
   .ant-menu-submenu-title {
     text-align: left;
+  }
+  .ant-layout-sider-zero-width-trigger{
+    top: 0;
   }
   .ant-breadcrumb-separator {
     margin: 2px;

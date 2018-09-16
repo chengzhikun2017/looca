@@ -1,17 +1,5 @@
 <template>
   <div class="mt4_withdraw-page">
-    <a-modal
-      title="确认信息"
-      style="top: 20px;"
-      :visible="confirmVisible"
-      @ok="onConfirmed"
-      @cancel="() => {this.confirmVisible=false}"
-      okText="确认出金"
-      cancelText="取消"
-    >
-      <p>MT4账号：<span class="mt4_withdraw-confirm-account">{{currentMt4Uid}}</span></p>
-      <p class="important-info">出金至钱包余额，如需提现，请到我的钱包里申请提现</p>
-    </a-modal>
     <div class="mt4_withdraw-title">
       <a-steps :current="current" :status="stepStatus">
         <a-step v-for="item in steps" :key="item.title" :title="item.title" />
@@ -22,6 +10,7 @@
         <div slot="description">
           <div>1. 务必取消跟单</div>
           <div>2. 平仓所有仓位</div>
+          <div>3. 出金会到【我的钱包】余额，提现请到余额操作</div>
         </div>
       </a-alert>
       <div class="mt4_withdraw-table">
@@ -52,12 +41,12 @@
         <a-icon class="mt4_withdraw-icon-success" type="check-circle" />
         <div class="mt4_withdraw-content-title">出金成功</div>
         <div class="mt4_withdraw-table" >
-          <a-form @submit="handleSubmit">
+          <a-form>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='MT4账号' :labelCol="{ span: 6 }" >
-              <span>611738961 {{successResponse.mt4Uid}}</span>
+              <span> {{successResponse.mt4Uid}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='出金金额' :labelCol="{ span: 6 }" >
-              <span>$1023.22 {{successResponse.dollar}}</span>
+              <span>${{successResponse.dollar}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='手续费' :labelCol="{ span: 6 }" >
               <span v-if="!successResponse.serviceFee">
@@ -68,21 +57,21 @@
               </span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='MT4订单号' :labelCol="{ span: 6 }" >
-              <span>41799017 {{successResponse.orderId}}</span>
+              <span>{{successResponse.orderId}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='业务编号' :labelCol="{ span: 6 }" >
-              <span>20180819203640110004 {{successResponse.tradeNo}}</span>
+              <span>{{successResponse.tradeNo}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='提交时间' :labelCol="{ span: 6 }" >
-              <span>2018-08-20 12:24:33 {{successResponse.createTime | timeFull}}</span>
+              <span>{{successResponse.createTime | timeFull}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='状态' :labelCol="{ span: 6 }" >
               <!-- //出金状态：0正在处理、1完成、2失败 -->
-              <span>正在处理 {{successResponse.status}}</span>
+              <span> {{successResponse.status | status}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 24}">
               <div class="bttn-box mt4_withdraw-table-btn">
-                <a-button type='primary'>
+                <a-button type='primary' @click="viewRecord">
                   查看出入金流水
                 </a-button>
               </div>
@@ -104,13 +93,13 @@
 <script>
 import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
 const defaultData = {
-  current: 0,
+  current: 1,
   steps: [{
     title: '填写出金信息',
   }, {
     title: '完成',
   }],
-  confirmVisible: false,
+  // confirmVisible: false,
   rechargeSucceed:false,
   successResponse:{},
   errorResponse:{},
@@ -122,11 +111,14 @@ export default {
       ...defaultData,
     }
   },
+  filters:{
+    
+  },
   methods: {
     failedBack(){
       Object.assign(this,defaultData)
     },
-    onConfirmed(){
+    submit(){
       this.withdraw(
         this.currentMt4Uid
       ).then((res) => {
@@ -141,6 +133,9 @@ export default {
         this.next() 
       })
     },
+    viewRecord(){
+      helper.goPage('/mt4_money_bill')
+    },
     next() {
       this.current++
       this.confirmVisible = false
@@ -149,7 +144,8 @@ export default {
       this.current--
     },
     handleSubmit() {
-      this.confirmVisible = true
+      this.submit()
+      // this.confirmVisible = true
     },
     handleChange() {
     },
