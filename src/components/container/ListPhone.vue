@@ -58,12 +58,11 @@ export default {
   methods: {
     reset() {
       this.data = []
-      this.loadParams = initLoadParams()
+      this.loadParams = new initLoadParams()
     },
     saveParams(){
       this.lastQueryParams = {
         ...this.params,
-        
       }
     },
     reLoad() {

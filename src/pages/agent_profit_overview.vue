@@ -73,14 +73,10 @@
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import helper from '../utils/helper.js'
 import dateRange from './../components/mixin/dateRange.js'
-const SearchToggle = () =>
-  import ('../components/container/SearchToggle.vue')
-const DateRange = () =>
-  import ('../components/container/DateRange.vue')
-const ListPhone  = () => 
-  import ('../components/container/ListPhone.vue')
-const guestListItem = () =>
-  import ('../components/container/guestListItem.vue')
+const DateRange = () => import ('../components/container/DateRange.vue')
+const SearchToggle = () => import ('../components/container/SearchToggle.vue')
+const ListPhone  = () =>  import ('../components/container/ListPhone.vue')
+const guestListItem = () => import ('../components/container/guestListItem.vue')
 const lvs = helper.agent_levels
 export default {
   mixins: [dateRange],
@@ -128,11 +124,10 @@ export default {
   },
   created() {
     this.getCount()
-    if (this.isPC) {
-      this.getList()
-    } else {
-      // this.getListPhone()
-    }
+    this.isPC && this.getList()
+  },
+  mounted(){
+    !this.isPC && this.searchPhoneList()
   },
   methods: {
     searchPhoneList(){
@@ -148,30 +143,7 @@ export default {
     rowKey(record, index) {
       return index
     },
-    // getListPhone() { //abandon
-    //   if (this.paramsPhone.nomore === true) {
-    //     return
-    //   }
-    //   this.paramsPhone.page++
-    //     this.loading = true
-    //   this.getIncomeList({
-    //       st: this.startDate,
-    //       et: this.endDate,
-    //       type: this.type || null,
-    //       depth: this.queryLv || null,
-    //     })
-    //     .then(() => {
-    //       this.list.forEach((item) => {
-    //         this.listData.push(item)
-    //       })
-    //       if (this.listData.length >= this.incomeList.total) {
-    //         this.paramsPhone.nomore = true
-    //       }
-    //     })
-    //     .finally(() => {
-    //       this.loading = false
-    //     })
-    // },
+    
     getParams() {
       return {
         st: this.startDate,

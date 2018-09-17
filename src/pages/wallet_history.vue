@@ -1,12 +1,13 @@
 <template>
   <div class="wallet_history-page">
-    <div class="choose-box">
-      <a-radio-group v-model="listType" style="margin:8px">
-        <a-radio-button value="recharge">充值记录</a-radio-button>
-        <a-radio-button value="withdraw">提现记录</a-radio-button>
-      </a-radio-group>
-    </div>
-    <div class="search-box">
+
+    <div class="search-box pc">
+      <div class="choose-box">
+        <a-radio-group v-model="listType" style="margin:8px">
+          <a-radio-button value="recharge">充值记录</a-radio-button>
+          <a-radio-button value="withdraw">提现记录</a-radio-button>
+        </a-radio-group>
+      </div>
       <a-range-picker
         :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }"
         :defaultValue="[moment().add(-6,'day'), moment()]"
@@ -15,7 +16,20 @@
       &nbsp;
       <a-button @click="getList" type="primary">查看</a-button>
     </div>
-    <div>
+    <div class="search-box phone">
+      <SearchToggle @ok="searchPhoneList">
+        <l-search-item>
+          <a-radio-group v-model="listType" style="margin:8px">
+            <a-radio-button value="recharge">充值记录</a-radio-button>
+            <a-radio-button value="withdraw">提现记录</a-radio-button>
+          </a-radio-group>
+        </l-search-item>
+        <l-search-item>
+          <DateRange @dateRangeChange="onDateRangeChange" :defaultValue="[defaultStart,defaultEnd]" />
+        </l-search-item>
+      </SearchToggle>
+    </div>
+    <div pc>
       <a-table :columns="columns" :rowKey="rowKey" :dataSource="list" :pagination="pagination" :loading="loading" @change="handleTableChange" v-if="isPC">
         <template slot="cardNum" slot-scope="cardNum">
            {{cardNum|bankCard}}
@@ -39,9 +53,19 @@
         </template>
       </a-table>
     </div>
+    <div class="phone">
+      <ListPhone :newList="list" ref="listPhone" :params="paramsPhone" :getFunc="getFunc" :total="total">
+        <walletListItem :data="props.item" slot-scope="props"></walletListItem>
+      </ListPhone>
+    </div>
   </div>
 </template>
 <script>
+import dateRange from './../components/mixin/dateRange.js'
+  const DateRange = () => import ('../components/container/DateRange.vue')
+  const SearchToggle = () => import ('../components/container/SearchToggle.vue')
+  const ListPhone  = () =>  import ('../components/container/ListPhone.vue')
+  const walletListItem = () =>  import ('../components/container/walletListItem.vue')
 const payColumns = [
   {
     title: 'ID',
@@ -114,6 +138,7 @@ const withdrawColums = [
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 export default {
   name: 'wallet_history',
+  mixins:[dateRange],
   data() {
     return {
       loading: false,
@@ -131,7 +156,15 @@ export default {
     }
   },
   created(){
-    this.getWithdrawList()
+    if(this.isPC){
+      this.getWithdrawList()
+    }else{
+    }
+  },
+  mounted(){
+    if(!this.isPC){
+      this.searchPhoneList() 
+    }
   },
   filters:{
     withdrawStatus(v){
@@ -156,6 +189,9 @@ export default {
     },
   },
   methods: {
+    searchPhoneList(){
+      this.$refs.listPhone.reLoad()
+    },
     onDateRangeChange(date, dateString){
       // console.log('%c date, dateString','color:red',date, dateString)
       this.startDate = dateString[0]
@@ -207,6 +243,12 @@ export default {
     },
   },
   computed: {
+    paramsPhone(){
+      return {
+        st:this.startDate,
+        et:this.endDate,
+      }
+    },
     params(){
       return {
         page: this.pagination.current,
@@ -220,6 +262,13 @@ export default {
         return this.getPayList
       }else if(this.listType === "withdraw"){
         return this.getWithdrawList
+      }
+    },
+    getFunc(){
+      if(this.listType === "recharge"){
+        return this._getPayList
+      }else if(this.listType === "withdraw"){
+        return this._getWithdrawList
       }
     },
     columns(){
@@ -236,6 +285,13 @@ export default {
         return this.withdrawList
       }
     },
+    total(){
+      if(this.listType === "recharge"){
+        return this.payListTtl
+      }else if(this.listType === "withdraw"){
+        return this.withdrawListTtl
+      }
+    },
     ...mapState('wallet', [
       'payList',
       'payListTtl',
@@ -247,7 +303,12 @@ export default {
     ...mapState('app', ['isPC']),
 
   },
-  components: {},
+  components: {
+    SearchToggle,
+    ListPhone,
+    walletListItem,
+    DateRange,
+  },
 }
 
 </script>

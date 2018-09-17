@@ -55,7 +55,7 @@
         <a-button size="small" v-if="isPC"  type="primary" @click="showCreateModal=true" >新增账户</a-button>
         <a class="link-btn" href="javascript:void(0)" v-if="!isPC" @click="showCreateModal=true" >新增账户</a>
       </div>
-      <span>
+      <span :style="!isPC&&'display:block'">
         剩余可入金金额：${{money.balance | money}}
       </span>
       <a-button size="small" v-if="list.length>0" type="primary" @click="goPage('/mt4_trade_history')">

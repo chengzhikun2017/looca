@@ -8,9 +8,9 @@
         <DateRange @dateRangeChange="onChange"></DateRange>
       </l-search-item>
     </box>
-    <ListPhone v-if="false" :data="data" :loading="loading" :loadmore="getData">
+<!--     <ListPhone v-if="false" :data="data" :loading="loading" :loadmore="getData">
       <div slot-scope="props,index">{{props.item}}</div>
-    </ListPhone>
+    </ListPhone> -->
     <!-- <div  v-infinite-scroll="handleInfiniteOnLoad" v-if=false :infinite-scroll-disabled="busy" :infinite-scroll-distance="80">
       <a-list :dataSource="data">
         <a-list-item slot="renderItem" slot-scope="item, index">
@@ -22,6 +22,9 @@
         </div>
       </a-list>
     </div> -->
+    <div>
+        <a-icon type="l_trending-up"  />
+    </div>
   </div>
 </template>
 <script>
@@ -127,5 +130,8 @@ export default {
 }
 .test {
   height: 100px;
+}
+.anticon-filter2:before {
+    content: "\E663";
 }
 </style>

@@ -1,10 +1,10 @@
 <template>
   <div class="brokerage_withdraw-page">
     <a-form>
-      <a-form-item :wrapperCol="{ span: 18 }" label='钱包余额' :labelCol="{ span: 6 }">
-        <span>${{money.balance | money}}（人民币金额 ¥{{money.balance*usdRate | money}})</span>
+      <a-form-item :wrapperCol="{ span: 18 }" label='当前佣金：' :labelCol="{ span: 6 }">
+        <span>${{money.brokerage | money}}（人民币金额 ¥{{money.balance*usdRate | money}})</span>
       </a-form-item>
-      <a-form-item :wrapperCol="{ span: 18 }" label='提现金额' :labelCol="{ span: 6 }" :validateStatus="input.status.amount.validateStatus" :help="input.status.amount.help">
+      <a-form-item :wrapperCol="{ span: 18 }" label='提现金额：' :labelCol="{ span: 6 }" :validateStatus="input.status.amount.validateStatus" :help="input.status.amount.help">
         <div class="wallet_withdraw-input">
           <a-input :placeholder="`请输入金额`" type="number" ref="inputPassword" v-model="input.values.amount" @blur="validate('amount')" @focus="clearValidation('amount')">
           </a-input>

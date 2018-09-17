@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="l-search-box phone" :class="show?'show':'hide'">
+    <div @click.stop="" class="l-search-box phone" :class="show?'show':'hide'">
       <div class="container">
         <slot></slot>
         <div class="btn-box">
@@ -20,7 +20,7 @@ export default {
   name: 'SearchToggle',
   data() {
     return {
-      show: false
+      show: false,
     }
   },
   props:{
@@ -37,6 +37,16 @@ export default {
     toggle() {
       this.show = !this.show;
     },
+    hide() {
+      this.show = false
+    },
+  },
+  mounted(){
+    document.body.addEventListener("click",this.hide)
+  },
+  beforeDestroy(){
+    document.body.removeEventListener("click",this.hide)
+    
   },
   computed: {},
   components: {},

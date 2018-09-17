@@ -63,27 +63,13 @@
     <!-- nomore -->
     <!-- slot item -->
     <!-- loadmore -->
+
     <div class="list-box phone"
-    v-infinite-scroll="getListPhone" 
-    :infinite-scroll-disabled="loading" 
-    :infinite-scroll-distance="80"
     v-if="!isPC"
     >
-      <a-list :dataSource="listData"  >
-        <!-- :loading="loading" -->
-        <a-list-item slot="renderItem" slot-scope="item, index">
-          <!-- <a class="test" :href="item.actionType">{{item.symbol}}</a> -->
-            <!-- <a-avatar slot="avatar" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /> -->
-          <!-- <div>Content</div> -->
-          <mt4TradeListItem :info="item"></mt4TradeListItem>
-        </a-list-item>
-        <div v-if="loading" class="demo-loading-container">
-          <a-spin />
-        </div>
-        <div class="footer" v-if="paramsPhone.nomore && listData.length>0" slot="footer">
-          ---没有啦---
-        </div>
-      </a-list>
+      <ListPhone :newList="list" ref="listPhone" :params="paramsPhone" :getFunc="_getList" :total="_list.ttlQty">
+        <mt4TradeListItem slot-scope="props" :info="props.item"></mt4TradeListItem>
+      </ListPhone>
     </div>
   </div>
 </template>
@@ -96,20 +82,17 @@ const DateRange = () =>
   import ('../components/container/DateRange.vue')
 const mt4TradeListItem = () =>
   import ('../components/container/mt4TradeListItem.vue')
-import listPhone from './../components/mixin/listPhone.js'
-
+const SearchToggle = () =>
+  import ('../components/container/SearchToggle.vue')
+const ListPhone  = () => 
+  import ('../components/container/ListPhone.vue')
 const columns = [{
     title: 'MT4 ID',
     dataIndex: 'mt4Uid',
-    // sorter: true,
-    // width: '20%',
-    // scopedSlots: { customRender: 'name' },
-  },
-  {
+  },{
     title: "orderId",
     dataIndex: "orderId",
     sorter: true,
-    // scopedSlots: { customRender: 'action' },
   }, {
     title: "品种",
     dataIndex: "symbol",
@@ -156,16 +139,9 @@ const columns = [{
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import dateRange from './../components/mixin/dateRange.js'
 
-class defaultParamsPhone{
-  constructor(){
-    this.limit=10
-    this.page=0
-    this.nomore=false
-  }
-}
 export default {
   name: 'mt4_trade_history',
-  mixins:[dateRange,listPhone],
+  mixins:[dateRange],
   data() {
     return {
       listData:[],
@@ -173,18 +149,13 @@ export default {
       loading: false,
       columns,
       currentPage: 1,
-      paramsPhone:new defaultParamsPhone,
-      // _pagination:{
-      //   current:0,
-      // },
     }
   },
   created() {
-    if(this.isPC){
-      this.getList()
-    }else{
-      this.getListPhone()
-    }
+    this.isPC && this.getList()
+  },
+  mounted(){
+    !this.isPC && this.searchPhoneList()
   },
   methods: {
     searchList(){
@@ -195,7 +166,6 @@ export default {
       this.currentPage = 1
     },
     onDateRangeChange(date, dateString) {
-      // console.log('%c date, dateString','color:red',date, dateString)
       this.startDate = dateString[0]
       this.endDate = dateString[1]
     },
@@ -204,7 +174,6 @@ export default {
     },
     handleTableChange(pagination) {
       this.currentPage = pagination.current
-      // this._pagination = Object.assign({},pagination)
       console.log('%c pagination', 'color:red', pagination)
       this.$nextTick(() => {
         if (this.listType === "trade") {
@@ -212,36 +181,8 @@ export default {
         }
       })
     },
-    // resetPhoneList(){
-    //   this.listData = []
-    //   this.paramsPhone = new defaultParamsPhone
-    // },
-    // searchPhoneList(){
-    //   this.resetPhoneList()
-    //   this.getListPhone()
-    // },
-    getListPhone(){
-      if(this.paramsPhone.nomore === true) {
-        return
-      }
-      this.paramsPhone.page++
-      this.loading = true
-      this._getList({
-        st: this.startDate,
-        et: this.endDate,
-        ...this.paramsPhone
-      })
-      .then(() => {
-        this.list.forEach((item) => {
-          this.listData.push(item) 
-        })
-        if(this.listData.length >= this._list.ttlQty ){
-          this.paramsPhone.nomore = true
-        }
-      })
-      .finally(() => {
-        this.loading = false
-      })
+    searchPhoneList(){
+      this.$refs.listPhone.reLoad()
     },
     getList() {
       this.loading = true
@@ -262,6 +203,12 @@ export default {
     }),
   },
   computed: {
+    paramsPhone(){
+      return {
+        st: this.startDate,
+        et: this.endDate,
+      }
+    },
     pagination() {
       return {
         pageSize: 10,
@@ -305,6 +252,8 @@ export default {
     Mt4SyncFail,
     DateRange,
     mt4TradeListItem,
+    SearchToggle,
+    ListPhone,
   },
 }
 

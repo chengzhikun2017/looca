@@ -21,7 +21,7 @@
       <div class="trade_wallet-list-content">${{money.brokerage | money}}</div>
       <div class="trade_wallet-list-opt">
         <a-button type='primary' @click="go('/brokerage_withdraw')" class="trade_wallet-list-btn">
-          提现至余额
+          提取佣金至余额
         </a-button>
       </div>
     </div>
@@ -30,7 +30,7 @@
       <div class="trade_wallet-list-title">累计佣金分红</div>
       <div class="trade_wallet-list-content">${{money.totalBrokerage | money}}</div>
       <div class="trade_wallet-list-opt">
-        <a-button type='primary' class="trade_wallet-list-btn" @click="go('/wallet_history')">
+        <a-button type='primary' class="trade_wallet-list-btn" @click="go('/agent_profit_overview')">
           查看分红记录
         </a-button>
       </div>

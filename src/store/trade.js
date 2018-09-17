@@ -52,7 +52,6 @@ export default {
         showLoading: false,
       })
       promise.then(res => {
-        console.log('%c params','color:red',params)
           if (params.page == 1) {
             dispatch('getTradeCount',params)
           }

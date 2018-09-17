@@ -6,6 +6,7 @@ import router from './router'
 import store from './store'
 import events from 'events'
 // flex.css
+import './styles/icons.css'
 import 'flex.css'
 import moment from 'moment'
 import helper from './utils/helper.js'

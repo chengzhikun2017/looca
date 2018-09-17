@@ -31,6 +31,7 @@ export default {
       this.$emit('dateRangeChange', dates, strs)
     },
     onStartChange(date) {
+      console.log('%c on start date change','color:red',date)
       if (this.endDate) {
         let isValid = this.startDate.isBefore(this.endDate)
         if (!isValid) {

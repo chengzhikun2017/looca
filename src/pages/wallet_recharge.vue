@@ -146,7 +146,7 @@ export default {
     return {
       input:newInput,
       ...defaultData,
-      MIN_AMOUNT:1000,
+      MIN_AMOUNT:100,
       // beforeUpload: () => {},
       // loading: null,
       // imageUrl: null
