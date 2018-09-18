@@ -14,7 +14,7 @@
           金额：${{info.fee | money}}
         </div>
         <div class="guest_list_item-summary-money" flex="main:right" flex-box="1">
-          类型：{{info.type}}
+          类型：{{info.type | incomeType}}
         </div>
       </div>
       <div class="guest_list_item-others" flex="cross:center main:justify">

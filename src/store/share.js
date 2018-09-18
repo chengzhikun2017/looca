@@ -10,7 +10,16 @@ const isPC = helper.isPC()
 // 3：组长
 // 4：小喽喽
 
-
+const formatGuest = function(item){
+  let gt1
+  item.relationDepth> 1 && (gt1 = true)
+  item.depth > 1 && (gt1 = true)
+  if(gt1){
+    item.name = helper.secretName(item.name)
+    item.phone = helper.secretPhone(item.phone)
+  }
+  return item
+}
 export default {
   namespaced: true,
   state: {
@@ -81,7 +90,8 @@ export default {
           params,
         },{showLoading:false})
         .then((res) => {
-          state.guestList = res
+          state.guestList = res//.map(formatGuest)
+          state.guestList.list = res.list.map(formatGuest)
         })
       return promise
     },
@@ -100,6 +110,7 @@ export default {
         },{showLoading:false})
         .then((res) => {
           state.incomeList = res
+          state.incomeList.list = res.list.map(formatGuest)
         })
       return promise
     },

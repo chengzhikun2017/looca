@@ -3,7 +3,10 @@ import helper from '../utils/helper.js'
 import { vueApp } from './../main.js'
 const platform = helper.getPlatForm()
 const isPC = helper.isPC()
-
+const addCalculatedRmb = function(item){
+  item.rmb = item.dollar * item.dollar2rmbRate
+  return item
+}
 class emptyList{
   constructor(){
     this.payList=[]
@@ -70,7 +73,7 @@ export default {
         },
       },{showLoading:false})
       promise.then((res) => {
-        state.payList = res.list
+        state.payList = res.list.map(addCalculatedRmb)
         state.payListTtl = res.total
         state.payListTilPage = res.pages
         console.log('%c wallet list','color:red',res) 
@@ -92,7 +95,7 @@ export default {
         },
       },{showLoading:false})
       promise.then((res) => {
-        state.withdrawList = res.list
+        state.withdrawList = res.list.map(addCalculatedRmb)
         state.withdrawListTtl = res.total
         state.withdrawListTilPage = res.pages
         console.log('%c wallet list','color:red',res) 

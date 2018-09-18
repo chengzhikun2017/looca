@@ -154,9 +154,6 @@ export default {
   created() {
     this.isPC && this.getList()
   },
-  mounted(){
-    !this.isPC && this.searchPhoneList()
-  },
   methods: {
     searchList(){
       this.resetParams()

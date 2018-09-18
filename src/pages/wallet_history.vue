@@ -1,6 +1,5 @@
 <template>
   <div class="wallet_history-page">
-
     <div class="search-box pc">
       <div class="choose-box">
         <a-radio-group v-model="listType" style="margin:8px">
@@ -8,12 +7,7 @@
           <a-radio-button value="withdraw">提现记录</a-radio-button>
         </a-radio-group>
       </div>
-      <a-range-picker
-        :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }"
-        :defaultValue="[moment().add(-6,'day'), moment()]"
-        @change="onDateRangeChange" 
-      />
-      &nbsp;
+      <a-range-picker :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }" :defaultValue="[moment().add(-6,'day'), moment()]" @change="onDateRangeChange" /> &nbsp;
       <a-button @click="getList" type="primary">查看</a-button>
     </div>
     <div class="search-box phone">
@@ -32,19 +26,19 @@
     <div pc>
       <a-table :columns="columns" :rowKey="rowKey" :dataSource="list" :pagination="pagination" :loading="loading" @change="handleTableChange" v-if="isPC">
         <template slot="cardNum" slot-scope="cardNum">
-           {{cardNum|bankCard}}
+          {{cardNum|bankCard}}
         </template>
         <template slot="money" slot-scope="money">
-           {{money|money}}
+          {{money|money}}
         </template>
         <template slot="payway" slot-scope="payway">
-           {{payway|payway}}
+          {{payway|payway}}
         </template>
         <template slot="withdrawStatus" slot-scope="withdrawStatus">
-           {{withdrawStatus|withdrawStatus}}
+          {{withdrawStatus|withdrawStatus}}
         </template>
         <template slot="payStatus" slot-scope="payStatus">
-           {{payStatus|payStatus}}
+          {{payStatus|payStatus}}
         </template>
         <template slot="createTime" slot-scope="createTime">
           <span class="time">
@@ -62,12 +56,15 @@
 </template>
 <script>
 import dateRange from './../components/mixin/dateRange.js'
-  const DateRange = () => import ('../components/container/DateRange.vue')
-  const SearchToggle = () => import ('../components/container/SearchToggle.vue')
-  const ListPhone  = () =>  import ('../components/container/ListPhone.vue')
-  const walletListItem = () =>  import ('../components/container/walletListItem.vue')
-const payColumns = [
-  {
+const DateRange = () =>
+  import ('../components/container/DateRange.vue')
+const SearchToggle = () =>
+  import ('../components/container/SearchToggle.vue')
+const ListPhone = () =>
+  import ('../components/container/ListPhone.vue')
+const walletListItem = () =>
+  import ('../components/container/walletListItem.vue')
+const payColumns = [{
     title: 'ID',
     dataIndex: 'id',
   }, {
@@ -77,8 +74,12 @@ const payColumns = [
     // alipay_personal为支付宝转账，brokerage为佣金提现
   },
   {
-    title: "金额",
+    title: "金额($)",
     dataIndex: "dollar",
+    scopedSlots: { customRender: 'money' },
+  },{
+    title: "人民币",
+    dataIndex: "rmb",
     scopedSlots: { customRender: 'money' },
   }, {
     title: "业务流水号",
@@ -105,20 +106,23 @@ const payColumns = [
   //   sorter: true,
   // },
 ];
-const withdrawColums = [
-  {
+const withdrawColums = [{
     title: 'ID',
     dataIndex: 'id',
   },
   {
-    title: "金额",
+    title: "金额($)",
     dataIndex: "dollar",
     scopedSlots: { customRender: 'money' },
-  },  {
+  }, {
+    title: "人民币",
+    dataIndex: "rmb",
+    scopedSlots: { customRender: 'money' },
+  },{
     title: '银行卡',
     dataIndex: 'bankCardNum',
     scopedSlots: { customRender: 'cardNum' },
-  },{
+  }, {
     title: "业务流水号",
     dataIndex: "tradeNo",
     width: '200px',
@@ -138,61 +142,63 @@ const withdrawColums = [
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 export default {
   name: 'wallet_history',
-  mixins:[dateRange],
+  mixins: [dateRange],
   data() {
     return {
       loading: false,
-      listType:'recharge',
+      listType: 'recharge',
       pagination: {
-        pageSize: 2,
-        showSizeChanger: true,
+        pageSize: 10,
+        // showSizeChanger: true,
         current: 1,
         size: 'small',
         total: 0,
       },
-      loading:false,
-      startDate:'',
-      endDate:'',
+      loading: false,
+      startDate: '',
+      endDate: '',
     }
   },
-  created(){
-    if(this.isPC){
+  created() {
+    if (this.isPC) {
       this.getWithdrawList()
-    }else{
-    }
+    } else {}
   },
-  mounted(){
-    if(!this.isPC){
-      this.searchPhoneList() 
-    }
-  },
-  filters:{
-    withdrawStatus(v){
-      switch(v){
-        case 1:return "等待转账";
-        case 2:return "转账完成";
-        case 3:return "撤销申请";
+  filters: {
+    withdrawStatus(v) {
+      switch (v) {
+        case 1:
+          return "等待转账";
+        case 2:
+          return "转账完成";
+        case 3:
+          return "撤销申请";
       }
     },
-    payStatus(v){
-      switch(v){
-        case 1:return "等待审核";
-        case 2:return "完成充值";
-        case 3:return "付款无效";
+    payStatus(v) {
+      switch (v) {
+        case 1:
+          return "等待审核";
+        case 2:
+          return "完成充值";
+        case 3:
+          return "付款无效";
       }
     },
-    payway(v){
-      switch(v){
-        case 'alipay_personal':return "支付宝转账";
-        case 'brokerage':return "佣金提现";
+    payway(v) {
+      switch (v) {
+        case 'alipay_personal':
+          return "支付宝转账";
+        case 'brokerage':
+          return "佣金提现";
       }
     },
   },
   methods: {
-    searchPhoneList(){
+    searchPhoneList() {
       this.$refs.listPhone.reLoad()
     },
-    onDateRangeChange(date, dateString){
+    onDateRangeChange(date, dateString) {
       // console.log('%c date, dateString','color:red',date, dateString)
       this.startDate = dateString[0]
       this.endDate = dateString[1]
@@ -204,91 +210,91 @@ export default {
       this.pagination = pagination
       this.getList()
     },
-    getPayList(){
+    getPayList() {
       this.loading = true
-      this._getPayList(this.params).then(res=>{
-        this.pagination.total = res.total
-      })
-      .finally(() => {
-        this.loading = false 
-      })
+      this._getPayList(this.params).then(res => {
+          this.pagination.total = res.total
+        })
+        .finally(() => {
+          this.loading = false
+        })
     },
     getWithdrawList() {
       this.loading = true
-      this._getWithdrawList(this.params).then(res=>{
-        this.pagination.total = res.total
-      })
-      .finally(() => {
-        this.loading = false 
-      })
+      this._getWithdrawList(this.params).then(res => {
+          this.pagination.total = res.total
+        })
+        .finally(() => {
+          this.loading = false
+        })
     },
     ...mapActions('wallet', {
-      _getWithdrawList:'getWithdrawList',
-      _getPayList:'getPayList',
+      _getWithdrawList: 'getWithdrawList',
+      _getPayList: 'getPayList',
     }),
   },
-  watch:{
-    listType(value){
-      if(this.listType === "recharge"){
-        Object.assign(this.pagination,{
-          current:1,
-          total:this.payListTilPage,
+  watch: {
+    listType(value) {
+      if (this.listType === "recharge") {
+        Object.assign(this.pagination, {
+          current: 1,
+          total: this.payListTilPage,
         })
-      }else if(this.listType === "withdraw"){
-        Object.assign(this.pagination,{
-          current:1,
-          total:this.withdrawListTilPage,
+      } else if (this.listType === "withdraw") {
+        Object.assign(this.pagination, {
+          current: 1,
+          total: this.withdrawListTilPage,
         })
       }
     },
   },
   computed: {
-    paramsPhone(){
+    paramsPhone() {
       return {
-        st:this.startDate,
-        et:this.endDate,
+        st: this.startDate,
+        et: this.endDate,
       }
     },
-    params(){
+    params() {
       return {
         page: this.pagination.current,
         limit: this.pagination.pageSize,
-        st:this.startDate,
-        et:this.endDate,
+        st: this.startDate,
+        et: this.endDate,
       }
     },
-    getList(){
-      if(this.listType === "recharge"){
+    getList() {
+      if (this.listType === "recharge") {
         return this.getPayList
-      }else if(this.listType === "withdraw"){
+      } else if (this.listType === "withdraw") {
         return this.getWithdrawList
       }
     },
-    getFunc(){
-      if(this.listType === "recharge"){
+    getFunc() {
+      if (this.listType === "recharge") {
         return this._getPayList
-      }else if(this.listType === "withdraw"){
+      } else if (this.listType === "withdraw") {
         return this._getWithdrawList
       }
     },
-    columns(){
-      if(this.listType === "recharge"){
+    columns() {
+      if (this.listType === "recharge") {
         return payColumns
-      }else if(this.listType === "withdraw"){
+      } else if (this.listType === "withdraw") {
         return withdrawColums
       }
     },
-    list(){
-      if(this.listType === "recharge"){
+    list() {
+      if (this.listType === "recharge") {
         return this.payList
-      }else if(this.listType === "withdraw"){
+      } else if (this.listType === "withdraw") {
         return this.withdrawList
       }
     },
-    total(){
-      if(this.listType === "recharge"){
+    total() {
+      if (this.listType === "recharge") {
         return this.payListTtl
-      }else if(this.listType === "withdraw"){
+      } else if (this.listType === "withdraw") {
         return this.withdrawListTtl
       }
     },
@@ -299,7 +305,7 @@ export default {
       'withdrawList',
       'withdrawListTtl',
       'withdrawListTilPage',
-      ]),
+    ]),
     ...mapState('app', ['isPC']),
 
   },
@@ -313,10 +319,10 @@ export default {
 
 </script>
 <style lang='scss' scoped>
-.search-box{
-  padding:8px 8px;
+.search-box {
+  padding: 8px 8px;
   display: flex;
-
+  align-items: center;
 }
 
 </style>

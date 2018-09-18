@@ -78,7 +78,25 @@ export default class helper {
   static replaceRouter(path) {
     router.replace(config.routerRoot + path)
   }
-
+  static secretName(name){
+    name = name+''
+    let len = name.length
+    let s = ''
+    switch(len){
+      case 0: s=''; break;
+      case 1: s='*'; break;
+      case 2: s=name[0]+'*'; break;
+      case 3: s=name[0]+'**'; break;
+      case 3: s=name[0]+'**'; break;
+      case 4: s=''+name[0]+name[1]+'**'; break;
+      default: s=name[0]+'**';break;
+    }
+    return s
+  }
+  static secretPhone(phone){
+    phone = phone + ''
+    return `${phone.substring(0,4)}****${phone.substring(8)}`
+  }
   static saveUserInfoToLocal(data) {
     console.log('data')
     //save user info to localstorage

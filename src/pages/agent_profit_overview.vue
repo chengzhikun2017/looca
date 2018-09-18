@@ -62,8 +62,11 @@
         <span slot="money" slot-scope="money">
         {{money | money}}
       </span>
-        <span slot="relationDepth" slot-scope="depth">
+      <span slot="relationDepth" slot-scope="depth">
         {{depth | guestDepth}}
+      </span>
+      <span slot="type" slot-scope="type">
+        {{type | incomeType}}
       </span>
       </a-table>
     </div>
@@ -113,6 +116,7 @@ export default {
       }, {
         title: '类型',
         dataIndex: 'type',
+        scopedSlots: { customRender: 'type' },
       }, {
         title: '时间',
         dataIndex: 'createTime',
@@ -122,12 +126,12 @@ export default {
       dataSource: []
     }
   },
+  filters:{
+    
+  },
   created() {
     this.getCount()
     this.isPC && this.getList()
-  },
-  mounted(){
-    !this.isPC && this.searchPhoneList()
   },
   methods: {
     searchPhoneList(){
