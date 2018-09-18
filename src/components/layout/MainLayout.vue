@@ -20,7 +20,7 @@
       </div>
       <div class="user-setting-box" :class="isPC?'':'phone'">
         <div class="btn" @click="logout" >
-          <a-icon type="logout" />
+          <a-icon type="logout" /> 账户登出
         </div>
       </div>
     </a-layout-sider>

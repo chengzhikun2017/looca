@@ -68,7 +68,7 @@ export default {
         })
       return promise
     },
-    create({}, params) {
+    create({dispatch}, params) {
       // console.log('%c params','color:red',params)
       let promise = fetch({
         //server: 服务器: live实盘，demo模拟盘
@@ -79,10 +79,11 @@ export default {
       })
       promise.then(res => {
         vueApp.$message.info("创建成功")
+        dispatch('getList')
       })
       return promise
     },
-    bindAC({}, { mt4Uid, password }) {
+    bindAC({dispatch}, { mt4Uid, password }) {
       var promise = fetch({
         url: 'mt4Account/bind',
         params: {
@@ -91,6 +92,7 @@ export default {
         },
       })
       promise.then(res => {
+        dispatch('getList')
         vueApp.$message.info('绑定成功')
       })
       return promise
@@ -100,10 +102,11 @@ export default {
       // password: 交易密码
       // newPassword: 新的密码，（必须包含数字和字母，6位以上）
       // type: 修改密码类型： main 为交易密码， investor 为只读密码
-      fetch({
+      let promise = fetch({
         url: "mt4Account/modifyPwd",
         params,
       })
+      return promise
     },
     findPwd({}, mt4Uid) {
       var promise = fetch({

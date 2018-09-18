@@ -4,7 +4,7 @@
     <div class="log-box" :class="isPC?'':'phone'">
       <div class="header">
         <img src="../../assets/display/logo.png" alt="" class="logo">
-        <span class="title">Looco Global && 乐凯环球</span>
+        <span class="title">Looco Global & 乐恺环球</span>
       </div>
       <div class="tabs-box">
         <a-tabs :activeKey="activeKey"  @change="callback" v-if="!isFindpwd">

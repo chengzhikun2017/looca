@@ -60,6 +60,9 @@ export default class helper {
       callback()
     }
   }
+  static replaceRouter(path) {
+    router.replace(path)
+  }
   static goPageLoged(path, callback, stopGo) {
     if (stopGo) {
       HGJ_VUE.hgjAlert('服务暂时关闭')

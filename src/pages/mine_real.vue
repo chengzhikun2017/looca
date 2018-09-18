@@ -15,7 +15,7 @@
           <div slot="description" class="mine_real-status-description">
             <h3 class="mine_real-status-description-title">温馨提示</h3>
             <!-- 这里的提示信息是需要动态替换的 -->
-            <p class="mine_real-status-description-item">1.必须实名注册，否则无法体现</p>
+            <p class="mine_real-status-description-item">1.必须实名注册，否则无法提现</p>
             <p class="mine_real-status-description-item">2.法院黑名单请更换实名，否则会影响账户使用</p>
             <p class="mine_real-status-description-item">3.认证审核通过后，若要修改实名认证信息，请联系客服</p>
           </div>

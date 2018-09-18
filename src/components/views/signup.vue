@@ -112,7 +112,7 @@ export default {
         if (this.isFindpwd) {
           this.setFindPwd(false)
         }
-        this.isRegister && this.switchTab('1')
+        // this.isRegister && this.switchTab('1')
       })
     },
     findPassword() {
@@ -229,7 +229,6 @@ export default {
     },
   },
   watch: {
-    'formData.phone' (v) {},
   },
   components: {},
 }

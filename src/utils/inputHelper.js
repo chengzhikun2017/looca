@@ -124,8 +124,11 @@ ValidationSet.mt4Pwd = function(input,keyName){
   input.setValidation(keyName, (value) => {
     if (!value) {
       return inputHelper.createStatusEmpty('密码')
-    } else if (!regs.mt4Pwd.test(value)) {
-      return inputHelper.createStatus(2, "密码格式不正确")
+    } else {
+      let result = regs.testMt4Pwd(value)
+      if (result!==true) {
+        return inputHelper.createStatus(2, result)
+      }
     }
   })
 }

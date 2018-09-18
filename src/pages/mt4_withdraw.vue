@@ -93,7 +93,7 @@
 <script>
 import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
 const defaultData = {
-  current: 1,
+  current: 0,
   steps: [{
     title: '填写出金信息',
   }, {
@@ -179,6 +179,7 @@ export default {
         margin-bottom: 20px;
         width: 100%;
         max-width: 460px;
+        margin-top: 10px;
         .#{$prefix}-money {
           font-size: 24px;
           font-weight: 500;

@@ -127,12 +127,13 @@ export default {
         }
       })
       promise.then(res => {
-        this.checkSession()
-        // state.isLoged = true
-        // helper.getInitialInfo()
-        // if (save) {
-        //   saveAccount(phone, password)
-        // }
+        // this.checkSession()
+        // dispatch('checkSession')
+        state.isLoged = true
+        helper.getInitialInfo()
+        if (save) {
+          saveAccount(phone, password)
+        }
         //save to local
       })
       return promise

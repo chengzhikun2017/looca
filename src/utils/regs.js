@@ -24,6 +24,16 @@
     return /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,}$/
 
   }
+  testMt4Pwd(pwd){
+    let msg = "要求6位以上，包含字母和数组"
+    if(!/\d/.test(pwd)){
+      return msg
+    }
+    if(!/[a-z]|[A-Z]/.test(pwd)){
+      return msg
+    }
+    return true
+  }
   get code6() {
     let reg = /\d{6}/
     return reg

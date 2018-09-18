@@ -10,57 +10,26 @@
       cancelText="取消"
     >
       <div class="choose-type">
-        <a-radio-group name="radioGroup" v-model="createType" >
+        <!-- <a-radio-group name="radioGroup" v-model="createType" >
           <a-radio value="live">实名账户</a-radio>
           <a-radio value="demo">虚拟账户</a-radio>
           <a-radio value="bind">绑定账户</a-radio>
-          <!-- <a-radio :value="3">C</a-radio> -->
+        </a-radio-group> -->
+        <a-radio-group name="radioGroup" v-model="createType" >
+          <a-radio value="normal">普通账户</a-radio>
+          <a-radio value="follow">跟单账户</a-radio>
         </a-radio-group>
       </div>
     </a-modal>
-    
-    <div class="header" v-if="false">
-      <p class="text">**实名认证后方可开户</p>
-      <div class="colum-filter"  v-if=false>
-        <label for="" class="label">
-          可配置项：
-        </label>
-        <a-tree-select
-          showSearch
-          style="width: 100%"
-          :value="columnsShow"
-          :dropdownStyle="{ maxHeight: '400px', overflow: 'auto' }"
-          placeholder='Please select'
-          allowClear
-          multiple
-          treeDefaultExpandAll
-          @change="onChange"
-          @search="onSearch"
-          @select="onSelect"
-        >
-          <a-tree-select-node v-for="colum in allColumns" 
-            :title="colum.title"
-            :key="colum.dataIndex"
-            />
-            <!-- <a-tree-select-node value='leaf1' title='my leaf' key='random' />
-            <a-tree-select-node value='leaf2' title='your leaf' key='random1' />
-            <a-tree-select-node value='parent 1-1' title='parent 1-1' key='random2'/>
-            <a-tree-select-node value='sss'  title='parent 1-1' key='random3'/> -->
-        </a-tree-select>
-      </div>
-      <a-button type="primary" @click.native="selectCreation">立即开户</a-button>
-    </div>
     <div class="default-info" :class="isPC?'':'phone'">
       <div class="btn-box" :class="isPC?'':'phone'">
-        <a-button size="small" v-if="isPC"  type="primary" @click="showCreateModal=true" >新增账户</a-button>
-        <a class="link-btn" href="javascript:void(0)" v-if="!isPC" @click="showCreateModal=true" >新增账户</a>
+        <a-button size="small" v-if="isPC"  type="primary" @click="chooseCreate" >新增账户</a-button>
+        <a class="link-btn" href="javascript:void(0)" v-if="!isPC" @click="chooseCreate" >新增账户</a>
       </div>
-      <span :style="!isPC&&'display:block'">
+      <span >
         剩余可入金金额：${{money.balance | money}}
       </span>
-      <a-button size="small" v-if="list.length>0" type="primary" @click="goPage('/mt4_trade_history')">
-        交易报表
-      </a-button>
+      
       <a-button size="small" v-if="list.length>0" type="primary" @click="goPage('/mt4_money_bill')">
         出入金记录
       </a-button>
@@ -108,7 +77,13 @@
         </template>
       </a-table>
     </div>
-
+    <div class="empty" v-if="listGot&&list.length===0">
+      <a-col :xs="24" :sm="12" :md="8">
+        <div class="empty-card" @click="startAdd" flex="main:center cross:center">
+          + 添加银行卡
+        </div>
+      </a-col>
+    </div>
   </div>
 </template>
 
@@ -214,7 +189,7 @@ export default {
   name:'mt4_overview',
   data() {
     return {
-      createType:'live',
+      createType:'normal',
       showCreateModal: false,
       confirmLoading:false,
       columnsShow:allIndex,
@@ -244,11 +219,11 @@ export default {
     }
   },
   methods: {
+    chooseCreate(){
+      this.showCreateModal = true
+    },
     goPage(path){
       helper.goPage(path)
-    },
-    selectCreation(){
-      this.showCreateModal = true
     },
     onSelectCurrent(mt4,index){
       this.setCurrent(mt4.mt4Uid)
@@ -346,9 +321,11 @@ export default {
       margin-left: 5px;
     }
   }
-  .default-info.phone{
+/*  .default-info{
+    display: flex;
+    justify-content: space-between;
     padding-right: 0;
-  }
+  }*/
   .header{
     text-align: right;
     margin-bottom: 24px;
@@ -376,6 +353,17 @@ export default {
       height: 100%;
       line-height: 32px;
     }
+  }
+}
+.empty-card {
+  margin: 8px;
+  height: 137px;
+  border-radius: 3px;
+  border: 1px dashed #ccc;
+  &:hover {
+    border: 1px dashed #1890ff;
+    color: #1890ff;
+    cursor: pointer;
   }
 }
 </style>

@@ -28,7 +28,7 @@ export default {
       this.$modal.confirm({
         title:"确认信息",
         style:"top: 20px;",
-        onOk:this.goAction.bind(this,'/mt4_recharge'),
+        onOk:this.goAction.bind(this,'/mt4_withdraw'),
         content: 
         <div>
           <p>MT4账号：<span class="mt4_withdraw-confirm-account">{this.currentMt4Uid}</span></p>
@@ -42,7 +42,7 @@ export default {
       this.$modal.confirm({
         title:"确认信息",
         style:"top: 20px;",
-        onOk:this.goAction.bind(this,'/mt4_withdraw'),
+        onOk:this.goAction.bind(this,'/mt4_recharge'),
         content: 
         <div>
           <p class="important-info">您将使用钱包余额入金</p>
