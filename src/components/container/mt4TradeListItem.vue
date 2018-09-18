@@ -14,13 +14,13 @@
             </div>
           </div>
           <div class="mt4_balance_list_item-summary-note">
-            <span class="mt4_balance_list_item-summary-note-item"><a-icon type="login" /> 1.7232</span>
-            <span class="mt4_balance_list_item-summary-note-item"><a-icon type="logout" /> 1.7463</span>
+            <span class="mt4_balance_list_item-summary-note-item">开 1.7232</span>
+            <span class="mt4_balance_list_item-summary-note-item">平 1.7463</span>
             <span class="mt4_balance_list_item-summary-note-item"><a-icon type="fork" /> {{info.actionType}}</span>
           </div>
         </div>
-        <div class="mt4_balance_list_item-summary-status" 
-          :class="{'green':info.profit<0,'red':info.profit>0,}"  
+        <div class="mt4_balance_list_item-summary-status"
+          :class="{'green':info.profit<0,'red':info.profit>0,}"
           flex-box="0">
           ${{info.profit | money}}
         </div>

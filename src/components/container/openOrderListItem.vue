@@ -14,7 +14,7 @@
             </div>
           </div>
           <div class="mt4_balance_list_item-summary-note">
-            <span class="mt4_balance_list_item-summary-note-item"><a-icon type="login" /> 1.7232</span>
+            <span class="mt4_balance_list_item-summary-note-item">开 1.7232</span>
             <span class="mt4_balance_list_item-summary-note-item"><a-icon type="sync" /> 1.7232</span>
             <span class="mt4_balance_list_item-summary-note-item"><a-icon type="fork" /> BUY</span>
           </div>
