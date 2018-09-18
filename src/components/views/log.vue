@@ -160,7 +160,7 @@ export default {
   }
   .ant-tabs-tab {
     width: 50%;
-    margin-right: 0;
+    margin-right: 0 !important;
     text-align: center;
   }
   .ant-tabs-nav-container-scrolling .ant-tabs-tab-next.ant-tabs-tab-arrow-show,
