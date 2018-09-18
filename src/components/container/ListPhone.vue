@@ -35,6 +35,7 @@ export default {
       loadParams: new initLoadParams(),
       lastQueryParams: {},
       data: [],
+      once:0,
     }
   },
   props: {
@@ -61,6 +62,7 @@ export default {
       this.loadParams = new initLoadParams()
     },
     saveParams(){
+      console.log('%c params','color:red',this.params)
       this.lastQueryParams = {
         ...this.params,
       }
@@ -71,6 +73,12 @@ export default {
       this.loadList()
     },
     loadList() {
+      console.log('%c load load load','color:red',)
+      if(this.once ===0 ){
+        this.once ++
+        this.reLoad()
+        return
+      }
       if (this.loadParams.nomore === true) {
         return
       }

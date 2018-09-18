@@ -37,7 +37,8 @@ export default {
     toggle() {
       this.show = !this.show;
     },
-    hide() {
+    hide(e) {
+      console.log('%c e','color:red',e)
       this.show = false
     },
   },

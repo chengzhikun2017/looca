@@ -1,17 +1,37 @@
 <template>
   <div class="mt4_money_bill-page">
-    <div class="search-box">
-      <a-radio-group v-model="listType" style="margin:8px">
-        <a-radio-button value="withdraw">出金</a-radio-button>
-        <a-radio-button value="deposit">入金</a-radio-button>
-        <a-radio-button value="withdraw_follow_settlement">出金（跟单结算）</a-radio-button>
-      </a-radio-group>
-      <Mt4Select></Mt4Select>
-      <a-range-picker :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }" :defaultValue="[moment().add(-6,'day'), moment()]" @change="onDateRangeChange" />
-      <a-button @click="getList" type="primary">查询</a-button>
+    <!-- <div class="mt4_money_bill-search-table-divider"></div> -->
+    <div class="phone">
+      <SearchToggle v-if="!isPC" @ok="searchPhoneList">
+        <l-search-item>
+          <a-radio-group v-model="listType" style="margin:8px">
+            <a-radio-button value="withdraw">出金</a-radio-button>
+            <a-radio-button value="deposit">入金</a-radio-button>
+            <a-radio-button value="withdraw_follow_settlement">出金（跟单结算）</a-radio-button>
+          </a-radio-group>
+        </l-search-item>
+        <l-search-item>
+          <DateRange @dateRangeChange="onDateRangeChange" :defaultValue="[defaultStart,defaultEnd]" />
+        </l-search-item>
+        <l-search-item>
+          <Mt4Select></Mt4Select>
+        </l-search-item>
+      </SearchToggle>
+      <ListPhone :newList="list" ref="listPhone" :params="paramsPhone" :getFunc="_getList" :total="ttlQty">
+        <mt4MoneyBillListItem slot-scope="props" :info="props.item"></mt4MoneyBillListItem>
+      </ListPhone>
     </div>
-    <div class="mt4_money_bill-search-table-divider"></div>
-    <div>
+    <div class="pc">
+      <div class="search-box">
+        <a-radio-group v-model="listType" style="margin:8px">
+          <a-radio-button value="withdraw">出金</a-radio-button>
+          <a-radio-button value="deposit">入金</a-radio-button>
+          <a-radio-button value="withdraw_follow_settlement">出金（跟单结算）</a-radio-button>
+        </a-radio-group>
+        <Mt4Select></Mt4Select>
+        <a-range-picker :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }" :defaultValue="[moment().add(-6,'day'), moment()]" @change="onDateRangeChange" />
+        <a-button @click="getList" type="primary">查询</a-button>
+      </div>
       <a-table :columns="columns" :rowKey="rowKey" :dataSource="list" :pagination="pagination" :loading="loading" @change="handleTableChange" v-if="isPC">
         <template slot="cardNum" slot-scope="cardNum">
           {{cardNum|bankCard}}
@@ -38,9 +58,18 @@
   </div>
 </template>
 <script>
-const Mt4Select = ()=> import( '../components/views/mt4Select.vue')
-const columns = [
-  {
+const Mt4Select = () =>
+  import ('../components/views/mt4Select.vue')
+const DateRange = () =>
+  import ('../components/container/DateRange.vue')
+const SearchToggle = () =>
+  import ('../components/container/SearchToggle.vue')
+const ListPhone = () =>
+  import ('../components/container/ListPhone.vue')
+const mt4MoneyBillListItem = () =>
+  import ('../components/container/mt4BalanceListItem.vue')
+
+const columns = [{
     title: 'ID',
     dataIndex: 'id',
   }, {
@@ -75,7 +104,7 @@ const columns = [
     title: "业务流水号",
     dataIndex: "tradeNo",
     // width: '60px',
-  },  {
+  }, {
     title: "时间",
     dataIndex: "createTime",
     scopedSlots: { customRender: 'createTime' },
@@ -83,91 +112,106 @@ const columns = [
   },
 
 ]
+import dateRange from './../components/mixin/dateRange.js'
+
 import helper from '../utils/helper.js'
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 export default {
   name: 'mt4_money_bill',
+  mixins: [dateRange],
   data() {
     return {
       loading: false,
-      listType:'withdraw',
+      listType: 'withdraw',
       pagination: {
         pageSize: 2,
-        showSizeChanger: true,
+        // showSizeChanger: true,
         current: 1,
         size: 'small',
         total: 0,
       },
-      startDate:'',
-      endDate:'',
       columns,
     }
   },
   created() {
-    this.getList()
+    this.isPC && this.getList()
   },
-  filters:{
-    statusFilter(v){
-      switch(v){
-        case 0:return "正在处理";
-        case 1:return "完成";
-        case 2:return "失败";
+  filters: {
+    statusFilter(v) {
+      switch (v) {
+        case 0:
+          return "正在处理";
+        case 1:
+          return "完成";
+        case 2:
+          return "失败";
       }
     },
-    typeFilter(v){
+    typeFilter(v) {
       //withdraw 出金 、 deposit 入金 、 withdraw_follow_settlement
-      switch(v){
-        case 'withdraw':return "出金";
-        case 'deposit':return "入金";
-        case 'withdraw_follow_settlement':return "出金（跟单结算）";
+      switch (v) {
+        case 'withdraw':
+          return "出金";
+        case 'deposit':
+          return "入金";
+        case 'withdraw_follow_settlement':
+          return "出金（跟单结算）";
       }
     },
   },
   methods: {
-    goPage(path){
+    searchPhoneList(){
+      this.$refs.listPhone.reLoad()
+    },
+    goPage(path) {
       helper.goPage(path)
     },
     rowKey(record) {
       return record.orderId
     },
-    onDateRangeChange(date, dateString){
-      // console.log('%c date, dateString','color:red',date, dateString)
-      this.startDate = dateString[0]
-      this.endDate = dateString[1]
-    },
     handleTableChange(pagination) {
       this.pagination = pagination
       this.getList()
     },
-    getList(){
+    getList() {
       this._getList(this.params)
     },
     ...mapActions('mt4Balance', {
-      _getList:'getList',
+      _getList: 'getList',
     })
   },
   computed: {
-    params(){
+    paramsPhone() {
       return {
-        mt4Uid:this.currentMt4Uid,
-        type:this.listType,
-        page:this.pagination.current,
-        limit:this.pagination.pageSize,
-        st:this.startDate,
-        et:this.endDate,
+        mt4Uid: this.currentMt4Uid,
+        type: this.listType,
+        st: this.startDate,
+        et: this.endDate,
+      }
+    },
+    params() {
+      return {
+        ...this.paramsPhone,
+        page: this.pagination.current,
+        limit: this.pagination.pageSize,
       }
     },
     ...mapState('mt4AC', ['currentMt4Uid']),
-    ...mapState('mt4Balance', ['list','ttlQty','ttlPage']),
+    ...mapState('mt4Balance', ['list', 'ttlQty', 'ttlPage']),
     ...mapState('app', ['isPC']),
   },
   components: {
     Mt4Select,
+    DateRange,
+    SearchToggle,
+    mt4MoneyBillListItem,
+    ListPhone,
   },
 }
 
 </script>
 <style lang='scss' scoped>
-  $prefix: "mt4_money_bill";
-  @import '@/styles/utils/divider.scss'
+$prefix: "mt4_money_bill";
+@import '@/styles/utils/divider.scss'
+
 </style>

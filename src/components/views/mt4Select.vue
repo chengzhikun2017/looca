@@ -1,6 +1,6 @@
 <template>
   <!-- v-if="listGot&&this.list.length>0" -->
-  <span class="l-mt4-select" >
+  <span class="l-mt4-select">
     MT4账号：
     <a-select  v-model="selectedId" style="width: 120px" @change="handleChange">
       <a-select-option :key="mt4.mt4Uid" :value="mt4.mt4Uid" v-for="mt4 in list">

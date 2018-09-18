@@ -28,6 +28,7 @@ export default {
       // limit : 每页个数，默认10
       // st : 起始时间，格式yyyy-mm-dd，
       // et : 结束时间（包含），格式yyyy-mm-dd，前端可以默认筛选最近一周数据
+        console.log('%c params in store','color:red',params)
       let promise = fetch({
         url: 'mt4Balance/list',
         params,
