@@ -254,7 +254,7 @@ export default {
 .l-signup {
   .ant-input-suffix {
     height: 100%;
-    right: 0;
+    right: 0 !important;
   }
   .ant-btn {
     width: 100%;
