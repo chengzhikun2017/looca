@@ -2,13 +2,13 @@
   <div class="l-login">
     <a-form @submit="handleSubmit">
       <a-form-item :wrapperCol="{ span: 24 }" :validateStatus="input.status.phone.validateStatus" :help="input.status.phone.help">
-        <a-input size=large placeholder="手机号" ref="inputPhone" v-model="input.values.phone" @blur="validate('phone')" @focus="clearValidation('phone')">
+        <a-input key="loginPhone" size=large placeholder="手机号" ref="inputPhone" v-model="input.values.phone" @blur="validate('phone')" @focus="clearValidation('phone')">
           <a-icon slot="prefix" type="user" />
         </a-input>
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 24 }" :validateStatus="input.status.password.validateStatus" :help="input.status.password.help">
-        <a-input size=large placeholder="密码" type="password" ref="inputPassword" v-model="input.values.password" @blur="validate('password')" @focus="clearValidation('password')">
-          <a-icon slot="prefix" type="user" />
+        <a-input key="loginPwd" size=large placeholder="密码" type="password" ref="inputPassword" v-model="input.values.password" @blur="validate('password')" @focus="clearValidation('password')">
+          <a-icon slot="prefix" type="lock" />
         </a-input>
       </a-form-item>
       <a-form-item :labelCol="{ span: 24 }" :wrapperCol="{ span: 24 }">

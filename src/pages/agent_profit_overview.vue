@@ -109,7 +109,7 @@ export default {
         scopedSlots: { customRender: 'relationDepth' },
 
       }, {
-        title: '金额',
+        title: '金额($)',
         dataIndex: 'fee',
         scopedSlots: { customRender: 'money' },
 

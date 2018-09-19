@@ -90,3 +90,41 @@ Vue.filter('guestDepth', function(value) {
   }
   return str
 })
+Vue.filter('payStatus', function(value) {
+  switch (value) {
+    case 1:
+      return "等待审核";
+    case 2:
+      return "完成充值";
+    case 3:
+      return "付款无效";
+  }
+})
+Vue.filter('payway', function(value) {
+  switch (value) {
+    case 'alipay_personal':
+      return "支付宝转账";
+    case 'brokerage':
+      return "佣金提现";
+  }
+})
+Vue.filter('moneyBillType', function(value) {
+  switch (value) {
+    case 'withdraw':
+      return "出金";
+    case 'deposit':
+      return "入金";
+    case 'withdraw_follow_settlement':
+      return "出金（跟单结算）";
+  }
+})
+Vue.filter('moneyBillStatus', function(value) {
+  switch (value) {
+    case 0:
+      return "正在处理";
+    case 1:
+      return "完成";
+    case 2:
+      return "失败";
+  }
+})

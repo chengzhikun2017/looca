@@ -30,6 +30,9 @@
         <template slot="createTime" slot-scope="createTime">
           {{createTime | timeFull}}
         </template>
+        <template slot="depth" slot-scope="depth">
+          {{depth | guestDepth}}
+        </template>
       </a-table>
     </div>
     <div class="list phone">
@@ -65,6 +68,7 @@ export default {
         }, {
           title: '关系',
           dataIndex: 'depth',
+          scopedSlots: { customRender: 'depth' },
         }, {
           title: '时间',
           dataIndex: 'createTime',

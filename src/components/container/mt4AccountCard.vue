@@ -32,6 +32,9 @@
         <div>更多</div>
         <a-menu slot="overlay">
           <a-menu-item>
+            <a href="javascript:;" @click="goAction('/mt4_money_bill')">出入金记录</a>
+          </a-menu-item>
+          <a-menu-item>
             <a href="javascript:;" @click="goAction('/mt4_modifypwd')">修改密码</a>
           </a-menu-item>
           <a-menu-item>

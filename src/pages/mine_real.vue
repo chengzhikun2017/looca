@@ -10,7 +10,7 @@
         <alert
           showIcon :type="alertType"
           :title="authStatusText"
-          :message="authStatus === 3 ? authInfo.remark : '请完成实名认证'"
+          :message="authStatusContent"
           >
           <div slot="description" class="mine_real-status-description">
             <h3 class="mine_real-status-description-title">温馨提示</h3>
@@ -95,14 +95,6 @@ name: 'mine_real',
       editing: true,
       idCardUrl:'',
       idCardUrl2:'',
-      // current: 0,
-      // steps: [{
-      //   title: '填写开户资料'
-      // }, {
-      //   title: '等待审核'
-      // }, {
-      //   title: '完成'
-      // }],
     }
   },
   created() {
@@ -211,6 +203,15 @@ name: 'mine_real',
         case 1: return '等待审核';
         case 2: return '认证通过';
         case 3: return '认证失败';
+        default: return '';
+      }
+    },
+    authStatusContent(){
+      switch(this.authInfo && this.authInfo.status) {
+        case 0: return '请填写开户资料';
+        case 1: return '请耐心等待~';
+        case 2: return '已认证通过，如需修改信息，请与客服联系';
+        case 3: return this.authInfo.remark;
         default: return '';
       }
     },

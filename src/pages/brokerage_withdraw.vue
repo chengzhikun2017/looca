@@ -2,7 +2,7 @@
   <div class="brokerage_withdraw-page">
     <a-form>
       <a-form-item :wrapperCol="{ span: 18 }" label='当前佣金：' :labelCol="{ span: 6 }">
-        <span>${{money.brokerage | money}}（人民币金额 ¥{{money.balance*usdRate | money}})</span>
+        <span>${{money.brokerage | money}}（人民币金额 ¥{{money.brokerage*usdRate | money}})</span>
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 18 }" label='提现金额：' :labelCol="{ span: 6 }" :validateStatus="input.status.amount.validateStatus" :help="input.status.amount.help">
         <div class="wallet_withdraw-input">

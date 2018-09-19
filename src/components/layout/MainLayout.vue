@@ -49,8 +49,11 @@
             <!-- <a-breadcrumb-item><a href="">Application Center</a></a-breadcrumb-item> -->
             <!-- <a-breadcrumb-item>An Application</a-breadcrumb-item> -->
           </a-breadcrumb>
-          <span class="back-icon l-pointer-blue" @click="goUpLv" v-if="showBackIcon">
+          <span class="back back-icon l-pointer-blue" @click="goUpLv" v-if="showBackIcon && false">
             <a-icon type="arrow-left" />
+          </span>
+          <span class="back back-text l-pointer-blue" @click="goUpLv" v-if="showBackIcon">
+            返回
           </span>
         </div>
         <div class="content" :class="isPC?'':'phone'" :style="{height:contentHeight}">
@@ -378,7 +381,8 @@ export default {
 <style lang='scss' scoped>
 .breadcrumb {
   position: relative;
-  .back-icon {
+  _{}
+  .back {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -387,6 +391,19 @@ export default {
     right: 0;
     font-size: 22px;
     display: flex;
+  }
+  .back-icon {
+    /*position: absolute;*/
+    /*top: 0;*/
+    /*bottom: 0;*/
+    /*margin:auto 0;*/
+    /*padding:0 5px;*/
+    /*right: 0;*/
+    font-size: 22px;
+    /*display: flex;*/
+  }
+  .back-text {
+    font-size: 14px;
   }
 }
 .phone .breadcrumb{

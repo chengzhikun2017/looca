@@ -5,26 +5,26 @@
         <div flex-box="1" flex="dir:top">
           <div flex="cross:center">
             <div class="mt4_balance_list_item-summary-title" flex-box="0">
-              出金
+              {{data.type | moneyBillType}}
             </div>
             <div class="mt4_balance_list_item-summary-money" flex-box="1">
-              $1000
+              ${{data.dollar | money}}
             </div>
             <div class="mt4_balance_list_item-summary-charge" flex-box="0">
-              手续费 正在计算中
+              手续费 {{data.serviceFee|money}}
             </div>
           </div>
           <div class="mt4_balance_list_item-summary-note">
-            [MT4订单号：4756438756438 跟单结算]
+            [MT4订单号：{{data.orderId}} 跟单结算]
           </div>
         </div>
         <div class="mt4_balance_list_item-summary-status"  flex-box="0">
-          完成
+          {{data.status | moneyBillStatus}}
         </div>
       </div>
       <div class="mt4_balance_list_item-others" flex="cross:center">
         <div class="mt4_balance_list_item-others-time" flex-box="1">
-          2018-08-23 10:22:22
+          {{data.createTime | timeFull}}
         </div>
         <div class="mt4_balance_list_item-others-turnoff" @click="toggle" flex-box="0">
           <a-icon v-if="!isDetailShow" type="down-circle" />
@@ -36,10 +36,10 @@
     <transition name="slide">
       <div v-if="isDetailShow" class="mt4_balance_list_item-detail">
         <div class="mt4_balance_list_item-detail-item">
-          MT4账号：475643875
+          MT4账号：{{data.mt4Uid}}
         </div>
         <div class="mt4_balance_list_item-detail-item">
-          流水号：6456763284238432
+          流水号：{{data.tradeNo}}
         </div>
       </div>
     </transition>
@@ -48,7 +48,7 @@
 <script>
   import {getTimeString} from '@/utils/time.js'
   export default {
-    name: 'mt4_balance_list_item',
+    name: 'mt4_money_list_item',
     props: {
       data: {
         type: Object,

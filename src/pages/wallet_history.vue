@@ -49,7 +49,7 @@
     </div>
     <div class="phone">
       <ListPhone :newList="list" ref="listPhone" :params="paramsPhone" :getFunc="getFunc" :total="total">
-        <walletListItem :data="props.item" slot-scope="props"></walletListItem>
+        <walletListItem :info="props.item" slot-scope="props"></walletListItem>
       </ListPhone>
     </div>
   </div>
@@ -175,24 +175,7 @@ export default {
           return "撤销申请";
       }
     },
-    payStatus(v) {
-      switch (v) {
-        case 1:
-          return "等待审核";
-        case 2:
-          return "完成充值";
-        case 3:
-          return "付款无效";
-      }
-    },
-    payway(v) {
-      switch (v) {
-        case 'alipay_personal':
-          return "支付宝转账";
-        case 'brokerage':
-          return "佣金提现";
-      }
-    },
+    
   },
   methods: {
     searchPhoneList() {

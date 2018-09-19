@@ -4,15 +4,15 @@
       <div class="wallet_list_item-summary" flex="cross:center">
         <div flex-box="1" flex="dir:top">
           <div flex="cross:center">
-            <div class="wallet_list_item-summary-title" flex-box="0">
-              充值
-            </div>
+            <!-- <div class="wallet_list_item-summary-title" flex-box="0">
+              {{type=="recharge"?"充值":"提现"}}
+            </div> -->
             <div class="wallet_list_item-summary-money" flex-box="1">
-              $1000
+              ${{info.dollar | money}}
             </div>
           </div>
           <div class="wallet_list_item-summary-note">
-            [支付宝转账/佣金提现]
+            {{info.payWay | payway}}
           </div>
         </div>
         <div class="wallet_list_item-summary-status"  flex-box="0">
@@ -21,7 +21,7 @@
       </div>
       <div class="wallet_list_item-others" flex="cross:center">
         <div class="wallet_list_item-others-time" flex-box="1">
-          2018-08-23 10:22:22
+          {{info.createTime | timeFull}}
         </div>
         <div class="wallet_list_item-others-turnoff" @click="toggle" flex-box="0">
           <a-icon v-if="!isDetailShow" type="down-circle" />
@@ -33,14 +33,14 @@
     <transition name="slide">
       <div v-if="isDetailShow" class="wallet_list_item-detail">
         <div class="wallet_list_item-detail-item" flex="main:justify">
-          <span>汇率：6.1823</span>
-          <span>人民币：¥634433</span>
+          <span>汇率：{{info.dollar2rmbRate}}</span>
+          <span>人民币：¥{{info.rmb | money}}</span>
         </div>
         <div class="wallet_list_item-detail-item" flex="main:justify">
-          流水号：6456763284238432
+          流水号：{{info.tradeNo}}
         </div>
-        <div class="wallet_list_item-detail-item-button">
-          <span>转账截图</span>
+        <div class="wallet_list_item-detail-item-button" >
+          <span @click="showBill" >转账截图</span>
         </div>
       </div>
     </transition>
@@ -51,10 +51,14 @@
   export default {
     name: 'wallet_list_item',
     props: {
-      data: {
+      info: {
         type: Object,
         default: () => {}
-      }
+      },
+      type: {
+        type: String,
+        default: 'recharge'
+      },
     },
     data() {
       return {
@@ -62,6 +66,12 @@
       }
     },
     methods: {
+      showBill() {
+        this.$modal.info({
+          title:'转账截图',
+          content: (<img src={this.info.remarkUrl} style="width: 200px" alt=""/>)
+        })
+      },
       toggle () {
         this.isDetailShow = !this.isDetailShow
       }
@@ -71,5 +81,8 @@
 <style lang="scss">
   $prefix: "wallet_list_item";
   @import '@/styles/listitem/index.scss';
+  #app .wallet_list_item .wallet_list_item-summary-money{
+    padding-left: 0;
+  }
 </style>
 

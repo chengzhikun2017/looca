@@ -79,8 +79,8 @@
     </div>
     <div class="empty" v-if="listGot&&list.length===0">
       <a-col :xs="24" :sm="12" :md="8">
-        <div class="empty-card" @click="startAdd" flex="main:center cross:center">
-          + 添加银行卡
+        <div class="empty-card" @click="chooseCreate" flex="main:center cross:center">
+          + 添加账户
         </div>
       </a-col>
     </div>

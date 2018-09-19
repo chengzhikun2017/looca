@@ -35,13 +35,13 @@
         <a-dropdown>
           <a-button class="mt4_account_list_item-btn" type="primary" size="small">更多</a-button>
           <a-menu slot="overlay">
-            <a-menu-item @click="goAction('/mt4_money_bill')">
+            <a-menu-item @click.native="goAction('/mt4_money_bill')">
               出入金记录
             </a-menu-item>
-            <a-menu-item @click="goAction('/mt4_modifypwd')">
+            <a-menu-item @click.native="goAction('/mt4_modifypwd')">
               修改密码
             </a-menu-item>
-            <a-menu-item @click="goAction('/mt4_findpwd')">
+            <a-menu-item @click.native="goAction('/mt4_findpwd')">
               找回密码
             </a-menu-item>
           </a-menu>

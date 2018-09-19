@@ -18,7 +18,7 @@
         </l-search-item>
       </SearchToggle>
       <ListPhone :newList="list" ref="listPhone" :params="paramsPhone" :getFunc="_getList" :total="ttlQty">
-        <mt4MoneyBillListItem slot-scope="props" :info="props.item"></mt4MoneyBillListItem>
+        <mt4MoneyBillListItem slot-scope="props" :info="props.item" :data="props.item"/>
       </ListPhone>
     </div>
     <div class="pc">
@@ -40,10 +40,10 @@
           {{money|money}}
         </template>
         <template slot="status" slot-scope="status">
-          {{status|statusFilter}}
+          {{status|moneyBillStatus}}
         </template>
         <template slot="type" slot-scope="type">
-          {{type|typeFilter}}
+          {{type|moneyBillType}}
         </template>
         <template slot="withdrawStatus" slot-scope="withdrawStatus">
           {{withdrawStatus|withdrawStatus}}
@@ -67,7 +67,7 @@ const SearchToggle = () =>
 const ListPhone = () =>
   import ('../components/container/ListPhone.vue')
 const mt4MoneyBillListItem = () =>
-  import ('../components/container/mt4BalanceListItem.vue')
+  import ('../components/container/mt4MoneyBillListItem.vue')
 
 const columns = [{
     title: 'ID',
@@ -135,29 +135,6 @@ export default {
   },
   created() {
     this.isPC && this.getList()
-  },
-  filters: {
-    statusFilter(v) {
-      switch (v) {
-        case 0:
-          return "正在处理";
-        case 1:
-          return "完成";
-        case 2:
-          return "失败";
-      }
-    },
-    typeFilter(v) {
-      //withdraw 出金 、 deposit 入金 、 withdraw_follow_settlement
-      switch (v) {
-        case 'withdraw':
-          return "出金";
-        case 'deposit':
-          return "入金";
-        case 'withdraw_follow_settlement':
-          return "出金（跟单结算）";
-      }
-    },
   },
   methods: {
     searchPhoneList(){

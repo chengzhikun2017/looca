@@ -23,10 +23,10 @@ function initLoadParams() {
   //   nomore: false,
   //   loading: false,
   // }
-    this.limit= 10
-    this.page= 0
-    this.nomore= false
-    this.loading= false
+  this.limit = 10
+  this.page = 0
+  this.nomore = false
+  this.loading = false
 }
 export default {
   name: 'ListPhone',
@@ -35,13 +35,13 @@ export default {
       loadParams: new initLoadParams(),
       lastQueryParams: {},
       data: [],
-      once:0,
+      once: 0,
     }
   },
   props: {
     getFunc: {
       type: Function,
-      required:true,
+      required: true,
     },
     params: {
       type: Object,
@@ -61,8 +61,8 @@ export default {
       this.data = []
       this.loadParams = new initLoadParams()
     },
-    saveParams(){
-      console.log('%c params','color:red',this.params)
+    saveParams() {
+      console.log('%c params', 'color:red', this.params)
       this.lastQueryParams = {
         ...this.params,
       }
@@ -73,10 +73,10 @@ export default {
       this.loadList()
     },
     loadList() {
-      console.log('%c load load load','color:red',)
-      if(this.once ===0 ){
-        this.once ++
-        this.reLoad()
+      console.log('%c load load load', 'color:red', )
+      if (this.once === 0) {
+        this.once++
+          this.reLoad()
         return
       }
       if (this.loadParams.nomore === true) {
@@ -84,28 +84,30 @@ export default {
       }
       this.loadParams.loading = true
       this.loadParams.page++
-      this.getFunc({
-        ...this.loadParams,
-        ...this.lastQueryParams,
-      })
-      .then(this.addNewList)
-      .finally(() => {
-        this.loadParams.loading = false
-      })
+        this.getFunc({
+          ...this.loadParams,
+          ...this.lastQueryParams,
+        })
+        .then(this.addNewList)
+        .finally(() => {
+          this.loadParams.loading = false
+        })
     },
     addNewList() {
-      this.newList.forEach((item) => {
-        //可能要nextTick
-        this.data.push(item)
+      this.$nextTick(() => {
+        this.newList.forEach((item) => {
+          //可能要nextTick
+          this.data.push(item)
+        })
+        if (this.data.length >= this.total) {
+          this.loadParams.nomore = true
+        }
       })
-      if (this.data.length >= this.total) {
-        this.loadParams.nomore = true
-      }
     },
 
   },
   computed: {
-    loading(){
+    loading() {
       return this.loadParams.loading
     },
   },
