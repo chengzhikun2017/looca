@@ -49,8 +49,8 @@ export default {
   mixins: [inputMixin],
   data() {
     var newInput = new inputHelper.newInput(['phone', "password"])
-    newInput.values.phone="17702103430"
-    newInput.values.password="123456aa"
+    newInput.values.phone=localStorage.account
+    newInput.values.password = localStorage.password
     ValidationSet.phone(newInput,'phone')
     ValidationSet.password(newInput,'password')
     return {

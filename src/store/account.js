@@ -51,6 +51,9 @@ export default {
     realNameAuthed(state){
       return state.authInfo.status === 2
     },
+    realNameLoaded(state){
+      return state.authInfo.status > 0
+    },
   },
   mutations: {
     shareInfoSet(s, { qudao, ancestor, uid }) {
@@ -199,15 +202,18 @@ export default {
       })
       return promise
     },
-    getAuthInfo({state,getters}) {
+    getAuthInfo({state,getters,rootState}) {
       // 0等待认证、1等待审核、2认证通过、3认证失败 
       var promise = fetch({
         url: "/auth/info"
       })
       promise.then(res=>{
         state.authInfo = res
+        console.log('getters.realNameAuthed',getters.realNameAuthed)
         if(!getters.realNameAuthed){
-          helper.goPage('/mine_real')
+          if(!rootState.app.isPC){
+            helper.replaceRouter('/mine_real')
+          }
         }else{
           // helper.goPage('/mt4_overview')
         }

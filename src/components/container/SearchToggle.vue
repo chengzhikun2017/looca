@@ -23,31 +23,39 @@ export default {
       show: false,
     }
   },
-  props:{
-  },
+  props: {},
+
   methods: {
-    onCancel(){
+    onCancel() {
       this.show = false
       this.$emit('cancel')
     },
-    onOk(){
+    onOk() {
       this.show = false
       this.$emit('ok')
     },
     toggle() {
       this.show = !this.show;
     },
-    hide(e) {
-      console.log('%c e','color:red',e)
+    hide() {
       this.show = false
     },
+    onBodyClick(e){
+      console.log('%c e', 'color:red', e)
+      let isDropdownList = /ant-select-dropdown/.test(e.path[3].className)
+      let isCalendar = /ant-calendar/.test(e.path[5].className)
+      if (isDropdownList || isCalendar) {
+        return
+      }
+      this.hide()
+    },
   },
-  mounted(){
-    document.body.addEventListener("click",this.hide)
+  mounted() {
+    this.l$event.on('body_click', this.onBodyClick)
+    // console.log('%c this.l$event.off','color:red',this.l$event.off)
   },
-  beforeDestroy(){
-    document.body.removeEventListener("click",this.hide)
-    
+  beforeDestroy() {
+    this.l$event.removeListener('body_click', this.onBodyClick)
   },
   computed: {},
   components: {},

@@ -35,13 +35,13 @@
             <a-input :placeholder="editing?'请输入邮箱地址':'未填写'" ref="inputemail" v-model="input.values.email" @blur="validate('email')" @focus="clearValidation('email')" :disabled="!editing">
             </a-input>
           </a-form-item>
-          <a-form-item :wrapperCol="{ span: 18 }" label='身份证正面' :labelCol="{ span: 6 }" :validateStatus="input.status.email.validateStatus" :help="input.status.email.help">
-            <ImageUpload :editing="editing" v-model="idCardUrl" label="身份证正面 " />
+          <a-form-item :wrapperCol="{ span: 18 }" label='身份证正面' :labelCol="{ span: 6 }" :validateStatus="input.status.idCardUrl.validateStatus" :help="input.status.idCardUrl.help">
+            <ImageUpload :editing="editing" v-model="input.values.idCardUrl" label="身份证正面 " />
           </a-form-item>
-          <a-form-item :wrapperCol="{ span: 18 }" label='身份证反面' :labelCol="{ span: 6 }" :validateStatus="input.status.email.validateStatus" :help="input.status.email.help">
-            <ImageUpload :editing="editing" v-model="idCardUrl2" label="身份证反面 " />
+          <a-form-item :wrapperCol="{ span: 18 }" label='身份证反面' :labelCol="{ span: 6 }" :validateStatus="input.status.idCardUrl2.validateStatus" :help="input.status.idCardUrl2.help">
+            <ImageUpload :editing="editing" v-model="input.values.idCardUrl2" label="身份证反面 " />
           </a-form-item>
-          <a-form-item :wrapperCol="{ span: 24}" v-if="editing">
+          <!-- <a-form-item :wrapperCol="{ span: 24}" v-if="editing">
             <div class="bttn-box">
               <a-button v-if="authStatus===1"  @click.native="editing=false" htmlType='submit'>
                 取消
@@ -57,7 +57,7 @@
                 编辑
               </a-button>
             </div>
-          </a-form-item>
+          </a-form-item> -->
         </a-form>
       </div>
       <div class="mine_real-content-note">
@@ -86,10 +86,12 @@ export default {
 name: 'mine_real',
   mixins: [inputMixin],
   data() {
-    var newInput = new inputHelper.newInput(['name', 'email', 'idCardNo'])
+    var newInput = new inputHelper.newInput(['name', 'email', 'idCardNo','idCardUrl2','idCardUrl'])
     ValidationSet.email(newInput,'email')
     ValidationSet.name(newInput,'name')
     ValidationSet.id(newInput,'idCardNo')
+    ValidationSet.upload(newInput,'idCardUrl','身份证正面')
+    ValidationSet.upload(newInput,'idCardUrl2','身份证反面')
     return {
       input: newInput,
       editing: true,
@@ -98,14 +100,17 @@ name: 'mine_real',
     }
   },
   created() {
-    if(this.isRealNamed){
+    console.log('%c this','color:red',this)
+    // this.getAuthInfo()
+    if(this.realNameLoaded){
       this.initData()
     }
+
   },
   methods: {
     initData(){
-      this.idCardUrl2=this.authInfo.idCardUrl2
-      this.idCardUrl=this.authInfo.idCardUrl
+      this.formData.idCardUrl2=this.authInfo.idCardUrl2
+      this.formData.idCardUrl=this.authInfo.idCardUrl
       this.formData.name = this.authInfo.name
       this.formData.email = this.authInfo.email
       this.formData.idCardNo = this.authInfo.idCardNo
@@ -116,16 +121,20 @@ name: 'mine_real',
       }
     },
     handleSubmit() {
+      if(!this.validateAll()){
+
+        return
+      }
       this.$modal.confirm({
-          title: '确认提交',
-          content: `提交实名信息后将进入人工审核阶段`,
-          onCancel(){},
-          cancelText:'取消',
-          onOk:()=> {
-            this.confirmSubmit()
-          },
-          closable:true,
-          maskClosable:true,
+        title: '确认提交',
+        content: `提交实名信息后将进入人工审核阶段`,
+        onCancel(){},
+        cancelText:'取消',
+        onOk:()=> {
+          this.confirmSubmit()
+        },
+        closable:true,
+        maskClosable:true,
       })
     },
     confirmSubmit(){
@@ -138,8 +147,8 @@ name: 'mine_real',
     },
     getParams() {
       return {
-        idCardUrl: this.idCardUrl,
-        idCardUrl2: this.idCardUrl2,
+        idCardUrl: this.formData.idCardUrl,
+        idCardUrl2: this.formData.idCardUrl2,
         idCardNo: this.formData.idCardNo,
         name: this.formData.name,
         email: this.formData.email,
@@ -153,7 +162,7 @@ name: 'mine_real',
         this.current = 2
       }
     },
-    isRealNamed(v){
+    realNameLoaded(v){
       if(v){
         this.initData()
       }
@@ -187,7 +196,8 @@ name: 'mine_real',
     authStatus(){
       return this.authInfo.status
     },
-    ...mapState('account', ['authInfo', 'isRealNamed']),
+    ...mapGetters('account',['realNameLoaded']),
+    ...mapState('account', ['authInfo',]),
     alertType() {
       switch(this.authInfo && this.authInfo.status) {
         case 0: return 'info';

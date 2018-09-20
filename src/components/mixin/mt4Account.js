@@ -47,7 +47,7 @@ export default {
         <div>
           <p class="important-info">您将使用钱包余额入金</p>
           <p>MT4账号：<span class="mt4_recharge-confirm-account">{this.currentMt4Uid}</span></p>
-          <p>钱包余额：<span class="mt4_recharge-confirm-account">${Number(this.money.balance).toFixed(2)}</span></p>
+          <p>钱包余额：<span class="mt4_recharge-confirm-account">${Number(this.money.balance/100).toFixed(2)}</span></p>
         </div>,
         okText:"前往入金",
         cancelText:"取消",

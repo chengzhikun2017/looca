@@ -15,7 +15,7 @@
       :showUploadList="showUploadList" 
       :disabled="disabled"
       :fileList="fileList"
-      @remove="onremove"
+      @remove="remove"
     >
       <div v-if="imageNum < 1&&!loading">
         <a-icon type="plus" />
@@ -40,6 +40,7 @@ export default {
       previewVisible: false,
       previewImage: '',
       fileList: [],
+      canUpload:false,
     }
   },
   model: {
@@ -76,6 +77,7 @@ export default {
   },
   methods: {
     onUrlChange(){
+
       if(this.url){
         this.fileList = [{
           uid: -1,
@@ -89,45 +91,62 @@ export default {
     emitUrl(url){
       this.$emit('img_uploaded',url)
     },
-    onremove(e){
-      this.imageNum--
+    remove(e){
+      this.canUpload = false
+      this.imageNum = 0
       this.fileList = []
     },
     handleChange(info) {
+      console.log('%c info','color:red',info)
+      if(!this.canUpload){
+        return
+      }
       this.fileList =info.fileList
       if (info.file.status === 'uploading') {
         // console.log(info.file, info.fileList);
       }
-      if (info.file.status === 'done') {
+      if (info.file.status === 'done'&& info.file.response && info.file.response.error===0) {
         this.$message.success(this.label+"上传成功");
         this.emitUrl(info.file.response.data.url)
         this.loading = false
         
-      } else if (info.file.status === 'error') {
+      } else if (info.file.status === 'error' ||( info.file.response&&info.file.response.error!==0)) {
         this.loading = false
-        this.$message.error(`${info.file.name} file upload failed.`);
+        this.$message.error(`${info.file.name} 上传失败.`);
+        this.remove()
       }
     },
     beforeUpload(file) {
       this.imageNum++
-      console.log('%c file beforeUpload','color:red',file)
+      // console.log('%c file beforeUpload','color:red',file)
       const isImage = /^image/.test(file.type)
       if (!isImage) {
-        this.$message.error('You can only upload image!')
+        this.$message.error('只能上传图片')
+        this.canUpload = false
+        this.remove()
+        return false
       }
       const isLt5M = file.size / 1024 / 1024 < 5
       if (!isLt5M) {
         this.$message.error('图片大小不能超过5MB!')
+        this.canUpload = false
+        this.remove()
+        return false
       }
       if(isImage && isLt5M){
         this.loading = true
       }
+      this.canUpload = true
       return isImage && isLt5M
     },
     handleCancel() {
       this.previewVisible = false
     },
     handlePreview(file) {
+      if(!file){
+        console.log('%c no file','color:red',)
+        return
+      }
       this.previewImage = file.url || file.thumbUrl
       this.previewVisible = true
     },

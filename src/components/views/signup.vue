@@ -60,6 +60,9 @@ export default {
   name: 'signup',
   data() {
     var newInput = new inputHelper.newInput(['phone', "password", "captcha", 'code', ])
+    newInput.values.code = ''
+    newInput.values.password = ''
+
     ValidationSet.password(newInput, 'password')
     ValidationSet.phone(newInput, 'phone')
     ValidationSet.code4(newInput, 'captcha')
@@ -128,8 +131,8 @@ export default {
       }
     },
     onPhoneBlur() {
-      console.log('%c this.validate(phone)','color:red',this.validate('phone'))
-      console.log('%c isFindpwd','color:red',this.isFindpwd)
+      console.log('%c this.validate(phone)', 'color:red', this.validate('phone'))
+      console.log('%c isFindpwd', 'color:red', this.isFindpwd)
       if (!this.validate('phone')) {
         return
       }
@@ -137,7 +140,7 @@ export default {
       if (this.isFindpwd) {
         return
       }
-      console.log('%c validate phone','color:red',)
+      console.log('%c validate phone', 'color:red', )
       let status = this.input.status
       status.phone = inputHelper.createStatus(-1)
       // status = {
@@ -228,8 +231,7 @@ export default {
       }
     },
   },
-  watch: {
-  },
+  watch: {},
   components: {},
 }
 

@@ -141,7 +141,13 @@ ValidationSet.code6 = function(input,keyName){
     }
   })
 }
-
+ValidationSet.upload = function(input,keyName,uploadName){
+  input.setValidation(keyName, (value) => {
+    if (!value) {
+      return inputHelper.createStatus(2,uploadName+'必须上传')
+    }
+  })
+}
 ValidationSet.code4 = function(input,keyName){
   input.setValidation(keyName, (value) => {
     if (!value) {
