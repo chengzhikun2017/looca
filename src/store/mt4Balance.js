@@ -13,26 +13,40 @@ class defaultState{
 }
 export default {
   namespaced: true,
-  state: new defaultState,
+  // state: new defaultState,
   getters: {},
   mutations: {
     resetList(state){
       Object.assign(state,new defaultState)
     },
-    onWithdraw(state,{id}){
-      let mt4 = state.list.find((item) => {
+    // onWithdraw(state,{id}){
+    //   let mt4 = state.list.find((item) => {
+    //     return item.mt4Uid == id 
+    //   })
+    //   mt4.balanceFee = 0
+    // },
+    // onDeposit(state,{id,amount}){
+    //   console.log('%c state.list','color:red',state.list)
+    //   let mt4 = state.list.find((item) => {
+    //     return item.mt4Uid == id 
+    //   })
+    //   mt4.balanceFee+= amount
+    // },
+  },  
+  actions: {
+    onWithdraw({rootState},{id}){
+      let mt4 = rootState.mt4AC.list.find((item) => {
         return item.mt4Uid == id 
       })
       mt4.balanceFee = 0
     },
-    onDeposit(state,{id,amount}){
-      let mt4 = state.list.find((item) => {
+    onDeposit({rootState},{id,amount}){
+      // console.log('%c state.list','color:red',state.list)
+      let mt4 = rootState.mt4AC.list.find((item) => {
         return item.mt4Uid == id 
       })
       mt4.balanceFee+= amount
     },
-  },  
-  actions: {
     getList({state}, params) {
       // mt4Uid : MT4账号
       // type : 类型 :  withdraw出金、deposit入金、withdraw_follow_settlement跟单结算（出金的一种）
@@ -64,7 +78,7 @@ export default {
       })
       promise.then(() => {
         helper.updateMoney()
-        commit('onWithdraw',{
+        dispatch('onWithdraw',{
           id:mt4Uid,
         })  
       })
@@ -83,7 +97,7 @@ export default {
       })
       promise.then(() => {
         helper.updateMoney()
-        commit('onDeposit',{
+        dispatch('onDeposit',{
           id:mt4Uid,
           amount,
         })

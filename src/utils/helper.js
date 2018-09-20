@@ -194,6 +194,7 @@ export default class helper {
     vueApp.$store.dispatch('account/getUserInfo')
     vueApp.$store.dispatch('mt4AC/getList')
     vueApp.$store.dispatch('wallet/getPayAccount')
+    vueApp.$store.dispatch('wallet/getWallet')
   }
 
   static resetStoreTrade() {

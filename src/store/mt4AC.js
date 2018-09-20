@@ -23,11 +23,15 @@ export default {
     hasCurrentStorage() {
       return !!helper.getLocalStorage('currentMt4Uid')
     },
+    currentSavedMt4Uid(){
+      return helper.getLocalStorage('currentMt4Uid')
+    },
   },
   mutations: {
     setCurrent(s, id) {
       s.currentMt4Uid = id
       helper.resetStoreTrade()
+      console.log('%c s.list','color:red',s.list)
       s.currentMt4Info = s.list.find((item) => {
         return item.mt4Uid === id 
       })
@@ -59,6 +63,8 @@ export default {
           state.syncSuccess = res.syncSuccess
           if (!getters.hasCurrentStorage) {
             dispatch('setDefaultCurrent')
+          }else {
+            commit('setCurrent',getters.currentSavedMt4Uid)
           }
         })
         .catch(err => {

@@ -217,6 +217,7 @@ export default {
     if(this.list.length>0){
       this.setDefaultCurrent()
     }
+    this.getWallet()
   },
   methods: {
     chooseCreate(){
@@ -257,6 +258,7 @@ export default {
     },
     ...mapMutations('mt4AC',['setCurrent']),
     ...mapActions('mt4AC',['getList','setDefaultCurrent']),
+    ...mapActions('wallet',[,'getWallet']),
   },
   watch:{
     listLength(value){

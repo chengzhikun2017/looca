@@ -25,8 +25,9 @@
           <a-form-item :wrapperCol="{ span: 18 }" label='钱包余额' :labelCol="{ span: 6 }" >
             <span>${{money.balance | money}}</span>
           </a-form-item>
-          <a-form-item :wrapperCol="{ span: 18 }" label='MT4余额' :labelCol="{ span: 6 }" >
-            <span>${{currentMt4Info.balanceFee | money}}</span>
+          <a-form-item  :wrapperCol="{ span: 18 }" label='MT4余额' :labelCol="{ span: 6 }" >
+            <span v-if="currentMt4Info">${{currentMt4Info.balanceFee | money}}</span>
+            <span v-if="!currentMt4Info">获取中...</span>
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 18 }" label='MT4账号' :labelCol="{ span: 6 }">
             <div class="mt4_recharge-input">
@@ -152,11 +153,11 @@ export default {
       }).then((res) => {
         this.rechargeSucceed = true
         this.successResponse = res
+        this.next() 
       }).catch((err) => {
+        this.next()
         this.rechargeFailed = true
         this.steps[1].title="失败"
-      }).finally(() => {
-        this.next() 
       })
     },
     next() {
@@ -165,6 +166,9 @@ export default {
     },
     prev() {
       this.current--
+    },
+    goBill(){
+      helper.goPage('/mt4_money_bill')
     },
     handleSubmit() {
       if(!this.checkValid()){
