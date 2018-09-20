@@ -19,6 +19,18 @@ export default {
     resetList(state){
       Object.assign(state,new defaultState)
     },
+    onWithdraw(state,{id}){
+      let mt4 = state.list.find((item) => {
+        return item.mt4Uid == id 
+      })
+      mt4.balanceFee = 0
+    },
+    onDeposit(state,{id,amount}){
+      let mt4 = state.list.find((item) => {
+        return item.mt4Uid == id 
+      })
+      mt4.balanceFee+= amount
+    },
   },  
   actions: {
     getList({state}, params) {
@@ -40,7 +52,7 @@ export default {
       })
       return promise
     },
-    withdraw({}, mt4Uid) {
+    withdraw({dispatch,commit}, mt4Uid) {
       //出金（提示客户先取消跟单，平仓所有仓位后方可出金，如有问题请联系客服）
       let promise = fetch({
         url: 'mt4Balance/withdraw',
@@ -50,9 +62,15 @@ export default {
       }, {
         rejectErr: true,
       })
+      promise.then(() => {
+        helper.updateMoney()
+        commit('onWithdraw',{
+          id:mt4Uid,
+        })  
+      })
       return promise
     },
-    deposit({}, { amount, mt4Uid }) {
+    deposit({dispatch,commit}, { amount, mt4Uid }) {
       //amount：金额，单位分，美元 ，入金金额不得低于钱包余额，后期会增加单次最低入金金额
       let promise = fetch({
         url: 'mt4Balance/deposit',
@@ -62,6 +80,13 @@ export default {
         },
       }, {
         rejectErr: true,
+      })
+      promise.then(() => {
+        helper.updateMoney()
+        commit('onDeposit',{
+          id:mt4Uid,
+          amount,
+        })
       })
       return promise
     },

@@ -41,9 +41,9 @@
           <a-form-item :wrapperCol="{ span: 18 }" label='身份证反面' :labelCol="{ span: 6 }" :validateStatus="input.status.idCardUrl2.validateStatus" :help="input.status.idCardUrl2.help">
             <ImageUpload :editing="editing" v-model="input.values.idCardUrl2" label="身份证反面 " />
           </a-form-item>
-          <!-- <a-form-item :wrapperCol="{ span: 24}" v-if="editing">
+          <a-form-item :wrapperCol="{ span: 24}" v-if="editing">
             <div class="bttn-box">
-              <a-button v-if="authStatus===1"  @click.native="editing=false" htmlType='submit'>
+              <a-button v-if="authStatus===1 && false"  @click.native="editing=false" htmlType='submit'>
                 取消
               </a-button>
               <a-button type='primary' @click.native="handleSubmit" htmlType='submit'>
@@ -51,13 +51,13 @@
               </a-button>
             </div>
           </a-form-item>
-          <a-form-item :wrapperCol="{ span: 24}" v-if="!editing&&authInfo.status!==2">
+          <a-form-item :wrapperCol="{ span: 24}" v-if="!editing&&authInfo.status!==2 && false">
             <div class="bttn-box">
               <a-button @click="editing=true">
                 编辑
               </a-button>
             </div>
-          </a-form-item> -->
+          </a-form-item>
         </a-form>
       </div>
       <div class="mine_real-content-note">

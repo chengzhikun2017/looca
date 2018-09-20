@@ -26,6 +26,7 @@ import inputMixin from './../components/mixin/input.js'
 import inputHelper from './../utils/inputHelper.js'
 import { ValidationSet } from './../utils/inputHelper.js'
 import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
+import helper from './../utils/helper.js'
 export default {
   name: 'modifypwd',
   data() {
@@ -39,9 +40,16 @@ export default {
   mixins: [inputMixin],
   methods: {
     handleSubmit(){
+      if(!this.validateAll()){
+        return
+      }
       this.modifyPwd({
         password:this.formData.password,
         newPassword:this.formData.newPassword,
+      })
+      .then(() => {
+        this.$message.info('修改成功') 
+        helper.goPage('/wallet_review')
       })
     },
     ...mapActions("account",['modifyPwd',])

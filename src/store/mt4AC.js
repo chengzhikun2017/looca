@@ -6,7 +6,6 @@ const isPC = helper.isPC()
 class defaultMt4InfoAC {
   constructor(props) {
     this.list = []
-    this.listGot = false
     this.loadingList = false
     this.syncSuccess = false
     this.currentMt4Info = {}
@@ -16,7 +15,10 @@ class defaultMt4InfoAC {
 
 export default {
   namespaced: true,
-  state: new defaultMt4InfoAC(),
+  state: {
+    ...new defaultMt4InfoAC(),
+    listGot:false,
+  },
   getters: {
     hasCurrentStorage() {
       return !!helper.getLocalStorage('currentMt4Uid')
@@ -31,14 +33,12 @@ export default {
       })
       helper.saveToLocal('currentMt4Uid', id)
     },
-
     resetList(s) {
       s.list = []
     },
     resetCurrent(s) {
       helper.removeLocal('currentMt4Uid')
     },
-
   },
 
   actions: {
@@ -46,7 +46,7 @@ export default {
       commit('setCurrent', state.list[0].mt4Uid)
     },
     getList({ state, getters, dispatch, commit }) {
-      state.listGot = false
+      // state.listGot = false //静默 获取mt4 list, 如果获取之后再获取，不设置成false
       state.loadingList = true
       var promise = fetch({
         url: "mt4Account/list",

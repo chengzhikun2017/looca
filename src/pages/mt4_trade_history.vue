@@ -10,7 +10,7 @@
         </a-radio-group>
       </l-search-item>
       <l-search-item>
-        <DateRange @dateRangeChange="onDateRangeChange" :defaultValue="[defaultStart,defaultEnd]"/>
+        <DateRange @dateRangeChange="onDateRangeChange" :defaultValue="[defaultStart,defaultEnd]" />
       </l-search-item>
       <l-search-item>
         <Mt4Select></Mt4Select>
@@ -23,7 +23,7 @@
       </a-radio-group>
       <Mt4Select></Mt4Select>
       &nbsp;
-      <a-range-picker :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }" :defaultValue="[defaultStart,defaultEnd]" @change="onDateRangeChange"/> &nbsp;
+      <a-range-picker :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }" :defaultValue="[defaultStart,defaultEnd]" @change="onDateRangeChange" /> &nbsp;
       <a-button @click="searchList" type="primary">查询</a-button>
     </div>
     <Mt4SyncFail :success="!!!syncSuccess&&!loading" :reSyncFunc="getList"> </Mt4SyncFail>
@@ -58,15 +58,11 @@
         </template>
       </a-table>
     </div>
-
     <!-- data -->
     <!-- nomore -->
     <!-- slot item -->
     <!-- loadmore -->
-
-    <div class="list-box phone"
-    v-if="!isPC"
-    >
+    <div class="list-box phone" v-if="!isPC">
       <ListPhone :newList="list" ref="listPhone" :params="paramsPhone" :getFunc="_getList" :total="_list.ttlQty">
         <mt4TradeListItem slot-scope="props" :info="props.item"></mt4TradeListItem>
       </ListPhone>
@@ -84,67 +80,66 @@ const mt4TradeListItem = () =>
   import ('../components/container/mt4TradeListItem.vue')
 const SearchToggle = () =>
   import ('../components/container/SearchToggle.vue')
-const ListPhone  = () => 
+const ListPhone = () =>
   import ('../components/container/ListPhone.vue')
 const columns = [{
-    title: 'MT4 ID',
-    dataIndex: 'mt4Uid',
-  },{
-    title: "orderId",
-    dataIndex: "orderId",
-    sorter: true,
-  }, {
-    title: "品种",
-    dataIndex: "symbol",
-  }, {
-    title: "方向",
-    dataIndex: "actionType",
-  }, {
-    title: "数量",
-    dataIndex: "amount",
-    width: '60px',
-  }, {
-    title: "开仓价",
-    dataIndex: "openPrice",
-    width: "90px",
-  }, {
-    title: "开仓时间",
-    dataIndex: "openTime",
-    width: "150px",
-    scopedSlots: { customRender: 'openTime' },
-  }, {
-    title: "平仓价",
-    dataIndex: "closePrice",
-    width: "90px",
-  }, {
-    title: "平仓时间",
-    dataIndex: "closeTime",
-    width: "150px",
-    scopedSlots: { customRender: 'closeTime' },
-  }, {
-    title: "止损价",
-    dataIndex: "stopLoss",
-  }, {
-    title: "止盈价",
-    dataIndex: "takeProfit",
-  }, {
-    title: "隔夜利息",
-    dataIndex: "rollver",
-  }, {
-    title: "获利",
-    dataIndex: "profit",
-    // width:'60px',
-  },
-];
+  title: 'MT4 ID',
+  dataIndex: 'mt4Uid',
+}, {
+  title: "orderId",
+  dataIndex: "orderId",
+  sorter: true,
+}, {
+  title: "品种",
+  dataIndex: "symbol",
+}, {
+  title: "方向",
+  dataIndex: "actionType",
+}, {
+  title: "数量",
+  dataIndex: "amount",
+  width: '60px',
+}, {
+  title: "开仓价",
+  dataIndex: "openPrice",
+  width: "90px",
+}, {
+  title: "开仓时间",
+  dataIndex: "openTime",
+  width: "150px",
+  scopedSlots: { customRender: 'openTime' },
+}, {
+  title: "平仓价",
+  dataIndex: "closePrice",
+  width: "90px",
+}, {
+  title: "平仓时间",
+  dataIndex: "closeTime",
+  width: "150px",
+  scopedSlots: { customRender: 'closeTime' },
+}, {
+  title: "止损价",
+  dataIndex: "stopLoss",
+}, {
+  title: "止盈价",
+  dataIndex: "takeProfit",
+}, {
+  title: "隔夜利息",
+  dataIndex: "rollver",
+}, {
+  title: "获利",
+  dataIndex: "profit",
+  // width:'60px',
+}, ];
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import dateRange from './../components/mixin/dateRange.js'
 
 export default {
   name: 'mt4_trade_history',
-  mixins:[dateRange],
+  mixins: [dateRange],
   data() {
     return {
-      listData:[],
+      listData: [],
       listType: 'trade',
       loading: false,
       columns,
@@ -155,11 +150,11 @@ export default {
     this.isPC && this.getList()
   },
   methods: {
-    searchList(){
+    searchList() {
       this.resetParams()
       this.getList()
     },
-    resetParams(){
+    resetParams() {
       this.currentPage = 1
     },
     onDateRangeChange(date, dateString) {
@@ -178,20 +173,20 @@ export default {
         }
       })
     },
-    searchPhoneList(){
+    searchPhoneList() {
       this.$refs.listPhone.reLoad()
     },
     getList() {
       this.loading = true
       this._getList({
-        page: this.pagination.current,
-        limit: this.pagination.pageSize,
-        st: this.startDate,
-        et: this.endDate,
-      })
-      .finally(() => {
-        this.loading = false
-      })
+          page: this.pagination.current,
+          limit: this.pagination.pageSize,
+          st: this.startDate,
+          et: this.endDate,
+        })
+        .finally(() => {
+          this.loading = false
+        })
     },
     ...mapActions('trade', {
       tradeListGet: "getTradeHistory",
@@ -200,7 +195,7 @@ export default {
     }),
   },
   computed: {
-    paramsPhone(){
+    paramsPhone() {
       return {
         st: this.startDate,
         et: this.endDate,
@@ -281,11 +276,13 @@ export default {
   flex-wrap: wrap;
   align-items: center;
 }
+
 .list-box.phone {
   .footer {
     text-align: center;
   }
 }
+
 </style>
 <style lang='scss'>
 .demo-loading-container {
@@ -294,6 +291,7 @@ export default {
   width: 100%;
   text-align: center;
 }
+
 .mt4_trade_history-page {
   .ant-table-tbody {
     font-size: 12px;

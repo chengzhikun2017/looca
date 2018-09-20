@@ -25,10 +25,11 @@
       margin-bottom: 16px;
     }
     .#{$prefix}-content-note {
-      margin: 15px;
-      padding:10px 0;
+      padding: 15px;
+      padding-top:10px;
       width: 100%;
       border-top: 1px solid #ccc;
+      box-sizing:border-box;
       .#{$prefix}-content-note-title {
         color: rgba(0,0,0,.45);
         font-size: 14px;

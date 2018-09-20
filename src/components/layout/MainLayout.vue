@@ -33,8 +33,11 @@
         </div>
       </a-layout-header>
       <a-layout-content class="content-layout" >
-        <div class="breadcrumb">
-          <a-breadcrumb separator=">">
+        <div class="breadcrumb page-title" :class="isPC?'pc':'phone'">
+          <h2 class="title" v-if='!isPC'>
+            {{phoneTitle}}
+          </h2>
+          <a-breadcrumb separator=">" v-if='isPC'>
             <a-breadcrumb-item>{{''}}</a-breadcrumb-item>
             <a-breadcrumb-item :key='key' v-for="key in keyPath">
               <a href="javascript:void(0)" v-if="config[key].link" @click="go('/'+key)">
@@ -260,6 +263,18 @@ export default {
     },
   },
   computed: {
+    phoneTitle() {
+      let keyPath = this.keyPath
+      if(this.keyPath.length===0){
+        return ''
+      }
+      let path = this.config[keyPath[keyPath.length-1]]
+      if(!path){
+        return ''
+      }else{
+        return path.title
+      }
+    },
     topLvKey(){
       return this.keyPath[this.keyPath.length-2]
     },
@@ -379,9 +394,16 @@ export default {
 
 </script>
 <style lang='scss' scoped>
+
 .breadcrumb {
   position: relative;
   _{}
+  .title{
+    font-size: 18px;
+    line-height: 1.2;
+    color:#666;
+    text-align: center;
+  }
   .back {
     position: absolute;
     top: 0;
@@ -406,8 +428,12 @@ export default {
     font-size: 14px;
   }
 }
+
 .phone .breadcrumb{
   margin-left: 40px;
+}
+.page-title.phone{
+  margin-left: 0;
 }
 .logo {
   width: 100%;

@@ -174,6 +174,11 @@ export default class helper {
     // {} []
   }
 
+
+  static updateMoney() {
+    vueApp.$store.dispatch('wallet/getWallet')
+    vueApp.$store.dispatch('share/getIncomeCount')
+  }
   static resetInitialInfo() {
     vueApp.$store.commit('account/reset')
     vueApp.$store.commit('mt4AC/resetList')

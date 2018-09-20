@@ -102,18 +102,19 @@ export default {
       })
       return promise
     },
-    withdrawBrokerage({},dollar){
-      let promise = fetch({
-        url:'balance/payByBrokerage',
-        params:{
-          dollar,
-        },
-      })
-      promise.then((res) => {
-         vueApp.$message.info("提现成功")
-      })
-      return promise
-    },
+    // withdrawBrokerage({},dollar){
+    //   let promise = fetch({
+    //     url:'balance/payByBrokerage',
+    //     params:{
+    //       dollar,
+    //     },
+    //   })
+    //   promise.then((res) => {
+    //     helper.updateMoney()
+    //     vueApp.$message.info("提现成功")
+    //   })
+    //   return promise
+    // },
     getPayAccount({state}){
       fetch({
         url:'balance/alipay/account',
@@ -142,7 +143,7 @@ export default {
       })
       return promise
     },
-    recharge({state,getters},params){
+    recharge({state,getters,dispatch},params){
       if(!getters.payInfoGot){
         console.error("payInfo is not recieved")
         vueApp.$message.error('payInfo is not recieved')
@@ -169,6 +170,9 @@ export default {
           alipayAccountId:state.payInfo.id,
         },
       })
+      promise.then(() => {
+        helper.updateMoney()
+      })
       return promise
     },
     payByBrokerage({state},dollar){
@@ -178,10 +182,12 @@ export default {
           dollar,
         },
       })
-
+      promise.then(() => {
+        helper.updateMoney()
+      })
       return promise
     },
-    withdraw({state},params) {
+    withdraw({state,dispatch},params) {
       // dollar : 提现金额美元，单位分
       // bankCardId : 银行卡id
       // dollar2RMBRate : 兑换汇率，/tool/dollar2RMBRate接口返回的rate
@@ -195,6 +201,9 @@ export default {
         },
       },{
         rejectErr:true
+      })
+      promise.then(() => {
+        helper.updateMoney()
       })
       return promise
     },

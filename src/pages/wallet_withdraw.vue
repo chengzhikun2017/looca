@@ -20,7 +20,7 @@
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 18 }" label='银行卡：' :labelCol="{ span: 6 }">
             <div class="wallet_withdraw-input">
-              <a-select v-model="selectedCardIndex" :defaultValue='0'>
+              <a-select v-model="selectedCardIndex" :defaultValue='0' placeholder="选择提现银行卡">
                 <a-select-option v-for="(card,index) in listDC" :key="index">{{card.bankName}}{{" "}}{{card.cardNum | bankCard}}</a-select-option>
               </a-select>
             </div>
@@ -61,18 +61,20 @@
       </div>
     </div>
     <div v-if="current === 2" class="wallet_withdraw-content">
-      <div v-if="false" class="wallet_withdraw-content-success" flex="dir:top main:center cross:center">
+      <div v-if="rechargeSucceed" class="wallet_withdraw-content-success" flex="dir:top main:center cross:center">
         <a-icon class="wallet_withdraw-icon-success" type="check-circle" />
         <div class="wallet_withdraw-content-title">操作成功</div>
         <p>预计1-2个工作日到账</p>
         <div class="wallet_withdraw-table">
           <a-form>
             <a-form-item :wrapperCol="{ span: 18 }" class="wallet_withdraw-table-item" label='提现账户：' :labelCol="{ span: 6 }">
-              <span>中国银行(8769)</span>
+              <span>
+                {{selectedCardInfo.bankName}}({{selectedCardInfo.cardNum.slice(-4)}})
+              </span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="wallet_withdraw-table-item" label='提现金额' :labelCol="{ span: 6 }">
-              <span class="wallet_withdraw-money">$3333</span>
-              <div class="wallet_withdraw-money-note">（人民币：¥8888，汇率：6.1817）</div>
+              <span class="wallet_withdraw-money">${{formData.amount*100 | money}}</span>
+              <div class="wallet_withdraw-money-note">（人民币：¥{{formData.amount * usdRate | money}}，汇率：{{usdRate}}）</div>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 24}">
               <div class="bttn-box wallet_withdraw-table-btn">
@@ -87,7 +89,7 @@
           </a-form>
         </div>
       </div>
-      <div class="wallet_withdraw-content-error" flex="dir:top main:center cross:center">
+      <div v-if="!rechargeSucceed" class="wallet_withdraw-content-error" flex="dir:top main:center cross:center">
         <a-icon class="wallet_withdraw-icon-error" type="close-circle" />
         <div class="wallet_withdraw-content-title">操作失败</div>
         <p>{{errorResponse.message}}</p>
@@ -150,9 +152,10 @@ export default {
       this.formData.amount = ''
     },
     onConfirmed() {
+      console.log('%c this.listDC[this.selectedCardIndex]','color:red',this.listDC[this.selectedCardIndex])
       let params = {
         dollar: this.formData.amount * 100,
-        bankCardId: this.listDC[this.selectedCardIndex].id,
+        bankCardId: this.selectedCardInfo.id,
         dollar2RMBRate: this.usdRate,
         dollarRateId: this.rateId,
       }
@@ -189,6 +192,13 @@ export default {
   computed: {
     usdRate() {
       return this.currency.usd2rmb.rate
+    },
+    selectedCardInfo(){
+      if(this.listDC.length===0){
+        return {}
+      }else {
+        return this.listDC[this.selectedCardIndex]
+      }
     },
     rateId() {
       return this.currency.usd2rmb.id

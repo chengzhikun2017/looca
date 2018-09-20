@@ -100,6 +100,16 @@ Vue.filter('payStatus', function(value) {
       return "付款无效";
   }
 })
+Vue.filter('withdrawStatus', function(value) {
+  switch (value) {
+    case 1:
+      return "等待转账";
+    case 2:
+      return "转账完成";
+    case 3:
+      return "撤销申请";
+  }
+})
 Vue.filter('payway', function(value) {
   switch (value) {
     case 'alipay_personal':

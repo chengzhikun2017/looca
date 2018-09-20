@@ -15,8 +15,11 @@
             {{info.payWay | payway}}
           </div>
         </div>
-        <div class="wallet_list_item-summary-status"  flex-box="0">
-          完成
+        <div class="wallet_list_item-summary-status" v-if="type==='widthdraw'"  flex-box="0">
+          {{info.status | withdrawStatus}}
+        </div>
+        <div class="wallet_list_item-summary-status" v-if="type==='recharge'"  flex-box="0">
+          {{info.status | payStatus}}
         </div>
       </div>
       <div class="wallet_list_item-others" flex="cross:center">
@@ -55,10 +58,16 @@
         type: Object,
         default: () => {}
       },
-      type: {
-        type: String,
-        default: 'recharge'
-      },
+    },
+    computed:{
+      type(){
+        if(this.info.hasOwnProperty('receiptName')){
+          return 'widthdraw'
+        }
+        if(this.info.hasOwnProperty('payWay')){
+          return 'recharge'
+        }
+      }, 
     },
     data() {
       return {
