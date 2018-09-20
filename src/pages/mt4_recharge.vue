@@ -25,6 +25,9 @@
           <a-form-item :wrapperCol="{ span: 18 }" label='钱包余额' :labelCol="{ span: 6 }" >
             <span>${{money.balance | money}}</span>
           </a-form-item>
+          <a-form-item :wrapperCol="{ span: 18 }" label='MT4余额' :labelCol="{ span: 6 }" >
+            <span>${{currentMt4Info.balanceFee | money}}</span>
+          </a-form-item>
           <a-form-item :wrapperCol="{ span: 18 }" label='MT4账号' :labelCol="{ span: 6 }">
             <div class="mt4_recharge-input">
               <a-input placeholder="默认根据账户显示" disabled :value="currentMt4Uid" ref="inputPassword">
@@ -111,6 +114,10 @@ const defaultData = {
   rechargeFailed:false,
 }
 export default {
+  created(){
+      console.log('%c currentMt4Info','color:red',this.currentMt4Info)
+    
+  },
   data() {
     let newInput = new inputHelper.newInput(['amount'])
     return {
@@ -188,7 +195,7 @@ export default {
     ...mapActions('mt4Balance',['deposit']),
   },
   computed:{
-    ...mapState('mt4AC',['currentMt4Uid']),
+    ...mapState('mt4AC',['currentMt4Uid','currentMt4Info']),
     ...mapState('wallet',['money']),
   },
 }

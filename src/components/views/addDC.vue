@@ -21,6 +21,9 @@
           <!-- <a-icon slot="prefix" type="user" /> -->
         </a-input>
       </a-form-item>
+      <p>
+        提示：请填写完整的支行信息，例如：XX银行XX省XX市XX支行
+      </p>
       <a-form-item :wrapperCol="{ span: 24}">
         <div class="bttn-box">
           <a-button type='primary' htmlType='submit'>
@@ -44,6 +47,8 @@ export default {
     var newInput = new inputHelper.newInput(["name", "cardNo", "bankName", "bankBranch", ])
     ValidationSet.bankCard(newInput,"cardNo")
     ValidationSet.name(newInput,"name")
+    ValidationSet.bankName(newInput,"bankName")
+    ValidationSet.bankBranch(newInput,"bankBranch")
     // newInput.values.cardNo = "6212261001020165509"
     // newInput.values.name = "黄树栋"
     // newInput.values.bankName = "工商银行"

@@ -9,6 +9,7 @@ class defaultMt4InfoAC {
     this.listGot = false
     this.loadingList = false
     this.syncSuccess = false
+    this.currentMt4Info = {}
     this.currentMt4Uid = helper.getLocalStorage('currentMt4Uid')
   }
 }
@@ -25,6 +26,9 @@ export default {
     setCurrent(s, id) {
       s.currentMt4Uid = id
       helper.resetStoreTrade()
+      s.currentMt4Info = s.list.find((item) => {
+        return item.mt4Uid === id 
+      })
       helper.saveToLocal('currentMt4Uid', id)
     },
 

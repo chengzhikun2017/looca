@@ -2,7 +2,7 @@
   <div class="mt4_account_card-vue">
     <div class="mt4_account_card-content">
       <div class="mt4_account_card-account" flex="main:justify">
-        <span class="mt4_account_card-account-user">MT4账号：{{mt4.mt4Uid}}</span>
+        <span class="mt4_account_card-account-user">MT4{{mt4.type| mt4Type}}：{{mt4.mt4Uid}}</span>
         <span class="mt4_account_card-account-name">{{mt4.fullName}}</span>
       </div>
       <div class="mt4_account_card-introduce" flex="main:center cross:center">
@@ -19,17 +19,36 @@
             -${{-mt4.openOrderProfit | money}}（{{mt4.openOrderNum}}笔）
           </div>
           <div class=" money" v-if="mt4.openOrderProfit==null">-</div>
-
         </div>
       </div>
     </div>
     <div class="mt4_account_card-options" flex="">
-      <div class="mt4_account_card-btn" flex-box="1" @click="goRechage">入金</div>
-      <div class="mt4_account_card-btn" flex-box="1" @click="goWithdraw">出金</div>
-      <div class="mt4_account_card-btn" flex-box="1" @click="goAction('/unknown')">跟单</div>
-      <div class="mt4_account_card-btn" flex-box="1" @click="goAction('/mt4_trade_history')">交易报表</div>
-      <a-dropdown  class="mt4_account_card-btn" flex-box="1">
-        <div>更多</div>
+      <div class="mt4_account_card-btn" flex-box="1" @click="goRechage">
+        <a-button size="small" icon="login" type="primary" ghost>
+          入金
+        </a-button>
+      </div>
+      <div class="mt4_account_card-btn" flex-box="1" @click="goWithdraw">
+        <a-button size="small" icon="logout" type="primary" ghost>
+          出金
+        </a-button>
+      </div>
+      <div v-if="mt4.type==='follow'" class="mt4_account_card-btn" flex-box="1" @click="goAction('/unknown')">
+        <a-button size="small" icon="login" type="primary" ghost>
+          跟单
+        </a-button>
+      </div>
+      <div class="mt4_account_card-btn" flex-box="1" @click="goAction('/mt4_trade_history')">
+        <a-button size="small" icon="bar-chart" type="primary" ghost>
+          交易报表
+        </a-button>
+      </div>
+      <a-dropdown class="mt4_account_card-btn" flex-box="1">
+        <div>
+          <a-button size="small" type="primary" ghost>
+            更多...
+          </a-button>
+        </div>
         <a-menu slot="overlay">
           <a-menu-item>
             <a href="javascript:;" @click="goAction('/mt4_money_bill')">出入金记录</a>
@@ -46,71 +65,69 @@
   </div>
 </template>
 <script>
-  import mt4Account  from '../mixin/mt4Account.js'
-  import {getTimeString} from '@/utils/time.js'
-  export default {
-    name: 'mt4_account_list_item',
-    mixins:[mt4Account],
-    props: {
-      
-    },
-    data() {
-      return {
-        isDetailShow: false
-      }
-    },
-    methods: {
-      toggle () {
-        this.isDetailShow = !this.isDetailShow
-      }
+import mt4Account from '../mixin/mt4Account.js'
+import { getTimeString } from '@/utils/time.js'
+export default {
+  name: 'mt4_account_list_item',
+  mixins: [mt4Account],
+  data() {
+    return {
+      isDetailShow: false
+    }
+  },
+  methods: {
+    toggle() {
+      this.isDetailShow = !this.isDetailShow
     }
   }
+}
+
 </script>
 <style lang="scss">
-  $prefix: "mt4_account_card";
-  .#{$prefix}-vue {
-    width: 100%;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    .#{$prefix}-content {
-      padding: 10px;
-      .#{$prefix}-account {
-        .#{$prefix}-account-user {
-          font-size: 14px;
-          font-weight: 500;
-        }
-        .#{$prefix}-account-name {
-          font-size: 14px;
-          color: #aaa;
-        }
+$prefix: "mt4_account_card";
+.#{$prefix}-vue {
+  width: 100%;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  .#{$prefix}-content {
+    padding: 10px;
+    .#{$prefix}-account {
+      .#{$prefix}-account-user {
+        font-size: 14px;
+        font-weight: 500;
       }
-      .#{$prefix}-introduce {
-        padding:10px 0;
-        .money {
-          font-weight: 500;
-        }
+      .#{$prefix}-account-name {
+        font-size: 14px;
+        color: #aaa;
       }
     }
-    .#{$prefix}-options {
-      border-top: 1px solid #ccc;
-      background: #f7f9fa;
-      .#{$prefix}-btn {
-        margin: 8px 0;
-        font-size: 12px;
-        color: #1890ff;
-        text-align: center;
-        &:not(:last-child) {
-          border-right: 1px solid #ccc;
-        }
+    .#{$prefix}-introduce {
+      padding: 10px 0;
+      .money {
+        font-weight: 500;
       }
-    }
-    .red {
-      color:#f5222d;
-    }
-    .green {
-      color:#52c41a;
     }
   }
-</style>
+  .#{$prefix}-options {
+    border-top: 1px solid #ccc;
+    background: #f7f9fa;
+    .#{$prefix}-btn {
+      margin: 8px 0;
+      font-size: 12px;
+      color: #1890ff;
+      text-align: center;
+      &:not(:last-child) {
+        border-right: 1px solid #ccc;
+      }
+    }
+  }
+  .red {
+    color: #f5222d;
+  }
+  .green {
+    color: #52c41a;
+  }
+}
 
+</style>

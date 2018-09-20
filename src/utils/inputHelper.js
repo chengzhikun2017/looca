@@ -148,6 +148,22 @@ ValidationSet.upload = function(input,keyName,uploadName){
     }
   })
 }
+ValidationSet.bankName = function(input,keyName){
+  input.setValidation(keyName, (value) => {
+    if (!value) {
+      return inputHelper.createStatusEmpty('银行名称')
+
+    }
+  })
+}
+ValidationSet.bankBranch = function(input,keyName){
+  input.setValidation(keyName, (value) => {
+    if (!value) {
+      return inputHelper.createStatusEmpty('支行名称')
+
+    }
+  })
+}
 ValidationSet.code4 = function(input,keyName){
   input.setValidation(keyName, (value) => {
     if (!value) {

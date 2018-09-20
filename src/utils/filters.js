@@ -128,3 +128,12 @@ Vue.filter('moneyBillStatus', function(value) {
       return "失败";
   }
 })
+
+Vue.filter('mt4Type', function(value) {
+  switch (value) {
+    case 'normal':
+      return "普通账号";
+    case 'follow':
+      return "跟单账号";
+  }
+})
