@@ -54,7 +54,9 @@ export default {
     }
   },
   computed: {
-
+    routePath(){
+      return this.$route.path
+    },
     isTest() {
       return this.$store.state.app.isTest
     },

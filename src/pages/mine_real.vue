@@ -159,7 +159,7 @@ name: 'mine_real',
   watch:{
     authStatus(status){
       if(status===2){
-        this.current = 2
+        this.authStatus = 2
       }
     },
     realNameLoaded(v){

@@ -82,7 +82,6 @@ export default {
       type: Number,
     },
   },
-  inject: ['switchTab'],
   created() {
     this.getCaptcha()
   },

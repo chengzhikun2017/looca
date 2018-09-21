@@ -74,7 +74,7 @@
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="wallet_withdraw-table-item" label='提现金额' :labelCol="{ span: 6 }">
               <span class="wallet_withdraw-money">${{formData.amount*100 | money}}</span>
-              <div class="wallet_withdraw-money-note">（人民币：¥{{formData.amount * usdRate | money}}，汇率：{{usdRate}}）</div>
+              <div class="wallet_withdraw-money-note">（人民币：¥{{formData.amount * usdRate*100 | money}}，汇率：{{usdRate}}）</div>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 24}">
               <div class="bttn-box wallet_withdraw-table-btn">

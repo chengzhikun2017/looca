@@ -26,7 +26,8 @@ import {
   Steps,
   Breadcrumb,
   DatePicker,
-  Card
+  Card,
+  Divider,
 } from 'vue-antd-ui';
 import SearchItem from './../components/container/SearchItem.vue'
 import SearchBox from './../components/container/SearchItem.vue'
@@ -105,4 +106,5 @@ Vue.component(Breadcrumb.name, Breadcrumb)
 registerComponentChild(Vue, Breadcrumb)
 Vue.component(DatePicker.name, DatePicker)
 registerComponentChild(Vue, DatePicker)
+Vue.component(Divider.name, Divider)
 Vue.component(Card.name, Card)

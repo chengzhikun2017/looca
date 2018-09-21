@@ -10,7 +10,8 @@
         <div slot="description">
           <div>1. 务必取消跟单</div>
           <div>2. 平仓所有仓位</div>
-          <div>3. 出金会到【我的钱包】余额，提现请到余额操作</div>
+          <div>3. 出金至钱包余额，如果提现，请到我的钱包里申请提现。</div>
+          
         </div>
       </a-alert>
       <div class="mt4_withdraw-table">

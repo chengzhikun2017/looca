@@ -30,7 +30,7 @@
         剩余可入金金额：${{money.balance | money}}
       </span>
       
-      <a-button size="small" v-if="list.length>0" type="primary" @click="goPage('/mt4_money_bill')">
+      <a-button size="small" v-if="list.length>0 && false" type="primary" @click="goPage('/mt4_money_bill')">
         出入金记录
       </a-button>
     </div>

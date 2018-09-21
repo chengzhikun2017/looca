@@ -28,6 +28,7 @@ const brokerage_withdraw = ()=> import( '../pages/brokerage_withdraw.vue')
 const agent_promote = ()=> import( '../pages/agent_promote.vue')
 const agent_overview = ()=> import( '../pages/agent_overview.vue')
 const agent_profit_overview = ()=> import( '../pages/agent_profit_overview.vue')
+const signup = ()=> import( '../pages/signup.vue')
 
 /**
  * test part
@@ -110,6 +111,7 @@ crmRoutes = crmRoutes.concat(
   newRoute('/agent_overview', 'agent_overview', agent_overview),
   newRoute('/agent_profit_overview', 'agent_profit_overview', agent_profit_overview),
   newRoute('/brokerage_withdraw', 'brokerage_withdraw', brokerage_withdraw),
+  newRoute('/signup', 'signup', signup),
 )
 
 

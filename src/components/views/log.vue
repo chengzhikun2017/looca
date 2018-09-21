@@ -30,8 +30,8 @@
 </template>
 <script>
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
-import Log from "./login.vue"
-import Sign from "./signup.vue"
+const Log = ()=> import ("./login.vue")
+const Sign = ()=> import ("./signup.vue")
 export default {
   name: 'log',
   data() {

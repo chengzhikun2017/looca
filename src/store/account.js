@@ -1,6 +1,7 @@
 import fetch from './../utils/fetch.js'
 import helper from '../utils/helper.js'
 import { vueApp } from './../main.js'
+import router from './../router'
 const platform = helper.getPlatForm()
 const isPC = helper.isPC()
 const saveAccount = (account, password) => {
@@ -207,15 +208,20 @@ export default {
       var promise = fetch({
         url: "/auth/info"
       })
+      // todo init info 之后判断
+      // 
       promise.then(res=>{
         state.authInfo = res
-        console.log('getters.realNameAuthed',getters.realNameAuthed)
         if(!getters.realNameAuthed){
-          if(!rootState.app.isPC){
-            helper.replaceRouter('/mine_real')
-          }
+          setTimeout(function() {
+            router.replaceRouter('/mine_real')
+          },0)
         }else{
-          // helper.goPage('/mt4_overview')
+          if(!rootState.app.isPC){
+            setTimeout(function() {
+              router.replace('/mt4_overview')
+            }, 0);
+          }
         }
       })
       return promise
