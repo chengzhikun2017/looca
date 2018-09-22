@@ -57,7 +57,7 @@ export default {
     },
   },
   mutations: {
-    shareInfoSet(s, { qudao, ancestor, uid }) {
+    setShareInfo(s, { qudao, ancestor, uid }) {
       // console.log('shareInfoSet commit',qudao,ancestor,uid)
       s.qudao = qudao
       // s.ancestor=ancestor
@@ -214,7 +214,7 @@ export default {
         state.authInfo = res
         if(!getters.realNameAuthed){
           setTimeout(function() {
-            router.replaceRouter('/mine_real')
+            router.replace('/mine_real')
           },0)
         }else{
           if(!rootState.app.isPC){

@@ -5,13 +5,16 @@
       <a-divider />
     </h1>
     <div class="box">
-      <Sign></Sign>
+      <div class="container"> 
+        <Sign></Sign>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 const Sign  = ()=> import ('../components/views/signup.vue')
+import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
 export default {
   name:'signup',
   data() {
@@ -19,7 +22,12 @@ export default {
       
     }
   },
-  methods: {},
+  mounted(){
+    this.setShareInfo({uid:this.$route.query.uid})
+  },
+  methods: {
+    ...mapMutations('account',['setShareInfo']),
+  },
   computed: {},
   components: {
     Sign,
@@ -35,6 +43,7 @@ export default {
   width: 100%;
   height: 100%;
   background: #fff;
+  /*background: #000;*/
   left: 0;
   top: 0;
   z-index: 99999;
@@ -49,6 +58,12 @@ export default {
   }
   .box{
     padding:20px;
+    display: flex;
+    justify-content: center;
+    
+  }
+  .container{
+    width: 320px;
   }
 }
 </style>

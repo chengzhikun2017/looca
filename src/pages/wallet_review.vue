@@ -1,5 +1,15 @@
 <template>
   <div class="trade_wallet-page">
+    <a-alert
+      message="提示"
+      type="warning"
+      showIcon
+    >
+      <p slot="description">
+        <span>如金额未及时更新，请稍后尝试刷新</span>
+        <a-button type="primary" @click="getWallet">刷新</a-button>
+      </p>
+    </a-alert>
     <div class="trade_wallet-list">
       <div class="trade_wallet-list-title">余额</div>
       <div class="trade_wallet-list-content">${{money.balance | money}}</div>
@@ -66,6 +76,7 @@ export default {
 <style lang='scss' scoped>
 .trade_wallet-page {
   .trade_wallet-list {
+    margin-top: 32px;
     .trade_wallet-list-title {
       margin-bottom: 15px;
       font-weight: 500;
@@ -85,7 +96,7 @@ export default {
     display: block;
     height: 1px;
     width: 100%;
-    margin: 24px 0 32px;
+    margin: 24px 0 0;
     clear: both;
     background: #e8e8e8;
   }

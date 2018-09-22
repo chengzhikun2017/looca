@@ -164,19 +164,6 @@ export default {
       this.getWithdrawList()
     } else {}
   },
-  filters: {
-    withdrawStatus(v) {
-      switch (v) {
-        case 1:
-          return "等待转账";
-        case 2:
-          return "转账完成";
-        case 3:
-          return "撤销申请";
-      }
-    },
-    
-  },
   methods: {
     searchPhoneList() {
       this.$refs.listPhone.reLoad()

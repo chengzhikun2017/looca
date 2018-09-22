@@ -65,7 +65,7 @@
         </div>
       </a-layout-content>
       <a-layout-footer style="textAlign: center" v-if="isPC">
-        Ant Design ©2016 Created by Ant UED
+        Powered by Looco Global
       </a-layout-footer>
     </a-layout>
   </a-layout>
@@ -369,9 +369,9 @@ export default {
     contentHeight() {
       let height
       if(this.isPC){
-        height = this.windowHeight - (64 + 24 + 69 ) 
+        height = this.windowHeight - (64 + 24 + 69 + 31) 
       }else {
-        height = this.windowHeight - 12 - 35
+        height = this.windowHeight - 24 - 31
       }
       return height + 'px'
     },
@@ -489,7 +489,7 @@ export default {
 }
 .user-setting-box.phone{
   .btn{
-    padding:4px;
+    padding:7px;
     line-height: 1;
   }
   color:#fff;

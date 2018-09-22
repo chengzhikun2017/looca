@@ -69,7 +69,7 @@
           <a-form>
             <a-form-item :wrapperCol="{ span: 18 }" class="wallet_withdraw-table-item" label='提现账户：' :labelCol="{ span: 6 }">
               <span>
-                {{selectedCardInfo.bankName}}({{selectedCardInfo.cardNum.slice(-4)}})
+                <!-- {{selectedCardInfo.bankName}}({{selectedCardInfo.cardNum.slice(-4)}}) -->
               </span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="wallet_withdraw-table-item" label='提现金额' :labelCol="{ span: 6 }">
@@ -239,7 +239,7 @@ $prefix: "wallet_withdraw";
       }
       .#{$prefix}-table-item {
         background: #fafafa;
-        padding: 10px;
+        /*padding: 10px;*/
         margin-bottom: 0 !important;
       }
       .#{$prefix}-table-btn {

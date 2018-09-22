@@ -72,9 +72,7 @@
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_recharge-table-item" label='提交时间' :labelCol="{ span: 6 }" >
               <span>{{successResponse.createTime | timeFull}}</span>
             </a-form-item>
-            <a-form-item :wrapperCol="{ span: 18 }" class="mt4_recharge-table-item" label='如今状态' :labelCol="{ span: 6 }" >
-              <span>{{successResponse.status | status }}</span>
-            </a-form-item>
+            
             <a-form-item :wrapperCol="{ span: 24}">
               <div class="bttn-box mt4_recharge-table-btn">
                 <a-button type='primary' @click.native="goBill">
@@ -225,7 +223,7 @@ export default {
         }
         .#{$prefix}-table-item {
           background: #fafafa;
-          padding: 10px;
+          /*padding: 10px;*/
           margin-bottom: 0 !important;
         }
         .#{$prefix}-table-btn {

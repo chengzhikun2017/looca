@@ -199,7 +199,10 @@ ValidationSet.amount = function(input,keyName){
     if (!value) {
       return inputHelper.createStatusEmpty('金额')
     } else if (!regs.amount.test(value)) {
-      return inputHelper.createStatus(2, "邮箱格式不正确")
+      return inputHelper.createStatus(2, "金额格式不正确")
+    } else if (value <=0) {
+      return inputHelper.createStatus(2, "金额必须大于0")
+
     }
   })
 }

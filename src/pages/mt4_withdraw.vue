@@ -11,14 +11,27 @@
           <div>1. 务必取消跟单</div>
           <div>2. 平仓所有仓位</div>
           <div>3. 出金至钱包余额，如果提现，请到我的钱包里申请提现。</div>
-          
         </div>
       </a-alert>
       <div class="mt4_withdraw-table">
         <a-form @submit="handleSubmit">
-          <a-form-item :wrapperCol="{ span: 18 }" label='MT4账号' :labelCol="{ span: 6 }">
+          <a-form-item :wrapperCol="{ span: 18 }" label='MT4账号：' :labelCol="{ span: 6 }">
             <div class="mt4_withdraw-input">
-              <a-input placeholder="默认根据账户显示" disabled :value="currentMt4Uid" >
+              <a-input placeholder="默认根据账户显示" disabled :value="currentMt4Uid">
+              </a-input>
+            </div>
+          </a-form-item>
+          <a-form-item :wrapperCol="{ span: 18 }" label='出金金额：' :labelCol="{ span: 6 }">
+            <div class="mt4_withdraw-input">
+              <a-radio-group name="radioGroup" v-model="amountType">
+                <a-radio value="full">全部提取</a-radio>
+                <a-radio value="part">部分提取</a-radio>
+              </a-radio-group>
+            </div>
+          </a-form-item>
+          <a-form-item :wrapperCol="{ span: 18 }" v-if="amountType==='part'" label='出金金额：' :labelCol="{ span: 6 }">
+            <div class="mt4_withdraw-input">
+              <a-input placeholder="默认根据账户显示" v-model="amount" type="number">
               </a-input>
             </div>
           </a-form-item>
@@ -41,15 +54,15 @@
       <div v-if="rechargeSucceed" class="mt4_withdraw-content-success" flex="dir:top main:center cross:center">
         <a-icon class="mt4_withdraw-icon-success" type="check-circle" />
         <div class="mt4_withdraw-content-title">出金成功</div>
-        <div class="mt4_withdraw-table" >
+        <div class="mt4_withdraw-table">
           <a-form>
-            <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='MT4账号' :labelCol="{ span: 6 }" >
+            <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='MT4账号' :labelCol="{ span: 6 }">
               <span> {{successResponse.mt4Uid}}</span>
             </a-form-item>
-            <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='出金金额' :labelCol="{ span: 6 }" >
+            <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='出金金额' :labelCol="{ span: 6 }">
               <span>${{successResponse.dollar}}</span>
             </a-form-item>
-            <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='手续费' :labelCol="{ span: 6 }" >
+            <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='手续费' :labelCol="{ span: 6 }">
               <span v-if="!successResponse.serviceFee">
                 正在计算
               </span>
@@ -57,16 +70,16 @@
                 {{successResponse.serviceFee|money}}
               </span>
             </a-form-item>
-            <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='MT4订单号' :labelCol="{ span: 6 }" >
+            <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='MT4订单号' :labelCol="{ span: 6 }">
               <span>{{successResponse.orderId}}</span>
             </a-form-item>
-            <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='业务编号' :labelCol="{ span: 6 }" >
+            <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='业务编号' :labelCol="{ span: 6 }">
               <span>{{successResponse.tradeNo}}</span>
             </a-form-item>
-            <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='提交时间' :labelCol="{ span: 6 }" >
+            <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='提交时间' :labelCol="{ span: 6 }">
               <span>{{successResponse.createTime | timeFull}}</span>
             </a-form-item>
-            <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='状态' :labelCol="{ span: 6 }" >
+            <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='状态' :labelCol="{ span: 6 }">
               <!-- //出金状态：0正在处理、1完成、2失败 -->
               <span> {{successResponse.status | status}}</span>
             </a-form-item>
@@ -92,7 +105,9 @@
   </div>
 </template>
 <script>
-import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
+import inputMixin from './../components/mixin/input.js'
+import inputHelper from './../utils/inputHelper.js'
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 const defaultData = {
   current: 0,
   steps: [{
@@ -101,45 +116,58 @@ const defaultData = {
     title: '完成',
   }],
   // confirmVisible: false,
-  rechargeSucceed:false,
-  successResponse:{},
-  errorResponse:{},
-  rechargeFailed:false,
+  rechargeSucceed: false,
+  successResponse: {},
+  errorResponse: {},
+  rechargeFailed: false,
+  amountType: 'full',
+  amount: '',
 }
 export default {
+  // mixins: [inputMixin],
   data() {
+    // let newInput = new inputHelper.newInput(['amount'])
+    // inputHelper.ValidationSet.amount('amount')
     return {
+      // input:newInput,
       ...defaultData,
     }
   },
-  filters:{
-    
+  filters: {
+
   },
   methods: {
-    failedBack(){
-      Object.assign(this,defaultData)
+    failedBack() {
+      Object.assign(this, defaultData)
     },
-    submit(){
-      this.withdraw(
-        this.currentMt4Uid
-      ).then((res) => {
+    submit() {
+      if(this.validateAll){
+        return
+      }
+      let params = {
+        mt4Uid: this.currentMt4Uid,
+        // amount: this.formData.amount,
+        amount: this.amount,
+        type: this.amountType,
+      }
+      this.withdraw(params).then((res) => {
         this.rechargeSucceed = true
         this.successResponse = res
       }).catch((err) => {
-        console.log('%c err','color:red',err)
+        console.log('%c err', 'color:red', err)
         this.rechargeFailed = true
         this.errorResponse = err
-        this.steps[1].title="失败"
+        this.steps[1].title = "失败"
       }).finally(() => {
-        this.next() 
+        this.next()
       })
     },
-    viewRecord(){
+    viewRecord() {
       helper.goPage('/mt4_money_bill')
     },
     next() {
       this.current++
-      this.confirmVisible = false
+        this.confirmVisible = false
     },
     prev() {
       this.current--
@@ -148,81 +176,84 @@ export default {
       this.submit()
       // this.confirmVisible = true
     },
-    handleChange() {
-    },
-    ...mapActions('mt4Balance',['withdraw']),
+    handleChange() {},
+    ...mapActions('mt4Balance', ['withdraw']),
   },
-  computed:{
-    stepStatus(){
+  computed: {
+    stepStatus() {
       //      wait process finish error
-      if(this.rechargeFailed){
+      if (this.rechargeFailed) {
         return "error"
       }
       return "process"
     },
-    ...mapState('mt4AC',['currentMt4Uid']),
-    ...mapState('wallet',['money']),
+    ...mapState('mt4AC', ['currentMt4Uid']),
+    ...mapState('wallet', ['money']),
   },
 }
+
 </script>
-
 <style lang="scss" scoped>
-  $prefix: "mt4_withdraw";
-  @import '@/styles/steps/index.scss';
+$prefix: "mt4_withdraw";
+@import '@/styles/steps/index.scss';
 
-  .#{$prefix}-page {
-    .#{$prefix}-content {
-      .#{$prefix}-alert {
-        width: 100%;
-        max-width: 460px;
-      }
-      .#{$prefix}-table {
-        margin-bottom: 20px;
-        width: 100%;
-        max-width: 460px;
-        margin-top: 10px;
-        .#{$prefix}-money {
-          font-size: 24px;
-          font-weight: 500;
-          color: #f5222d;
-        }
-        .#{$prefix}-table-item {
-          background: #fafafa;
-          padding: 10px;
-          margin-bottom: 0 !important;
-        }
-      }
+.#{$prefix}-page {
+  .#{$prefix}-content {
+    .#{$prefix}-alert {
+      width: 100%;
+      max-width: 460px;
     }
-  }
-
-  @media (min-width: 575px) {
-    .#{$prefix}-page {
-      .#{$prefix}-table {
-        margin-top: 20px;
+    .#{$prefix}-table {
+      margin-bottom: 20px;
+      width: 100%;
+      max-width: 460px;
+      margin-top: 10px;
+      .#{$prefix}-money {
+        font-size: 24px;
+        font-weight: 500;
+        color: #f5222d;
       }
       .#{$prefix}-table-item {
-        padding: 10px;
-      }
-      .#{$prefix}-input {
-        padding-right: 38px;
-      }
-      .#{$prefix}-table-btn {
-        padding-left: 30px;
-        margin-top: 20px;
-      }
-      .#{$prefix}-card {
-        padding-right: 38px;
-      }
-      .#{$prefix}-money-note {
-        display: inline-block;
+        background: #fafafa;
+        /*padding: 10px;*/
+        margin-bottom: 0 !important;
       }
     }
   }
-  .mt4_withdraw-confirm-account, .mt4_withdraw-confirm-money {
-    font-size: 16px;
-    font-weight: 500;
+}
+
+@media (min-width: 575px) {
+  .#{$prefix}-page {
+    .#{$prefix}-table {
+      margin-top: 20px;
+    }
+    .#{$prefix}-table-item {
+      padding: 10px;
+    }
+    .#{$prefix}-input {
+      padding-right: 38px;
+    }
+    .#{$prefix}-table-btn {
+      padding-left: 30px;
+      margin-top: 20px;
+    }
+    .#{$prefix}-card {
+      padding-right: 38px;
+    }
+    .#{$prefix}-money-note {
+      display: inline-block;
+    }
   }
-  .mt4_withdraw-confirm-money {
-    color: #f5222d;
-  }
+}
+
+.mt4_withdraw-confirm-account,
+.mt4_withdraw-confirm-money {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.mt4_withdraw-confirm-money {
+  color: #f5222d;
+}
+
 </style>

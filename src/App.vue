@@ -125,7 +125,8 @@ export default {
       // console.log('%c app vue ','color:red',this)
       // console.log('%c app vue ','color:red',this.routerMatchedComponent)
     },
-    ...mapActions('account', ["checkSession"])
+    ...mapActions('account', ["checkSession"]),
+    ...mapMutations
   },
   components: {
     Log,
