@@ -21,9 +21,10 @@
 </a-locale-provider>
 </template>
 <script>
-  import zh_CN from 'vue-antd-ui/lib/locale-provider/zh_CN';
-  import 'moment/locale/zh-cn';
-import Log from './components/views/log.vue'
+import zh_CN from 'vue-antd-ui/lib/locale-provider/zh_CN';
+import 'moment/locale/zh-cn';
+// import Log from './components/views/log.vue'
+const Log = () => import('./components/views/log.vue')
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import router from './router/index.js'
 import Loading from './components/loading.vue'

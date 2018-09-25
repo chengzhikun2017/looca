@@ -14,8 +14,8 @@
             </div>
           </div>
           <div class="mt4_balance_list_item-summary-note">
-            <span class="mt4_balance_list_item-summary-note-item">开 1.7232</span>
-            <span class="mt4_balance_list_item-summary-note-item">平 1.7463</span>
+            <span class="mt4_balance_list_item-summary-note-item">开 {{info.openPrice}}</span>
+            <span class="mt4_balance_list_item-summary-note-item">平 {{info.closePrice}}</span>
             <span class="mt4_balance_list_item-summary-note-item"><a-icon type="fork" /> {{info.actionType}}</span>
           </div>
         </div>
@@ -44,7 +44,7 @@
         </div>
         <div class="mt4_balance_list_item-detail-item" flex="main:justify">
           <span>手续费：${{info.serviceFee | money}}</span>
-          <span>库存费：$23.33</span>
+          <span>库存费：${{info.rollver|money}}</span>
         </div>
         <div class="mt4_balance_list_item-detail-item" flex="main:justify">
           <span>止损价：${{info.stopLoss | money}}</span>

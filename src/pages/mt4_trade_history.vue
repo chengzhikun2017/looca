@@ -1,7 +1,5 @@
 <template>
   <div class="mt4_trade_history-page">
-    <div class="choose-box">
-    </div>
     <SearchToggle v-if="!isPC" @ok="searchPhoneList">
       <l-search-item>
         <a-radio-group v-model="listType">
@@ -234,7 +232,9 @@ export default {
   watch: {
     listType(value) {
       this.$nextTick(() => {
-        this.getList()
+        if(this.isPC){
+          this.getList()
+        }
       })
     },
     ttlQty(v) {
