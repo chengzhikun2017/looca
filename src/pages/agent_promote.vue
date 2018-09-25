@@ -21,13 +21,21 @@
         推广二维码
       </div>
       <div class="agent_promote-content-image">
-        <img :src="shareInfo.qrcodeUrl">
+        <img :src="shareInfo.qrcodeUrl" @click="showFullQR = true">
       </div>
       <div class="agent_promote-content-link">
-        <div>推广链接</div>
-        <a target="blank" :href="shareInfo.link">{{shareInfo.link}}</a>
+        <div class="link-box">
+          推广链接
+          <a-button size="small" @click="copyLink">
+            点击复制
+          </a-button>
+        </div>
+        <a class="link" target="blank" :href="shareInfo.link">{{shareInfo.link}}</a>
         <!-- <a-button>复制链接</a-button> -->
       </div>
+      <a-modal :visible="showFullQR" :footer="null" @cancel="handleCancel">
+        <img alt="qrcode" style="width: 100%" :src="shareInfo.qrcodeUrl" />
+      </a-modal>
     </div>
     <div class="agent_promote-note">
       <div class="agent_promote-note-title">
@@ -52,13 +60,21 @@
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 export default {
   data() {
-    return {}
+    return {
+      showFullQR:false,
+    }
   },
   computed: {
     ...mapState("share", ['shareInfo']),
     ...mapGetters('share', ['incomeSummary', 'guestSummary'])
   },
   methods: {
+    copyLink(){
+      this.$message.info('待实现')
+    },
+    handleCancel(){
+      this.showFullQR = false
+    },
     ...mapActions("share", ['getShareInfo', 'getGuestCount', 'getIncomeCount']),
   },
   created() {
@@ -73,33 +89,42 @@ export default {
 $prefix: "agent_promote";
 @import '@/styles/utils/cardTable.scss';
 @import '@/styles/utils/note.scss';
-  .#{$prefix}-page {
-    .#{$prefix}-content {
-      margin:20px 0;
-      padding:20px 0;
-      .#{$prefix}-content-title {
-        font-weight: 800;
-        margin-bottom: 10px;
-      }
-      .#{$prefix}-content-image {
-        max-width: 160px;
-        height: 160px;
-        img {
-          width: 100%;
-        }
-      }
-      .#{$prefix}-content-link {
-        margin-top: 10px;
-        font-size: 13px;
+.#{$prefix}-page {
+  .#{$prefix}-content {
+    margin: 20px 0;
+    padding: 20px 0;
+    .#{$prefix}-content-title {
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .#{$prefix}-content-image {
+      max-width: 160px;
+      height: 160px;
+      img {
+        width: 100%;
       }
     }
-  }
-  @media (min-width: 575px) {
-    .#{$prefix}-page {
-    }
-  }
-  @import '@/styles/utils/cardTable.scss';
-  @import '@/styles/utils/note.scss';
-</style>
+    .#{$prefix}-content-link {
+      margin-top: 10px;
+      font-size: 15px;
+      font-weight: bold;
+      .link-box{
 
+      }
+      .link{
+        font-size: 13px;
+        font-weight: normal;
+      }
+    }
+  }
+}
+
+@media (min-width: 575px) {
+  .#{$prefix}-page {}
+}
+
+@import '@/styles/utils/cardTable.scss';
+@import '@/styles/utils/note.scss';
+
+</style>
 </style>
