@@ -1,7 +1,7 @@
 <template>
   <div class="l-list-phone">
     <div class="list-box" v-infinite-scroll="loadList" :infinite-scroll-disabled="loading" :infinite-scroll-distance="80">
-      <a-list :dataSource="data">
+      <a-list :dataSource="data" v-if="!loading" :locale="locale">
         <a-list-item slot="renderItem" slot-scope="item, index">
           <slot :item="item"></slot>
         </a-list-item>
@@ -106,7 +106,29 @@ export default {
     },
 
   },
+  watch:{
+    loading(value){
+      if(value){
+        this.$emit("loadStart")
+      }else{
+        this.$emit("loadStop")
+      }
+    },
+  },
   computed: {
+    locale(){
+      return {
+        emptyText:this.emptyText,
+      }
+    },
+    emptyText(){
+      if(this.data.length === 0){
+        if(this.loading){
+          return "加载中..."
+        }
+        return "暂无数据"
+      }
+    },
     loading() {
       return this.loadParams.loading
     },

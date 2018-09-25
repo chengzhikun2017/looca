@@ -22,7 +22,7 @@
         </a-input>
       </a-form-item>
       <p>
-        提示：请填写完整的支行信息，例如：XX银行XX省XX市XX支行
+        提示：请填写完整的支行信息，例如：**省**市**支行
       </p>
       <a-form-item :wrapperCol="{ span: 24}">
         <div class="bttn-box">

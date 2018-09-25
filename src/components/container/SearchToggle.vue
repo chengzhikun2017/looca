@@ -9,8 +9,11 @@
         </div>
       </div>
       <div class="search-toggle " @click="toggle">
+        <span class="text">
+          {{show?"取消":"筛选"}}
+        </span>
         <a-icon type="filter" v-if="!show" />
-        <a-icon type="up-square-o" v-if="show" />
+        <a-icon type="close-square-o" v-if="show" />
       </div>
     </div>
   </div>
@@ -73,10 +76,11 @@ export default {
     padding: 3px;
     display: inline-block;
     position: absolute;
-    right: 0;
+    right: 5px;
+    top: 5px;
     z-index: 2;
-    top: 0;
     line-height: 1;
+    font-size: 14px;
   }
   .container {
     width: 100%;

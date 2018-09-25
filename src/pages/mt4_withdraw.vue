@@ -25,13 +25,13 @@
             <div class="mt4_withdraw-input">
               <a-radio-group name="radioGroup" v-model="amountType">
                 <a-radio value="full">全部提取</a-radio>
-                <a-radio value="part">部分提取</a-radio>
+                <a-radio value="part">自定义</a-radio>
               </a-radio-group>
             </div>
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 18 }" v-if="amountType==='part'" label='出金金额：' :labelCol="{ span: 6 }">
             <div class="mt4_withdraw-input">
-              <a-input placeholder="默认根据账户显示" v-model="amount" type="number">
+              <a-input :placeholder="`账户余额$${Number(currentMt4Info.balanceFee/100).toFixed(2)}`" v-model="amount" type="number">
               </a-input>
             </div>
           </a-form-item>
@@ -141,7 +141,11 @@ export default {
       Object.assign(this, defaultData)
     },
     submit() {
-      if(this.validateAll){
+      // if(this.validateAll()){
+      //   return
+      // }
+      if(this.amountType==='part'&&!parseInt(this.amount)>0){
+        this.$message.error('请填写正确金额')
         return
       }
       let params = {
@@ -187,7 +191,7 @@ export default {
       }
       return "process"
     },
-    ...mapState('mt4AC', ['currentMt4Uid']),
+    ...mapState('mt4AC', ['currentMt4Uid','currentMt4Info']),
     ...mapState('wallet', ['money']),
   },
 }
@@ -229,7 +233,7 @@ $prefix: "mt4_withdraw";
     }
     .#{$prefix}-table-item {
       padding: 10px;
-    }
+    }mt
     .#{$prefix}-input {
       padding-right: 38px;
     }

@@ -76,6 +76,7 @@ export default {
       if (this.input.validateAll()) {
         this._login()
       }
+      debugger
       // getFieldDecorator
     },
     _login() {

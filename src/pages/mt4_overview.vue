@@ -41,6 +41,7 @@
         :dataSource="list"
         :split="false"
         v-if="!isPC"
+        :locale="{emptyText:listGot?'暂无数据':'加载中...'}"
       >
         <a-list-item slot="renderItem" slot-scope="item, index">
           <ListItemMobile :mt4="item"></ListItemMobile>

@@ -1,17 +1,16 @@
 <template>
   <div class="trade_wallet-page">
-    <a-alert
-      message="提示"
-      type="warning"
-      showIcon
-    >
-      <p slot="description">
-        <span>如金额未及时更新，请稍后尝试刷新</span>
-        <a-button type="primary" @click="getWallet">刷新</a-button>
-      </p>
-    </a-alert>
     <div class="trade_wallet-list">
-      <div class="trade_wallet-list-title">余额</div>
+      <div class="trade_wallet-list-title">
+        余额 
+        <span class="refresh-tip">
+          如金额未及时更新，请稍后尝试刷新
+          <a href="Javascript:void(0)" class="refresh-btn" @click="getWallet">
+            刷新
+          </a>
+        <!-- <a-button type="primary" @click="getWallet" size="small">刷新</a-button> -->
+        </span>
+      </div>
       <div class="trade_wallet-list-content">${{money.balance | money}}</div>
       <div class="trade_wallet-list-opt">
         <a-button type='primary' class="wallet-list-btn" @click="go('/wallet_recharge')">
@@ -75,6 +74,11 @@ export default {
 </script>
 <style lang='scss' scoped>
 .trade_wallet-page {
+  .refresh-tip{
+    font-size: 12px;
+    color:#999;
+    font-weight: normal;
+  }
   .trade_wallet-list {
     margin-top: 32px;
     .trade_wallet-list-title {

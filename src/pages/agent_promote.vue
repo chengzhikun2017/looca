@@ -84,7 +84,6 @@ $prefix: "agent_promote";
       .#{$prefix}-content-image {
         max-width: 160px;
         height: 160px;
-        background: blue;
         img {
           width: 100%;
         }

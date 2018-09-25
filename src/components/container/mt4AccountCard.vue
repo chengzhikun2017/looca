@@ -2,7 +2,12 @@
   <div class="mt4_account_card-vue">
     <div class="mt4_account_card-content">
       <div class="mt4_account_card-account" flex="main:justify">
-        <span class="mt4_account_card-account-user">MT4{{mt4.type| mt4Type}}：{{mt4.mt4Uid}}</span>
+        <span class="mt4_account_card-account-user">
+          MT4{{mt4.type| mt4Type}}：{{mt4.mt4Uid}}
+          <a-button size="small" icon="usb" type="primary" ghost v-if="mt4.type=='follow'"  @click="goAction('/unknown')">
+            跟单
+          </a-button>
+        </span>
         <span class="mt4_account_card-account-name">{{mt4.fullName}}</span>
       </div>
       <div class="mt4_account_card-introduce" flex="main:center cross:center">
@@ -33,11 +38,9 @@
           出金
         </a-button>
       </div>
-      <div v-if="mt4.type==='follow'" class="mt4_account_card-btn" flex-box="1" @click="goAction('/unknown')">
-        <a-button size="small" icon="login" type="primary" ghost>
-          跟单
-        </a-button>
-      </div>
+      <!-- <div v-if="mt4.type==='follow' && false" class="mt4_account_card-btn" flex-box="1">
+        
+      </div> -->
       <div class="mt4_account_card-btn" flex-box="1" @click="goAction('/mt4_trade_history')">
         <a-button size="small" icon="bar-chart" type="primary" ghost>
           交易报表
@@ -86,6 +89,9 @@ export default {
 <style lang="scss">
 $prefix: "mt4_account_card";
 .#{$prefix}-vue {
+  .ant-btn > .anticon + span, .ant-btn > span + .anticon {
+      margin-left: 2px;
+  }
   width: 100%;
   margin-bottom: 10px;
   border: 1px solid #ccc;

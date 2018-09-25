@@ -26,15 +26,15 @@
       <a-range-picker :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }" :defaultValue="[defaultStart,defaultEnd]" @change="onDateRangeChange" /> &nbsp;
       <a-button @click="searchList" type="primary">查询</a-button>
     </div>
-    <Mt4SyncFail :success="!!!syncSuccess&&!loading" :reSyncFunc="getList"> </Mt4SyncFail>
+    <Mt4SyncFail :success="syncSuccess==0&&!listLoading" :reSyncFunc="getList" > </Mt4SyncFail>
     <a-alert type="success" v-if="syncSuccess && listType==='trade'">
       <p class="summary" slot="description">
         <!-- <label for="">总览：</label> -->
         <span>
-          亏损笔数:{{summary.loss}}
+          总笔数:{{summary.total}}
         </span>
         <span>
-          总笔数:{{summary.total}}
+          亏损笔数:{{summary.loss}}
         </span>
         <span>
           盈利笔数:{{summary.win}}
@@ -63,7 +63,7 @@
     <!-- slot item -->
     <!-- loadmore -->
     <div class="list-box phone" v-if="!isPC">
-      <ListPhone :newList="list" ref="listPhone" :params="paramsPhone" :getFunc="_getList" :total="_list.ttlQty">
+      <ListPhone :newList="list" ref="listPhone" :params="paramsPhone" :getFunc="_getList" :total="_list.ttlQty" @loadStart="listPhoneLoading=true" @loadStop="listPhoneLoading=false">
         <mt4TradeListItem slot-scope="props" :info="props.item"></mt4TradeListItem>
       </ListPhone>
     </div>
@@ -144,6 +144,7 @@ export default {
       loading: false,
       columns,
       currentPage: 1,
+      listPhoneLoading:false,
     }
   },
   created() {
@@ -195,6 +196,10 @@ export default {
     }),
   },
   computed: {
+    listLoading(){
+      return this.loading || this.listPhoneLoading
+        
+    },
     paramsPhone() {
       return {
         st: this.startDate,

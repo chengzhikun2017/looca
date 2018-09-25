@@ -3,7 +3,8 @@
     <div class="add-cards" v-if="adding">
       <AddDC @success="cancelAdd"></AddDC>
       <span class="cancel-box" @click="cancelAdd">
-        <a-icon type="close-square-o"  />
+        <!-- <a-icon type="close-square-o"  /> -->
+        返回
       </span>
     </div>
     <div class="cards-box" v-if="!adding">
@@ -70,11 +71,12 @@ export default {
 </script>
 <style lang='scss' scoped>
 .add-cards {
+  padding-top: 20px;
   position: relative;
   .cancel-box {
     position: absolute;
-    right: -15px;
-    top: -20px;
+    right: -5px;
+    top: -10px;
     padding:5px;
     :hover{
       cursor: pointer;
