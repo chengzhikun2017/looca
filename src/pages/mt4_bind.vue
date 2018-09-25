@@ -1,6 +1,6 @@
 <template>
   <div class="mt4_bind-page">
-    <a-form @submit="handleSubmit">
+    <a-form >
       <a-form-item :wrapperCol="{ span: 18 }" label='mt4 账号' :labelCol="{ span: 6 }" :validateStatus="input.status.mt4Uid.validateStatus" :help="input.status.mt4Uid.help">
         <a-input placeholder="输入需要绑定的mt4 账号"  ref="inputmt4Uid" v-model="input.values.mt4Uid" @blur="validate('mt4Uid')" @focus="clearValidation('mt4Uid')">
         </a-input>
@@ -12,7 +12,7 @@
 
       <a-form-item :wrapperCol="{ span: 24}">
         <div class="bttn-box">
-          <a-button type='primary' htmlType='submit'>
+          <a-button type='primary' @click="handleSubmit">
             提交
           </a-button>
         </div>

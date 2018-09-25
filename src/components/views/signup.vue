@@ -1,6 +1,6 @@
 <template>
   <div class="l-signup">
-    <a-form @submit="handleSubmit">
+    <a-form >
       <!-- component  input key -->
       <a-form-item :wrapperCol="{ span: 24 }" :validateStatus="input.status.phone.validateStatus" :help="input.status.phone.help">
         <a-input size=large placeholder="请输入手机号" ref="inputPhone" v-model="input.values.phone" @blur="onPhoneBlur" @focus="clearValidation('phone')">
@@ -36,7 +36,7 @@
       </a-form-item> -->
       <a-form-item :wrapperCol="{ span: 24}">
         <!-- <div class="bttn-box"> -->
-        <a-button size=large type='primary' htmlType='submit'>
+        <a-button size=large type='primary' @click="handleSubmit">
           {{isFindpwd?"重新设置密码":"注册并登录"}}
         </a-button>
         <!-- </div> -->
@@ -116,9 +116,6 @@ export default {
         }
         // this.isRegister && this.switchTab('1')
       })
-    },
-    findPassword() {
-      return
     },
     getParams() {
       let { phone, code, password } = this.formData

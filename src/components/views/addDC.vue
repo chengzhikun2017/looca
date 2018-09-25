@@ -1,6 +1,6 @@
 <template>
   <div class="l-add-dc">
-    <a-form @submit="handleSubmit">
+    <a-form >
       <a-form-item :wrapperCol="{ span: 18 }" label='姓名' :labelCol="{ span: 6 }" :validateStatus="input.status.name.validateStatus" :help="input.status.name.help">
         <a-input placeholder="请输入姓名" ref="inputname" v-model="input.values.name" @blur="validate('name')" @focus="clearValidation('name')">
           <!-- <a-icon slot="prefix" type="user" /> -->
@@ -26,7 +26,7 @@
       </p>
       <a-form-item :wrapperCol="{ span: 24}">
         <div class="bttn-box">
-          <a-button type='primary' htmlType='submit'>
+          <a-button type='primary' htmlType='submit' @click="handleSubmit">
             提交
           </a-button>
         </div>

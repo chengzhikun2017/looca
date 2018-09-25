@@ -102,15 +102,15 @@ name: 'mine_real',
   created() {
     console.log('%c this','color:red',this)
     // this.getAuthInfo()
-    if(this.realNameLoaded){
+    // if(this.realNameLoaded){
       this.initData()
-    }
+    // }
 
   },
   methods: {
     initData(){
-      this.formData.idCardUrl2=this.authInfo.idCardUrl2
-      this.formData.idCardUrl=this.authInfo.idCardUrl
+      this.formData.idCardUrl2=this.authInfo.idCardUrl2 || ''
+      this.formData.idCardUrl=this.authInfo.idCardUrl || ''
       this.formData.name = this.authInfo.name
       this.formData.email = this.authInfo.email
       this.formData.idCardNo = this.authInfo.idCardNo

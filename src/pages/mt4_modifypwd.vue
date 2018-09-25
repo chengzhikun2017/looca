@@ -25,7 +25,7 @@
       </a-radio-group>
     </div>
     <div class="form-box">
-      <a-form @submit="handleSubmit">
+      <a-form>
         <a-form-item :wrapperCol="{ span: 18 }" label='原交易密码' :labelCol="{ span: 6 }" :validateStatus="input.status.tradePwd.validateStatus" :help="input.status.tradePwd.help">
           <a-input placeholder="请输入原交易密码" ref="inputtradePwd" v-model="input.values.tradePwd" @blur="validate('tradePwd')" @focus="clearValidation('tradePwd')">
           </a-input>
@@ -49,7 +49,7 @@
 
         <a-form-item :wrapperCol="{ span: 24}">
           <div class="bttn-box">
-            <a-button type='primary' htmlType='submit'>
+            <a-button type='primary'  @click="handleSubmit">
               提交
             </a-button>
           </div>

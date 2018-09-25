@@ -262,7 +262,7 @@ export default {
       })
     },
     modifyPwd({}, { password, newPassword }) {
-      fetch({
+      return fetch({
         url: 'profile/modifyPwd',
         params: {
           password,

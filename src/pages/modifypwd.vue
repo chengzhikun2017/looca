@@ -1,6 +1,6 @@
 <template>
   <div class="modifypwd-page">
-    <a-form @submit="handleSubmit">
+    <a-form >
       <a-form-item :wrapperCol="{ span: 18 }" label='原密码' :labelCol="{ span: 6 }" :validateStatus="input.status.password.validateStatus" :help="input.status.password.help">
         <a-input placeholder="请输入原密码" ref="inputPassword" v-model="input.values.password" @blur="validate('password')" @focus="clearValidation('password')">
           <!-- <a-icon slot="prefix" type="user" /> -->
@@ -13,7 +13,7 @@
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 24}">
         <div class="bttn-box">
-          <a-button type='primary' htmlType='submit'>
+          <a-button type='primary' @click="handleSubmit">
             提交
           </a-button>
         </div>
@@ -47,7 +47,7 @@ export default {
         password:this.formData.password,
         newPassword:this.formData.newPassword,
       })
-      .then(() => {
+      .then((res) => {
         this.$message.info('修改成功') 
         helper.goPage('/wallet_review')
       })

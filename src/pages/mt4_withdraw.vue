@@ -14,7 +14,7 @@
         </div>
       </a-alert>
       <div class="mt4_withdraw-table">
-        <a-form @submit="handleSubmit">
+        <a-form >
           <a-form-item :wrapperCol="{ span: 18 }" label='MT4账号：' :labelCol="{ span: 6 }">
             <div class="mt4_withdraw-input">
               <a-input placeholder="默认根据账户显示" disabled :value="currentMt4Uid">
@@ -37,7 +37,7 @@
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 24}">
             <div class="bttn-box">
-              <a-button type='primary' htmlType='submit'>
+              <a-button type='primary' @click="handleSubmit">
                 提交
               </a-button>
             </div>
