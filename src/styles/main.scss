@@ -42,16 +42,23 @@ body{
     .bttn-box .ant-menu {}
   }
   .bttn-box {
-    // text-align:center;
-    // margin-left: 25%;
+    line-height:20px;
     .ant-btn {
-      // width: 100%;
-      // max-width: 320px;
     }
     &:before {
       content: "";
       width: 25%;
       display: inline-block;
+    }
+    .prev-box.phone{
+      margin-top: 8px;
+      text-align:right;
+      line-height: 1;
+      .prev{
+        color:#9e9e9e;
+        padding:3px;
+        font-size:14px;
+      }
     }
   }
   .ant-form-item {

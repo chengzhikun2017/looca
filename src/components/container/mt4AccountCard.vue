@@ -34,7 +34,7 @@
         </a-button>
       </div>
       <div class="mt4_account_card-btn" flex-box="1" @click="goWithdraw">
-        <a-button size="small" icon="logout" type="primary" ghost>
+        <a-button size="small" icon="logout" type="primary" ghost :disabled="mt4.balanceFee === 0">
           出金
         </a-button>
       </div>

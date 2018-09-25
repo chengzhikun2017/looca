@@ -41,28 +41,34 @@
               <img style="width: 100%" :src="payInfo.qrcodeUrl" alt="支付宝收款二维码">
             </div>
             <div class="wallet_recharge-content-pay-money">{{formData.amount*usdRate*100 | money}}</div>
-            <div class="wallet_recharge-content-upload phone">
+            <!-- <div class="wallet_recharge-content-upload phone">
               <ImageUpload :editing="true" v-model="billImageUrl" uploadText="上传账单详情截图" label="支付凭证" />
-            </div>
+            </div> -->
           </div>
         </a-col>
         <a-col :xs="24" :sm="12">
           <div class="wallet_recharge-table" >
             <a-form>
-              <a-form-item class="pc" :wrapperCol="{ span: 24}" label='支付完成后上传' :labelCol="{ span: 24 }">
+              <a-form-item class="" :wrapperCol="{ span: 18}" label='账单截图' :labelCol="{ span: 6 }">
                 <ImageUpload :editing="true" v-model="billImageUrl" uploadText="上传账单详情截图" label="支付凭证" />
               </a-form-item>
-              <a-form-item :wrapperCol="{ span: 16}" label='备注' :labelCol="{ span: 24 }">
+              <a-form-item :wrapperCol="{ span: 18}" label='备注' :labelCol="{ span: 6 }">
                 <a-input type="textarea" v-model="remark" placeholder="如需备注请输入"></a-input>
               </a-form-item>
+
               <a-form-item :wrapperCol="{ span: 24}">
-                <div class="wallet_recharge-btns">
-                  <a-button type="primary" @click="prev">
-                    上一步
-                  </a-button>
+                <div class="wallet_recharge-btns bttn-box">
                   <a-button type='primary' @click="onConfirmed">
                     提交
                   </a-button>
+                  <a-button  class="pc"  @click="prev">
+                    上一步
+                  </a-button>
+                  <div class="prev-box phone">
+                    <span class="prev" @click="prev">
+                      上一步
+                    </span>
+                  </div>
                 </div>
               </a-form-item>
             </a-form>

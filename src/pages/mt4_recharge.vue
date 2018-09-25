@@ -21,7 +21,7 @@
     </div>
     <div v-if="current === 0" class="mt4_recharge-content" flex="dir:top main:center cross:center">
       <div class="mt4_recharge-table">
-        <a-form @submit="handleSubmit">
+        <a-form>
           <a-form-item :wrapperCol="{ span: 18 }" label='钱包余额' :labelCol="{ span: 6 }" >
             <span>${{money.balance | money}}</span>
           </a-form-item>
@@ -43,7 +43,7 @@
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 24}">
             <div class="bttn-box">
-              <a-button type='primary' htmlType='submit'>
+              <a-button type='primary' @click="handleSubmit">
                 提交
               </a-button>
             </div>

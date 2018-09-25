@@ -160,6 +160,9 @@ export default {
     }
   },
   created() {
+    if(this.initialType === 'withdraw'){
+      this.listType = 'withdraw'
+    }
     if (this.isPC) {
       this.getWithdrawList()
     } else {}
@@ -219,6 +222,9 @@ export default {
     },
   },
   computed: {
+    initialType(){
+      return this.$route.query.initialType
+    },
     paramsPhone() {
       return {
         st: this.startDate,

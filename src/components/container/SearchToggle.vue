@@ -44,7 +44,6 @@ export default {
       this.show = false
     },
     onBodyClick(e){
-      console.log('%c e', 'color:red', e)
       let isDropdownList = /ant-select-dropdown/.test(e.path[3].className)
       let isCalendar = /ant-calendar/.test(e.path[5].className)
       if (isDropdownList || isCalendar) {

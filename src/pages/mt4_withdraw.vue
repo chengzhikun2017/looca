@@ -63,9 +63,8 @@
               <span>${{successResponse.dollar}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='手续费' :labelCol="{ span: 6 }">
-              <span v-if="!successResponse.serviceFee">
-                正在计算
-              </span>
+              <!-- <span v-if="!successResponse.serviceFee">
+              </span> -->
               <span v-if="successResponse.serviceFee">
                 {{successResponse.serviceFee|money}}
               </span>
@@ -81,7 +80,7 @@
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='状态' :labelCol="{ span: 6 }">
               <!-- //出金状态：0正在处理、1完成、2失败 -->
-              <span> {{successResponse.status | status}}</span>
+              <span> {{successResponse.status | moneyBillStatus}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 24}">
               <div class="bttn-box mt4_withdraw-table-btn">
@@ -107,6 +106,7 @@
 <script>
 import inputMixin from './../components/mixin/input.js'
 import inputHelper from './../utils/inputHelper.js'
+import helper from './../utils/helper.js'
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 const defaultData = {
   current: 0,
@@ -134,7 +134,9 @@ export default {
     }
   },
   filters: {
-
+    status(value){
+      
+    },
   },
   methods: {
     failedBack() {
@@ -144,10 +146,11 @@ export default {
       // if(this.validateAll()){
       //   return
       // }
-      if(this.amountType==='part'&&!parseInt(this.amount)>0){
+      if(this.amountType==='part'&&!(parseInt(this.amount)>0)){
         this.$message.error('请填写正确金额')
         return
       }
+
       let params = {
         mt4Uid: this.currentMt4Uid,
         // amount: this.formData.amount,

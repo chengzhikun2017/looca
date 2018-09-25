@@ -401,6 +401,7 @@ export default {
   .title{
     font-size: 18px;
     line-height: 1.2;
+    height: 21px;
     color:#666;
     text-align: center;
   }

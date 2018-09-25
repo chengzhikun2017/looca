@@ -22,7 +22,7 @@
       </div>
     </a-modal>
     <div class="default-info" :class="isPC?'':'phone'">
-      <div class="btn-box" :class="isPC?'':'phone'">
+      <div class="btn-container" :class="isPC?'':'phone'">
         <a-button size="small" v-if="isPC"  type="primary" @click="chooseCreate" >新增账户</a-button>
         <a class="link-btn" href="javascript:void(0)" v-if="!isPC" @click="chooseCreate" >新增账户</a>
       </div>
@@ -270,7 +270,7 @@ export default {
   },
   computed: {
     loading(){
-      return !this.listGot
+      return !this.listGot 
     },
     columns(){
       return singleColum
@@ -303,12 +303,12 @@ export default {
     margin-bottom: 8px;
     padding-right: 12px;
     position: relative;
-    .btn-box {
+    .btn-container {
       position: absolute;
       left: 0;
       top: 0;
     }
-    .btn-box.phone {
+    .btn-container.phone {
       position: fixed;
       right: 5px;
       left:auto;

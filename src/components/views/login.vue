@@ -1,6 +1,6 @@
 <template>
   <div class="l-login">
-    <a-form @submit="handleSubmit">
+    <a-form >
       <a-form-item :wrapperCol="{ span: 24 }" :validateStatus="input.status.phone.validateStatus" :help="input.status.phone.help">
         <a-input key="loginPhone" size=large placeholder="手机号" ref="inputPhone" v-model="input.values.phone" @blur="validate('phone')" @focus="clearValidation('phone')">
           <a-icon slot="prefix" type="user" />
@@ -19,7 +19,7 @@
       </a-form-item>
       <a-form-item :wrapperCol="{ span: 24}">
         <!-- <div class="bttn-box"> -->
-          <a-button size=large type='primary' htmlType='submit'>
+          <a-button size=large type='primary' htmlType='submit' @click="handleSubmit">
             登录
           </a-button>
         <!-- </div> -->

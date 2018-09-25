@@ -42,7 +42,7 @@
         <div class="wallet_list_item-detail-item" flex="main:justify">
           流水号：{{info.tradeNo}}
         </div>
-        <div class="wallet_list_item-detail-item-button" >
+        <div class="wallet_list_item-detail-item-button" v-if="info.remarkUrl">
           <span @click="showBill" >转账截图</span>
         </div>
       </div>
@@ -76,6 +76,9 @@
     },
     methods: {
       showBill() {
+        if(!this.info.remarkUrl){
+          return
+        }
         this.$modal.info({
           title:'转账截图',
           content: (<img src={this.info.remarkUrl} style="width: 200px" alt=""/>)

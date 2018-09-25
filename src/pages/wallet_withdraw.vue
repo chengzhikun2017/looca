@@ -18,7 +18,7 @@
               </a-input>
             </div>
           </a-form-item>
-          <a-form-item :wrapperCol="{ span: 18 }" label='银行卡：' :labelCol="{ span: 6 }">
+          <a-form-item :wrapperCol="{ span: 18 }" label='银行卡：' :labelCol="{ span: 6 }" :validateStatus="bankCardStatus" :help="bankCardStatusHelp">
             <div class="wallet_withdraw-input">
               <a-select v-model="selectedCardIndex" :defaultValue='0' placeholder="选择提现银行卡">
                 <a-select-option v-for="(card,index) in listDC" :key="index">{{card.bankName}}{{" "}}{{card.cardNum | bankCard}}</a-select-option>
@@ -49,12 +49,17 @@
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 24}">
             <div class="bttn-box">
-              <a-button type='primary' @click.native="prev">
-                上一步
-              </a-button>
-              <a-button type='primary' @click.native="onConfirmed">
+              <a-button type='primary' @click="onConfirmed">
                 提交
               </a-button>
+              <a-button class="pc" @click="prev">
+                上一步
+              </a-button>
+              <div class="prev-box phone">
+                <span class="prev" @click="prev">
+                  上一步
+                </span>
+              </div>
             </div>
           </a-form-item>
         </a-form>
@@ -69,7 +74,7 @@
           <a-form>
             <a-form-item :wrapperCol="{ span: 18 }" class="wallet_withdraw-table-item" label='提现账户：' :labelCol="{ span: 6 }">
               <span>
-                <!-- {{selectedCardInfo.bankName}}({{selectedCardInfo.cardNum.slice(-4)}}) -->
+                {{selectedCardInfo.bankName}}({{selectedCardInfo.cardNum.slice(-4)}})
               </span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="wallet_withdraw-table-item" label='提现金额' :labelCol="{ span: 6 }">
@@ -78,12 +83,14 @@
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 24}">
               <div class="bttn-box wallet_withdraw-table-btn">
-                <a-button type='primary' htmlType='submit'>
-                  再提一笔
-                </a-button>
-                <a-button type='primary' htmlType='submit'>
+                <a-button type='primary' htmlType='submit' @click="viewBill">
                   查看账单
                 </a-button>
+                <div class="prev-box phone">
+                  <span class="prev" @click="prev">
+                    再提一笔
+                  </span>
+                </div>
               </div>
             </a-form-item>
           </a-form>
@@ -103,6 +110,7 @@
 <script>
 import inputMixin from './../components/mixin/input.js'
 import inputHelper from './../utils/inputHelper.js'
+import helper from '../utils/helper.js'
 import { ValidationSet } from './../utils/inputHelper.js'
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 const defaultData = {
@@ -123,6 +131,8 @@ const defaultData = {
   successResponse: {},
   errorResponse: {},
   rechargeFailed: false,
+  bankCardStatus: "",
+  bankCardStatusHelp: "",
 }
 const Card = () =>
   import ('./../components/container/cardDC.vue')
@@ -140,7 +150,18 @@ export default {
     this.getListDC()
     this.getCurrency()
   },
+  watch: {
+    selectedCardIndex(val){
+      if(val!==null){
+        this.bankCardStatus = ""
+        this.bankCardStatusHelp = ""
+      }
+    },
+  },
   methods: {
+    viewBill(){
+      helper.goPage('/wallet_history?initialType=withdraw')
+    },
     next() {
       this.current++
     },
@@ -152,7 +173,7 @@ export default {
       this.formData.amount = ''
     },
     onConfirmed() {
-      console.log('%c this.listDC[this.selectedCardIndex]','color:red',this.listDC[this.selectedCardIndex])
+      console.log('%c this.listDC[this.selectedCardIndex]', 'color:red', this.listDC[this.selectedCardIndex])
       let params = {
         dollar: this.formData.amount * 100,
         bankCardId: this.selectedCardInfo.id,
@@ -174,6 +195,11 @@ export default {
       if (!this.checkValid()) {
         return
       }
+      if (this.selectedCardIndex === null) {
+        this.bankCardStatus = "error"
+        this.bankCardStatusHelp = "请选择银行卡"
+        return
+      }
       this.next()
       // this.confirmVisible = true
     },
@@ -193,10 +219,10 @@ export default {
     usdRate() {
       return this.currency.usd2rmb.rate
     },
-    selectedCardInfo(){
-      if(this.listDC.length===0){
+    selectedCardInfo() {
+      if (this.listDC.length === 0) {
         return {}
-      }else {
+      } else {
         return this.listDC[this.selectedCardIndex]
       }
     },
