@@ -25,7 +25,7 @@
       <a-button @click="searchList" type="primary">查询</a-button>
     </div>
     <Mt4SyncFail :success="syncSuccess==0&&!listLoading" :reSyncFunc="getList" > </Mt4SyncFail>
-    <a-alert type="success" v-if="syncSuccess && listType==='trade'">
+    <a-alert type="success" v-if="syncSuccess && listType==='trade' && summaryGot">
       <p class="summary" slot="description">
         <!-- <label for="">总览：</label> -->
         <span>
@@ -38,7 +38,7 @@
           盈利笔数:{{summary.win}}
         </span>
         <span>
-          总实际盈利:${{summary.profit | money}}
+          总实际盈利:${{summary.profit || 0 | money}}
         </span>
       </p>
     </a-alert>
@@ -225,7 +225,7 @@ export default {
     syncSuccess() {
       return this._list.syncSuccess
     },
-    ...mapState('trade', ['summary', 'tradeList', 'openList']),
+    ...mapState('trade', ['summary', 'tradeList', 'openList','summaryGot']),
     ...mapState('app', ['isPC']),
     ...mapState('mt4AC', ['currentMt4Uid']),
   },

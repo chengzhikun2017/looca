@@ -23,6 +23,7 @@ class defaultTradeState {
       win: null, //盈利笔数
       profit: null, //总实际盈利
     }
+    this.summaryGot = false
   }
 }
 export default {
@@ -36,6 +37,7 @@ export default {
   },
   actions: {
     getTradeHistory({ state, dispatch }, params) {
+      state.summaryGot = false
       if (params === undefined) {
         params = {}
       }
@@ -104,6 +106,7 @@ export default {
       })
       promise.then((res) => {
         state.summary = res
+        state.summaryGot = true
       })
       return promise
     },
