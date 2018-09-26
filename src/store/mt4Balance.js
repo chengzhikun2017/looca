@@ -13,7 +13,7 @@ class defaultState {
 }
 export default {
   namespaced: true,
-  // state: new defaultState,
+  state: new defaultState,
   getters: {},
   mutations: {
     resetList(state) {
@@ -21,14 +21,14 @@ export default {
     },
     // onWithdraw(state,{id}){
     //   let mt4 = state.list.find((item) => {
-    //     return item.mt4Uid == id 
+    //     return item.mt4Uid == id
     //   })
     //   mt4.balanceFee = 0
     // },
     // onDeposit(state,{id,amount}){
     //   console.log('%c state.list','color:red',state.list)
     //   let mt4 = state.list.find((item) => {
-    //     return item.mt4Uid == id 
+    //     return item.mt4Uid == id
     //   })
     //   mt4.balanceFee+= amount
     // },
