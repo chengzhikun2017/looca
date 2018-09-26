@@ -1,8 +1,8 @@
 <template>
   <div class="mt4_money_bill-page">
     <!-- <div class="mt4_money_bill-search-table-divider"></div> -->
-    <div class="phone">
-      <SearchToggle v-if="!isPC" @ok="searchPhoneList">
+    <div class="phone" v-if="!isPC">
+      <SearchToggle @ok="searchPhoneList">
         <l-search-item>
           <a-radio-group v-model="listType" style="margin:8px">
             <a-radio-button value="withdraw">出金</a-radio-button>
