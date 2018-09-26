@@ -50,10 +50,12 @@ export default {
     newList: {
       type: Array,
       required: true,
+      default: () => []
     },
     total: {
       type: Number,
       required: true,
+      default: 0
     },
   },
   methods: {
@@ -95,12 +97,15 @@ export default {
     },
     addNewList() {
       this.$nextTick(() => {
-        this.newList.forEach((item) => {
-          //可能要nextTick
-          this.data.push(item)
-        })
-        if (this.data.length >= this.total) {
-          this.loadParams.nomore = true
+        // 存在newList找不到的情况
+        if (this.newList) {
+          this.newList.forEach((item) => {
+            //可能要nextTick
+            this.data.push(item)
+          })
+          if (this.data.length >= this.total) {
+            this.loadParams.nomore = true
+          }
         }
       })
     },
