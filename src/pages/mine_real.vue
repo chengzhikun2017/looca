@@ -114,7 +114,7 @@ name: 'mine_real',
       this.formData.name = this.authInfo.name
       this.formData.email = this.authInfo.email
       this.formData.idCardNo = this.authInfo.idCardNo
-      if(this.authInfo.status===3){
+      if(this.authInfo.status%3===0){//0 3
         this.editing = true
       }else{
         this.editing = false

@@ -13,7 +13,7 @@ class defaultState {
 }
 export default {
   namespaced: true,
-  // state: new defaultState,
+  state: new defaultState,
   getters: {},
   mutations: {
     resetList(state) {
