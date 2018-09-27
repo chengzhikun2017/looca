@@ -75,6 +75,7 @@ export default {
   position: relative;
   .cancel-box {
     position: absolute;
+    cursor: pointer;
     right: -5px;
     top: -10px;
     padding:5px;
