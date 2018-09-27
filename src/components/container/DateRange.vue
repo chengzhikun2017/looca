@@ -27,56 +27,64 @@ export default {
   methods: {
     onChange() {
       let dates = [this.startDate, this.endDate]
-      let strs = [this.startStr,this.endStr]
+      let strs = [this.startStr, this.endStr]
       this.$emit('dateRangeChange', dates, strs)
     },
     onStartChange(date) {
-      console.log('%c on start date change','color:red',date)
-      if (this.endDate) {
-        let isValid = this.startDate.isBefore(this.endDate)
-        if (!isValid) {
-          this.endDate = window.moment(this.startDate)
+      if (date === null) {
+        
+      } else {
+        console.log('%c on start date change', 'color:red', date)
+        if (this.endDate) {
+          let isValid = this.startDate.isBefore(this.endDate)
+          if (!isValid) {
+            this.endDate = window.moment(this.startDate)
+          }
         }
       }
       this.onChange()
     },
     onEndChange(date) {
-      if (this.startDate) {
-        let isValid = this.startDate.isBefore(this.endDate)
-        if (!isValid) {
-          this.startDate = window.moment(this.endDate)
+      if (date === null) {
+        
+      } else {
+        if (this.startDate) {
+          let isValid = this.startDate.isBefore(this.endDate)
+          if (!isValid) {
+            this.startDate = window.moment(this.endDate)
+          }
         }
+        this.onChange()
       }
-      this.onChange()
     },
-    initDate(){
-      if(this.defaultValue){
+    initDate() {
+      if (this.defaultValue) {
         this.startDate = this.defaultValue[0]
-        this.endDate= this.defaultValue[1]
+        this.endDate = this.defaultValue[1]
       }
     },
   },
 
-  created(){
+  created() {
     this.initDate()
   },
-  props:{
+  props: {
     defaultValue: {
-      type:Array,
+      type: Array,
     },
   },
   computed: {
-    startStr(){
-      if(this.startDate) {
+    startStr() {
+      if (this.startDate) {
         return this.startDate.format(FORMAT.day)
-      }else {
+      } else {
         return ''
       }
     },
-    endStr(){
-      if(this.endDate) {
+    endStr() {
+      if (this.endDate) {
         return this.endDate.format(FORMAT.day)
-      }else {
+      } else {
         return ''
       }
     },
@@ -91,7 +99,7 @@ export default {
     width: 70%;
   }
   .mobile-date-box {
-    margin:10px 0;
+    margin: 10px 0;
     label {
       width: 30%;
     }

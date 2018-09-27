@@ -110,8 +110,8 @@ export default {
       let params = this.getParams()
       let promise = this.submitFunc(params)
       promise.then(() => {
-        this.$message.info("设置成功")
         if (this.isFindpwd) {
+          this.$message.info("设置成功")
           this.setFindPwd(false)
         }
         // this.isRegister && this.switchTab('1')
@@ -157,7 +157,7 @@ export default {
     },
     onFocusCaptcha() {
       this.clearValidation('captcha')
-      this.getCaptcha()
+      // this.getCaptcha()
     },
     getCaptcha() {
       //todo: 万一没有手机号
@@ -197,6 +197,9 @@ export default {
     ...mapActions('account', ['getVerifyCode', 'signup', 'isPhoneRegister', 'findPwd'])
   },
   computed: {
+    phoneValid(){
+      return this.input.valid.phone
+    },
     submitFunc() {
       if (this.isFindpwd) {
         return this.findPwd
@@ -227,7 +230,19 @@ export default {
       }
     },
   },
-  watch: {},
+  watch: {
+    'formData.phone'(){
+      this.validate('phone')
+    },
+    phoneValid(value){
+      console.log('phone valid')
+      if(value){
+        this.getCaptcha()
+      }else{
+
+      }
+    },
+  },
   components: {},
 }
 

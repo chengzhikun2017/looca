@@ -59,7 +59,15 @@ export default {
         showLoading: false,
       })
       promise.then(res => {
-          state.list = res.data
+          let tempArr = []
+          res.data.forEach((item) => {
+            if(item.type==='normal') {
+              tempArr.push(item)
+            }else {
+              tempArr.unshift(item)
+            }
+          })
+          state.list = tempArr
           state.syncSuccess = res.syncSuccess
           if (!getters.hasCurrentStorage) {
             dispatch('setDefaultCurrent')

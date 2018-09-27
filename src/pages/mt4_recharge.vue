@@ -166,7 +166,7 @@ export default {
       this.current--
     },
     goBill(){
-      helper.goPage('/mt4_money_bill')
+      helper.goPage('/mt4_money_bill?initialType=recharge')
     },
     handleSubmit() {
       if(!this.checkValid()){

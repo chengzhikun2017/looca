@@ -25,7 +25,7 @@
             <div class="mt4_withdraw-input">
               <a-radio-group name="radioGroup" v-model="amountType">
                 <a-radio value="full">全部提取</a-radio>
-                <a-radio value="part">自定义</a-radio>
+                <a-radio value="part" v-if="currentMt4Info.type==='normal'">自定义</a-radio>
               </a-radio-group>
             </div>
           </a-form-item>
@@ -46,8 +46,8 @@
       </div>
       <div class="mt4_withdraw-content-note">
         <p class="mt4_withdraw-content-note-title">如有问题，请联系客服</p>
-        <p class="mt4_withdraw-content-note-item">QQ：1231</p>
-        <p class="mt4_withdraw-content-note-item">电话：34223</p>
+        <p class="mt4_withdraw-content-note-item">客服QQ: 83166672</p>
+        <p class="mt4_withdraw-content-note-item">客服电话：4000577009</p>
       </div>
     </div>
     <div v-if="current === 1 " class="mt4_withdraw-content">
@@ -60,7 +60,7 @@
               <span> {{successResponse.mt4Uid}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='出金金额' :labelCol="{ span: 6 }">
-              <span>${{successResponse.dollar}}</span>
+              <span>${{successResponse.dollar | money}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='手续费' :labelCol="{ span: 6 }">
               <!-- <span v-if="!successResponse.serviceFee">
@@ -108,20 +108,21 @@ import inputMixin from './../components/mixin/input.js'
 import inputHelper from './../utils/inputHelper.js'
 import helper from './../utils/helper.js'
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
-const defaultData = {
-  current: 0,
-  steps: [{
-    title: '填写出金信息',
-  }, {
-    title: '完成',
-  }],
-  // confirmVisible: false,
-  rechargeSucceed: false,
-  successResponse: {},
-  errorResponse: {},
-  rechargeFailed: false,
-  amountType: 'full',
-  amount: '',
+class defaultData {
+  constructor() {
+    this.current= 0
+    this.steps= [{
+      title: '填写出金信息',
+    }, {
+      title: '完成',
+    }]
+    this.rechargeSucceed= false
+    this.successResponse= {}
+    this.errorResponse= {}
+    this.rechargeFailed= false
+    this.amountType= 'full'
+    this.amount= ''
+  }
 }
 export default {
   // mixins: [inputMixin],
@@ -130,7 +131,7 @@ export default {
     // inputHelper.ValidationSet.amount('amount')
     return {
       // input:newInput,
-      ...defaultData,
+      ...new defaultData,
     }
   },
   filters: {
@@ -140,7 +141,7 @@ export default {
   },
   methods: {
     failedBack() {
-      Object.assign(this, defaultData)
+      Object.assign(this,new defaultData)
     },
     submit() {
       // if(this.validateAll()){

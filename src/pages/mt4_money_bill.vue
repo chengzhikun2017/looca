@@ -134,7 +134,11 @@ export default {
     }
   },
   created() {
+    if(this.initialType === 'recharge'){
+      this.listType = 'deposit'
+    }
     this.isPC && this.getList()
+
   },
   methods: {
     searchPhoneList(){
@@ -158,6 +162,9 @@ export default {
     })
   },
   computed: {
+    initialType(){
+      return this.$route.query.initialType
+    },
     paramsPhone() {
       return {
         mt4Uid: this.currentMt4Uid,

@@ -62,8 +62,8 @@
       </div>
       <div class="mine_real-content-note">
         <p class="mine_real-content-note-title">如有问题，请联系客服</p>
-        <p class="mine_real-content-note-item">QQ：1231</p>
-        <p class="mine_real-content-note-item">电话：34223</p>
+        <p class="mine_real-content-note-item">QQ: 83166672</p>
+        <p class="mine_real-content-note-item">客服电话: 4000577009</p>
       </div>
     </div>
   </div>

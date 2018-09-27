@@ -24,8 +24,8 @@
       <a-range-picker :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }" :defaultValue="[defaultStart,defaultEnd]" @change="onDateRangeChange" /> &nbsp;
       <a-button @click="searchList" type="primary">查询</a-button>
     </div>
-    <Mt4SyncFail :success="syncSuccess==0&&!listLoading" :reSyncFunc="getList" > </Mt4SyncFail>
-    <a-alert type="success" v-if="syncSuccess && listType==='trade' && summaryGot">
+    <Mt4SyncFail :success="showSyncFail" :reSyncFunc="getList" > </Mt4SyncFail>
+    <a-alert type="success" v-if="showingList.syncSuccess && showingPhoneListType==='trade' && summaryGot">
       <p class="summary" slot="description">
         <!-- <label for="">总览：</label> -->
         <span>
@@ -62,7 +62,11 @@
     <!-- loadmore -->
     <div class="list-box phone" v-if="!isPC">
       <ListPhone :newList="list" ref="listPhone" :params="paramsPhone" :getFunc="_getList" :total="_list.ttlQty" @loadStart="listPhoneLoading=true" @loadStop="listPhoneLoading=false">
-        <mt4TradeListItem slot-scope="props" :info="props.item"></mt4TradeListItem>
+        <!-- <mt4TradeItem slot-scope="props" :info="props.item" ></mt4TradeItem> -->
+        <template slot-scope="props">
+          <mt4TradeListItem  :info="props.item" v-if="showingPhoneListType=='trade'"></mt4TradeListItem>
+          <openOrderListItem  :info="props.item" v-if="showingPhoneListType=='open'"></openOrderListItem>
+        </template>
       </ListPhone>
     </div>
   </div>
@@ -74,7 +78,11 @@ const Mt4Select = () =>
   import ('../components/views/mt4Select.vue')
 const DateRange = () =>
   import ('../components/container/DateRange.vue')
-const mt4TradeListItem = () =>
+// const mt4TradeItem = () =>
+  // import ('../components/container/mt4TradeItem.vue')
+const openOrderListItem  = () =>
+  import ('../components/container/openOrderListItem.vue')
+const mt4TradeListItem  = () =>
   import ('../components/container/mt4TradeListItem.vue')
 const SearchToggle = () =>
   import ('../components/container/SearchToggle.vue')
@@ -139,13 +147,16 @@ export default {
     return {
       listData: [],
       listType: 'trade',
+      showingPhoneListType:'',
       loading: false,
       columns,
       currentPage: 1,
       listPhoneLoading:false,
+      // showSyncFail:false,
     }
   },
   created() {
+    this.showingPhoneListType = this.listType
     this.isPC && this.getList()
   },
   methods: {
@@ -173,6 +184,7 @@ export default {
       })
     },
     searchPhoneList() {
+      this.showingPhoneListType = this.listType
       this.$refs.listPhone.reLoad()
     },
     getList() {
@@ -194,9 +206,11 @@ export default {
     }),
   },
   computed: {
+    showSyncFail(){
+      return this.showingList.syncSuccess==0&&!this.listLoading
+    },
     listLoading(){
       return this.loading || this.listPhoneLoading
-        
     },
     paramsPhone() {
       return {
@@ -218,6 +232,9 @@ export default {
     },
     _list() {
       return this[`${this.listType}List`] || {}
+    },
+    showingList() {
+      return this[`${this.showingPhoneListType}List`] || {}
     },
     list() {
       return this._list.list
@@ -250,6 +267,8 @@ export default {
     DateRange,
     mt4TradeListItem,
     SearchToggle,
+    // mt4TradeItem,
+    openOrderListItem,
     ListPhone,
   },
 }

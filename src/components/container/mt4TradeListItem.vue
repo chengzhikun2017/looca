@@ -22,7 +22,7 @@
         <div class="mt4_balance_list_item-summary-status"
           :class="{'green':info.profit<0,'red':info.profit>0,}"
           flex-box="0">
-          ${{info.profit | money}}
+          ${{info.profit}}
         </div>
       </div>
       <div class="mt4_balance_list_item-others" flex="cross:center">
@@ -57,7 +57,7 @@
 <script>
   import {getTimeString} from '@/utils/time.js'
   export default {
-    name: 'mt4_balance_list_item',
+    name: 'mt4_Trade_list_item',
     props: {
       info: {
         type: Object,
