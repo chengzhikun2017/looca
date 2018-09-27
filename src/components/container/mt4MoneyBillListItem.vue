@@ -15,7 +15,7 @@
             </div>
           </div>
           <div class="mt4_balance_list_item-summary-note">
-            [MT4订单号：{{data.orderId}} 跟单结算]
+            [MT4订单号：{{data.orderId}}]
           </div>
         </div>
         <div class="mt4_balance_list_item-summary-status"  flex-box="0">

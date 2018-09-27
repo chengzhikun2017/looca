@@ -25,10 +25,10 @@
 
 // 浏览器的样式
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
-  box-shadow: 0 0 0px 1000px white inset;
-  border: 1px solid #CCC!important;
+  box-shadow: 0 0 0px 1000px white inset !important;
+  border: 1px solid #CCC !important;
 }
 
 .ant-input:focus {
-  box-shadow: 0 0 0px 1000px white inset;
+  box-shadow: 0 0 0px 1000px white inset !important;
 }
