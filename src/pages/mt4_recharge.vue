@@ -100,17 +100,18 @@ import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
 import inputMixin from './../components/mixin/input.js'
 import inputHelper from './../utils/inputHelper.js'
 import { ValidationSet } from './../utils/inputHelper.js'
-const defaultData = {
-  current: 0,
-  steps: [{
-    title: '填写入金信息',
-  }, {
-    title: '完成',
-  }],
-  // confirmVisible: false,
-  rechargeSucceed:false,
-  successResponse:{},
-  rechargeFailed:false,
+class defaultData {
+  constructor() {
+    this.current= 0
+    this.steps= [{
+      title: '填写入金信息',
+    }, {
+      title: '完成',
+    }]
+    this.rechargeSucceed= false
+    this.successResponse= {}
+    this.rechargeFailed= false
+  }
 }
 export default {
   created(){
@@ -122,7 +123,7 @@ export default {
     return {
       input:newInput,
       MIN_AMOUNT:100,
-      ...defaultData,
+      ...new defaultData,
     }
   },
   mixins: [inputMixin],
@@ -139,7 +140,7 @@ export default {
   },
   methods: {
     failedBack(){
-      Object.assign(this,defaultData)
+      Object.assign(this,new defaultData)
     },
     onConfirmed(){
       this.submit()

@@ -53,14 +53,16 @@
     <div v-if="current === 1 " class="mt4_withdraw-content">
       <div v-if="rechargeSucceed" class="mt4_withdraw-content-success" flex="dir:top main:center cross:center">
         <a-icon class="mt4_withdraw-icon-success" type="check-circle" />
-        <div class="mt4_withdraw-content-title">出金成功</div>
+        <div class="mt4_withdraw-content-title">
+          提交成功
+        </div>
         <div class="mt4_withdraw-table">
           <a-form>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='MT4账号' :labelCol="{ span: 6 }">
               <span> {{successResponse.mt4Uid}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='出金金额' :labelCol="{ span: 6 }">
-              <span>${{successResponse.dollar | money}}</span>
+              <span>${{successResponse.dollar }}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='手续费' :labelCol="{ span: 6 }">
               <!-- <span v-if="!successResponse.serviceFee">
@@ -155,7 +157,7 @@ export default {
       let params = {
         mt4Uid: this.currentMt4Uid,
         // amount: this.formData.amount,
-        amount: this.amount,
+        amount: this.amount*100,
         type: this.amountType,
       }
       this.withdraw(params).then((res) => {

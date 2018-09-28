@@ -34,11 +34,15 @@ export default {
     // },
   },
   actions: {
-    onWithdraw({ rootState }, { id }) {
+    onWithdraw({ rootState }, { id ,amount}) {
       let mt4 = rootState.mt4AC.list.find((item) => {
         return item.mt4Uid == id
       })
-      mt4.balanceFee = 0
+      if(amount===undefined){
+        mt4.balanceFee = 0
+      }else{
+        mt4.balanceFee-=amount
+      }
     },
     onDeposit({ rootState }, { id, amount }) {
       // console.log('%c state.list','color:red',state.list)
@@ -82,6 +86,7 @@ export default {
         helper.updateMoney()
         dispatch('onWithdraw', {
           id: mt4Uid,
+          ...params,
         })
       })
       return promise

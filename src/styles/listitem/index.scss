@@ -60,6 +60,12 @@
     }
   }
 }
+.action-type.buy{
+  color:#1890ff;
+}
+.action-type.sell{
+  color:#f5222d;
+}
 .fade-enter-active, .fade-leave-active {
   transition: opacity .3s;
 }
