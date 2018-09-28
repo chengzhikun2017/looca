@@ -1,7 +1,7 @@
 <template>
   <div class="l-list-phone">
     <div class="list-box" v-infinite-scroll="loadList" :infinite-scroll-disabled="loading" :infinite-scroll-distance="80">
-      <a-list :dataSource="data" v-if="!loading" :locale="locale">
+      <a-list :dataSource="data"  :locale="locale">
         <a-list-item slot="renderItem" slot-scope="item, index">
           <slot :item="item"></slot>
         </a-list-item>

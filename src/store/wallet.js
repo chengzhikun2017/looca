@@ -11,10 +11,10 @@ class emptyList{
   constructor(){
     this.payList=[]
     this.payListTtl=0
-    this.payListTilPage=0
+    this.payListTtlPage=0
     this.withdrawList=[]
     this.withdrawListTtl=0
-    this.withdrawListTilPage=0
+    this.withdrawListTtlPage=0
   }
 }
 export default {
@@ -27,10 +27,10 @@ export default {
     },
     payList:[],
     payListTtl:0,
-    payListTilPage:0,
+    payListTtlPage:0,
     withdrawList:[],
     withdrawListTtl:0,
-    withdrawListTilPage:0,
+    withdrawListTtlPage:0,
     currency:{
       usd2rmb:{
         id:null,
@@ -75,7 +75,7 @@ export default {
       promise.then((res) => {
         state.payList = res.list.map(addCalculatedRmb)
         state.payListTtl = res.total
-        state.payListTilPage = res.pages
+        state.payListTtlPage = res.pages
         console.log('%c wallet list','color:red',res) 
       })
       return promise
@@ -97,7 +97,7 @@ export default {
       promise.then((res) => {
         state.withdrawList = res.list.map(addCalculatedRmb)
         state.withdrawListTtl = res.total
-        state.withdrawListTilPage = res.pages
+        state.withdrawListTtlPage = res.pages
         console.log('%c wallet list','color:red',res) 
       })
       return promise
