@@ -70,7 +70,11 @@ export default {
   },
   methods: {
     copyLink(){
-      this.$message.info('待实现')
+      this.$copyText(this.shareInfo.link).then( (e)=> {
+        this.$message.info('复制成功')
+      },  (e)=> {
+        this.$message.error('复制失败')
+      })
     },
     handleCancel(){
       this.showFullQR = false

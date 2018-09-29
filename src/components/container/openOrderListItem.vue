@@ -16,7 +16,8 @@
           <div class="mt4_open_item-summary-note">
             <span class="mt4_open_item-summary-note-item">开 {{info.openPrice}}</span>
             <span class="mt4_open_item-summary-note-item"><a-icon type="sync" /> 1.7232</span>
-            <span class="mt4_open_item-summary-note-item"><a-icon type="fork" />
+            <span class="mt4_open_item-summary-note-item action-type" :class="actionTypeClass">
+              <a-icon type="fork" />
               {{info.actionType}}
             </span>
           </div>
@@ -74,7 +75,12 @@ export default {
     toggle() {
       this.isDetailShow = !this.isDetailShow
     }
-  }
+  },
+  computed: {
+    actionTypeClass(){
+      return this.info.actionType.toLowerCase()
+    },
+  },
 }
 
 </script>

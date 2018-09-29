@@ -93,7 +93,11 @@ crmRoutes = crmRoutes.concat(
   newRoute('/index_page', 'index_page', index_page),
   newRoute('/mine_cards', 'mine_cards', mine_cards),
   newRoute('/mine_real', 'mine_real', mine_real),
-  newRoute('/mt4_overview', 'mt4_overview', mt4_overview),
+  newRoute('/mt4_overview', 'mt4_overview', mt4_overview,{
+    meta:{
+      keepAlive: true,
+    },
+  }),
   newRoute('/mt4_bind', 'mt4_bind', mt4_bind),
   newRoute('/mt4_modifypwd', 'mt4_modifypwd', mt4_modifypwd),
   newRoute('/mt4_create/:type', 'mt4_create', mt4_create),

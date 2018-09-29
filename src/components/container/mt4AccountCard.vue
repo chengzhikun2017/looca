@@ -18,10 +18,10 @@
         <div class="mt4_account_card-trade" flex-box="1" flex="dir:top main:center cross:center">
           <div>持仓亏盈</div>
           <div class="red money" v-if="mt4.openOrderProfit!==null&&mt4.openOrderProfit>=0">
-            ${{mt4.openOrderProfit | money}}（{{mt4.openOrderNum}}笔）
+            ${{mt4.openOrderProfit}}（{{mt4.openOrderNum}}笔）
           </div>
           <div class="green money" v-if="mt4.openOrderProfit<0">
-            -${{-mt4.openOrderProfit | money}}（{{mt4.openOrderNum}}笔）
+            -${{-mt4.openOrderProfit}}（{{mt4.openOrderNum}}笔）
           </div>
           <div class=" money" v-if="mt4.openOrderProfit==null">-</div>
         </div>

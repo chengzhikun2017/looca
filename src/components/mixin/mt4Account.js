@@ -20,11 +20,13 @@ export default {
   },
   methods:{
     goAction(path){
-      console.log('%c this','color:red',this)
+      // console.log('%c this','color:red',this)
       this.setCurrent(this.mt4.mt4Uid)
       helper.goPage(path)
     },
-    goWithdraw(){
+
+    goWithdraw(item){
+      this.setCurrent(this.mt4.mt4Uid)
       this.$modal.confirm({
         title:"确认信息",
         style:"top: 20px;",
@@ -38,7 +40,8 @@ export default {
         cancelText:"取消",
       })
     },
-    goRechage(){
+    goRechage(item){
+      this.setCurrent(this.mt4.mt4Uid)
       this.$modal.confirm({
         title:"确认信息",
         style:"top: 20px;",

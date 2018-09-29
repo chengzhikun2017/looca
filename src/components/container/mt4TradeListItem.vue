@@ -16,7 +16,10 @@
           <div class="mt4_balance_list_item-summary-note">
             <span class="mt4_balance_list_item-summary-note-item">开 {{info.openPrice}}</span>
             <span class="mt4_balance_list_item-summary-note-item">平 {{info.closePrice}}</span>
-            <span class="mt4_balance_list_item-summary-note-item"><a-icon type="fork" /> {{info.actionType}}</span>
+            <span class="mt4_open_item-summary-note-item action-type" :class="actionTypeClass">
+              <a-icon type="fork" />
+              {{info.actionType}}
+            </span>
           </div>
         </div>
         <div class="mt4_balance_list_item-summary-status"
@@ -73,7 +76,12 @@
       toggle () {
         this.isDetailShow = !this.isDetailShow
       }
-    }
+    },
+    computed: {
+      actionTypeClass(){
+        return this.info.actionType.toLowerCase()
+      },
+    },
   }
 </script>
 <style lang="scss">
@@ -85,5 +93,6 @@
   .red {
     color: #f5222d;
   }
+
 </style>
 

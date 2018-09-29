@@ -163,8 +163,8 @@ export default {
     if(this.initialType === 'withdraw'){
       this.listType = 'withdraw'
     }
-    if (this.isPC) {
-      this.getWithdrawList()
+    if(this.isPC) {
+      this.getList()
     } else {}
   },
   methods: {
@@ -180,6 +180,7 @@ export default {
       return record.id
     },
     handleTableChange(pagination) {
+      console.log('%c pagination','color:red',pagination)
       this.pagination = pagination
       this.getList()
     },
@@ -211,12 +212,12 @@ export default {
       if (this.listType === "recharge") {
         Object.assign(this.pagination, {
           current: 1,
-          total: this.payListTilPage,
+          total: this.payListTtl,
         })
       } else if (this.listType === "withdraw") {
         Object.assign(this.pagination, {
           current: 1,
-          total: this.withdrawListTilPage,
+          total: this.withdrawListTtl,
         })
       }
     },
@@ -277,10 +278,10 @@ export default {
     ...mapState('wallet', [
       'payList',
       'payListTtl',
-      'payListTilPage',
+      'payListTtlPage',
       'withdrawList',
       'withdrawListTtl',
-      'withdrawListTilPage',
+      'withdrawListTtlPage',
     ]),
     ...mapState('app', ['isPC']),
 
