@@ -26,21 +26,25 @@
     </div>
     <Mt4SyncFail :success="showSyncFail" :reSyncFunc="getList" > </Mt4SyncFail>
     <a-alert type="success" v-if="showingList.syncSuccess && showingPhoneListType==='trade' && summaryGot">
-      <p class="summary" slot="description">
+      <div class="summary" slot="description" flex>
         <!-- <label for="">总览：</label> -->
-        <span>
-          总笔数:{{summary.total}}
-        </span>
-        <span>
-          亏损笔数:{{summary.loss}}
-        </span>
-        <span>
-          盈利笔数:{{summary.win}}
-        </span>
-        <span>
-          总实际盈利:${{summary.profit || 0 | money}}
-        </span>
-      </p>
+        <div flex-box="5">
+          <div>
+            全部笔数：{{summary.total}}
+          </div>
+          <div>
+            盈利笔数：{{summary.win}}
+          </div>
+        </div>
+        <div flex-box="1">
+          <div>
+            实际盈利：${{summary.profit || 0 | money}}
+          </div>
+          <div>
+            亏损笔数：{{summary.loss}}
+          </div>
+        </div>
+      </div>
     </a-alert>
     <div class="list-box pc" v-if="syncSuccess">
       <a-table :columns="columns" :rowKey="rowKey" :dataSource="list" :pagination="pagination" :loading="loading" @change="handleTableChange" v-if="isPC">

@@ -266,6 +266,7 @@ $prefix: "wallet_withdraw";
       .#{$prefix}-table-item {
         background: #fafafa;
         /*padding: 10px;*/
+        padding-left: 15px;
         margin-bottom: 0 !important;
       }
       .#{$prefix}-table-btn {

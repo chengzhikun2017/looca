@@ -88,7 +88,7 @@ $prefix: "guest_list_item";
 }
 
 .guest_list_item {
-  border: 1px solid #ccc;
+  // border: 1px solid #ccc;
   padding:5px;
 }
 
