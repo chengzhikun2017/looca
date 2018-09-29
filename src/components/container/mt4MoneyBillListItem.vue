@@ -7,19 +7,19 @@
             <div class="mt4_balance_list_item-summary-title" flex-box="0">
               {{data.type | moneyBillType}}
             </div>
-            <div class="mt4_balance_list_item-summary-money" flex-box="1">
+            <div class="mt4_balance_list_item-summary-money" flex-box="0">
               ${{data.dollar | money}}
             </div>
-            <div class="mt4_balance_list_item-summary-charge" flex-box="0">
+            <div class="mt4_balance_list_item-summary-charge" flex-box="1">
               手续费 {{data.serviceFee|money}}
+            </div>
+            <div class="mt4_balance_list_item-summary-status"  flex-box="0">
+              {{data.status | moneyBillStatus}}
             </div>
           </div>
           <div class="mt4_balance_list_item-summary-note">
             [MT4订单号：{{data.orderId}}]
           </div>
-        </div>
-        <div class="mt4_balance_list_item-summary-status"  flex-box="0">
-          {{data.status | moneyBillStatus}}
         </div>
       </div>
       <div class="mt4_balance_list_item-others" flex="cross:center">
