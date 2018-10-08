@@ -1,3 +1,4 @@
+
 .important-info{
   font-weight: bold;
   color:#f5222d;
@@ -5,6 +6,20 @@
 }
 body{
   overflow:hidden;
+}
+.l-red {
+  color: #f5222d;
+}
+.l-green {
+  color: #52c41a;
+}
+.l-blue {
+  color: #1890ff;
+}
+.l-search-box{
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 #app {
   height: 100%;

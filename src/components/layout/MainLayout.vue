@@ -103,6 +103,12 @@ const config = {
   agent_promote: { title: "我的推广", link: "agent_promote", rootKey: 'agent' },
   agent_overview: { title: "我的客户", link: "agent_overview", rootKey: 'agent' },
   agent_profit_overview: { title: "返现记录", link: "agent_profit_overview", rootKey: 'agent' },
+  broker: { title: "代理商",  },
+  broker_user: { title: "客户", link: "broker_user", rootKey: 'broker' },
+  broker_trade: { title: "账户", link: "broker_mt4Ac", rootKey: 'broker' },
+  broker_profit: { title: "交易", link: "broker_trade", rootKey: 'broker' },
+  broker_mt4Ac: { title: "佣金", link: "broker_profit", rootKey: 'broker' },
+  // agent_details_account: { title: "代理商", link: "agent_details_account", rootKey: 'agent_details' },
 }
 import {
   mapState,
@@ -361,7 +367,21 @@ export default {
           config.agent_overview,
           config.agent_profit_overview,
         ],
-      }, ]
+      }, { //broker
+        key: 'broker',
+        link: null,
+        icon: 'book',
+        ...config.broker,
+        children: [
+          config.broker_user,
+          config.broker_trade,
+          config.broker_profit,
+          config.broker_mt4Ac,
+          // config.agent_overview,
+          // config.agent_profit_overview,
+          
+        ],
+      },]
     },
     routePath() {
       return this.$route.path.split('/')[1]

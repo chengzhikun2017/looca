@@ -23,7 +23,7 @@
           </div>
         </div>
         <div class="mt4_balance_list_item-summary-status"
-          :class="{'green':info.profit<0,'red':info.profit>0,}"
+          :class="{'l-blue':info.profit<0,'l-red':info.profit>0,}"
           flex-box="0">
           ${{info.profit}}
         </div>

@@ -23,7 +23,7 @@
           </div>
         </div>
         <div class="mt4_open_item-summary-status"
-          :class="{'green':info.profit<0,'red':info.profit>0,}"
+          :class="{'l-blue':info.profit<0,'l-red':info.profit>0,}"
           flex-box="0">
           ${{info.profit}}
         </div>
@@ -87,12 +87,6 @@ export default {
 <style lang="scss">
 $prefix: "mt4_open_item";
 @import '@/styles/listitem/index.scss';
-.green {
-  color: #52c41a;
-}
 
-.red {
-  color: #f5222d;
-}
 
 </style>

@@ -62,7 +62,7 @@
               <span> {{successResponse.mt4Uid}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='出金金额' :labelCol="{ span: 6 }">
-              <span>${{successResponse.dollar }}</span>
+              <span>${{successResponse.dollar | money}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='手续费' :labelCol="{ span: 6 }">
               <!-- <span v-if="!successResponse.serviceFee">

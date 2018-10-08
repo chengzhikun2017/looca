@@ -57,25 +57,25 @@
           @change="handleTableChange"
           v-if="isPC"
         >
-        <template slot="balanceFee" slot-scope="balanceFee">
+        <!-- <template slot="balanceFee" slot-scope="balanceFee">
           {{balanceFee|money}}
         </template>
         <template slot="createTime" slot-scope="createTime">
           {{createTime|timeFull}}
-        </template>
+        </template> -->
         <template slot="list" slot-scope="text, record, index">
           <ListItem :mt4="record"></ListItem>
         </template>
-        <template slot="action" slot-scope="text, record, index">
+       <!--  <template slot="action" slot-scope="text, record, index">
           <a-button size="small" type="primary">立即入金</a-button>
           <a-button size="small" @click.native="onSelectCurrent(record,index)" v-if="currentMt4Uid!=record.mt4Uid" type="primary">
             登录
           </a-button>
           <a-button size="small" @click.native="onSelectCurrent(record,index)" v-if="currentMt4Uid==record.mt4Uid"  disabled >
             已登录
-          </a-button>
+          </a-button> -->
           <!-- <span>{{text}}{{record}}</span> -->
-        </template>
+        <!-- </template> -->
       </a-table>
     </div>
     <div class="empty" v-if="listGot&&list.length===0">
@@ -101,87 +101,87 @@ const Mt4SyncFail = ()=> import( '../components/container/mt4SyncFail.vue')
     scopedSlots: { customRender: 'list' },
   },
   ]
-  //PC可配置 显示列
-  //
-  const allColumns = {
+  // //PC可配置 显示列
+  // //
+  // // const allColumns = {
    
-    gmtUser:{
-      title: 'gmtUser',
-      dataIndex: 'gmtUser',
-      // scopedSlots: { customRender: 'time' },
-    },
-    // "gmtUser": 1534386421, //最后一次更新账户余额时间戳
-    // "gmtOpenOrder": 1534343721, //最后一次更新持仓时间戳
-    // "gmtClosedOrder": 1533889310, //最后一次更新历史交易时间戳
-    // "gmtFollowSettlement": 0, //最后一次结算跟单手续费时间戳
-    gmtOpenOrder:{
-      title: 'gmtOpenOrder',
-      dataIndex: 'gmtOpenOrder',
-      // scopedSlots: { customRender: 'time' },
-    },
-    gmtClosedOrder:{
-      title: 'gmtClosedOrder',
-      dataIndex: 'gmtClosedOrder',
-      // scopedSlots: { customRender: 'time' },
-    },
-    gmtFollowSettlement:{
-      title: 'gmtFollowSettlement',
-      dataIndex: 'gmtFollowSettlement',
-      // scopedSlots: { customRender: 'time' },
-    },
-    createTime:{
-      title: 'createTime',
-      dataIndex: 'createTime',
-      scopedSlots: { customRender: 'createTime' },
-    },
-  }
-  const staticColums = [
-    {
-      title: 'MT4 ID',
-      dataIndex: 'mt4Uid',
-    },
-    {
-      title: '余额',
-      dataIndex: 'balanceFee',
-      scopedSlots: { customRender: 'balanceFee' },
-    },
-    {
-      title: '账户名',
-      dataIndex: 'fullName',
-    },
-    {
-      title: '杠杆',
-      dataIndex: 'leverage',
-    },
-    {
-      title: "action",
-      dataIndex: "action",
-      width:'35%',
-      scopedSlots: {
-        customRender: 'action'
-      },
-    },
-  ]
-  const columns = [{
-    title: 'MT4 ID',
-    dataIndex: 'mt4Uid',
-    // sorter: true,
-    width: '20%',
-    // scopedSlots: { customRender: 'name' },
-  }, {
-    title: '名字',
-    dataIndex: 'fullName',
-    // filters: [
-    //   { text: 'Male', value: 'male' },
-    //   { text: 'Female', value: 'female' },
-    // ],
-    width: '20%',
-  },{
-    title:"action",
-    dataIndex:"action",
-    scopedSlots: { customRender: 'action' },
+  // //   gmtUser:{
+  // //     title: 'gmtUser',
+  // //     dataIndex: 'gmtUser',
+  // //     // scopedSlots: { customRender: 'time' },
+  // //   },
+  // //   // "gmtUser": 1534386421, //最后一次更新账户余额时间戳
+  // //   // "gmtOpenOrder": 1534343721, //最后一次更新持仓时间戳
+  // //   // "gmtClosedOrder": 1533889310, //最后一次更新历史交易时间戳
+  // //   // "gmtFollowSettlement": 0, //最后一次结算跟单手续费时间戳
+  // //   gmtOpenOrder:{
+  // //     title: 'gmtOpenOrder',
+  // //     dataIndex: 'gmtOpenOrder',
+  // //     // scopedSlots: { customRender: 'time' },
+  // //   },
+  // //   gmtClosedOrder:{
+  // //     title: 'gmtClosedOrder',
+  // //     dataIndex: 'gmtClosedOrder',
+  // //     // scopedSlots: { customRender: 'time' },
+  // //   },
+  // //   gmtFollowSettlement:{
+  // //     title: 'gmtFollowSettlement',
+  // //     dataIndex: 'gmtFollowSettlement',
+  // //     // scopedSlots: { customRender: 'time' },
+  // //   },
+  // //   createTime:{
+  // //     title: 'createTime',
+  // //     dataIndex: 'createTime',
+  // //     scopedSlots: { customRender: 'createTime' },
+  // //   },
+  // // }
+  // // const staticColums = [
+  // //   {
+  // //     title: 'MT4 ID',
+  // //     dataIndex: 'mt4Uid',
+  // //   },
+  // //   {
+  // //     title: '余额',
+  // //     dataIndex: 'balanceFee',
+  // //     scopedSlots: { customRender: 'balanceFee' },
+  // //   },
+  // //   {
+  // //     title: '账户名',
+  // //     dataIndex: 'fullName',
+  // //   },
+  // //   {
+  // //     title: '杠杆',
+  // //     dataIndex: 'leverage',
+  // //   },
+  // //   {
+  // //     title: "action",
+  // //     dataIndex: "action",
+  // //     width:'35%',
+  // //     scopedSlots: {
+  // //       customRender: 'action'
+  // //     },
+  // //   },
+  // // ]
+  // const columns = [{
+  //   title: 'MT4 ID',
+  //   dataIndex: 'mt4Uid',
+  //   // sorter: true,
+  //   width: '20%',
+  //   // scopedSlots: { customRender: 'name' },
+  // }, {
+  //   title: '名字',
+  //   dataIndex: 'fullName',
+  //   // filters: [
+  //   //   { text: 'Male', value: 'male' },
+  //   //   { text: 'Female', value: 'female' },
+  //   // ],
+  //   width: '20%',
+  // },{
+  //   title:"action",
+  //   dataIndex:"action",
+  //   scopedSlots: { customRender: 'action' },
 
-  }];
+  // }];
 var allIndex = []
 // for(let key in allColumns){
 //   allIndex.push(allColumns[key].dataIndex)
@@ -211,7 +211,7 @@ export default {
       },
       // loading: false,
       // columns,
-      allColumns,
+      // allColumns,
     }
   },
   created(){
@@ -274,10 +274,10 @@ export default {
     },
     columns(){
       return singleColum
-      let arr = this.columnsShow.map((item) => {
-        return this.allColumns[item]
-      })
-      return arr.concat(staticColums)
+      // let arr = this.columnsShow.map((item) => {
+      //   return this.allColumns[item]
+      // })
+      // return arr.concat(staticColums)
     },
     listLength(){
       return this.list.length

@@ -112,7 +112,7 @@ export default {
       })      
     },
     test() {
-      console.log('%c h','color:red',this.$store)
+      console.log('%c h','color:red',this.$store.state)
       // this.$router.push('/test3')
       // this.$store.dispatch('mt4Balance/list')
       // this.$modal.info({

@@ -5,6 +5,9 @@
         <div class="mt4_account_list_item-account-box" flex>
           <div class="mt4_account_list_item-account-box-label">MT4账号：</div>
           <div class="mt4_account_list_item-account-box-input">{{mt4.mt4Uid}}</div>
+          <div class="mt4_account_list_item-account-box-follow" v-if="mt4.type==='follow'"> 
+            <a class="btn" v-if="mt4.type==='follow'" type="primary" size="small" @click="goAction('/unknown')">跟单</a>账号
+          </div>
         </div>
         <div class="mt4_account_list_item-account-box" flex>
           <div class="mt4_account_list_item-account-box-label">名称：</div>
@@ -30,7 +33,6 @@
       <div class="mt4_account_list_item-options" flex-box="0">
         <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goRechage">入金</a-button>
         <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goWithdraw">出金</a-button>
-        <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goAction('/unknown')">跟单</a-button>
         <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goAction('/mt4_trade_history')">交易报表</a-button>
         <a-dropdown>
           <a-button class="mt4_account_list_item-btn" type="primary" size="small">更多</a-button>
@@ -60,13 +62,12 @@ export default {
   },
   data() {
     return {
-      rechargeConfirmVisible:false,
-      withdrawConfirmVisible:false,
+      rechargeConfirmVisible: false,
+      withdrawConfirmVisible: false,
     }
   },
   created() {},
-  methods:{
-  },
+  methods: {},
 }
 
 </script>
@@ -75,17 +76,26 @@ $prefix: "mt4_account_list_item";
 @import '@/styles/listitem/index.scss';
 .#{$prefix} {
   .#{$prefix}-account {
-    min-width: 200px;
+    min-width: 240px;
+    /*font-size: 14px;*/
     .#{$prefix}-account-box {
       .#{$prefix}-account-box-label {
         width: 100px;
         text-align: right;
+      }
+      .#{$prefix}-account-box-follow {
+        margin-left: 5px;
+        font-size: 14px;
+        .btn {
+          font-size: 14px;
+        }
       }
       .#{$prefix}-account-box-input {
         text-align: left;
       }
     }
   }
+
   .#{$prefix}-btn {
     font-size: 13px;
   }

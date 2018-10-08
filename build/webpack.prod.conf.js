@@ -75,7 +75,22 @@ const webpackConfig = merge(baseWebpackConfig, {
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
       },
+      excludeChunks:['app_loo_show'],
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+      chunksSortMode: 'dependency'
+    }),
+    new HtmlWebpackPlugin({
+      filename: process.env.NODE_ENV === 'testing'
+        ? 'index_loo_show.html'
+        : config.build.index_loo_show,
+      template: 'index_loo_show.html',
+      inject: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+      },
+      excludeChunks:['app'],
       chunksSortMode: 'dependency'
     }),
     // keep module.id stable when vendor modules does not change

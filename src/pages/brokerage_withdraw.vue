@@ -43,7 +43,7 @@ export default {
       if(!this.validateAll()){
         return
       }
-      this.payByBrokerage(this.formData.amount)
+      this.payByBrokerage(this.formData.amount*100)
     },
     ...mapActions('broker',[]),
     ...mapActions('wallet', ['withdraw', 'getCurrency','payByBrokerage']),

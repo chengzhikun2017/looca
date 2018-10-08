@@ -1,39 +1,15 @@
 <template>
-  <section class="container" :style="`height:${height}`" :class="dev!==undefined?'dev':'prod'">
-    <div class="background-box"  :style="`z-index: ${backgroundZ}`">
-      <div class="background" :class="backgroundClass">
-        <slot name="background">
-
-        </slot>
-      </div>
-    </div>
-    <slot></slot>
-  </section>
+  <div  id="app_loo_show">
+    <router-view/>
+  </div>
 </template>
 <script>
 export default {
-  name: 'ContentCenterFullW',
+  name: 'AppLooShow',
   data() {
     return {
 
     }
-  },
-  props: {
-    height: {
-      type:  String,
-      default: "200px"
-    },
-    backgroundClass:{
-      type:String,
-      default:'',
-    },
-    backgroundZ:{
-      default:-1,
-      type:Number,
-    },
-    dev:{
-      
-    },
   },
   methods: {},
   computed: {},
@@ -41,8 +17,10 @@ export default {
 }
 
 </script>
-<style lang='scss' >
-.dev{
+<style lang="scss">
+#app_loo_show{
+  text-align: center;
+  .dev{
   border:1px solid red;
 }
 .prod{
@@ -77,4 +55,5 @@ section.container {
   }
 }
 
+}
 </style>

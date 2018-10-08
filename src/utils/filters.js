@@ -16,7 +16,13 @@ Vue.filter('timeDay', function(value) {
 Vue.filter('money', function(value) {
   return Number(value / 100).toFixed(2)
 })
-
+Vue.filter('guestType',function(value){
+  if (value === "normal") {
+    return "普通"
+  } else if (value === "protect") {
+    return '保本'
+  }
+})
 Vue.filter('authStatus', function(value) {
   //认证状态：0等待认证、1等待审核、2认证通过、3认证失败 
   let str = ''
