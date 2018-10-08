@@ -4,13 +4,16 @@
       <div class="mt4_open_item-summary" flex="cross:center">
         <div flex-box="1" flex="dir:top">
           <div flex="cross:center">
-            <div class="mt4_open_item-summary-title" flex-box="0">
+            <div class="mt4_open_item-summary-title" flex-box="1">
               MT4订单号 {{info.orderId}}
-            </div>
-            <div class="mt4_open_item-summary-money" flex-box="1">
             </div>
             <div class="mt4_open_item-summary-charge" flex-box="0">
               {{info.symbol}}
+            </div>
+            <div class="mt4_open_item-summary-money"
+              :class="{'green':info.profit<0,'red':info.profit>0,}"
+              flex-box="0">
+              ${{info.profit}}
             </div>
           </div>
           <div class="mt4_open_item-summary-note">
@@ -88,5 +91,11 @@ export default {
 $prefix: "mt4_open_item";
 @import '@/styles/listitem/index.scss';
 
-
+.red {
+  color: #f5222d;
+}
+.#{$prefix}-summary-money {
+  width: 100px !important;
+  text-align: right;
+}
 </style>
