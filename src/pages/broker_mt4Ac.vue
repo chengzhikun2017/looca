@@ -2,28 +2,10 @@
   <div>
     <div class="l-search-box">
       <div class="agent_overview-search">
-        <a-select style="width: 120px" v-model="partnerUid">
-          <a-select-option v-for="item in depthes" :key="item.value" :value="item.value">
-            <!-- {{item.label}}关系 -->
-            partnerUid
-          </a-select-option>
-        </a-select>
-        <a-select style="width: 120px" v-model="depth">
-          <a-select-option v-for="item in depthes" :key="item.value" :value="item.value">
-            {{item.label}}关系
-          </a-select-option>
-        </a-select>
-        <a-select style="width: 140px" v-model="mt4Type">
-          <a-select-option v-for="item in mt4Types" :key="item.value" :value="item.value">
-            {{item.label}}MT4账户
-          </a-select-option>
-        </a-select>
-        <a-select style="width: 120px" v-model="accountType">
-          <a-select-option v-for="item in accountTypes" :key="item.value" :value="item.value">
-            {{item.label}}账户
-          </a-select-option>
-        </a-select>
-        
+        <PartnerSelect v-model="partnerUid"></PartnerSelect>
+        <DepthSelect v-model="depth"></DepthSelect>
+        <Mt4TypeSelect v-model="mt4Type"></Mt4TypeSelect>
+        <AccountTypeSelect v-model="accountType"></AccountTypeSelect>
         <a-input style="width: 150px" v-model="search" placeholder="手机号/姓名"  @keydown.enter="searchList"/>
         <a-button @click="searchList" type="primary">查询</a-button>
       </div>
@@ -56,6 +38,7 @@
 </template>
 
 <script>
+import brokerSearchInputs from '../components/mixin/brokerSearchInputs.js'
 import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
 const CR = 'customRender'
 const SS = 'scopedSlots'
@@ -84,34 +67,36 @@ const columns = [
 ]
 export default {
   name:'broker_mt4Ac',
+  mixins:[brokerSearchInputs],
   data() {
     return {
-      partnerUid:null,
+      // partnerUid:null,
       search:'',
       columns,
-      depth:0,
+      // depth:0,
       loading:false,
-      depthes:[
-      {label:"所有",value:0},
-      {label:"一级",value:1},
-      {label:"二级",value:2},
-      {label:"三级",value:3},
-      ],
-      mt4Type:"",
-      mt4Types:[
-      {label:"全部",value:""},
-      {label:"跟单",value:"follow"},
-      {label:"普通",value:"normal"},
-      ],
-      accountType:"",
-      accountTypes:[
-      {label:"全部",value:""},
-      {label:"普通",value:"normal"},
-      {label:"保本",value:"protect"},
-      ],
-      currentPage:1,
       savedParams:{},
+      
+      // depthes:[
+      // {label:"所有",value:0},
+      // {label:"一级",value:1},
+      // {label:"二级",value:2},
+      // {label:"三级",value:3},
+      // ],
+      // mt4Type:"",
+      // accountType:"",
+      // accountTypes:[
+      // {label:"全部",value:""},
+      // {label:"普通",value:"normal"},
+      // {label:"保本",value:"protect"},
+      // ],
+      currentPage:1,
     }
+  },
+  created(){
+    this.search = this.queryPhone
+    this.partnerUid = this.queryPartnerUid
+    this.searchList()
   },
   methods: {
     searchList(){
@@ -132,7 +117,6 @@ export default {
         limit:this.pagination.pageSize,
 
       }
-      params.partnerUid = this.searchUid
       this.loading = true
       this.getMt4AC(params)
       .then(() => {
@@ -151,11 +135,14 @@ export default {
     rowkey(item,index){
       return index
     },
-    ...mapActions('broker',["getPartner","getMt4AC"]),
+    ...mapActions('broker',["getMt4AC"]),
   },
   computed: {
-    searchUid(){
-      return this.$route.query.uid
+    queryPhone(){
+      return this.$route.query.phone
+    },
+    queryPartnerUid(){
+      return this.$route.query.partnerUid
     },
     pagination() {
       return {
@@ -166,7 +153,7 @@ export default {
         current: this.currentPage,
       }
     },
-    ...mapState('broker',["partners","mt4List"]),
+    ...mapState('broker',["mt4List"]),
   },
   components: {},
 }

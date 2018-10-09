@@ -2,22 +2,9 @@
   <div>
     <div class="l-search-box">
       <div class="agent_overview-search">
-        <a-select style="width: 120px" v-model="partnerUid">
-          <a-select-option v-for="item in depthes" :key="item.value" :value="item.value">
-            <!-- {{item.label}}关系 -->
-            partnerUid
-          </a-select-option>
-        </a-select>
-        <a-select style="width: 120px" v-model="depth">
-          <a-select-option v-for="item in depthes" :key="item.value" :value="item.value">
-            {{item.label}}关系
-          </a-select-option>
-        </a-select>
-        <a-select style="width: 120px" v-model="accountType">
-          <a-select-option v-for="item in accountTypes" :key="item.value" :value="item.value">
-            {{item.label}}账户
-          </a-select-option>
-        </a-select>
+        <PartnerSelect v-model="partnerUid"></PartnerSelect>
+        <DepthSelect v-model="depth"></DepthSelect>
+        <AccountTypeSelect v-model="accountType"></AccountTypeSelect>
         <a-input style="width: 150px" v-model="search" placeholder="手机号/姓名"  @keydown.enter="searchList"/>
         <a-button @click="searchList" type="primary">查询</a-button>
       </div>
@@ -25,7 +12,7 @@
     <div class="list pc">
       <a-table :pagination="pagination" bordered :dataSource="userList.list" :rowKey="rowkey" :columns="columns" @change="onTableChange" :loading="loading"> 
         <template slot="action" slot-scope="text, record, index">
-          <a-button size="small" type="primary" @click="goPage('/broker_mt4Ac?uid='+record.uid)">
+          <a-button size="small" type="primary" @click="goPage(`/broker_mt4Ac?phone=${record.phone}&partnerUid=${savedParams.partnerUid}`)">
             MT4账户
           </a-button> 
           <a-button size="small" type="primary" @click="">
@@ -57,6 +44,8 @@
 
 <script>
 import helper from '../utils/helper.js'
+import brokerSearchInputs from './../components/mixin/brokerSearchInputs.js'
+// import PartnerSelect from '../components/input/partnerUid.vue'
 import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
 const CR = 'customRender'
 const SS = 'scopedSlots'
@@ -82,6 +71,7 @@ const columns = [
 ]
 export default {
   name:'broker_user',
+  mixins:[brokerSearchInputs],
   data() {
     return {
       partnerUid:null,
@@ -89,18 +79,8 @@ export default {
       columns,
       depth:0,
       loading:false,
-      depthes:[
-      {label:"所有",value:0},
-      {label:"一级",value:1},
-      {label:"二级",value:2},
-      {label:"三级",value:3},
-      ],
       accountType:"",
-      accountTypes:[
-      {label:"全部",value:""},
-      {label:"普通",value:"normal"},
-      {label:"保本",value:"protect"},
-      ],
+     
       currentPage:1,
       savedParams:{},
       // search: 客户名字或者手机号
@@ -109,7 +89,7 @@ export default {
     }
   },
   created(){
-    this.getPartner()
+    this.searchList()
   },
   methods: {
     goPage(path){
@@ -149,9 +129,19 @@ export default {
     rowkey(item,index){
       return index
     },
-    ...mapActions('broker',["getPartner","getUsers"]),
+    ...mapActions('broker',["getUsers"]),
   },
   computed: {
+    partnerOpts(){
+      let arr = this.partners.map((item) => {
+        return {
+          label:item.name,
+          value:item.partnerUid,
+        } 
+      })
+      arr.unshift({label:"我的客户",value:this.userId})
+      return arr
+    },
     pagination() {
       return {
         pageSize: 2,
@@ -162,8 +152,11 @@ export default {
       }
     },
     ...mapState('broker',["partners","userList"]),
+    ...mapState('account',["userId"]),
   },
-  components: {},
+  components: {
+    // PartnerSelect,
+  },
 }
 </script>
 
