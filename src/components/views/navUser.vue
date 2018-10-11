@@ -1,5 +1,9 @@
 <template>
-  <div class="l-nav-user-box">
+  <div class="l-nav-user-box" flex="main:center cross:center">
+    <div class="l-nav-user-message">
+      <div class="l-nav-user-message-name">测试</div>
+      <div class="l-nav-user-message-phone">18888888888</div>
+    </div>
     <a-menu mode="horizontal" :subMenuCloseDelay='0.2' :subMenuOpenDelay="0.3">
       <a-sub-menu>
         <span class="title" slot="title"><a-icon type="setting"/></span>
@@ -40,6 +44,12 @@ export default {
   .ant-menu-root {
     /*border: 1px solid red;*/
   }
+  .l-nav-user-message {
+    line-height: 18px;
+    &-name {
+      text-align: right;
+    }
+  }
 }
 
 </style>
@@ -63,7 +73,7 @@ export default {
   }
   .ant-menu {
     border: 0;
-  
+
   }
   .ant-menu-horizontal {
     line-height: 32px;

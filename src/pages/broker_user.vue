@@ -39,7 +39,6 @@
         </template>
       </a-table>
     </div>
-    <div @click="test">示例</div>
   </div>
 </template>
 
@@ -93,9 +92,6 @@ export default {
     this.searchList()
   },
   methods: {
-    test() {
-      helper.addTableFooter()
-    },
     goPage(path){
       helper.goPage(path)
     },
@@ -118,6 +114,12 @@ export default {
       this.loading = true
       this.getUsers(params)
       .then(() => {
+        // 这里进行表尾的总计显示
+        this.$nextTick(() => {
+          // 获取总计的数据
+          const data = ['总计', '', '', '', '', '', '0.00', '3000.00', '0.00', '', '']
+          helper.addTableFooter(data)
+        })
         this.loading = false
       })
       .finally(() => {

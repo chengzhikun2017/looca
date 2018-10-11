@@ -299,7 +299,7 @@ export default {
       })
     },
     // menuConfigObj(){
-    //   let config = {} 
+    //   let config = {}
     //   this.menuConfig.forEach((item,index) => {
     //     config[item.key] = item
     //   })
@@ -379,7 +379,7 @@ export default {
           config.broker_mt4Ac,
           // config.agent_overview,
           // config.agent_profit_overview,
-          
+
         ],
       },]
     },
@@ -389,7 +389,7 @@ export default {
     contentHeight() {
       let height
       if(this.isPC){
-        height = this.windowHeight - (64 + 24 + 69 + 31) 
+        height = this.windowHeight - (64 + 24 + 69 + 31)
       }else {
         height = this.windowHeight - 24 - 31
       }
