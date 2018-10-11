@@ -52,9 +52,9 @@
           </div>
           <div class="action-box">
             <a href="#" class="btn action_box-button-first btn-lined" target="_blank" itemprop="url">
-              注册真实账户 
+              注册真实账户
               </a>
-            <a href="#" class="btn action_box-button-second btn-fullwhite" target="_blank" itemprop="url"> 
+            <a href="#" class="btn action_box-button-second btn-fullwhite" target="_blank" itemprop="url">
               客户登录
             </a>
           </div>
@@ -87,7 +87,7 @@
       <div class="download-page">
         <div class="text-box">
           <h3 class="title">
-            MetaTrader 4（MT4）随时随地进行交易 
+            MetaTrader 4（MT4）随时随地进行交易
           </h3>
           <h4 class="subtitle">
               最受欢迎的外汇交易平台
@@ -112,7 +112,7 @@
         <widget3 :src="collegeSrcs[2]" title="乐恺环球商学院" :contents="['Loo&co Global乐恺环球商学院','每天都会有外汇直播哦！']" />
       </div>
     </v-layer>
-    <v-layer height="560px" backgroundClass="bg-red">
+    <v-layer height="560px" backgroundClass="bg-deepgrey">
       <!-- media report -->
       <div class="media-box">
         <h2 class="title">
@@ -139,12 +139,12 @@
             <h3 class="title">相关链接</h3>
             <span class="link">执照和监管</span>
             <span class="link">联系我们</span>
-            <span class="link">跟单社区</span>
-            <span class="link">开户流程</span>
+            <!-- <span class="link">跟单社区</span> -->
+            <!-- <span class="link">开户流程</span> -->
           </div>
           <div class="links">
             <span class="link"></span>
-            <span class="link">MT4下载</span>
+            <span class="link" >MT4下载</span>
             <span class="link">资金安全</span>
             <span class="link">乐恺环球商学院</span>
             <span class="link">合伙人登录</span>
@@ -155,7 +155,8 @@
           </div>
           <div class="contact-us">
             <h4 class="title">联系我们</h4>
-            <p class="tel">客服热线：400-0577-009</p>
+            <p class="tel">客服QQ：83166672</p>
+            <p class="tel">客服微信：LOOCO8</p>
             <!-- <p class="mail">Email: service@Loo&co Global.com</p> -->
           </div>
         </div>
@@ -215,6 +216,7 @@ export default {
 </script>
 <style lang='scss' scoped>
 $themeRed:#cd2122;
+$themeGrey: #808080;
 .nav-box{
   position: absolute;
   top: 0;
@@ -292,7 +294,7 @@ $themeRed:#cd2122;
       &:hover:after{
         background-color:transparent;
       }
-      
+
     }
     .active{
       background:$themeRed;
@@ -385,6 +387,7 @@ $themeRed:#cd2122;
       margin-right: 20px;
       &:hover {
         background-color: #a41a1b;
+        // background-color: #808080;
       }
     }
   }
@@ -410,12 +413,12 @@ $themeRed:#cd2122;
   height: 200px;
   position: relative;
   top: -24px;
-  background: $themeRed;
+  background: $themeGrey;
   display: table;
   &:after {
     position: absolute;
     content: '';
-    background-color: $themeRed;
+    background-color: $themeGrey;
     width: 30px;
     height: 32px;
     display: block;
@@ -430,7 +433,7 @@ $themeRed:#cd2122;
   &:before {
     position: absolute;
     content: '';
-    background-color: $themeRed;
+    background-color: $themeGrey;
     /*border:1px solid red;*/
     top: -6px;
     left: 0;
@@ -742,6 +745,10 @@ $themeRed:#cd2122;
 <style lang="scss">
 .bg-grey {
   background: #f5f5f5;
+}
+
+.bg-deepgrey {
+  background: #808080;
 }
 
 .bg-black {
