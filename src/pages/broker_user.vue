@@ -10,17 +10,17 @@
       </div>
     </div>
     <div class="list pc">
-      <a-table :pagination="pagination" bordered :dataSource="userList.list" :rowKey="rowkey" :columns="columns" @change="onTableChange" :loading="loading"> 
+      <a-table :pagination="pagination" bordered :dataSource="userList.list" :rowKey="rowkey" :columns="columns" @change="onTableChange" :loading="loading">
         <template slot="action" slot-scope="text, record, index">
           <a-button size="small" type="primary" @click="goPage(`/broker_mt4Ac?phone=${record.phone}&partnerUid=${savedParams.partnerUid}`)">
             MT4账户
-          </a-button> 
+          </a-button>
           <a-button size="small" type="primary" @click="">
             MT4交易
           </a-button>
           <a-button size="small" type="primary" @click="">
             佣金报表
-          </a-button>    
+          </a-button>
         </template>
         <template slot="time" slot-scope="time">
           {{time | timeFull}}
@@ -39,6 +39,7 @@
         </template>
       </a-table>
     </div>
+    <div @click="test">示例</div>
   </div>
 </template>
 
@@ -56,7 +57,7 @@ const columns = [
   //   title: '关系',
   //   dataIndex: 'depth',
   //   // scopedSlots: { customRender: 'depth' },
-  // }, 
+  // },
   {title:"序列号",[DI]:"uid"},
   {title:"名字",[DI]:"name",width:"70px"},
   {title:"手机号",[DI]:"phone",width:"110px"},
@@ -80,7 +81,7 @@ export default {
       depth:0,
       loading:false,
       accountType:"",
-     
+
       currentPage:1,
       savedParams:{},
       // search: 客户名字或者手机号
@@ -92,6 +93,9 @@ export default {
     this.searchList()
   },
   methods: {
+    test() {
+      helper.addTableFooter()
+    },
     goPage(path){
       helper.goPage(path)
     },
@@ -114,10 +118,10 @@ export default {
       this.loading = true
       this.getUsers(params)
       .then(() => {
-        this.loading = false 
+        this.loading = false
       })
       .finally(() => {
-        this.loading = false        
+        this.loading = false
       })
 
     },
@@ -137,7 +141,7 @@ export default {
         return {
           label:item.name,
           value:item.partnerUid,
-        } 
+        }
       })
       arr.unshift({label:"我的客户",value:this.userId})
       return arr

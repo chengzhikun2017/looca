@@ -197,18 +197,22 @@ export default class helper {
   static resetStoreTrade() {
     vueApp.$store.commit('trade/reset')
   }
-
-  static addTableFooter(data, id) {
+  /**
+   *
+   * @param {数据源：确定列数和数据} data
+   * @param {Jquery选择器：如果当前页只有一个table，可不填} selector
+   */
+  static addTableFooter(data, selector) {
     // 参数的数据类型校验(暂时没有，如果需要统一封装一个，放在调用该函数前)
     if (!data) {
       // 默认data
       data = ['总计', '', '', '', '', '', '0.00', '3000.00', '0.00', '', '']
     }
     let table
-    if (!id) {
+    if (!selector) {
       table = document.getElementsByTagName('table')[0]
     } else {
-      table = document.querySelector(id)
+      table = document.querySelector(selector)
     }
     let tableFooter = document.createElement('tfoot')
     tableFooter.className = 'ant-table-tbody'
