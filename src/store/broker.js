@@ -16,6 +16,7 @@ export default {
   namespaced: true,
   state: {
     partners: [],
+    partnersGot:false,
     userList: new List,
     mt4List: new List,
     profitList: new List,
@@ -27,12 +28,18 @@ export default {
 
   },
   actions: {
-    getPartner({ state }) {
+    getPartner({ state },force) {
+      if(!force && state.partnersGot){
+        return
+      }
       let promise = fetch({
         url: "broker/user/partner",
       }, { showLoading: false })
       promise.then((res) => {
         state.partners = res
+        state.partnersGot = true
+        vueApp.$bus.emit('partners_got')
+        console.log('%c partners_got','color:red',)
       })
       return promise
     },
@@ -47,6 +54,13 @@ export default {
       }, { showLoading: false })
       promise.then((res) => {
         state.userList = Object.assign(state.userList, res)
+        // state.userList.list.push({
+        //   uid:"合计",
+        //   total_pay_fee:res.count.total_balance_fee,
+        //   balance_fee:res.count.total_brokerage_fee,
+        //   brokerage_fee:res.count.total_pay_fee,
+        //   _action:null,
+        // })
       })
       return promise
     },
@@ -106,5 +120,20 @@ export default {
       })
       return promise
     },
+    getFollowDetail({state},tradeNo){
+      // tradeNo: 业务编号
+      // page: 页码， 默认1开始
+      // limit: 每页个数，默认10
+      let promise = fetch({
+        url: "broker/comminssion/followDetail",
+        params: {
+          page: 1,
+          limit: 99999,
+          tradeNo,
+          // ...params,
+        },
+      }, { showLoading: false })
+      return promise
+    }
   }
 }

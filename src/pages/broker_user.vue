@@ -9,18 +9,21 @@
         <a-button @click="searchList" type="primary">查询</a-button>
       </div>
     </div>
-    <div class="list pc">
+    <div class="list broker-list pc">
       <a-table :pagination="pagination" bordered :dataSource="userList.list" :rowKey="rowkey" :columns="columns" @change="onTableChange" :loading="loading"> 
         <template slot="action" slot-scope="text, record, index">
           <a-button size="small" type="primary" @click="goPage(`/broker_mt4Ac?phone=${record.phone}&partnerUid=${savedParams.partnerUid}`)">
             MT4账户
           </a-button> 
-          <a-button size="small" type="primary" @click="">
+          <a-button size="small" type="primary" @click="goPage(`/broker_trade?phone=${record.phone}&partnerUid=${savedParams.partnerUid}`)">
             MT4交易
           </a-button>
-          <a-button size="small" type="primary" @click="">
+          <a-button size="small" type="primary" @click="goPage(`/broker_profit?phone=${record.phone}&partnerUid=${savedParams.partnerUid}`)">
             佣金报表
           </a-button>    
+        </template>
+        <template slot="index" slot-scope="text, record, index">
+          {{index + 1}}
         </template>
         <template slot="time" slot-scope="time">
           {{time | timeFull}}
@@ -57,7 +60,7 @@ const columns = [
   //   dataIndex: 'depth',
   //   // scopedSlots: { customRender: 'depth' },
   // }, 
-  {title:"序列号",[DI]:"uid"},
+  {title:"序列号",[DI]:"uid",[SS]:{[CR]:'index'}},
   {title:"名字",[DI]:"name",width:"70px"},
   {title:"手机号",[DI]:"phone",width:"110px"},
   {title:"客户类型",[DI]:"user_account_type",[SS]: { [CR]: 'user_account_type' },},
@@ -74,13 +77,12 @@ export default {
   mixins:[brokerSearchInputs],
   data() {
     return {
-      partnerUid:null,
+      partnerUid:this.$store.state.account.userId,
       search:'',
       columns,
       depth:0,
       loading:false,
       accountType:"",
-     
       currentPage:1,
       savedParams:{},
       // search: 客户名字或者手机号
@@ -89,6 +91,11 @@ export default {
     }
   },
   created(){
+    // if(this.queryPhone){
+    //   this.search = this.queryPhone
+    //   this.partnerUid = this.queryPartnerUid
+    // }
+    console.log('%c ','color:red',)
     this.searchList()
   },
   methods: {
@@ -102,6 +109,8 @@ export default {
         depth:this.depth,
         accountType:this.accountType,
       }
+      console.log('%c params','color:red',params)
+      this.currentPage = 1
       this.savedParams = params
       this.getList()
     },

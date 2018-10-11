@@ -58,7 +58,7 @@ router.beforeEach((to,from,next)=>{
 
   let isloged =  store.state.account.isLoged
   // console.log('%c // store.account.isLoged','color:red',isloged)
-  console.log('%c to','color:red',to)
+  // console.log('%c to','color:red',to)
   if(isloged || to.path==="/signup"){
     next()
   }else{
