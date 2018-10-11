@@ -10,12 +10,15 @@
         <a-button @click="searchList" type="primary">查询</a-button>
       </div>
     </div>
-    <div class="list pc">
+    <div class="list broker-list pc">
       <a-table :pagination="pagination" bordered :dataSource="mt4List.list" :rowKey="rowkey" :columns="columns" @change="onTableChange" :loading="loading"> 
         <template slot="action" slot-scope="createTsime">
           <a-button size="small" type="primary" @click="">MT4账户</a-button> 
           <a-button size="small" type="primary" @click="">MT4交易</a-button>
           <a-button size="small" type="primary" @click="">佣金报表</a-button>    
+        </template>
+        <template slot="index" slot-scope="text, record, index">
+          {{index + 1}}
         </template>
         <template slot="time" slot-scope="time">
           {{time | timeFull}}
@@ -50,7 +53,7 @@ const columns = [
   //   dataIndex: 'depth',
   //   // scopedSlots: { customRender: 'depth' },
   // }, 
-  {title:"序列号",[DI]:"uid"},
+  {title:"序列号",[DI]:"uid",[SS]:{[CR]:'index'}},
   {title:"MT4账号",[DI]:"mt4_uid"},
   {title:"名字",[DI]:"name",width:"70px"},
   {title:"手机号",[DI]:"phone",width:"110px"},
@@ -76,7 +79,7 @@ export default {
       // depth:0,
       loading:false,
       savedParams:{},
-      
+
       // depthes:[
       // {label:"所有",value:0},
       // {label:"一级",value:1},
@@ -94,8 +97,10 @@ export default {
     }
   },
   created(){
-    this.search = this.queryPhone
-    this.partnerUid = this.queryPartnerUid
+    if(this.queryPhone){
+      this.search = this.queryPhone
+      this.partnerUid = this.queryPartnerUid
+    }
     this.searchList()
   },
   methods: {
@@ -107,6 +112,7 @@ export default {
         accountType:this.accountType,
         mt4AccountType:this.mt4Type,
       }
+      this.currentPage = 1
       this.savedParams = params
       this.getList()
     },

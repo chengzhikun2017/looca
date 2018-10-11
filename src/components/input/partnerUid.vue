@@ -16,6 +16,9 @@ export default {
     }
   },
   props: {
+    containSelf:{
+      default: false,
+    },
     value: {
       required: true,
     },
@@ -48,6 +51,9 @@ export default {
         }
       })
       arr.unshift({ label: "我的客户", value: this.userId })
+      if(this.containSelf){
+        arr.unshift({ label: "本人", value: 0 })
+      }
       return arr
     },
     ...mapState('account', ['userId']),

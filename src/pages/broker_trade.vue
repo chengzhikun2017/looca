@@ -11,19 +11,22 @@
         <Mt4TypeSelect v-model="mt4Type"></Mt4TypeSelect>
         <AccountTypeSelect v-model="accountType"></AccountTypeSelect>
         <a-range-picker :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }" :defaultValue="[defaultStart,defaultEnd]" @change="onDateRangeChange" style="width: 240px" />
-        <a-input style="width: 150px" v-model="search" placeholder="手机号/姓名"  @keydown.enter="searchList"/>
+        <a-input style="width: 150px" v-model="search" placeholder="手机号/姓名" @keydown.enter="searchList" />
         <a-button @click="searchList" type="primary">查询</a-button>
       </div>
     </div>
-    <div class="list pc">
-      <a-table :pagination="pagination" bordered :dataSource="list.list" :rowKey="rowkey" :columns="columns" @change="onTableChange" :loading="loading"> 
+    <div class="list broker-list pc">
+      <a-table :pagination="pagination" bordered :dataSource="list.list" :rowKey="rowkey" :columns="columns" @change="onTableChange" :loading="loading">
         <template slot="action" slot-scope="createTime">
-          <a-button size="small" type="primary" @click="">MT4账户</a-button> 
+          <a-button size="small" type="primary" @click="">MT4账户</a-button>
           <a-button size="small" type="primary" @click="">MT4交易</a-button>
-          <a-button size="small" type="primary" @click="">佣金报表</a-button>    
+          <a-button size="small" type="primary" @click="">佣金报表</a-button>
         </template>
         <template slot="time" slot-scope="time">
           {{time | timeFull}}
+        </template>
+        <template slot="index" slot-scope="text, record, index">
+          {{index + 1}}
         </template>
         <template slot="level" slot-scope="level">
           {{level | agentLevel}}
@@ -41,10 +44,9 @@
     </div>
   </div>
 </template>
-
 <script>
 import brokerSearchInputs from '../components/mixin/brokerSearchInputs.js'
-import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
+import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import dateRange from './../components/mixin/dateRange.js'
 
 const CR = 'customRender'
@@ -57,23 +59,30 @@ const columnsOpen = [
   //   dataIndex: 'depth',
   //   // scopedSlots: { customRender: 'depth' },
   // }, 
-  {title:"序列号",[DI]:"uid"},
-  {title:"MT4账号",[DI]:"mt4_uid"},
-  {title:"名字",[DI]:"name",width:"70px"},
-  {title:"手机号",[DI]:"phone",width:"110px"},
-  {title:"客户类型",[DI]:"user_account_type",[SS]: { [CR]: 'user_account_type' },},
-  {title:"客户关系",[DI]:"depth",[SS]: { [CR]: 'depth' },},
-  {title:"订单号",[DI]:"order_id",},
-  {title:"交易对",[DI]:"symbol",},
-  {title:"方向",[DI]:"action",},
-  {title:"数量",[DI]:"amount",},
-  {title:"开仓价",[DI]:"open_price",},
-  {title:"开仓时间",[DI]:"open_time",[SS]: { [CR]: 'time' },},
-  {title:"止损价",[DI]:"stop_loss",[SS]: { [CR]: 'money' },},
-  {title:"止盈价",[DI]:"take_profit",[SS]: { [CR]: 'money' },},
-  {title:"手续费",[DI]:"service_fee",[SS]: { [CR]: 'money' },},
-  {title:"库存费",[DI]:"rollver",[SS]: { [CR]: 'money' },},
-  {title:"亏盈",[DI]:"profit",},
+  { title: "序列号", [DI]: "uid" },
+  { title: "MT4账号", [DI]: "mt4_uid" },
+  { title: "名字", [DI]: "name", width: "70px" },
+  { title: "手机号", [DI]: "phone", width: "110px" },
+  { title: "客户类型", [DI]: "user_account_type", [SS]: {
+      [CR]: 'user_account_type' }, },
+  { title: "客户关系", [DI]: "depth", [SS]: {
+      [CR]: 'depth' }, },
+  { title: "订单号", [DI]: "order_id", },
+  { title: "交易对", [DI]: "symbol", },
+  { title: "方向", [DI]: "action", },
+  { title: "数量", [DI]: "amount", },
+  { title: "开仓价", [DI]: "open_price", },
+  { title: "开仓时间", [DI]: "open_time", [SS]: {
+      [CR]: 'time' }, },
+  { title: "止损价", [DI]: "stop_loss", [SS]: {
+      [CR]: 'money' }, },
+  { title: "止盈价", [DI]: "take_profit", [SS]: {
+      [CR]: 'money' }, },
+  { title: "手续费", [DI]: "service_fee", [SS]: {
+      [CR]: 'money' }, },
+  { title: "库存费", [DI]: "rollver", [SS]: {
+      [CR]: 'money' }, },
+  { title: "亏盈", [DI]: "profit", },
 ]
 const columnsHistory = [
   // {
@@ -81,100 +90,113 @@ const columnsHistory = [
   //   dataIndex: 'depth',
   //   // scopedSlots: { customRender: 'depth' },
   // }, 
-  {title:"序列号",[DI]:"uid"},
-  {title:"MT4账号",[DI]:"mt4_uid"},
-  {title:"名字",[DI]:"name",width:"70px"},
-  {title:"手机号",[DI]:"phone",width:"110px"},
-  {title:"客户类型",[DI]:"user_account_type",[SS]: { [CR]: 'user_account_type' },},
-  {title:"客户关系",[DI]:"depth",[SS]: { [CR]: 'depth' },},
-  {title:"订单号",[DI]:"order_id",},
-  {title:"交易对",[DI]:"symbol",},
-  {title:"方向",[DI]:"action",},
-  {title:"数量",[DI]:"amount",},
-  {title:"开仓价",[DI]:"open_price",},
-  {title:"平仓价",[DI]:"close_price",},
-  {title:"开仓时间",[DI]:"open_time",[SS]: { [CR]: 'time' },},
-  {title:"平仓时间",[DI]:"close_time",[SS]: { [CR]: 'time' },},
-  {title:"止损价",[DI]:"stop_loss",[SS]: { [CR]: 'money' },},
-  {title:"止盈价",[DI]:"take_profit",[SS]: { [CR]: 'money' },},
-  {title:"手续费",[DI]:"service_fee",[SS]: { [CR]: 'money' },},
-  {title:"库存费",[DI]:"rollver",[SS]: { [CR]: 'money' },},
-  {title:"亏盈",[DI]:"profit",},
-  {title:"净值",[DI]:"actual_profit",[SS]: { [CR]: 'money' },},
+  { title: "序列号", [DI]: "uid" ,[SS]:{[CR]:'index'}},
+  { title: "MT4账号", [DI]: "mt4_uid" },
+  { title: "名字", [DI]: "name", width: "70px" },
+  { title: "手机号", [DI]: "phone", width: "110px" },
+  { title: "客户类型", [DI]: "user_account_type", [SS]: {
+      [CR]: 'user_account_type' }, },
+  { title: "客户关系", [DI]: "depth", [SS]: {
+      [CR]: 'depth' }, },
+  { title: "订单号", [DI]: "order_id", },
+  { title: "交易对", [DI]: "symbol", },
+  { title: "方向", [DI]: "action", },
+  { title: "数量", [DI]: "amount", },
+  { title: "开仓价", [DI]: "open_price", },
+  { title: "平仓价", [DI]: "close_price", },
+  { title: "开仓时间", [DI]: "open_time", [SS]: {
+      [CR]: 'time' }, },
+  { title: "平仓时间", [DI]: "close_time", [SS]: {
+      [CR]: 'time' }, },
+  { title: "止损价", [DI]: "stop_loss", [SS]: {
+      [CR]: 'money' }, },
+  { title: "止盈价", [DI]: "take_profit", [SS]: {
+      [CR]: 'money' }, },
+  { title: "手续费", [DI]: "service_fee", [SS]: {
+      [CR]: 'money' }, },
+  { title: "库存费", [DI]: "rollver", [SS]: {
+      [CR]: 'money' }, },
+  { title: "亏盈", [DI]: "profit", },
+  { title: "净值", [DI]: "actual_profit", [SS]: {
+      [CR]: 'money' }, },
+
 ]
 export default {
-  name:'broker_trade',
-  mixins:[brokerSearchInputs,dateRange],
+  name: 'broker_trade',
+  mixins: [brokerSearchInputs, dateRange],
   data() {
     return {
-      listType:'open',
-      search:'',
+      listType: 'open',
+      search: '',
       // columns:columnsOpen,
       loading: false,
-      currentPage:1,
+      currentPage: 1,
       savedParams: {
-        listType:'open'
+        listType: 'open'
       },
-      getMethod:null
+      getMethod: null
     }
   },
-  created(){
-    this.getMethod = this.getOpenOrder
+  created() {
+    if(this.queryPhone){
+      this.search = this.queryPhone
+      this.partnerUid = this.queryPartnerUid
+    }
+    this.searchList()
   },
   methods: {
-    searchList(){
+    searchList() {
       let params = {
-        search:this.search,
-        listType:this.listType,
-        partnerUid:this.partnerUid,
-        depth:this.depth,
-        accountType:this.accountType,
-        mt4AccountType:this.mt4Type,
+        search: this.search,
+        listType: this.listType,
+        partnerUid: this.partnerUid,
+        depth: this.depth,
+        accountType: this.accountType,
+        mt4AccountType: this.mt4Type,
         st: this.startDate,
         et: this.endDate,
       }
       this.savedParams = params
       this.currentPage = 1
-      if(this.savedParams.listType === 'open'){
+      if (this.savedParams.listType === 'open') {
         this.getMethod = this.getOpenOrder
-      }else if(this.savedParams.listType === 'history' ){
+      } else if (this.savedParams.listType === 'history') {
         this.getMethod = this.getHistoryOrder
       }
-      console.log('%c -----','color:red',)
-      setTimeout(() =>{
-        this.getList() 
+      setTimeout(() => {
+        this.getList()
       }, 20);
     },
-    getList(){
+    getList() {
       let params = {
         ...this.savedParams,
-        page:this.pagination.current,
-        limit:this.pagination.pageSize,
+        page: this.pagination.current,
+        limit: this.pagination.pageSize,
       }
       this.loading = true
       this.getMethod(params)
-      .then(() => {
-        this.loading = false 
-      })
-      .finally(() => {
-        this.loading = false        
-      })
+        .then(() => {
+          this.loading = false
+        })
+        .finally(() => {
+          this.loading = false
+        })
     },
-    onTableChange(pagination){
+    onTableChange(pagination) {
       this.currentPage = pagination.current
       this.getList()
-      console.log('%c pagination','color:red',pagination)
+      console.log('%c pagination', 'color:red', pagination)
     },
-    rowkey(item,index){
+    rowkey(item, index) {
       return index
     },
-    ...mapActions('broker',["getOpenOrder",'getHistoryOrder']),
+    ...mapActions('broker', ["getOpenOrder", 'getHistoryOrder']),
   },
   computed: {
     columns() {
-      if(this.savedParams.listType === 'open'){
+      if (this.savedParams.listType === 'open') {
         return columnsOpen
-      }else if(this.savedParams.listType === 'history' ){
+      } else if (this.savedParams.listType === 'history') {
         return columnsHistory
       }
     },
@@ -186,9 +208,9 @@ export default {
     //   }
     // },
     list() {
-      if(this.savedParams.listType === 'open'){
+      if (this.savedParams.listType === 'open') {
         return this.openOrderList
-      }else if(this.savedParams.listType === 'history' ){
+      } else if (this.savedParams.listType === 'history') {
         return this.historyOrderList
       }
     },
@@ -201,12 +223,13 @@ export default {
         current: this.currentPage,
       }
     },
-    ...mapState('broker',["openOrderList","historyOrderList"]),
+    ...mapState('broker', ["openOrderList", "historyOrderList"]),
   },
   components: {},
 }
-</script>
 
+</script>
 <style lang='scss' scoped>
+
 
 </style>
