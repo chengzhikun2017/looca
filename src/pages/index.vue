@@ -71,13 +71,13 @@
       <div class="items-box">
         <widget1 :src='itemImgs[0]' title="专业开发团队" content="耗时数年打造的Loo&co Global金牌团队，拥有顶尖的产品开发运营能力。" />
         <widget1 :src='itemImgs[1]' title="屡获外汇经纪商奖" content="Loo&co Global乐恺环球自2013年成立以来，多次获得“年度外汇经纪商“奖。" />
-        <widget1 :src='itemImgs[2]' title="严格的监管" content="Loo&co Global乐恺环球荣获澳大利亚ASIC监管号402043." />
+        <widget1 :src='itemImgs[2]' title="严格的监管" content="Loo&co Global乐恺环球荣获美国NFA监管." />
         <widget1 :src='itemImgs[3]' title="高效的客服体系" content="Loo&co Global乐恺环球客服团队5*24小时为您提供服务，更懂你的外汇平台。" />
       </div>
     </v-layer>
     <v-layer height="440px">
       <div class="description-box">
-        <widget2 :src='descriptionSrcs[0]' title="Loo&co Global乐恺环球执照与监管" content="Loo&co Global乐恺环球平台执照与监管在线查询，平台拥有澳大利亚监管" />
+        <widget2 :src='descriptionSrcs[0]' title="Loo&co Global乐恺环球执照与监管" content="Loo&co Global乐恺环球平台执照与监管在线查询，平台拥有美国NFA监管" />
         <widget2 :src='descriptionSrcs[1]' title="Loo&co Global乐恺环球交易产品" content="Loo&co Global乐恺环球拥有目前最全的外汇交易产品，包含外汇、黄金、白银、原油、股指等。" />
         <widget2 :src='descriptionSrcs[2]' title="Loo&co Global乐恺环球跟单社区" content="Loo&co Global乐恺环球重金打造专业外汇交易团队、大数据反向跟单信号、EA等供所有乐恺环球客户选择复制跟单。" />
       </div>
