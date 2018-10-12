@@ -9,7 +9,6 @@
         <a-button @click="searchList" type="primary">查询</a-button>
       </div>
     </div>
-<<<<<<< HEAD
     <div class="list broker-list pc">
       <a-table :pagination="pagination" bordered :dataSource="userList.list" :rowKey="rowkey" :columns="columns" @change="onTableChange" :loading="loading"> 
         <template slot="action" slot-scope="text, record, index">
@@ -17,15 +16,6 @@
             MT4账户
           </a-button> 
           <a-button size="small" type="primary" @click="goPage(`/broker_trade?phone=${record.phone}&partnerUid=${savedParams.partnerUid}`)">
-=======
-    <div class="list pc">
-      <a-table :pagination="pagination" bordered :dataSource="userList.list" :rowKey="rowkey" :columns="columns" @change="onTableChange" :loading="loading">
-        <template slot="action" slot-scope="text, record, index">
-          <a-button size="small" type="primary" @click="goPage(`/broker_mt4Ac?phone=${record.phone}&partnerUid=${savedParams.partnerUid}`)">
-            MT4账户
-          </a-button>
-          <a-button size="small" type="primary" @click="">
->>>>>>> 11c532173a10204a3a46c0a80e2d24b3c840d43c
             MT4交易
           </a-button>
           <a-button size="small" type="primary" @click="goPage(`/broker_profit?phone=${record.phone}&partnerUid=${savedParams.partnerUid}`)">
@@ -70,13 +60,8 @@ const columns = [
   //   title: '关系',
   //   dataIndex: 'depth',
   //   // scopedSlots: { customRender: 'depth' },
-<<<<<<< HEAD
   // }, 
   {title:"序列号",[DI]:"uid",[SS]:{[CR]:'index'}},
-=======
-  // },
-  {title:"序列号",[DI]:"uid"},
->>>>>>> 11c532173a10204a3a46c0a80e2d24b3c840d43c
   {title:"名字",[DI]:"name",width:"70px"},
   {title:"手机号",[DI]:"phone",width:"110px"},
   {title:"客户类型",[DI]:"user_account_type",[SS]: { [CR]: 'user_account_type' },},
