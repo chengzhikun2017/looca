@@ -94,31 +94,22 @@ const columnsHistory = [
   { title: "MT4账号", [DI]: "mt4_uid" },
   { title: "名字", [DI]: "name", width: "70px" },
   { title: "手机号", [DI]: "phone", width: "110px" },
-  { title: "客户类型", [DI]: "user_account_type", [SS]: {
-      [CR]: 'user_account_type' }, },
-  { title: "客户关系", [DI]: "depth", [SS]: {
-      [CR]: 'depth' }, },
+  { title: "客户类型", [DI]: "user_account_type", [SS]: {[CR]: 'user_account_type' }, },
+  { title: "客户关系", [DI]: "depth", [SS]: {[CR]: 'depth' }, },
   { title: "订单号", [DI]: "order_id", },
   { title: "交易对", [DI]: "symbol", },
   { title: "方向", [DI]: "action", },
   { title: "数量", [DI]: "amount", },
   { title: "开仓价", [DI]: "open_price", },
   { title: "平仓价", [DI]: "close_price", },
-  { title: "开仓时间", [DI]: "open_time", [SS]: {
-      [CR]: 'time' }, },
-  { title: "平仓时间", [DI]: "close_time", [SS]: {
-      [CR]: 'time' }, },
-  { title: "止损价", [DI]: "stop_loss", [SS]: {
-      [CR]: 'money' }, },
-  { title: "止盈价", [DI]: "take_profit", [SS]: {
-      [CR]: 'money' }, },
-  { title: "手续费", [DI]: "service_fee", [SS]: {
-      [CR]: 'money' }, },
-  { title: "库存费", [DI]: "rollver", [SS]: {
-      [CR]: 'money' }, },
+  { title: "开仓时间", [DI]: "open_time", [SS]: {[CR]: 'time' }, },
+  { title: "平仓时间", [DI]: "close_time", [SS]: {[CR]: 'time' }, },
+  { title: "止损价", [DI]: "stop_loss", [SS]: {[CR]: 'money' }, },
+  { title: "止盈价", [DI]: "take_profit", [SS]: {[CR]: 'money' }, },
+  { title: "手续费", [DI]: "service_fee", [SS]: {[CR]: 'money' }, },
+  { title: "库存费", [DI]: "rollver", [SS]: {[CR]: 'money' }, },
   { title: "亏盈", [DI]: "profit", },
-  { title: "净值", [DI]: "actual_profit", [SS]: {
-      [CR]: 'money' }, },
+  { title: "净值", [DI]: "actual_profit", [SS]: {[CR]: 'money' }, },
 
 ]
 export default {
@@ -128,7 +119,6 @@ export default {
     return {
       listType: 'open',
       search: '',
-      // columns:columnsOpen,
       loading: false,
       currentPage: 1,
       savedParams: {

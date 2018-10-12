@@ -73,26 +73,10 @@ export default {
   mixins:[brokerSearchInputs],
   data() {
     return {
-      // partnerUid:null,
       search:'',
       columns,
-      // depth:0,
       loading:false,
       savedParams:{},
-
-      // depthes:[
-      // {label:"所有",value:0},
-      // {label:"一级",value:1},
-      // {label:"二级",value:2},
-      // {label:"三级",value:3},
-      // ],
-      // mt4Type:"",
-      // accountType:"",
-      // accountTypes:[
-      // {label:"全部",value:""},
-      // {label:"普通",value:"normal"},
-      // {label:"保本",value:"protect"},
-      // ],
       currentPage:1,
     }
   },
@@ -136,7 +120,6 @@ export default {
     onTableChange(pagination){
       this.currentPage = pagination.current
       this.getList()
-      console.log('%c pagination','color:red',pagination)
     },
     rowkey(item,index){
       return index
