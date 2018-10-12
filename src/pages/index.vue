@@ -144,14 +144,22 @@
           </div>
           <div class="links">
             <span class="link"></span>
-            <span class="link" >MT4下载</span>
+            <span class="link" @click="download('windows')">Windows版本</span>
             <span class="link">资金安全</span>
             <span class="link">乐恺环球商学院</span>
             <span class="link">合伙人登录</span>
           </div>
           <div class="qr-code">
-            <h1 class="title">二维码</h1>
-            <img src="#" alt="" class="qr">
+            <div class="qr-code-boxs">
+              <div class="qr-code-boxs-item">
+                <img src="@/assets/apple.png" alt="" class="qr">
+                <span>iPhone/iPad</span>
+              </div>
+              <div class="qr-code-boxs-item">
+                <img src="@/assets/android.png" alt="" class="qr">
+                <span>Android</span>
+              </div>
+            </div>
           </div>
           <div class="contact-us">
             <h4 class="title">联系我们</h4>
@@ -201,7 +209,17 @@ export default {
       ],
     }
   },
-  methods: {},
+  methods: {
+    download (version) {
+      switch(version) {
+        case 'windows':
+          window.open('https://download.mql5.com/cdn/web/12872/mt4/loocoglobal4setup.exe')
+          break
+        default:
+          return
+      }
+    }
+  },
   computed: {},
   components: {
     'v-layer': layer,
@@ -547,7 +565,7 @@ $themeGrey: #808080;
 }
 
 .items-box {
-  margin-top: 20px;
+  margin-top: 36px;
   display: flex;
   /*padding:10px;*/
 }
@@ -759,4 +777,21 @@ $themeGrey: #808080;
   background: #cd2224;
 }
 
+</style>
+<style lang="scss">
+  .qr-code {
+    &-boxs {
+      width: 200px;
+      display: flex;
+      &-item {
+        text-align: center;
+        padding: 0 10px;
+        color: white;
+        img {
+          width: 88px;
+          display: block;
+        }
+      }
+    }
+  }
 </style>
