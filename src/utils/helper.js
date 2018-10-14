@@ -232,7 +232,7 @@ export default class helper {
         arr[i] = dataIndexes[key]
       }
     }
-    
+
     // find index correspond to the dataIndex, then change the value
     return arr
 
@@ -274,7 +274,15 @@ export default class helper {
     }
   }
 
-  static removeTableFooter() {
+  static removeTableFooter(selector) {
+    let table
+    if (!selector) {
+      table = document.getElementsByTagName('table')[0]
+    } else {
+      table = document.querySelector(selector)
+    }
+    let tfoot = table.querySelector('tfoot')
+    tfoot.replaceWith('')
     console.log('remove table')
   }
 }
