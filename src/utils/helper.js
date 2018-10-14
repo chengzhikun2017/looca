@@ -273,8 +273,8 @@ export default class helper {
       table.appendChild(tableFooter)
     }
   }
-  
-  static removeTableFooter() {
 
+  static removeTableFooter() {
+    console.log('remove table')
   }
 }

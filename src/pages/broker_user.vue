@@ -116,7 +116,6 @@ export default {
     },
     addFooterCount() {
       this.$nextTick(() => {
-        console.log('%c this.userList.list','color:red',this.userList.list)
         if (this.userList.list.length == 0) {
           helper.removeTableFooter()
           return
