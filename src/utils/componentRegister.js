@@ -32,6 +32,7 @@ import {
 import SearchItem from './../components/container/SearchItem.vue'
 import SearchBox from './../components/container/SearchItem.vue'
 import MainLayout from './../components/layout/MainLayout.vue'
+import BrokerAsyncTip from './../components/views/brokerAsyncTip.vue'
 // const widget1 = () =>
 //   import ('./../components/forIndex/widget1.vue')
 // const widget2 = () =>
@@ -64,6 +65,7 @@ function registerComponentChild(vue, parentAntComponent) {
 }
 
 Vue.component("MainLayout", MainLayout)
+Vue.component("BrokerAsyncTip", BrokerAsyncTip)
 Vue.component(Button.name, Button)
 Vue.component(LocaleProvider.name, LocaleProvider)
 Vue.component(Modal.name, Modal)

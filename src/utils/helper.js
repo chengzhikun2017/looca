@@ -283,6 +283,5 @@ export default class helper {
     }
     let tfoot = table.querySelector('tfoot')
     tfoot.replaceWith('')
-    console.log('remove table')
   }
 }

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <BrokerAsyncTip></BrokerAsyncTip>
     <div class="l-search-box">
       <div class="agent_overview-search">
         <a-radio-group v-model="listType" style="margin:8px">

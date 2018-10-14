@@ -1,5 +1,6 @@
 <template>
   <div>
+    <BrokerAsyncTip></BrokerAsyncTip>
     <div class="l-search-box">
       <div class="agent_overview-search">
         <PartnerSelect v-model="partnerUid"></PartnerSelect>
