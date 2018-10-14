@@ -110,8 +110,8 @@
       </div>
       <div class="wallet_recharge-content-note">
         <h3 class="wallet_recharge-content-note-title">如有问题，请联系客服</h3>
-        <p class="wallet_recharge-content-note-item">电话：111</p>
-        <p class="wallet_recharge-content-note-item">QQ：11111</p>
+        <p class="wallet_recharge-content-note-item">客服QQ: 83166672</p>
+        <p class="wallet_recharge-content-note-item">客服电话：4000577009</p>
       </div>
     </div>
   </div>

@@ -25,7 +25,7 @@
             <div class="mt4_withdraw-input">
               <a-radio-group name="radioGroup" v-model="amountType">
                 <a-radio value="full">全部提取</a-radio>
-                <a-radio value="part" v-if="currentMt4Info.type==='normal'">自定义</a-radio>
+                <a-radio value="part" v-if="currentMt4Info.type==='normal'">其他金额</a-radio>
               </a-radio-group>
             </div>
           </a-form-item>

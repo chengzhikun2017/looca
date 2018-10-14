@@ -1,8 +1,8 @@
 <template>
   <div class="l-nav-user-box" flex="main:center cross:center">
     <div class="l-nav-user-message">
-      <div class="l-nav-user-message-name">测试</div>
-      <div class="l-nav-user-message-phone">18888888888</div>
+      <!-- <div class="l-nav-user-message-name">测试</div>
+      <div class="l-nav-user-message-phone">18888888888</div> -->
     </div>
     <a-menu mode="horizontal" :subMenuCloseDelay='0.2' :subMenuOpenDelay="0.3">
       <a-sub-menu>

@@ -5,9 +5,10 @@
       <SearchToggle @ok="searchPhoneList">
         <l-search-item>
           <a-radio-group v-model="listType" style="margin:8px">
+            <a-radio-button value="all">全部</a-radio-button>
             <a-radio-button value="withdraw">出金</a-radio-button>
             <a-radio-button value="deposit">入金</a-radio-button>
-            <a-radio-button value="withdraw_follow_settlement">出金（跟单结算）</a-radio-button>
+            <a-radio-button value="withdraw_follow_settlement">出金(跟单结算)</a-radio-button>
           </a-radio-group>
         </l-search-item>
         <l-search-item>
@@ -24,6 +25,7 @@
     <div class="pc">
       <div class="search-box">
         <a-radio-group v-model="listType" style="margin:8px">
+          <a-radio-button value="all">全部</a-radio-button>
           <a-radio-button value="withdraw">出金</a-radio-button>
           <a-radio-button value="deposit">入金</a-radio-button>
           <a-radio-button value="withdraw_follow_settlement">出金（跟单结算）</a-radio-button>
@@ -122,9 +124,9 @@ export default {
   data() {
     return {
       loading: false,
-      listType: 'withdraw',
+      listType: 'all',
       pagination: {
-        pageSize: 2,
+        pageSize: 10,
         // showSizeChanger: true,
         current: 1,
         size: 'small',
@@ -136,6 +138,9 @@ export default {
   created() {
     if(this.initialType === 'recharge'){
       this.listType = 'deposit'
+    }
+    if(this.initialType === 'withdraw'){
+      this.listType = 'withdraw'
     }
     this.isPC && this.getList()
 
@@ -168,7 +173,7 @@ export default {
     paramsPhone() {
       return {
         mt4Uid: this.currentMt4Uid,
-        type: this.listType,
+        type: this.listType==="all"?'':this.listType,
         st: this.startDate,
         et: this.endDate,
       }

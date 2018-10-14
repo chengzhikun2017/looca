@@ -75,22 +75,36 @@ export default class helper {
   static replaceRouter(path) {
     router.replace(config.routerRoot + path)
   }
-  static secretName(name){
-    name = name+''
+  static secretName(name) {
+    name = name + ''
     let len = name.length
     let s = ''
-    switch(len){
-      case 0: s=''; break;
-      case 1: s='*'; break;
-      case 2: s=name[0]+'*'; break;
-      case 3: s=name[0]+'**'; break;
-      case 3: s=name[0]+'**'; break;
-      case 4: s=''+name[0]+name[1]+'**'; break;
-      default: s=name[0]+'**';break;
+    switch (len) {
+      case 0:
+        s = '';
+        break;
+      case 1:
+        s = '*';
+        break;
+      case 2:
+        s = name[0] + '*';
+        break;
+      case 3:
+        s = name[0] + '**';
+        break;
+      case 3:
+        s = name[0] + '**';
+        break;
+      case 4:
+        s = '' + name[0] + name[1] + '**';
+        break;
+      default:
+        s = name[0] + '**';
+        break;
     }
     return s
   }
-  static secretPhone(phone){
+  static secretPhone(phone) {
     phone = phone + ''
     return `${phone.substring(0,4)}****${phone.substring(8)}`
   }
@@ -199,6 +213,32 @@ export default class helper {
     vueApp.$store.commit('trade/reset')
   }
   /**
+   * [createTableFootData description]
+   * @param  {array} columns      [description]
+   * @param  {array} dataIndexes [{key:value}],key = dataIndex key,  value=value
+   * @return {[type]}             [description]
+   */
+  static createTableFootData(columns, dataIndexes) {
+    var len = columns.length
+    var arr = []
+    while (len--) {
+      arr.push('')
+    }
+    arr[0] = '总计'
+    len = columns.length
+    for(let i=0;i<len;i++){
+      let key = columns[i].dataIndex
+      if(dataIndexes[key]!== undefined){
+        arr[i] = dataIndexes[key]
+      }
+    }
+    
+    // find index correspond to the dataIndex, then change the value
+    return arr
+
+    // return changed array
+  }
+  /**
    *
    * @param {数据源：确定列数和数据} data
    * @param {Jquery选择器：如果当前页只有一个table，可不填} selector
@@ -232,5 +272,9 @@ export default class helper {
     } else {
       table.appendChild(tableFooter)
     }
+  }
+  
+  static removeTableFooter() {
+
   }
 }

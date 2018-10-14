@@ -48,7 +48,7 @@
 import brokerSearchInputs from '../components/mixin/brokerSearchInputs.js'
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import dateRange from './../components/mixin/dateRange.js'
-
+import helper from '../utils/helper.js'
 const CR = 'customRender'
 const SS = 'scopedSlots'
 const TT = 'title'
@@ -69,7 +69,7 @@ const columnsOpen = [
       [CR]: 'depth' }, },
   { title: "订单号", [DI]: "order_id", },
   { title: "交易对", [DI]: "symbol", },
-  { title: "方向", [DI]: "action", },
+  // { title: "方向", [DI]: "action", },
   { title: "数量", [DI]: "amount", },
   { title: "开仓价", [DI]: "open_price", },
   { title: "开仓时间", [DI]: "open_time", [SS]: {
@@ -85,11 +85,6 @@ const columnsOpen = [
   { title: "亏盈", [DI]: "profit", },
 ]
 const columnsHistory = [
-  // {
-  //   title: '关系',
-  //   dataIndex: 'depth',
-  //   // scopedSlots: { customRender: 'depth' },
-  // }, 
   { title: "序列号", [DI]: "uid" ,[SS]:{[CR]:'index'}},
   { title: "MT4账号", [DI]: "mt4_uid" },
   { title: "名字", [DI]: "name", width: "70px" },
@@ -98,7 +93,7 @@ const columnsHistory = [
   { title: "客户关系", [DI]: "depth", [SS]: {[CR]: 'depth' }, },
   { title: "订单号", [DI]: "order_id", },
   { title: "交易对", [DI]: "symbol", },
-  { title: "方向", [DI]: "action", },
+  // { title: "方向", [DI]: "action", },
   { title: "数量", [DI]: "amount", },
   { title: "开仓价", [DI]: "open_price", },
   { title: "平仓价", [DI]: "close_price", },
@@ -157,6 +152,26 @@ export default {
         this.getList()
       }, 20);
     },
+    addFooterCount(){
+      this.$nextTick(() => {
+        if( this.list.length === 0 ){
+          helper.removeTableFooter()
+          return
+        }
+        let count = this.list.count
+        let obj = {
+          amount:count.total_amount,
+          profit:count.total_profit,
+          rollver:count.total_rollver,
+          service_fee:count.total_service_fee/100,
+        }
+        if(this.savedParams.listType === "history"){
+          obj.actual_profit = count.total_actual_profit
+        }
+        let data = helper.createTableFootData(this.columns,obj)
+        helper.addTableFooter(data) 
+      })
+    },
     getList() {
       let params = {
         ...this.savedParams,
@@ -166,6 +181,7 @@ export default {
       this.loading = true
       this.getMethod(params)
         .then(() => {
+          this.addFooterCount()
           this.loading = false
         })
         .finally(() => {
@@ -206,7 +222,7 @@ export default {
     },
     pagination() {
       return {
-        pageSize: 2,
+        pageSize: 10,
         // showSizeChanger: true,
         size: 'small',
         total: this.list.total,

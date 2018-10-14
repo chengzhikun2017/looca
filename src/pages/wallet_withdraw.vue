@@ -14,7 +14,7 @@
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 18 }" label='提现金额' :labelCol="{ span: 6 }" :validateStatus="input.status.amount.validateStatus" :help="input.status.amount.help">
             <div class="wallet_withdraw-input">
-              <a-input :placeholder="`请输入金额，最少${MIN_AMOUNT}美金`" type="number" ref="inputPassword" v-model="input.values.amount" @blur="validate('amount')" @focus="clearValidation('amount')">
+              <a-input :placeholder="`输入金额,${MIN_AMOUNT}~${MAX_AMOUNT}美金,每天最多提现5次`" type="number" ref="inputPassword" v-model="input.values.amount" @blur="validate('amount')" @focus="clearValidation('amount')">
               </a-input>
             </div>
           </a-form-item>
@@ -142,7 +142,8 @@ export default {
     let newInput = new inputHelper.newInput(['amount'])
     return {
       input: newInput,
-      MIN_AMOUNT: 100,
+      MIN_AMOUNT: 30,
+      MAX_AMOUNT: 20000,
       ...defaultData,
     }
   },
@@ -208,6 +209,11 @@ export default {
       if (amount < this.MIN_AMOUNT) {
         this.input.status.amount =
           inputHelper.createStatus(2, '金额不能小于' + this.MIN_AMOUNT + '美金')
+        return false
+      }
+      if (amount > this.MAX_AMOUNT) {
+        this.input.status.amount =
+          inputHelper.createStatus(2, '金额不能大于' + this.MAX_AMOUNT + '美金')
         return false
       }
       return true

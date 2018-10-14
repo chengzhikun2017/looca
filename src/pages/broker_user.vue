@@ -114,6 +114,22 @@ export default {
       this.savedParams = params
       this.getList()
     },
+    addFooterCount() {
+      this.$nextTick(() => {
+        console.log('%c this.userList.list','color:red',this.userList.list)
+        if (this.userList.list.length == 0) {
+          helper.removeTableFooter()
+          return
+        }
+        let count = this.userList.count
+        let data = helper.createTableFootData(this.columns, {
+          balance_fee: count.total_balance_fee / 100,
+          brokerage_fee: count.total_brokerage_fee / 100,
+          total_pay_fee: count.total_pay_fee / 100,
+        })
+        helper.addTableFooter(data)
+      })
+    },
     getList(){
       let params = {
         ...this.savedParams,
@@ -123,12 +139,7 @@ export default {
       this.loading = true
       this.getUsers(params)
       .then(() => {
-        // 这里进行表尾的总计显示
-        this.$nextTick(() => {
-          // 获取总计的数据
-          const data = ['总计', '', '', '', '', '', '0.00', '3000.00', '0.00', '', '']
-          helper.addTableFooter(data)
-        })
+        this.addFooterCount()
         this.loading = false
       })
       .finally(() => {
@@ -159,7 +170,7 @@ export default {
     },
     pagination() {
       return {
-        pageSize: 2,
+        pageSize: 10,
         // showSizeChanger: true,
         size: 'small',
         total: this.userList.total,

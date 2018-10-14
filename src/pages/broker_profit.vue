@@ -80,6 +80,7 @@
 </template>
 
 <script>
+import helper from './../utils/helper.js'
 import brokerSearchInputs from '../components/mixin/brokerSearchInputs.js'
 import dateRange from './../components/mixin/dateRange.js'
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
@@ -214,6 +215,19 @@ export default {
         this.getList()
       }, 20);
     },
+    addFooterCount(){
+      this.$nextTick(() => {
+        if( this.list.length === 0 ){
+          helper.removeTableFooter()
+          return
+        }
+        let count = this.list.count
+        let data = helper.createTableFootData(this.columns,{
+          fee:count.total_fee / 100,
+        })
+        helper.addTableFooter(data)
+      })
+    },
     getList() {
       let params = {
         ...this.savedParams,
@@ -223,6 +237,7 @@ export default {
       this.loading = true
       this.getProfit(params)
         .then(() => {
+          this.addFooterCount()
           this.loading = false
         })
         .finally(() => {
@@ -262,7 +277,7 @@ export default {
     },
     pagination() {
       return {
-        pageSize: 2,
+        pageSize: 10,
         // showSizeChanger: true,
         size: 'small',
         total: this.list.total,

@@ -6,6 +6,8 @@ const isPC = helper.isPC()
 class defaultMt4InfoAC {
   constructor(props) {
     this.list = []
+    this.countNormal = 0
+    this.countFollow = 0
     this.loadingList = false
     this.syncSuccess = false
     this.currentMt4Info = {}
@@ -63,8 +65,10 @@ export default {
           res.data.forEach((item) => {
             if(item.type==='normal') {
               tempArr.push(item)
+              state.countNormal++
             }else {
               tempArr.unshift(item)
+              state.countFollow++
             }
           })
           state.list = tempArr

@@ -105,9 +105,9 @@ const config = {
   agent_profit_overview: { title: "返现记录", link: "agent_profit_overview", rootKey: 'agent' },
   broker: { title: "代理商",  },
   broker_user: { title: "客户", link: "broker_user", rootKey: 'broker' },
-  broker_trade: { title: "账户", link: "broker_mt4Ac", rootKey: 'broker' },
-  broker_profit: { title: "交易", link: "broker_trade", rootKey: 'broker' },
-  broker_mt4Ac: { title: "佣金", link: "broker_profit", rootKey: 'broker' },
+  broker_mt4Ac: { title: "账户", link: "broker_mt4Ac", rootKey: 'broker' },
+  broker_trade: { title: "交易", link: "broker_trade", rootKey: 'broker' },
+  broker_profit: { title: "佣金", link: "broker_profit", rootKey: 'broker' },
   // agent_details_account: { title: "代理商", link: "agent_details_account", rootKey: 'agent_details' },
 }
 import {

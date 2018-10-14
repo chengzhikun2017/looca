@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import helper from '../utils/helper.js'
 import brokerSearchInputs from '../components/mixin/brokerSearchInputs.js'
 import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
 const CR = 'customRender'
@@ -100,6 +101,21 @@ export default {
       this.savedParams = params
       this.getList()
     },
+    addFooterCount() {
+      this.$nextTick(() => {
+        if( this.mt4List.list.length === 0 ){
+          helper.removeTableFooter()
+          return
+        }
+        let count = this.mt4List.count
+        let data = helper.createTableFootData(this.columns,{
+          balance_fee:count.total_balance_fee/100,
+          open_order_num:count.total_open_order_num,
+          open_order_profit:count.total_open_order_profit,
+        })
+        helper.addTableFooter(data)
+      })
+    },
     getList(){
       let params = {
         ...this.savedParams,
@@ -110,12 +126,12 @@ export default {
       this.loading = true
       this.getMt4AC(params)
       .then(() => {
+        this.addFooterCount()
         this.loading = false 
       })
       .finally(() => {
         this.loading = false        
       })
-
     },
     onTableChange(pagination){
       this.currentPage = pagination.current
@@ -135,7 +151,7 @@ export default {
     },
     pagination() {
       return {
-        pageSize: 2,
+        pageSize: 10,
         // showSizeChanger: true,
         size: 'small',
         total: this.mt4List.total,

@@ -16,15 +16,23 @@
           <a-radio value="bind">绑定账户</a-radio>
         </a-radio-group> -->
         <a-radio-group name="radioGroup" v-model="createType" >
-          <a-radio value="normal">普通账户</a-radio>
-          <a-radio value="follow">跟单账户</a-radio>
+          <a-radio value="normal" :disabled="!canCreateNormal">
+            普通账户
+            <span v-if="!canCreateNormal">(最多创建10个普通账户)</span>
+          </a-radio>
+          <a-radio value="follow" :disabled="!canCreateFollow">
+            跟单账户
+            <span v-if="!canCreateFollow">(最多创建5个跟单账户)</span>
+          </a-radio>
         </a-radio-group>
       </div>
     </a-modal>
     <div class="default-info" :class="isPC?'':'phone'">
-      <div class="btn-container" :class="isPC?'':'phone'">
+      <div class="btn-container" :class="isPC?'':'phone'" v-if="listGot&&canCreateNormal&&canCreateFollow">
         <a-button size="small" v-if="isPC"  type="primary" @click="chooseCreate" >新增账户</a-button>
-        <a class="link-btn" href="javascript:void(0)" v-if="!isPC" @click="chooseCreate" >新增账户</a>
+        <a class="link-btn" href="javascript:void(0)" v-if="!isPC" @click="chooseCreate" >
+          新增账户
+        </a>
       </div>
       <span >
         剩余可入金金额：${{money.balance | money}}
@@ -94,94 +102,14 @@ import ListItem from "./../components/container/mt4AccountListItem.vue"
 import ListItemMobile from "./../components/container/mt4AccountCard.vue"
 import helper from '../utils/helper.js'
 const Mt4SyncFail = ()=> import( '../components/container/mt4SyncFail.vue')
-  const singleColum = [
-  {
-    title: '',
-    dataIndex: 'mt4Uid',
-    scopedSlots: { customRender: 'list' },
-  },
-  ]
-  // //PC可配置 显示列
-  // //
-  // // const allColumns = {
-   
-  // //   gmtUser:{
-  // //     title: 'gmtUser',
-  // //     dataIndex: 'gmtUser',
-  // //     // scopedSlots: { customRender: 'time' },
-  // //   },
-  // //   // "gmtUser": 1534386421, //最后一次更新账户余额时间戳
-  // //   // "gmtOpenOrder": 1534343721, //最后一次更新持仓时间戳
-  // //   // "gmtClosedOrder": 1533889310, //最后一次更新历史交易时间戳
-  // //   // "gmtFollowSettlement": 0, //最后一次结算跟单手续费时间戳
-  // //   gmtOpenOrder:{
-  // //     title: 'gmtOpenOrder',
-  // //     dataIndex: 'gmtOpenOrder',
-  // //     // scopedSlots: { customRender: 'time' },
-  // //   },
-  // //   gmtClosedOrder:{
-  // //     title: 'gmtClosedOrder',
-  // //     dataIndex: 'gmtClosedOrder',
-  // //     // scopedSlots: { customRender: 'time' },
-  // //   },
-  // //   gmtFollowSettlement:{
-  // //     title: 'gmtFollowSettlement',
-  // //     dataIndex: 'gmtFollowSettlement',
-  // //     // scopedSlots: { customRender: 'time' },
-  // //   },
-  // //   createTime:{
-  // //     title: 'createTime',
-  // //     dataIndex: 'createTime',
-  // //     scopedSlots: { customRender: 'createTime' },
-  // //   },
-  // // }
-  // // const staticColums = [
-  // //   {
-  // //     title: 'MT4 ID',
-  // //     dataIndex: 'mt4Uid',
-  // //   },
-  // //   {
-  // //     title: '余额',
-  // //     dataIndex: 'balanceFee',
-  // //     scopedSlots: { customRender: 'balanceFee' },
-  // //   },
-  // //   {
-  // //     title: '账户名',
-  // //     dataIndex: 'fullName',
-  // //   },
-  // //   {
-  // //     title: '杠杆',
-  // //     dataIndex: 'leverage',
-  // //   },
-  // //   {
-  // //     title: "action",
-  // //     dataIndex: "action",
-  // //     width:'35%',
-  // //     scopedSlots: {
-  // //       customRender: 'action'
-  // //     },
-  // //   },
-  // // ]
-  // const columns = [{
-  //   title: 'MT4 ID',
-  //   dataIndex: 'mt4Uid',
-  //   // sorter: true,
-  //   width: '20%',
-  //   // scopedSlots: { customRender: 'name' },
-  // }, {
-  //   title: '名字',
-  //   dataIndex: 'fullName',
-  //   // filters: [
-  //   //   { text: 'Male', value: 'male' },
-  //   //   { text: 'Female', value: 'female' },
-  //   // ],
-  //   width: '20%',
-  // },{
-  //   title:"action",
-  //   dataIndex:"action",
-  //   scopedSlots: { customRender: 'action' },
+const singleColum = [
+{
+  title: '',
+  dataIndex: 'mt4Uid',
+  scopedSlots: { customRender: 'list' },
+},
+]
 
-  // }];
 var allIndex = []
 // for(let key in allColumns){
 //   allIndex.push(allColumns[key].dataIndex)
@@ -190,10 +118,10 @@ export default {
   name:'mt4_overview',
   data() {
     return {
-      createType:'normal',
+      createType: '',
       showCreateModal: false,
-      confirmLoading:false,
-      columnsShow:allIndex,
+      confirmLoading: false,
+      columnsShow: allIndex,
       value: undefined,
       data: [{
         name:{
@@ -205,7 +133,7 @@ export default {
         uid:1,
       }],
       pagination: {
-        defaultPageSize:10,
+        defaultPageSize:15,
         showSizeChanger:true,
         current:1,
       },
@@ -222,7 +150,16 @@ export default {
   },
   methods: {
     chooseCreate(){
+      if(this.canCreateNormal){
+        this.createType = 'normal'
+      }else if(this.canCreateFollow){
+        this.createType = 'follow'
+      }else {
+        this.$message.error('无法创建更多账户了')
+        return
+      }
       this.showCreateModal = true
+
     },
     goPage(path){
       helper.goPage(path)
@@ -231,6 +168,10 @@ export default {
       this.setCurrent(mt4.mt4Uid)
     },
     onCreateOK(e){
+      if(!this.createType){
+        this.$message.error('请选择开户类型')
+        return
+      }
       if(this.createType==="bind"){
         helper.goPage('/mt4_bind')
       }else{
@@ -282,7 +223,13 @@ export default {
     listLength(){
       return this.list.length
     },
-    ...mapState('mt4AC',['list','currentMt4Uid','listGot','syncSuccess']),
+    canCreateNormal(){
+      return this.countNormal < 10
+    },
+    canCreateFollow(){
+      return this.countFollow < 5
+    },
+    ...mapState('mt4AC',['list','currentMt4Uid','listGot','syncSuccess','countNormal','countFollow']),
     ...mapState('app',['isPC']),
     ...mapState('wallet',['money']),
   },
