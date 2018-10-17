@@ -28,6 +28,7 @@ import {
   DatePicker,
   Card,
   Divider,
+  Tooltip,
 } from 'vue-antd-ui';
 import SearchItem from './../components/container/SearchItem.vue'
 import SearchBox from './../components/container/SearchItem.vue'
@@ -110,3 +111,5 @@ Vue.component(DatePicker.name, DatePicker)
 registerComponentChild(Vue, DatePicker)
 Vue.component(Divider.name, Divider)
 Vue.component(Card.name, Card)
+Vue.component(Tooltip.name, Tooltip)
+

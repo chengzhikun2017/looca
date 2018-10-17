@@ -150,6 +150,7 @@ export default {
         mt4Uid:this.currentMt4Uid,
         amount:this.formData.amount*100,
       }).then((res) => {
+        console.log('%c res','color:red',res)
         this.rechargeSucceed = true
         this.successResponse = res
         this.next() 

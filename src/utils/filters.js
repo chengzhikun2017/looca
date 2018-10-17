@@ -50,12 +50,6 @@ Vue.filter('incomeType', function(value) {
   }
 })
 Vue.filter('agentLevel', function(value) {
-  // 代理级别
-  // 0：无
-  // 1：股东
-  // 2：经理
-  // 3：组长
-  // 4：小喽喽
   let str = ""
   switch (value) {
     case 0:

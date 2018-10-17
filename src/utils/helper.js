@@ -207,6 +207,8 @@ export default class helper {
     vueApp.$store.dispatch('wallet/getPayAccount')
     vueApp.$store.dispatch('wallet/getWallet')
     vueApp.$store.dispatch('broker/getPartner')
+    vueApp.$store.dispatch('broker/getPartner')
+    vueApp.$store.dispatch('share/getShareInfo')
   }
 
   static resetStoreTrade() {
@@ -282,6 +284,8 @@ export default class helper {
       table = document.querySelector(selector)
     }
     let tfoot = table.querySelector('tfoot')
-    tfoot.replaceWith('')
+    if(tfoot){
+      tfoot.replaceWith('')
+    }
   }
 }

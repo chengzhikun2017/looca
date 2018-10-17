@@ -143,6 +143,7 @@ export default {
     }
   },
   created(){
+    this.getList()
     if(this.list.length>0){
       this.setDefaultCurrent()
     }
@@ -164,9 +165,9 @@ export default {
     goPage(path){
       helper.goPage(path)
     },
-    onSelectCurrent(mt4,index){
-      this.setCurrent(mt4.mt4Uid)
-    },
+    // onSelectCurrent(mt4,index){
+    //   this.setCurrent(mt4.mt4Uid)
+    // },
     onCreateOK(e){
       if(!this.createType){
         this.$message.error('请选择开户类型')
@@ -187,12 +188,6 @@ export default {
     },
     onChange(value){
       this.columnsShow = value
-    },
-    onSearch(e){
-      
-    },
-    onSelect(e){
-      
     },
     handleTableChange(pagination, filters, sorter) {
       console.log(pagination,filters,sorter);

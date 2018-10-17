@@ -218,7 +218,7 @@ export default {
     },
     addFooterCount(){
       this.$nextTick(() => {
-        if( this.list.length === 0 ){
+        if( this.list.list.length === 0 ){
           helper.removeTableFooter()
           return
         }

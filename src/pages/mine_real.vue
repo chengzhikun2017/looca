@@ -101,7 +101,7 @@ name: 'mine_real',
   },
   created() {
     console.log('%c this','color:red',this)
-    // this.getAuthInfo()
+    this.getAuthInfo()
     // if(this.realNameLoaded){
       this.initData()
     // }

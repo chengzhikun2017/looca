@@ -141,14 +141,15 @@ export default {
   data() {
     let newInput = new inputHelper.newInput(['amount'])
     return {
+      gettingDC:false,
       input: newInput,
       MIN_AMOUNT: 30,
       MAX_AMOUNT: 20000,
       ...defaultData,
     }
   },
-  created() {
-    this.getListDC()
+  created(){
+    this.getDC()
     this.getCurrency()
   },
   watch: {
@@ -217,6 +218,26 @@ export default {
         return false
       }
       return true
+    },
+    getDC(){
+      this.gettingDC = true
+      this.getListDC()
+      .then(() => {
+        this.gettingDC = false 
+        // setTimeout(() => {
+        if(this.listDC.length === 0){
+          this.$modal.info({
+            title:"无银行卡",
+            content:"请先添加银行卡",
+            okText:'确定',
+            onOk(){
+              helper.goPage('/mine_cards')
+            },
+          })
+        } 
+        // },10)
+        console.log('%c list dc','color:red',this.listDC)
+      })
     },
     ...mapActions('cards', ['getListDC']),
     ...mapActions('wallet', ['withdraw', 'getCurrency']),
