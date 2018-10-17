@@ -67,11 +67,11 @@ export default {
   name: 'mt4_modifypwd',
   data() {
     let newInput = new inputHelper.newInput(['tradePwd', 'newTradePwd', 'renewTradePwd', 'newReadPwd', 'renewReadPwd'])
-    ValidationSet.password(newInput,'tradePwd')
-    ValidationSet.password(newInput,'newTradePwd')
-    ValidationSet.password(newInput,'renewTradePwd')
-    ValidationSet.password(newInput,'newReadPwd')
-    ValidationSet.password(newInput,'renewReadPwd')
+    ValidationSet.mt4Pwd(newInput,'tradePwd')
+    ValidationSet.mt4Pwd(newInput,'newTradePwd')
+    // ValidationSet.mt4Pwd(newInput,'renewTradePwd')
+    ValidationSet.mt4Pwd(newInput,'newReadPwd')
+    // ValidationSet.mt4Pwd(newInput,'renewReadPwd')
     return {
       type: 'trade',
       mt4Uid: '',

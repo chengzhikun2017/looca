@@ -65,13 +65,13 @@ Vue.filter('agentLevel', function(value) {
       str = "股东";
       break;
     case 2:
-      str = "经理";
+      str = "一级";
       break;
     case 3:
-      str = "组长";
+      str = "二级";
       break;
     case 4:
-      str = "小喽喽";
+      str = "三级";
       break;
   }
   return str

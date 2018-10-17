@@ -28,7 +28,7 @@
       </div>
     </a-modal>
     <div class="default-info" :class="isPC?'':'phone'">
-      <div class="btn-container" :class="isPC?'':'phone'" v-if="listGot&&canCreateNormal&&canCreateFollow">
+      <div class="btn-container" :class="isPC?'':'phone'" v-if="listGot&&(canCreateNormal||canCreateFollow)">
         <a-button size="small" v-if="isPC"  type="primary" @click="chooseCreate" >新增账户</a-button>
         <a class="link-btn" href="javascript:void(0)" v-if="!isPC" @click="chooseCreate" >
           新增账户

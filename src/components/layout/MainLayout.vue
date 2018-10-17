@@ -84,7 +84,7 @@ const config = {
   mt4_overview: { title: "MT4账户", link: "mt4_overview", isRoot: true },
   mt4_modifypwd: { title: "修改密码", link: "mt4_modifypwd", rootKey: 'mt4_overview' },
   mt4_bind: { title: "绑定账号", link: "mt4_bind", rootKey: 'mt4_overview' },
-  mt4_findpwd: { title: "忘记密码", link: "mt4_findpwd", rootKey: 'mt4_overview' },
+  mt4_findpwd: { title: "找回密码", link: "mt4_findpwd", rootKey: 'mt4_overview' },
 
   mt4_trade: { title: 'MT4交易管理' },
   mt4_trade_history: { title: "交易记录：持仓和历史记录", link: "mt4_trade_history", rootKey: 'mt4_overview' },
@@ -369,6 +369,7 @@ export default {
         ],
       }, { //broker
         key: 'broker',
+        hide: !this.isAgent,
         link: null,
         icon: 'book',
         ...config.broker,
@@ -398,7 +399,10 @@ export default {
     siderHeight() {
       return this.windowHeight - 64 + 'px'
     },
-
+    isAgent(){
+      return true
+    },
+    ...mapState('share',['shareInfo']),
     ...mapState('app', ['windowHeight', 'isPC']),
     ...mapState('mt4AC', ['list']),
     ...mapGetters('account', ['realNameAuthed']),

@@ -25,7 +25,8 @@
 
   }
   testMt4Pwd(pwd){
-    let msg = "要求6位以上，包含字母和数组"
+    console.log('%c mt4 pwd','color:red',pwd)
+    let msg = "要求6位以上，包含字母和数字"
     if(!/\d/.test(pwd)){
       return msg
     }
