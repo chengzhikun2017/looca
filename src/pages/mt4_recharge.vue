@@ -86,7 +86,7 @@
       <div v-if="rechargeFailed" class="mt4_recharge-content-error" flex="dir:top main:center cross:center">
         <a-icon class="mt4_recharge-icon-error" type="close-circle" />
         <div class="mt4_recharge-content-title">入金失败</div>
-        <p>{{}}</p>
+        <!-- <p>{{failResponse}}</p> -->
         <a-button type='primary' @click="failedBack">
           返回
         </a-button>
@@ -110,6 +110,7 @@ class defaultData {
     }]
     this.rechargeSucceed= false
     this.successResponse= {}
+    this.failResponse = {}
     this.rechargeFailed= false
   }
 }
@@ -134,7 +135,6 @@ export default {
         case 0:status = "正在处理"; break;
         case 1:status = "完成"; break;
         case 2:status = "失败"; break;
-
       }
     },
   },
@@ -150,9 +150,24 @@ export default {
         mt4Uid:this.currentMt4Uid,
         amount:this.formData.amount*100,
       }).then((res) => {
-        console.log('%c res','color:red',res)
-        this.rechargeSucceed = true
-        this.successResponse = res
+        // console.log('%c res','color:red',res)
+        //出金状态: 0正在处理、1完成、2失败
+        let status = res.status
+        if(status === 0 || status === 3) {
+          //处理中
+          this.rechargeSucceed = true
+          this.successResponse = res
+          
+        }else if(res.status === 1) {
+          // success  
+          this.rechargeSucceed = true
+          this.successResponse = res
+        }else {
+          //failed
+          this.rechargeFailed = true
+          this.failResponse = res
+          this.steps[1].title="失败"
+        }
         this.next() 
       }).catch((err) => {
         this.next()

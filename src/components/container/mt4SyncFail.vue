@@ -1,6 +1,14 @@
 <template>
-  <div class="container">
-    <a-alert message="由于网络延迟导致数据未完全同步，您可以稍后刷新重试或者前往MT4客户端查看" type="warning" v-if="success" showIcon>
+  <div class="container v-mt4-sync-fail">
+
+    <a-alert type="warning" v-if="success" showIcon>
+      <p slot="description">
+        由于网络延迟导致数据未完全同步，您可以稍后
+        <a class="link-btn" href="javascript:void(0)"  @click="refresh" >
+          刷新
+        </a>
+        重试或者前往MT4客户端查看
+      </p>
       <!-- <p slot="description">
         <span>
 
@@ -70,5 +78,15 @@ span {
 }
 .container{
   margin-bottom: 10px;
+}
+
+</style>
+<style lang="scss">
+.v-mt4-sync-fail{
+  .ant-alert-description{
+    p{
+      margin-bottom: 0;
+    }
+  }
 }
 </style>

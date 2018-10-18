@@ -165,7 +165,7 @@ export default {
     logout({ commit, dispatch }) { //todo :use modal
       vueApp.$modal.confirm({
         title: '登出',
-        content: '确认退出Loo&co?',
+        content: '确认退出Looco?',
         onOk() {
           var promise = fetch({
             url: 'account/logout',
@@ -203,8 +203,9 @@ export default {
       })
       return promise
     },
-    getAuthInfo({state,getters,rootState}) {
+    getAuthInfo({state,getters,rootState},{isInitingApp=true}={}) {
       // 0等待认证、1等待审核、2认证通过、3认证失败 
+      console.log('%c isInitingApp','color:red',isInitingApp)
       var promise = fetch({
         url: "/auth/info"
       })
@@ -217,7 +218,7 @@ export default {
             router.replace('/mine_real')
           },0)
         }else{
-          if(!rootState.app.isPC){
+          if(!rootState.app.isPC && isInitingApp){
             setTimeout(function() {
               router.replace('/mt4_overview')
             }, 0);

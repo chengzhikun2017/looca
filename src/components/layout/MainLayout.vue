@@ -358,14 +358,14 @@ export default {
           config.wallet_history,
         ],
       }, 
-      { //no-lv
-        key: 'no-lv',
-        link: null,
-        noChild: true,
-        hide: !this.hideAgent,
-        icon: 'share-alt',
-        ...config.agent_promote,
-      },
+      // { //no-lv
+      //   key: 'no-lv',
+      //   link: null,
+      //   noChild: true,
+      //   hide: !this.hideAgent,
+      //   icon: 'share-alt',
+      //   ...config.agent_promote,
+      // },
       { //agent
         key: 'broker',
         hide: this.hideAgent,

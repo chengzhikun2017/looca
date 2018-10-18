@@ -12,7 +12,7 @@ const _toString = Object.prototype.toString
 export default class helper {
   static platform = null
   static agent_levels = agent_levels
-
+ 
   static saveToLocal(key, value) {
     localStorage[key] = value
   }

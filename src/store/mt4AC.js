@@ -33,7 +33,7 @@ export default {
     setCurrent(s, id) {
       s.currentMt4Uid = id
       helper.resetStoreTrade()
-      console.log('%c s.list','color:red',s.list)
+      // console.log('%c s.list','color:red',s.list)
       s.currentMt4Info = s.list.find((item) => {
         return item.mt4Uid === id 
       })
@@ -52,8 +52,11 @@ export default {
       commit('setCurrent', state.list[0].mt4Uid)
     },
     getList({ state, getters, dispatch, commit }) {
+      console.log('%c get  list','color:red',)
       // state.listGot = false //静默 获取mt4 list, 如果获取之后再获取，不设置成false
+      state.listGot = false
       state.loadingList = true
+      state.list = []
       var promise = fetch({
         url: "mt4Account/list",
       }, {
@@ -62,31 +65,36 @@ export default {
       })
       promise.then(res => {
           let tempArr = []
+          let tempVip = []
+          state.countNormal=0
+          state.countFollow=0
           res.data.forEach((item) => {
             if(item.type==='normal') {
               tempArr.push(item)
               state.countNormal++
-            }else {
+            }else if(item.type==='follow'){
               tempArr.unshift(item)
               state.countFollow++
+            }else{
+              tempVip.push(item)
             }
           })
-          state.list = tempArr
+          state.list = tempVip.concat(tempArr)
           state.syncSuccess = res.syncSuccess
           if (!getters.hasCurrentStorage) {
             dispatch('setDefaultCurrent')
           }else {
             commit('setCurrent',getters.currentSavedMt4Uid)
           }
+          state.listGot = true
         })
         .catch(err => {
-          if (err.error === 20003) {
-            dispatch('getList')
-          }
+          // if (err.error === 20003) {
+          //   dispatch('getList')
+          // }
         })
         .finally(() => {
           state.loadingList = false
-          state.listGot = true
         })
       return promise
     },

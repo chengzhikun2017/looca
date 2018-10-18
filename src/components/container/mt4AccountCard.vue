@@ -4,6 +4,9 @@
       <div class="mt4_account_card-account" flex="main:justify">
         <span class="mt4_account_card-account-user">
           MT4{{mt4.type| mt4Type}}：{{mt4.mt4Uid}}
+          <!-- <div class="mt4_account_list_item-account-box-follow" v-if="mt4.type==='vip'">  -->
+            <a class="btn" v-if="mt4.type==='vip'" type="primary" size="small" @click="viewVIP(mt4)">VIP账号</a>
+          <!-- </div> -->
           <a-button size="small" icon="usb" type="primary" ghost v-if="mt4.type=='follow'"  @click="goAction('/unknown')">
             跟单
           </a-button>
@@ -68,6 +71,7 @@
   </div>
 </template>
 <script>
+import helper from '../../utils/helper.js'
 import mt4Account from '../mixin/mt4Account.js'
 import { getTimeString } from '@/utils/time.js'
 export default {

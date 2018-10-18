@@ -18,18 +18,23 @@
         <a-radio-group name="radioGroup" v-model="createType" >
           <a-radio value="normal" :disabled="!canCreateNormal">
             普通账户
-            <span v-if="!canCreateNormal">(最多创建10个普通账户)</span>
+            <span v-if="!canCreateNormal">(最多创建{{MAX_NORMAL_NUM}}个普通账户)</span>
           </a-radio>
           <a-radio value="follow" :disabled="!canCreateFollow">
             跟单账户
-            <span v-if="!canCreateFollow">(最多创建5个跟单账户)</span>
+            <span v-if="!canCreateFollow">(最多创建{{MAX_FOLLOW_NUM}}个跟单账户)</span>
           </a-radio>
         </a-radio-group>
       </div>
     </a-modal>
     <div class="default-info" :class="isPC?'':'phone'">
-      <div class="btn-container" :class="isPC?'':'phone'" v-if="listGot&&(canCreateNormal||canCreateFollow)">
-        <a-button size="small" v-if="isPC"  type="primary" @click="chooseCreate" >新增账户</a-button>
+      <div class="btn-container" :class="isPC?'':'phone'" v-if="listGot">
+        <a-button size="small" v-if="isPC"  type="primary" @click="chooseCreate" :disabled="!canCreate">
+          新增账户
+        </a-button>
+        <a-button size="small" v-if="isPC"  type="primary" @click="getList" >
+          刷新
+        </a-button>
         <a class="link-btn" href="javascript:void(0)" v-if="!isPC" @click="chooseCreate" >
           新增账户
         </a>
@@ -37,7 +42,9 @@
       <span >
         剩余可入金金额：${{money.balance | money}}
       </span>
-      
+      <a class="link-btn refresh-btn" href="javascript:void(0)" v-if="!isPC" @click="getList" >
+        刷新
+      </a>
       <a-button size="small" v-if="list.length>0 && false" type="primary" @click="goPage('/mt4_money_bill')">
         出入金记录
       </a-button>
@@ -109,7 +116,8 @@ const singleColum = [
   scopedSlots: { customRender: 'list' },
 },
 ]
-
+const MAX_NORMAL_NUM = 5
+const MAX_FOLLOW_NUM = 10
 var allIndex = []
 // for(let key in allColumns){
 //   allIndex.push(allColumns[key].dataIndex)
@@ -118,6 +126,8 @@ export default {
   name:'mt4_overview',
   data() {
     return {
+      MAX_NORMAL_NUM,
+      MAX_FOLLOW_NUM,
       createType: '',
       showCreateModal: false,
       confirmLoading: false,
@@ -218,11 +228,14 @@ export default {
     listLength(){
       return this.list.length
     },
+    canCreate(){
+      return this.canCreateFollow || this.canCreateNormal
+    },
     canCreateNormal(){
-      return this.countNormal < 10
+      return this.countNormal < this.MAX_NORMAL_NUM
     },
     canCreateFollow(){
-      return this.countFollow < 5
+      return this.countFollow < this.MAX_FOLLOW_NUM
     },
     ...mapState('mt4AC',['list','currentMt4Uid','listGot','syncSuccess','countNormal','countFollow']),
     ...mapState('app',['isPC']),
@@ -266,11 +279,16 @@ export default {
       margin-left: 5px;
     }
   }
-/*  .default-info{
-    display: flex;
+  .default-info.phone{
+    .refresh-btn{
+      position: absolute;
+      right: 0;
+    }
+    /*display: flex;
     justify-content: space-between;
-    padding-right: 0;
-  }*/
+    align-items: center;
+    padding-right: 0;*/
+  }
   .header{
     text-align: right;
     margin-bottom: 24px;

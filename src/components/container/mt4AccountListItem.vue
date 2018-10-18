@@ -8,6 +8,9 @@
           <div class="mt4_account_list_item-account-box-follow" v-if="mt4.type==='follow'"> 
             <a class="btn" v-if="mt4.type==='follow'" type="primary" size="small" @click="goAction('/unknown')">跟单</a>账号
           </div>
+          <div class="mt4_account_list_item-account-box-follow" v-if="mt4.type==='vip'"> 
+            <a class="btn" v-if="mt4.type==='vip'" type="primary" size="small" @click="viewVIP(mt4)">VIP</a>账号
+          </div>
         </div>
         <div class="mt4_account_list_item-account-box" flex>
           <div class="mt4_account_list_item-account-box-label">名称：</div>
@@ -67,7 +70,8 @@ export default {
     }
   },
   created() {},
-  methods: {},
+  methods: {
+  },
 }
 
 </script>

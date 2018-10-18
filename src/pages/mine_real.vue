@@ -100,11 +100,8 @@ name: 'mine_real',
     }
   },
   created() {
-    console.log('%c this','color:red',this)
-    this.getAuthInfo()
-    // if(this.realNameLoaded){
-      this.initData()
-    // }
+    this.getAuthInfo({isInitingApp:false})
+    this.initData()
 
   },
   methods: {

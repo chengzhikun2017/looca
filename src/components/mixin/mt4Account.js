@@ -1,5 +1,6 @@
 import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
 import helper from '../../utils/helper.js'
+import TimeUtil from '../../utils/time.js'
 import Vue from 'vue'
 export default {
   props: {
@@ -24,7 +25,25 @@ export default {
       this.setCurrent(this.mt4.mt4Uid)
       helper.goPage(path)
     },
-
+    viewVIP(mt4) {
+      console.log('%c mt4','color:red',mt4)
+      let st = TimeUtil.getTimeString(mt4.vipSt,0,11)
+      let et = TimeUtil.getTimeString(mt4.vipEt,0,11)
+      this.$modal.info({
+          title:"VIP账号 "+mt4.mt4Uid,
+          style:"top: 60px;",
+          // onOk:this.goAction.bind(this,'/mt4_withdraw'),
+          content: 
+          <div>
+            <div>VIP等级：{mt4.vipLevel}</div>
+            <div>VIP时间：{st} 0点 ~ {et} 0点</div>
+            <div>VIP状态：{mt4.vip}</div>
+            <div>已返还手续费：{Number(mt4.vipReturnFee/100).toFixed(2)}</div>
+          </div>,
+          okText:"关闭",
+          // cancelText:"取消",
+      })
+    },
     goWithdraw(item){
       this.setCurrent(this.mt4.mt4Uid)
       this.$modal.confirm({

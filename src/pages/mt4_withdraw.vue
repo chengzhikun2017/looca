@@ -161,10 +161,29 @@ export default {
         type: this.amountType,
       }
       this.withdraw(params).then((res) => {
-        this.rechargeSucceed = true
-        this.successResponse = res
+        this.rechargeFailed = true
+        this.failResponse = res
+        this.steps[1].title = "失败"
+        return
+        console.log('%c res','color:red',res)
+        let status = res.status
+        if(status === 0 || status === 3) {
+          //处理中
+          this.rechargeSucceed = true
+          this.successResponse = res
+          
+        }else if(res.status === 1) {
+          // success  
+          this.rechargeSucceed = true
+          this.successResponse = res
+        }else {
+          //failed
+          this.rechargeFailed = true
+          this.failResponse = res
+          this.steps[1].title = "失败"
+        }
+        // this.next() 
       }).catch((err) => {
-        console.log('%c err', 'color:red', err)
         this.rechargeFailed = true
         this.errorResponse = err
         this.steps[1].title = "失败"
@@ -177,7 +196,7 @@ export default {
     },
     next() {
       this.current++
-        this.confirmVisible = false
+      this.confirmVisible = false
     },
     prev() {
       this.current--
