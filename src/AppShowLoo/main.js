@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App2.vue'
+import flex from 'flex.css'
 import router from './router.js'
 import {
   Button,
@@ -32,6 +33,7 @@ import {
   DatePicker,
   Card,
   Divider,
+  Popover
 } from 'vue-antd-ui';
 Vue.config.productionTip = false
 function registerComponentChild(vue, parentAntComponent) {
@@ -47,6 +49,7 @@ function registerComponentChild(vue, parentAntComponent) {
 Vue.component(Button.name, Button)
 Vue.component(LocaleProvider.name, LocaleProvider)
 Vue.component(Modal.name, Modal)
+Vue.component(Popover.name, Popover)
 Vue.component(Upload.name, Upload)
 registerComponentChild(Vue, Upload)
 Vue.component(Spin.name, Spin)
