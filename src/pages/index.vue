@@ -51,8 +51,8 @@
           开始您与 <strong>乐恺环球</strong> 的交易旅程
         </h2>
         <div class="bttn-box">
-          <a href="" class="btn signup">注册真实账户</a>
-          <a href="" class="btn login">立即登录</a>
+          <a :href="`${crmDomain}/#/signup`" class="btn signup">注册真实账户</a>
+          <a :href="`${crmDomain}/#/mine_real`" class="btn login">立即登录</a>
         </div>
         <p class="text">交易涉及风险，请确保您完全了解所涉及的风险</p>
       </div>
@@ -73,10 +73,10 @@
             </h5>
           </div>
           <div class="action-box">
-            <a href="#" class="btn action_box-button-first btn-lined" target="_blank" itemprop="url">
+            <a :href="`${crmDomain}/#/signup`" class="btn action_box-button-first btn-lined" target="_blank" itemprop="url">
               注册真实账户
               </a>
-            <a href="#" class="btn action_box-button-second btn-fullwhite" target="_blank" itemprop="url">
+            <a :href="`${crmDomain}/#/mine_real`" class="btn action_box-button-second btn-fullwhite" target="_blank" itemprop="url">
               客户登录
             </a>
           </div>
@@ -145,7 +145,7 @@
         <div class="index-footer-menu" flex="main:center corss:center">
           <div class="menu-item">
             <h3>产品报价</h3>
-            <a href="@/assets/display/交易细则.xls" target="_blank">交易细则</a>
+            <a href="../assets/display/交易细则.xls" download target="_blank">交易细则</a>
           </div>
           <div class="menu-item">
             <h3>软件下载</h3>
@@ -232,6 +232,7 @@ export default {
   name: 'index',
   data() {
     return {
+      crmDomain:"https://crm.looco8.com",
       current: ['mail'],
       bannerHeight: "700px",
       itemImgs: [

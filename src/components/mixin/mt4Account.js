@@ -30,7 +30,7 @@ export default {
       let st = TimeUtil.getTimeString(mt4.vipSt,0,11)
       let et = TimeUtil.getTimeString(mt4.vipEt,0,11)
       let status
-      switch(1){
+      switch(mt4.vipNewestStatus){
         // 0正常，1，2
         case 0: status = '正常';break;
         case 1: status = '失效';break;
