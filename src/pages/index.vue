@@ -3,13 +3,35 @@
     <div class="nav-box">
       <span class="logo-box">
         <div class="logo"></div>
-        <span class="name">Loo&co Global</span>
+        <span class="name">Looco Global</span>
       </span>
       <nav class="link-box">
-      <a href="" class="nav active">首页</a>
-      <a href="" class="nav">关于我们</a>
-      <a href="" class="nav">产品和账户</a>
-      <a href="" class="nav">推广员计划</a>
+        <a-menu
+          class="index-page-nav"
+          v-model="current"
+          mode="horizontal"
+        >
+          <a-menu-item key="mail">
+            首页
+          </a-menu-item>
+          <a-sub-menu>
+            <span slot="title">产品报价</span>
+            <a-menu-item key="setting:1">交易细则</a-menu-item>
+          </a-sub-menu>
+          <a-sub-menu>
+            <span slot="title">软件下载</span>
+            <a-menu-item key="setting:1">PC</a-menu-item>
+            <a-menu-item key="setting:2">苹果</a-menu-item>
+            <a-menu-item key="setting:2">安卓</a-menu-item>
+          </a-sub-menu>
+           <a-sub-menu>
+            <span slot="title">教程</span>
+            <a-menu-item key="setting:1">教程文档</a-menu-item>
+          </a-sub-menu>
+          <a-menu-item key="alipay">
+            联系我们
+          </a-menu-item>
+        </a-menu>
       </nav>
     </div>
     <v-layer :height="bannerHeight">
@@ -23,7 +45,7 @@
       </div>
       <div class="banner-container">
         <h1 class="title">
-          <span>Loo&co Global • 乐恺环球<br>更懂你的外汇平台</span>
+          <span>Looco Global • 乐恺环球<br>更懂你的外汇平台</span>
         </h1>
         <h2 class="subtitle">
           开始您与 <strong>乐恺环球</strong> 的交易旅程
@@ -42,7 +64,7 @@
           <div class="action-text">
             <h4 class="text action_box-title" itemprop="headline">
               <span class="emphsis">
-                Loo&co Global(乐恺环球)，更懂你的外汇平台。
+                Looco Global(乐恺环球)，更懂你的外汇平台。
               </span>
               自2013年以来，给来自30多个国家，超过百万的客户提供稳定外汇交易。
             </h4>
@@ -62,24 +84,24 @@
       </div>
       <div class="why-box">
         <h3 class="tbk__title" itemprop="headline">
-          为什么选择Loo&co Global乐恺环球
+          为什么选择Looco Global乐恺环球
         </h3>
         <h4 class="tbk__subtitle" itemprop="alternativeHeadline">
           专注于每一位客户的交易体验，一个更懂你的外汇平台。
         </h4>
       </div>
       <div class="items-box">
-        <widget1 :src='itemImgs[0]' title="专业开发团队" content="耗时数年打造的Loo&co Global金牌团队，拥有顶尖的产品开发运营能力。" />
-        <widget1 :src='itemImgs[1]' title="屡获外汇经纪商奖" content="Loo&co Global乐恺环球自2013年成立以来，多次获得“年度外汇经纪商“奖。" />
-        <widget1 :src='itemImgs[2]' title="严格的监管" content="Loo&co Global乐恺环球荣获美国NFA监管." />
-        <widget1 :src='itemImgs[3]' title="高效的客服体系" content="Loo&co Global乐恺环球客服团队5*24小时为您提供服务，更懂你的外汇平台。" />
+        <widget1 :src='itemImgs[0]' title="专业开发团队" content="耗时数年打造的Looco Global金牌团队，拥有顶尖的产品开发运营能力。" />
+        <widget1 :src='itemImgs[1]' title="屡获外汇经纪商奖" content="Looco Global乐恺环球自2013年成立以来，多次获得“年度外汇经纪商“奖。" />
+        <widget1 :src='itemImgs[2]' title="严格的监管" content="Looco Global乐恺环球荣获美国NFA监管." />
+        <widget1 :src='itemImgs[3]' title="高效的客服体系" content="Looco Global乐恺环球客服团队5*24小时为您提供服务，更懂你的外汇平台。" />
       </div>
     </v-layer>
     <v-layer height="440px">
       <div class="description-box">
-        <widget2 :src='descriptionSrcs[0]' title="Loo&co Global乐恺环球执照与监管" content="Loo&co Global乐恺环球平台执照与监管在线查询，平台拥有美国NFA监管" />
-        <widget2 :src='descriptionSrcs[1]' title="Loo&co Global乐恺环球交易产品" content="Loo&co Global乐恺环球拥有目前最全的外汇交易产品，包含外汇、黄金、白银、原油、股指等。" />
-        <widget2 :src='descriptionSrcs[2]' title="Loo&co Global乐恺环球跟单社区" content="Loo&co Global乐恺环球重金打造专业外汇交易团队、大数据反向跟单信号、EA等供所有乐恺环球客户选择复制跟单。" />
+        <widget2 :src='descriptionSrcs[0]' title="Looco Global乐恺环球执照与监管" content="Looco Global乐恺环球平台执照与监管在线查询，平台拥有美国NFA监管" />
+        <widget2 :src='descriptionSrcs[1]' title="Looco Global乐恺环球交易产品" content="Looco Global乐恺环球拥有目前最全的外汇交易产品，包含外汇、黄金、白银、原油、股指等。" />
+        <widget2 :src='descriptionSrcs[2]' title="Looco Global乐恺环球跟单社区" content="Looco Global乐恺环球重金打造专业外汇交易团队、大数据反向跟单信号、EA等供所有乐恺环球客户选择复制跟单。" />
       </div>
       <!-- description -->
     </v-layer>
@@ -105,74 +127,100 @@
     <!-- <v-layer height="600px" dev> -->
     <!-- 一个更懂你的外汇平台 -->
     <!-- </v-layer> -->
-    <v-layer height="300px">
-      <div class="college-box">
-        <widget3 :src="collegeSrcs[0]" title="乐恺环球商学院" :contents="['Loo&co Global乐恺环球商学院','每天都会有外汇直播哦！']" />
-        <widget3 :src="collegeSrcs[1]" title="乐恺环球商学院" :contents="['Loo&co Global乐恺环球商学院','每天都会有外汇直播哦！']" />
-        <widget3 :src="collegeSrcs[2]" title="乐恺环球商学院" :contents="['Loo&co Global乐恺环球商学院','每天都会有外汇直播哦！']" />
-      </div>
-    </v-layer>
-    <v-layer height="560px" backgroundClass="bg-deepgrey">
-      <!-- media report -->
-      <div class="media-box">
-        <h2 class="title">
-          Loo&co Global乐恺环球媒体报道
-        </h2>
-        <widget4 width="540px" avatarPosition="bottom" :avatarSrc="mediaIcons[0]" :starNum="5" top="180px" left="0px" content="“做为专业平台的 Loo&co Global 开创更有效的MT4操作系统，依托广大全球会员，以对外贸易、技术转移、资本流动、提供服务、相互联系、相互依存而形成的全球范围的有机经济整体，降低投资风险，实现合力操作，公平透明合理化利润空间。" name="中华网" enName="CHINA.COM" />
-        <widget4 width="240px" avatarPosition="bottom" :avatarSrc="mediaIcons[1]" :starNum="4" top="160px" left="590px" content="“Loo&co Global 集团是正规的外汇投资理财平台，为投资者提供一个长久稳定的外汇投资理财平台，投资者的资金在个人MT4账户里，可以随时申请提现。" name="搜狐财经" enName="SOHU.COM" />
-        <widget4 width="240px" avatarPosition="top" :avatarSrc="mediaIcons[2]" :starNum="5" top="160px" left="890px" content="“Loo&co Global 集团——这是一个创富和改变自己和家族一生的神话，你必须了解的中国金融未来20年最大趋势和未来50年中国5亿人的普通投资理财工具！" name="南方财务网" enName="SOUTHMONEY.COM" />
-      </div>
-    </v-layer>
-    <v-layer height="200px">
-      <!-- join -->
-      <div class="join-sec">
-        <h3 class="title">加入Loo&co Global乐恺环球</h3>
-        <p class="content">更懂你的外汇平台，更专业的客户服务，期待您的加入！</p>
-        <div class="bttn">在线咨询</div>
-      </div>
-    </v-layer>
-    <v-layer height="275px" backgroundClass="bg-black">
+    <v-layer height="275px">
       <!-- contacts -->
-      <div class="contacts-box">
-        <div class="contacts">
-          <div class="links">
-            <h3 class="title">相关链接</h3>
-            <span class="link">执照和监管</span>
-            <span class="link">联系我们</span>
-            <!-- <span class="link">跟单社区</span> -->
-            <!-- <span class="link">开户流程</span> -->
-          </div>
-          <div class="links">
-            <span class="link"></span>
-            <span class="link" @click="download('windows')">Windows版本</span>
-            <span class="link">资金安全</span>
-            <span class="link">乐恺环球商学院</span>
-            <span class="link">合伙人登录</span>
-          </div>
-          <div class="qr-code">
-            <div class="qr-code-boxs">
-              <div class="qr-code-boxs-item">
-                <img src="@/assets/apple.png" alt="" class="qr">
-                <span>iPhone/iPad</span>
-              </div>
-              <div class="qr-code-boxs-item">
-                <img src="@/assets/android.png" alt="" class="qr">
-                <span>Android</span>
-              </div>
+      <div class="index-footer">
+        <div class="index-footer-logo">
+          <a-popover>
+            <template slot="content">
+              <img class="index-footer-qrcode" src="@/assets/qrcode_assit.png" alt="">
+              <div class="index-footer-note">Looco Global</div>
+            </template>
+            <div class="logo-border">
+              <!-- <img src="@/assets/display/logo_red.png" alt=""> -->
+              <a-icon type="wechat" />
             </div>
+          </a-popover>
+        </div>
+        <div class="index-footer-menu" flex="main:center corss:center">
+          <div class="menu-item">
+            <h3>产品报价</h3>
+            <a href="@/assets/display/交易细则.xls" target="_blank">交易细则</a>
           </div>
-          <div class="contact-us">
-            <h4 class="title">联系我们</h4>
-            <p class="tel">客服QQ：83166672</p>
-            <p class="tel">客服微信：LOOCO8</p>
-            <!-- <p class="mail">Email: service@Loo&co Global.com</p> -->
+          <div class="menu-item">
+            <h3>软件下载</h3>
+            <p>PC</p>
+            <p>苹果</p>
+            <p>安卓</p>
+          </div>
+          <div class="menu-item">
+            <h3>教程</h3>
+            <p>教程文档</p>
+          </div>
+          <div class="menu-item">
+            <h3>联系我们</h3>
+            <p>客服电话：400-0577009</p>
+            <p>客服QQ：83166672</p>
+            <p>客服微信：LOOCO8</p>
           </div>
         </div>
-        <div class="footer"></div>
+        <div class="copyright">
+          温馨提示及风险警告：交易存在较高风险，需先认真考虑自身经验水平和所能承担之风险。使用MT4工具进行交易，操作行为是一种自发行为，所引发的一切法律后果，由用户自行承担，请您知悉。
+        </div>
       </div>
     </v-layer>
   </div>
 </template>
+<style lang="scss">
+  .index-footer {
+    &-logo {
+      padding-top: 25px;
+      text-align: center;
+      .logo-border {
+        position: relative;
+        background-color: #ccc;
+        margin: 0 auto;
+        border-radius: 50%;
+        overflow: hidden;
+        width: 49px;
+        height: 49px;
+        color: white;
+        font-size: 32px;
+        line-height: 49px;
+        &:hover {
+          background-color: #00d500;
+        }
+      }
+    }
+    &-qrcode {
+      width: 180px;
+    }
+    &-note {
+      text-align: center;
+    }
+    &-menu {
+      margin-top: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid #e0e0e0;
+      text-align: left;
+      .menu-item {
+        margin:0 60px;
+        h3 {
+          margin: 0;
+        }
+        p {
+          margin: 0;
+        }
+      }
+    }
+    .copyright {
+      padding: 10px 0 25px;
+      font-size: 12px;
+      color: #ccc;
+      text-align: center;
+    }
+  }
+</style>
 <script>
 import layer from './../components/layout/ContentCenterFullW.vue'
 import widget1 from './../components/forIndex/widget1.vue'
@@ -184,6 +232,7 @@ export default {
   name: 'index',
   data() {
     return {
+      current: ['mail'],
       bannerHeight: "700px",
       itemImgs: [
         require("./../assets/display/set-03-01.svg"),
@@ -695,7 +744,7 @@ $themeGrey: #808080;
     margin-top: 60px;
     height: 180px;
     display: flex;
-    .links {
+    .links, .tutorial {
       display: flex;
       flex-direction: column;
       margin-right: 160px;
@@ -721,8 +770,8 @@ $themeGrey: #808080;
       }
     }
     .qr-code {
+      text-align: right;
       width: 130px;
-      margin-right: 260px;
       .title {
         font-size: 14px;
         color: #fff;
@@ -733,6 +782,7 @@ $themeGrey: #808080;
       }
     }
     .contact-us {
+      margin-right: 160px;
       .title {
         font-size: 14px;
         color: #fff;
@@ -779,10 +829,64 @@ $themeGrey: #808080;
 
 </style>
 <style lang="scss">
+  .ant-menu-submenu {
+    .ant-menu-item {
+      height: 36px;
+      line-height: 36px;
+    }
+    .ant-menu-item:hover, .ant-menu-item-active, .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open, .ant-menu-submenu-active, .ant-menu-submenu-title:hover {
+      color: #cd2122;
+    }
+  }
+  .index-page {
+    &-nav {
+      background: none;
+      border: none;
+      color: white;
+      line-height: 36px !important;
+      &.ant-menu-horizontal > .ant-menu-item:hover,
+      &.ant-menu-horizontal > .ant-menu-submenu:hover,
+      &.ant-menu-horizontal > .ant-menu-item-active,
+      &.ant-menu-horizontal > .ant-menu-submenu-active,
+      &.ant-menu-horizontal > .ant-menu-item-open,
+      &.ant-menu-horizontal > .ant-menu-submenu-open,
+      &.ant-menu-horizontal > .ant-menu-item-selected,
+      &.ant-menu-horizontal > .ant-menu-submenu-selected {
+        border: none;
+        background: #cd2122;
+        border-radius: 3px;
+        color: white;
+      }
+      li {
+        margin: 0 8px;
+      }
+      .ant-menu-item:hover, .ant-menu-item-active, .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open, .ant-menu-submenu-active, .ant-menu-submenu-title:hover {
+          color: white;
+      }
+      .ant-select-selection {
+        color: white;
+        background: none;
+        border: none;
+        box-shadow: none;
+        position: relative;
+        &:after {
+          content: "";
+          opacity: 1;
+          position: absolute;
+          height: 1px;
+          width: 7px;
+          bottom: 3px;
+          bottom: calc(50% - 12px);
+          left: 12px;
+          background-color: rgba(255, 255, 255, 0.4);
+          -webkit-transition: opacity .2s ease-in-out;
+          transition: opacity .2s ease-in-out;
+        }
+      }
+    }
+  }
   .qr-code {
     &-boxs {
-      width: 200px;
-      display: flex;
       &-item {
         text-align: center;
         padding: 0 10px;
