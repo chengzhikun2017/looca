@@ -52,8 +52,8 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/crm/',
-    // assetsPublicPath: '/',
+    // assetsPublicPath: '/crm/',
+    assetsPublicPath: '/',
 
     /**
      * Source Maps
