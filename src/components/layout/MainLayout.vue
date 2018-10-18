@@ -84,7 +84,7 @@ const config = {
   mt4_overview: { title: "MT4账户", link: "mt4_overview", isRoot: true },
   mt4_modifypwd: { title: "修改密码", link: "mt4_modifypwd", rootKey: 'mt4_overview' },
   mt4_bind: { title: "绑定账号", link: "mt4_bind", rootKey: 'mt4_overview' },
-  mt4_findpwd: { title: "忘记密码", link: "mt4_findpwd", rootKey: 'mt4_overview' },
+  mt4_findpwd: { title: "找回密码", link: "mt4_findpwd", rootKey: 'mt4_overview' },
 
   mt4_trade: { title: 'MT4交易管理' },
   mt4_trade_history: { title: "交易记录：持仓和历史记录", link: "mt4_trade_history", rootKey: 'mt4_overview' },
@@ -100,10 +100,10 @@ const config = {
   brokerage_withdraw: { title: "佣金提现", link: "brokerage_withdraw", rootKey: 'wallet_review' },
 
   agent: { title: "代理推广" },
-  agent_promote: { title: "我的推广", link: "agent_promote", rootKey: 'agent' },
   agent_overview: { title: "我的客户", link: "agent_overview", rootKey: 'agent' },
   agent_profit_overview: { title: "返现记录", link: "agent_profit_overview", rootKey: 'agent' },
   broker: { title: "代理商",  },
+  agent_promote: { title: "我的推广", link: "agent_promote", rootKey: 'broker' },
   broker_user: { title: "客户", link: "broker_user", rootKey: 'broker' },
   broker_mt4Ac: { title: "账户", link: "broker_mt4Ac", rootKey: 'broker' },
   broker_trade: { title: "交易", link: "broker_trade", rootKey: 'broker' },
@@ -357,26 +357,28 @@ export default {
           config.wallet_recharge,
           config.wallet_history,
         ],
-      }, { //agent
-        key: 'agent',
+      }, 
+      { //no-lv
+        key: 'no-lv',
+        link: null,
+        noChild: true,
+        hide: !this.hideAgent,
+        icon: 'share-alt',
+        ...config.agent_promote,
+      },
+      { //agent
+        key: 'broker',
+        hide: this.hideAgent,
         link: null,
         icon: 'share-alt',
-        ...config.agent,
+        ...config.broker,
+        title:this.isAgent?"代理推广":"代理商",
         children: [
           config.agent_promote,
-          config.agent_overview,
-          config.agent_profit_overview,
-        ],
-      }, { //broker
-        key: 'broker',
-        link: null,
-        icon: 'book',
-        ...config.broker,
-        children: [
           config.broker_user,
+          config.broker_mt4Ac,
           config.broker_trade,
           config.broker_profit,
-          config.broker_mt4Ac,
           // config.agent_overview,
           // config.agent_profit_overview,
 
@@ -398,7 +400,16 @@ export default {
     siderHeight() {
       return this.windowHeight - 64 + 'px'
     },
-
+    hideAgent(){
+      return this.shareInfo.level === 0
+    },
+    isAgent() {
+      return this.shareInfo.level > 1
+    },
+    isShareHolder() {
+      return this.shareInfo.level == 1
+    },
+    ...mapState('share',['shareInfo']),
     ...mapState('app', ['windowHeight', 'isPC']),
     ...mapState('mt4AC', ['list']),
     ...mapGetters('account', ['realNameAuthed']),

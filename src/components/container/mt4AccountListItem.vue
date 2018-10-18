@@ -22,17 +22,17 @@
         <div class="mt4_account_list_item-trade" flex-box="1" flex="dir:top main:center cross:center">
           <div>持仓亏盈</div>
           <div class="red money" v-if="mt4.openOrderProfit!==null&&mt4.openOrderProfit>=0">
-            ${{mt4.openOrderProfit | money}}（{{mt4.openOrderNum}}笔）
+            ${{mt4.openOrderProfit}}（{{mt4.openOrderNum}}笔）
           </div>
           <div class="green money" v-if="mt4.openOrderProfit<0">
-            -${{-mt4.openOrderProfit | money}}（{{mt4.openOrderNum}}笔）
+            -${{-mt4.openOrderProfit}}（{{mt4.openOrderNum}}笔）
           </div>
           <div class=" money" v-if="mt4.openOrderProfit==null">-</div>
         </div>
       </div>
       <div class="mt4_account_list_item-options" flex-box="0">
         <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goRechage">入金</a-button>
-        <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goWithdraw">出金</a-button>
+        <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goWithdraw" :disabled="mt4.balanceFee === 0">出金</a-button>
         <a-button class="mt4_account_list_item-btn" type="primary" size="small" @click="goAction('/mt4_trade_history')">交易报表</a-button>
         <a-dropdown>
           <a-button class="mt4_account_list_item-btn" type="primary" size="small">更多</a-button>

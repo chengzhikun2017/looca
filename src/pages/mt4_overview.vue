@@ -28,7 +28,7 @@
       </div>
     </a-modal>
     <div class="default-info" :class="isPC?'':'phone'">
-      <div class="btn-container" :class="isPC?'':'phone'" v-if="listGot&&canCreateNormal&&canCreateFollow">
+      <div class="btn-container" :class="isPC?'':'phone'" v-if="listGot&&(canCreateNormal||canCreateFollow)">
         <a-button size="small" v-if="isPC"  type="primary" @click="chooseCreate" >新增账户</a-button>
         <a class="link-btn" href="javascript:void(0)" v-if="!isPC" @click="chooseCreate" >
           新增账户
@@ -143,6 +143,7 @@ export default {
     }
   },
   created(){
+    this.getList()
     if(this.list.length>0){
       this.setDefaultCurrent()
     }
@@ -164,9 +165,9 @@ export default {
     goPage(path){
       helper.goPage(path)
     },
-    onSelectCurrent(mt4,index){
-      this.setCurrent(mt4.mt4Uid)
-    },
+    // onSelectCurrent(mt4,index){
+    //   this.setCurrent(mt4.mt4Uid)
+    // },
     onCreateOK(e){
       if(!this.createType){
         this.$message.error('请选择开户类型')
@@ -187,12 +188,6 @@ export default {
     },
     onChange(value){
       this.columnsShow = value
-    },
-    onSearch(e){
-      
-    },
-    onSelect(e){
-      
     },
     handleTableChange(pagination, filters, sorter) {
       console.log(pagination,filters,sorter);

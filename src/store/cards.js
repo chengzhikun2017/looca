@@ -87,13 +87,14 @@ export default {
       if(state.listGot){
         return
       }
-      fetch({
+      let promise = fetch({
         url: 'bankCard/list',
       }).then(res => {
         // console.log('%c res','color:red',res)
         state.listDC = res
         state.listGot = true
       })
+      return promise
     },
     addDC(store, { name,  cardNo, bankName,bankBranch}) {
       var promise = fetch({

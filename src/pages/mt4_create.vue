@@ -19,6 +19,12 @@
       
       <a-form-item :wrapperCol="{ span: 18 }" label='只读密码' :labelCol="{ span: 6 }" :validateStatus="input.status.password2.validateStatus" :help="input.status.password2.help">
         <a-input placeholder="请输入只读密码"  ref="inputPassword2" v-model="input.values.password2" @blur="validate('password2')" @focus="clearValidation('password2')">
+          <a-tooltip slot="addonAfter" placement="left" >
+            <template slot='title'>
+              只读密码：仅用于登录查看无法交易
+            </template>
+            <a-icon  type="question-circle-o"/>
+          </a-tooltip>
         </a-input>
       </a-form-item>
       <!-- <a-form-item :wrapperCol="{ span: 18 }" label='重复只读密码' :labelCol="{ span: 6 }" :validateStatus="input.status.repassword2.validateStatus" :help="input.status.repassword2.help">

@@ -42,7 +42,7 @@
         推广返利说明
       </div>
       <div class="agent_promote-note-item">
-        代理等级：小喽喽、组长、经理
+        代理等级：三级、二级、一级
       </div>
       <div class="agent_promote-note-item">
         返利金额：各交易品种佣金表
@@ -54,6 +54,23 @@
         客户关系：一级为直接客户、二级为您一级客户推广的客户，依次类推
       </div>
     </div>
+    <div class="agent_promote-note">
+      <div class="agent_promote-note-title">
+        升级条件：
+      </div>
+      <div class="agent_promote-note-item">
+        1.三级升二级，充值金额累计10万美金；
+      </div>
+      <div class="agent_promote-note-item">
+        2.二级升一级，充值金额累计20万美金；
+      </div>
+      <div class="agent_promote-note-item">
+        3.如需帮助，请联系客服，反复充值不累计。
+      </div>
+    </div>
+                    
+                    
+
   </div>
 </template>
 <script>
