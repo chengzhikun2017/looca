@@ -29,6 +29,13 @@ export default {
       console.log('%c mt4','color:red',mt4)
       let st = TimeUtil.getTimeString(mt4.vipSt,0,11)
       let et = TimeUtil.getTimeString(mt4.vipEt,0,11)
+      let status
+      switch(1){
+        // 0正常，1，2
+        case 0: status = '正常';break;
+        case 1: status = '失效';break;
+        case 2: status = '余额不足';break;
+      }
       this.$modal.info({
           title:"VIP账号 "+mt4.mt4Uid,
           style:"top: 60px;",
@@ -37,7 +44,7 @@ export default {
           <div>
             <div>VIP等级：{mt4.vipLevel}</div>
             <div>VIP时间：{st} 0点 ~ {et} 0点</div>
-            <div>VIP状态：{mt4.vip}</div>
+            <div>VIP状态：{status}</div>
             <div>已返还手续费：{Number(mt4.vipReturnFee/100).toFixed(2)}</div>
           </div>,
           okText:"关闭",

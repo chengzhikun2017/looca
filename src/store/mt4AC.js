@@ -136,6 +136,9 @@ export default {
         url: "mt4Account/modifyPwd",
         params,
       })
+      promise.then(() => {
+        vueApp.$message.info('修改成功')
+      })
       return promise
     },
     findPwd({}, mt4Uid) {
