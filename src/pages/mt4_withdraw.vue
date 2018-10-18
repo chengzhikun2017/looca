@@ -54,7 +54,7 @@
       <div v-if="rechargeSucceed" class="mt4_withdraw-content-success" flex="dir:top main:center cross:center">
         <a-icon class="mt4_withdraw-icon-success" type="check-circle" />
         <div class="mt4_withdraw-content-title">
-          提交成功
+          {{responseText}}
         </div>
         <div class="mt4_withdraw-table">
           <a-form>
@@ -118,6 +118,7 @@ class defaultData {
     }, {
       title: '完成',
     }]
+    this.responseText = "提交成功"
     this.rechargeSucceed= false
     this.successResponse= {}
     this.errorResponse= {}
@@ -161,17 +162,14 @@ export default {
         type: this.amountType,
       }
       this.withdraw(params).then((res) => {
-        this.rechargeFailed = true
-        this.failResponse = res
-        this.steps[1].title = "失败"
-        return
-        console.log('%c res','color:red',res)
+        // console.log('%c res','color:red',res)
         let status = res.status
+        status = 3
         if(status === 0 || status === 3) {
           //处理中
+          this.responseText = "出金处理中"
           this.rechargeSucceed = true
           this.successResponse = res
-          
         }else if(res.status === 1) {
           // success  
           this.rechargeSucceed = true

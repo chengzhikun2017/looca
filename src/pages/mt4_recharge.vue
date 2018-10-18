@@ -54,7 +54,8 @@
     <div v-if="current === 1 " class="mt4_recharge-content">
       <div v-if="rechargeSucceed" class="mt4_recharge-content-success" flex="dir:top main:center cross:center">
         <a-icon class="mt4_recharge-icon-success" type="check-circle" />
-        <div class="mt4_recharge-content-title">入金成功</div>
+        <div class="mt4_recharge-content-title" >{{responseText}}</div>
+        <!-- <div class="mt4_recharge-content-title" v-if="">处理中</div> -->
         <div class="mt4_recharge-table" >
           <a-form >
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_recharge-table-item" label='MT4账号' :labelCol="{ span: 6 }" >
@@ -108,6 +109,7 @@ class defaultData {
     }, {
       title: '完成',
     }]
+    this.responseText="入金成功"
     this.rechargeSucceed= false
     this.successResponse= {}
     this.failResponse = {}
@@ -155,9 +157,9 @@ export default {
         let status = res.status
         if(status === 0 || status === 3) {
           //处理中
+          this.responseText = '入金处理中'
           this.rechargeSucceed = true
           this.successResponse = res
-          
         }else if(res.status === 1) {
           // success  
           this.rechargeSucceed = true

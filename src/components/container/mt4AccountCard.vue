@@ -28,7 +28,7 @@
           <div class=" money" v-if="mt4.openOrderProfit==null">-</div>
         </div>
       </div>
-      <div class="mt4_account_card-ribbons active" v-if="mt4.type==='vip'" @click="viewVIP(mt4)">
+      <div class="mt4_account_card-ribbons" :class="mt4.vipNewestStatus===0?'active':''" v-if="mt4.type==='vip'" @click="viewVIP(mt4)">
         <div class="mt4_account_card-ribbons-bg"></div>
         <div class="mt4_account_card-ribbons-add"></div>
         <div class="mt4_account_card-ribbons-add2"></div>

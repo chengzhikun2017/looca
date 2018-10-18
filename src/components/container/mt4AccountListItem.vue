@@ -8,7 +8,7 @@
           <div class="mt4_account_list_item-account-box-follow" v-if="mt4.type==='follow'">
             <a class="btn" v-if="mt4.type==='follow'" type="primary" size="small" @click="goAction('/unknown')">跟单</a>
           </div>
-          <div class="mt4_account_list_item-account-box-vip" v-if="mt4.type==='vip'">
+          <div class="mt4_account_list_item-account-box-vip" :class="mt4.vipNewestStatus===0?'active':''" v-if="mt4.type==='vip'">
             <a class="btn" v-if="mt4.type==='vip'" type="primary" size="small" @click="viewVIP(mt4)">VIP</a>
           </div>
         </div>
