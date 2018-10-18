@@ -3,9 +3,8 @@
     <div class="mt4_account_card-content">
       <div class="mt4_account_card-account" flex="main:justify">
         <span class="mt4_account_card-account-user">
-          MT4{{mt4.type| mt4Type}}：{{mt4.mt4Uid}}
+          MT4{{mt4.type| mt4Type}}<a class="btn" v-if="mt4.type==='vip'" type="primary" size="small" @click="viewVIP(mt4)">VIP账号</a>：{{mt4.mt4Uid}}
           <!-- <div class="mt4_account_list_item-account-box-follow" v-if="mt4.type==='vip'">  -->
-            <a class="btn" v-if="mt4.type==='vip'" type="primary" size="small" @click="viewVIP(mt4)">VIP账号</a>
           <!-- </div> -->
           <a-button size="small" icon="usb" type="primary" ghost v-if="mt4.type=='follow'"  @click="goAction('/unknown')">
             跟单
@@ -29,6 +28,12 @@
           <div class=" money" v-if="mt4.openOrderProfit==null">-</div>
         </div>
       </div>
+      <div class="mt4_account_card-ribbons active" v-if="mt4.type==='vip'" @click="viewVIP(mt4)">
+        <div class="mt4_account_card-ribbons-bg"></div>
+        <div class="mt4_account_card-ribbons-add"></div>
+        <div class="mt4_account_card-ribbons-add2"></div>
+        <div class="mt4_account_card-ribbons-text">VIP</div>
+      </div>
     </div>
     <div class="mt4_account_card-options" flex="">
       <div class="mt4_account_card-btn" flex-box="1" @click="goRechage">
@@ -42,7 +47,7 @@
         </a-button>
       </div>
       <!-- <div v-if="mt4.type==='follow' && false" class="mt4_account_card-btn" flex-box="1">
-        
+
       </div> -->
       <div class="mt4_account_card-btn" flex-box="1" @click="goAction('/mt4_trade_history')">
         <a-button size="small" icon="bar-chart" type="primary" ghost>
@@ -93,6 +98,7 @@ export default {
 <style lang="scss">
 $prefix: "mt4_account_card";
 .#{$prefix}-vue {
+  position: relative;
   .ant-btn > .anticon + span, .ant-btn > span + .anticon {
       margin-left: 2px;
   }
@@ -130,6 +136,59 @@ $prefix: "mt4_account_card";
       &:not(:last-child) {
         border-right: 1px solid #ccc;
       }
+    }
+  }
+  .#{$prefix}-ribbons {
+    position: absolute;
+    bottom: 40px;
+    right: -2px;
+    &.active {
+      .#{$prefix}-ribbons-bg {
+        border-right: 49px solid #f5222d;
+      }
+      .#{$prefix}-ribbons-text {
+        color: #f4f80a;
+      }
+    }
+    &-bg {
+      position: absolute;
+      bottom: 49px;
+      right: 1px;
+      border-bottom: 49px solid transparent;
+      border-left: 49px solid transparent;
+      border-right: 49px solid #ccc;
+      transform-origin: center bottom;
+      transform: rotate(90deg);
+    }
+    &-add {
+      position: absolute;
+      bottom: 22px;
+      right: 1px;
+      // z-index: 1;
+      border-bottom: 22px solid transparent;
+      border-left: 22px solid transparent;
+      border-right: 22px solid #ccc;
+      transform-origin: center bottom;
+      transform: rotateZ(90deg);
+    }
+    &-add2 {
+      position: absolute;
+      bottom: 21px;
+      right: 2px;
+      border-bottom: 20px solid transparent;
+      border-left: 20px solid transparent;
+      border-right: 20px solid white;
+      transform-origin: center bottom;
+      transform: rotateZ(90deg);
+    }
+    &-text {
+      position: absolute;
+      bottom: 12px;
+      right: 18px;
+      transform-origin: top right;
+      transform: rotateZ(-45deg);
+      font-weight: 700;
+      color: white;
     }
   }
   .red {

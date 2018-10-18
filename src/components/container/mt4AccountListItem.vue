@@ -5,11 +5,11 @@
         <div class="mt4_account_list_item-account-box" flex>
           <div class="mt4_account_list_item-account-box-label">MT4账号：</div>
           <div class="mt4_account_list_item-account-box-input">{{mt4.mt4Uid}}</div>
-          <div class="mt4_account_list_item-account-box-follow" v-if="mt4.type==='follow'"> 
-            <a class="btn" v-if="mt4.type==='follow'" type="primary" size="small" @click="goAction('/unknown')">跟单</a>账号
+          <div class="mt4_account_list_item-account-box-follow" v-if="mt4.type==='follow'">
+            <a class="btn" v-if="mt4.type==='follow'" type="primary" size="small" @click="goAction('/unknown')">跟单</a>
           </div>
-          <div class="mt4_account_list_item-account-box-follow" v-if="mt4.type==='vip'"> 
-            <a class="btn" v-if="mt4.type==='vip'" type="primary" size="small" @click="viewVIP(mt4)">VIP</a>账号
+          <div class="mt4_account_list_item-account-box-vip" v-if="mt4.type==='vip'">
+            <a class="btn" v-if="mt4.type==='vip'" type="primary" size="small" @click="viewVIP(mt4)">VIP</a>
           </div>
         </div>
         <div class="mt4_account_list_item-account-box" flex>
@@ -79,28 +79,58 @@ export default {
 $prefix: "mt4_account_list_item";
 @import '@/styles/listitem/index.scss';
 .#{$prefix} {
-  .#{$prefix}-account {
+  &-account {
     min-width: 240px;
     /*font-size: 14px;*/
-    .#{$prefix}-account-box {
-      .#{$prefix}-account-box-label {
+    &-box {
+      &-label {
         width: 100px;
         text-align: right;
       }
-      .#{$prefix}-account-box-follow {
+      &-follow {
+        display: inline-table;
         margin-left: 5px;
-        font-size: 14px;
+        border-radius: 5px;
+        background: rgba(0, 0, 0, 0.45);
+        padding: 3px 5px;
+        font-size: 12px;
+        line-height: 1;
         .btn {
-          font-size: 14px;
+          display: block;
+          font-size: 12px;
+          line-height: 1;
+          color: white;
         }
       }
-      .#{$prefix}-account-box-input {
+      &-vip {
+        &.active {
+          background: #f5222d;
+          .btn {
+            color: #f4f80a;
+          }
+        }
+        display: inline-table;
+        margin-left: 5px;
+        border-radius: 5px;
+        background: #ccc;
+        padding: 3px 5px;
+        font-size: 12px;
+        line-height: 1;
+        .btn {
+          display: block;
+          font-size: 12px;
+          line-height: 1;
+          color: white;
+          font-weight: 700;
+        }
+      }
+      &-input {
         text-align: left;
       }
     }
   }
 
-  .#{$prefix}-btn {
+  &-btn {
     font-size: 13px;
   }
   .red {
