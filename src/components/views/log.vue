@@ -2,7 +2,7 @@
   <!-- <div class="l-log" v-if='false'> -->
   <div class="l-log" v-if='true'>
     <div class="log-box" :class="isPC?'':'phone'">
-      <div class="header">
+      <div class="l-log-header">
         <img src="../../assets/display/logo.png" alt="" class="logo">
         <span class="title">Looco Global & 乐恺环球</span>
       </div>
@@ -113,22 +113,7 @@ export default {
   width: 360px;
   margin: 0 auto;
   margin-top: 80px;
-  .header {
-    height: 30px;
-    display: flex;
-    align-items: center;
-    .title {
-      color: #eee;
-      font-style: italic;
-      font-weight: bold;
-      font-size: 18px;
-      margin-left: 5px;
-    }
-    .logo{
-      width: 20px;
-      height: 20px;
-    }
-  }
+
 }
 
 .log-box.phone {

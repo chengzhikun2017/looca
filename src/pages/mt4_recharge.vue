@@ -155,12 +155,12 @@ export default {
         // console.log('%c res','color:red',res)
         //出金状态: 0正在处理、1完成、2失败
         let status = res.status
-        if(status === 0 || status === 3) {
+        if(status === 1 || status === 3) {
           //处理中
           this.responseText = '入金处理中'
           this.rechargeSucceed = true
           this.successResponse = res
-        }else if(res.status === 1) {
+        }else if(res.status === 0) {
           // success  
           this.rechargeSucceed = true
           this.successResponse = res

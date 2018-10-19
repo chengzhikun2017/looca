@@ -22,7 +22,22 @@ body {
 .l-blue {
   color: #1890ff;
 }
-
+.l-log-header {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  .title {
+    color: #eee;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 18px;
+    margin-left: 5px;
+  }
+  .logo{
+    width: 20px;
+    height: 20px;
+  }
+}
 .l-search-box {
   display: flex;
   align-items: center;

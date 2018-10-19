@@ -1,12 +1,19 @@
 <template>
   <div class="signup-page">
-    <h1 class="title">
+    <h1 class="main-title">
       注册账号
-      <a-divider />
+      <a-divider/>
     </h1>
     <div class="box">
+      <div class="l-log-header">
+        <img src="../assets/display/logo.png" alt="" class="logo">
+        <span class="title">Looco Global & 乐恺环球</span>
+      </div>
       <div class="container"> 
         <Sign></Sign>
+        <div class="sign-bottom">
+          <span class="login l-pointer" @click="goPage('/mine_real')">立即登录</span>
+        </div>
       </div>
     </div>
   </div>
@@ -14,6 +21,7 @@
 
 <script>
 const Sign  = ()=> import ('../components/views/signup.vue')
+import helper from '../utils/helper.js'
 import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
 export default {
   name:'signup',
@@ -26,6 +34,10 @@ export default {
     this.setShareInfo({uid:this.$route.query.uid})
   },
   methods: {
+    goPage(path) {
+      console.log('%c go page','color:red',)
+      helper.goPage(path)
+    },
     ...mapMutations('account',['setShareInfo']),
   },
   computed: {},
@@ -42,28 +54,41 @@ export default {
   /*position: absolute;*/
   width: 100%;
   height: 100%;
-  background: #fff;
+  background: #000;
   /*background: #000;*/
   left: 0;
   top: 0;
   z-index: 99999;
   overflow: auto;
   /*padding:0 20px;*/
-  .title{
-    color:#666;
+  .main-title{
+    color:#fff;
     font-size: 20px;
     text-align: center;
     line-height: 1;
     margin-top: 24px;
   }
   .box{
-    padding:20px;
-    display: flex;
-    justify-content: center;
-    
+    /*display: flex;*/
+
+    width: 360px;
+    /*justify-content: center;*/
+    margin: 0 auto;
   }
   .container{
-    width: 320px;
+    border-radius: 5px;
+    width: 360px;
+    padding:20px;
+    background: #fff;
   }
+}
+.sign-bottom {
+  text-align: right;
+  color: #1890ff;
+}
+.login {
+  height: 32px;
+  font-size: 14px;
+  line-height: 32px;
 }
 </style>

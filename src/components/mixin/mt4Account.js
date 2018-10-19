@@ -45,7 +45,7 @@ export default {
             <div>VIP等级：{mt4.vipLevel}</div>
             <div>VIP时间：{st} 0点 ~ {et} 0点</div>
             <div>VIP状态：{status}</div>
-            <div>已返还手续费：{Number(mt4.vipReturnFee/100).toFixed(2)}</div>
+            <div>已返还手续费：${Number(mt4.vipReturnFee/100).toFixed(2)}</div>
           </div>,
           okText:"关闭",
           // cancelText:"取消",

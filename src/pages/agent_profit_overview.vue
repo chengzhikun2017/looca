@@ -4,7 +4,7 @@
       <thead>
         <tr>
           <th>总收入</th>
-          <th>点差收入</th>
+          <th>手续费收入</th>
           <th>跟单收入</th>
         </tr>
       </thead>
@@ -90,10 +90,10 @@ export default {
       loading: false,
       queryLv: 0,
       // selectDate:null,
-      // type:null,//point ：点差， follow：跟单，不填写空字符串为全部
+      // type:null,//point ：手续费， follow：跟单，不填写空字符串为全部
       types: [
         { value: 0, label: "全部" },
-        { value: 'point', label: "点差" },
+        { value: 'point', label: "手续费" },
         { value: 'follow', label: "跟单" },
       ],
       type: 0,
@@ -158,7 +158,7 @@ export default {
         limit: this.pagination.pageSize,
         // st：起始时间，格式yyyy-mm-dd，
         // et：结束时间（包含），格式yyyy-mm-dd，前端可以默认筛选最近一周数据
-        // type:null,//point ：点差， follow：跟单，不填写空字符串为全部
+        // type:null,//point ：手续费， follow：跟单，不填写空字符串为全部
         // depth: 级别， 1、2、3 ，不填写或
       }
     },

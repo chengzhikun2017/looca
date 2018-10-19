@@ -53,7 +53,9 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
     // assetsPublicPath: '/crm/',
-    assetsPublicPath: '/',
+    // assetsPublicPath: '/',
+    // assetsPublicPath: 'https://looco-1251098434.file.myqcloud.com/', //cdn show
+    assetsPublicPath: 'https://looco-crm-1251098434.file.myqcloud.com/', //cdn crm
 
     /**
      * Source Maps
