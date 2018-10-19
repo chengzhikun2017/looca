@@ -101,8 +101,9 @@ name: 'mine_real',
   },
   created() {
     this.getAuthInfo({isInitingApp:false})
-    this.initData()
-
+    .then(() => {
+      this.initData()
+    })
   },
   methods: {
     initData(){
