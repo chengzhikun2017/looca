@@ -41,6 +41,7 @@ export default {
     }
   },
   created() {
+    window.__test = this.test.bind(this)
     this.checkSession()
     // this.$store.dispatch('wallet/getCurrency')
     // setInterval(() => {

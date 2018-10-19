@@ -216,12 +216,13 @@ export default {
         if(!getters.realNameAuthed){
           setTimeout(function() {
             router.replace('/mine_real')
-          },0)
+          },50)
         }else{
           if(!rootState.app.isPC && isInitingApp){
+            console.log('%c replace to mt4 overview','color:red',)
             setTimeout(function() {
               router.replace('/mt4_overview')
-            }, 0);
+            }, 50);
           }
         }
       })
@@ -257,10 +258,13 @@ export default {
       var promise = fetch({
         url: 'auth/identity',
         params,
+      },{
+        rejectErr:true,
       })
       promise.then(res => {
         dispatch('getAuthInfo')
       })
+      return promise
     },
     modifyPwd({}, { password, newPassword }) {
       return fetch({

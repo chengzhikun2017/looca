@@ -142,6 +142,9 @@ name: 'mine_real',
         this.editing = false
         this.$message.info('提交成功，等待审核')
       })
+      .catch(() => {
+         this.editing = true
+      })
     },
     getParams() {
       return {
@@ -155,11 +158,11 @@ name: 'mine_real',
     ...mapActions('account', ['authVerify','getAuthInfo']),
   },
   watch:{
-    authStatus(status){
-      if(status===2){
-        this.authStatus = 2
-      }
-    },
+    // authStatus(status){
+    //   if(status===2){
+    //     this.authStatus = 2
+    //   }
+    // },
     realNameLoaded(v){
       if(v){
         this.initData()

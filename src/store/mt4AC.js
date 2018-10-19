@@ -45,6 +45,9 @@ export default {
     resetCurrent(s) {
       helper.removeLocal('currentMt4Uid')
     },
+    // setListGot(bool) {
+    //   state.listGot = bool
+    // },
   },
 
   actions: {
@@ -52,7 +55,6 @@ export default {
       commit('setCurrent', state.list[0].mt4Uid)
     },
     getList({ state, getters, dispatch, commit }) {
-      console.log('%c get  list','color:red',)
       // state.listGot = false //静默 获取mt4 list, 如果获取之后再获取，不设置成false
       state.listGot = false
       state.loadingList = true
@@ -64,38 +66,41 @@ export default {
         showLoading: false,
       })
       promise.then(res => {
-          let tempArr = []
-          let tempVip = []
-          state.countNormal=0
-          state.countFollow=0
-          res.data.forEach((item) => {
-            if(item.type==='normal') {
-              tempArr.push(item)
-              state.countNormal++
-            }else if(item.type==='follow'){
-              tempArr.unshift(item)
-              state.countFollow++
-            }else{
-              tempVip.push(item)
-            }
-          })
-          state.list = tempVip.concat(tempArr)
-          state.syncSuccess = res.syncSuccess
-          if (!getters.hasCurrentStorage) {
-            dispatch('setDefaultCurrent')
-          }else {
-            commit('setCurrent',getters.currentSavedMt4Uid)
+        console.log('%c res mt4 account','color:red',res)
+        // commit('setListGot',true)
+        state.listGot = true
+        let tempArr = []
+        let tempVip = []
+        state.countNormal=0
+        state.countFollow=0
+        res.data.forEach((item) => {
+          if(item.type==='normal') {
+            tempArr.push(item)
+            state.countNormal++
+          }else if(item.type==='follow'){
+            tempArr.unshift(item)
+            state.countFollow++
+          }else{
+            tempVip.push(item)
           }
-          state.listGot = true
         })
-        .catch(err => {
-          // if (err.error === 20003) {
-          //   dispatch('getList')
-          // }
-        })
-        .finally(() => {
-          state.loadingList = false
-        })
+        state.list = tempVip.concat(tempArr)
+        state.syncSuccess = res.syncSuccess
+        if (!getters.hasCurrentStorage) {
+          dispatch('setDefaultCurrent')
+        }else {
+          commit('setCurrent',getters.currentSavedMt4Uid)
+        }
+      })
+      .catch(err => {
+        // if (err.error === 20003) {
+        //   dispatch('getList')
+        // }
+      })
+      .finally(() => {
+        state.loadingList = false
+        state.listGot = true
+      })
       return promise
     },
     create({dispatch}, params) {

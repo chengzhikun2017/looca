@@ -209,10 +209,11 @@ export default {
       return true
     },
     ...mapActions('cards', ['getListDC']),
-    ...mapActions('wallet', ['recharge','getCurrency']),
+    ...mapActions('wallet', ['recharge','getCurrency','getPayAccount']),
   },
   created(){
     this.getCurrency()
+    this.getPayAccount()
   },
   components:{
     ImageUpload,

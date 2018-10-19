@@ -10,7 +10,7 @@
             <span>{{topMenu.title}}</span>
           </span>
           <a-menu-item v-for="subMenu in topMenu.children" v-if="!subMenu.hide&&!topMenu.noChild" :key="subMenu.link">{{subMenu.title}}</a-menu-item>
-          <a-icon :type="topMenu.icon" v-if="topMenu.noChild" type="link" />
+          <a-icon :type="topMenu.icon" v-if="topMenu.noChild"  />
           <span v-if="topMenu.noChild">{{topMenu.title}}</span>
         </component>
       </a-menu>
