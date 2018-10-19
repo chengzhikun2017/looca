@@ -65,10 +65,8 @@
               <span>${{successResponse.dollar | money}}</span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='手续费' :labelCol="{ span: 6 }">
-              <!-- <span v-if="!successResponse.serviceFee">
-              </span> -->
-              <span v-if="successResponse.serviceFee">
-                {{successResponse.serviceFee|money}}
+              <span >
+                ${{successResponse.serviceFee|money}}
               </span>
             </a-form-item>
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='MT4订单号' :labelCol="{ span: 6 }">

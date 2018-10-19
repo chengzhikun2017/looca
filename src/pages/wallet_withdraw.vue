@@ -12,9 +12,12 @@
           <a-form-item :wrapperCol="{ span: 18 }" label='钱包余额' :labelCol="{ span: 6 }">
             <span>${{money.balance | money}}（人民币金额 ¥{{money.balance*usdRate | money}})</span>
           </a-form-item>
+          <a-form-item :wrapperCol="{ span: 18 }" label='提现次数' :labelCol="{ span: 6 }">
+            <span>今日还可提现{{MAX_WITHDRAW_NUM-todayWithdrawNum}}次</span>
+          </a-form-item>
           <a-form-item :wrapperCol="{ span: 18 }" label='提现金额' :labelCol="{ span: 6 }" :validateStatus="input.status.amount.validateStatus" :help="input.status.amount.help">
             <div class="wallet_withdraw-input">
-              <a-input :placeholder="`输入金额,${MIN_AMOUNT}~${MAX_AMOUNT}美金,每天最多提现5次`" type="number" ref="inputPassword" v-model="input.values.amount" @blur="validate('amount')" @focus="clearValidation('amount')">
+              <a-input :placeholder="`${MIN_AMOUNT}~${MAX_AMOUNT}美金,每天最多提现5次`" type="number" ref="inputPassword" v-model="input.values.amount" @blur="validate('amount')" @focus="clearValidation('amount')">
               </a-input>
             </div>
           </a-form-item>
@@ -145,6 +148,7 @@ export default {
       input: newInput,
       MIN_AMOUNT: 30,
       MAX_AMOUNT: 20000,
+      MAX_WITHDRAW_NUM: 5,
       ...defaultData,
     }
   },
@@ -194,6 +198,10 @@ export default {
       })
     },
     withdrawNext() {
+      if(!this.canWithdraw){
+        this.$message.warning('今日提现次数已经用完')
+        return
+      }
       if (!this.checkValid()) {
         return
       }
@@ -262,6 +270,12 @@ export default {
         return "error"
       }
       return "process"
+    },
+    canWithdraw() {
+      return this.todayWithdrawNum < this.MAX_WITHDRAW_NUM
+    },
+    todayWithdrawNum() {
+      return this.money.todayWithdrawNum
     },
     ...mapState('cards', ['listDC']),
     ...mapState('wallet', ['currency', 'money']),

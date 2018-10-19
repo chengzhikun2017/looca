@@ -1,7 +1,7 @@
 <template>
   <div class="signup-page">
     <h1 class="main-title">
-      注册账号
+        欢迎注册
       <a-divider/>
     </h1>
     <div class="box">
@@ -12,7 +12,7 @@
       <div class="container"> 
         <Sign></Sign>
         <div class="sign-bottom">
-          <span class="login l-pointer" @click="goPage('/mine_real')">立即登录</span>
+          <span class="login l-pointer" @click="goPage('/mine_real')">已有账号？立即登录</span>
         </div>
       </div>
     </div>
@@ -48,13 +48,16 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+.l-log-header .title{
+  color:#ccc;
+}
 .signup-page {
   position: fixed;
   overflow: auto;
   /*position: absolute;*/
   width: 100%;
   height: 100%;
-  background: #000;
+  background: #FFF;
   /*background: #000;*/
   left: 0;
   top: 0;
@@ -62,7 +65,7 @@ export default {
   overflow: auto;
   /*padding:0 20px;*/
   .main-title{
-    color:#fff;
+    color:#999;
     font-size: 20px;
     text-align: center;
     line-height: 1;
@@ -78,7 +81,7 @@ export default {
   .container{
     border-radius: 5px;
     width: 360px;
-    padding:20px;
+    /*padding:20px;*/
     background: #fff;
   }
 }

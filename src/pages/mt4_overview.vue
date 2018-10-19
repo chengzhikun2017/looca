@@ -32,7 +32,7 @@
         <a-button size="small" v-if="isPC"  type="primary" @click="chooseCreate" :disabled="!canCreate">
           新增账户
         </a-button>
-        <a-button size="small" v-if="isPC"  type="primary" @click="getList" >
+        <a-button size="small" v-if="isPC"  type="primary" @click="refresh" >
           刷新
         </a-button>
         <a class="link-btn" href="javascript:void(0)" v-if="!isPC" @click="chooseCreate" >
@@ -42,14 +42,14 @@
       <span >
         剩余可入金金额：${{money.balance | money}}
       </span>
-      <a class="link-btn refresh-btn" href="javascript:void(0)" v-if="!isPC" @click="getList" >
+      <a class="link-btn refresh-btn" href="javascript:void(0)" v-if="!isPC" @click="refresh" >
         刷新
       </a>
       <a-button size="small" v-if="list.length>0 && false" type="primary" @click="goPage('/mt4_money_bill')">
         出入金记录
       </a-button>
     </div>
-    <Mt4SyncFail  :success="!!!syncSuccess&&!loading" :reSyncFunc="getList"> </Mt4SyncFail>
+    <Mt4SyncFail  :success="!!!syncSuccess&&!loading" :reSyncFunc="refresh"> </Mt4SyncFail>
     <div>
       <a-list
         itemLayout="horizontal"
@@ -153,13 +153,16 @@ export default {
     }
   },
   created(){
-    this.getList()
+    this.refresh()
     if(this.list.length>0){
       this.setDefaultCurrent()
     }
-    this.getWallet()
   },
   methods: {
+    refresh() {
+      this.getList()
+      this.getWallet()
+    },
     chooseCreate(){
       if(this.canCreateNormal){
         this.createType = 'normal'
