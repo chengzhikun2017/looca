@@ -13,8 +13,8 @@ function resolve (dir) {
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    app: './src/main.js',
-    app_loo_show:'./src/AppShowLoo/main.js',
+    app: ["babel-polyfill", "./src/main.js"],
+    app_loo_show:["babel-polyfill", './src/AppShowLoo/main.js'],
   },
   output: {
     path: config.build.assetsRoot,

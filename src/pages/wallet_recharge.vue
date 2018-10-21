@@ -93,7 +93,7 @@
             <a-button type='primary' @click="reset">
               继续充值
             </a-button>
-            <a-button type='primary' @click="goPage('/wallet_history')">
+            <a-button type='primary' @click="viewBill">
               查看账单
             </a-button>
           </div>
@@ -168,6 +168,10 @@ export default {
     reset() {
       Object.assign(this, defaultData)
       this.formData.amount = ''
+    },
+    viewBill(){
+      helper.goPage('/wallet_bills?initialType=pay')
+      // goPage('/wallet_history')
     },
     onConfirmed() {
       let params = {

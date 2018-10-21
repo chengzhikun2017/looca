@@ -166,7 +166,7 @@ export default {
   },
   methods: {
     viewBill(){
-      helper.goPage('/wallet_history?initialType=withdraw')
+      helper.goPage('/wallet_bills?initialType=withdraw')
     },
     next() {
       this.current++
