@@ -29,7 +29,7 @@ module.exports = {
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-
 
-    
+
     /**
      * Source Maps
      */
@@ -54,8 +54,8 @@ module.exports = {
     assetsSubDirectory: 'static',
     // assetsPublicPath: '/crm/',
     // assetsPublicPath: '/',
-    // assetsPublicPath: 'https://looco-1251098434.file.myqcloud.com/', //cdn show
-    assetsPublicPath: 'https://looco-crm-1251098434.file.myqcloud.com/', //cdn crm
+    assetsPublicPath: 'https://looco-1251098434.file.myqcloud.com/', //cdn show
+    // assetsPublicPath: 'https://looco-crm-1251098434.file.myqcloud.com/', //cdn crm
 
     /**
      * Source Maps
