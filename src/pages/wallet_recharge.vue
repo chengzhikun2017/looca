@@ -79,7 +79,7 @@
         <h3 class="wallet_recharge-content-note-title">重要提示</h3>
         <!-- 这里的提示信息是需要动态替换的 -->
         <p class="wallet_recharge-content-note-item">1. 支付宝实名校验：{{payInfo.name}}，若错误请勿继续转账</p>
-        <p class="wallet_recharge-content-note-item">2. 转账备注填写：{{phone}}（LoocoGlobal账号）</p>
+        <p class="wallet_recharge-content-note-item">2. 支付宝转账备注填写：{{phone}}（LoocoGlobal账号）</p>
         <p class="wallet_recharge-content-note-item">3. 转账完成后，前往我的>账单，截图该笔账单详情</p>
       </div>
     </div>

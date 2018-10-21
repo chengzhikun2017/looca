@@ -6,6 +6,25 @@
         <span class="name">Looco Global</span>
       </span>
       <nav class="link-box">
+        <div class="index-page-nav" flex>
+          <div class="index-page-nav-title"></div>
+          <a-dropdown>
+            <a class="ant-dropdown-link" href="#">
+              产品报价
+            </a>
+            <a-menu slot="overlay">
+              <a-menu-item key="0">
+                <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">1st menu item</a>
+              </a-menu-item>
+              <a-menu-item key="1">
+                <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">2nd menu item</a>
+              </a-menu-item>
+              <a-menu-divider />
+              <a-menu-item key="3" disabled>3rd menu item（disabled）</a-menu-item>
+            </a-menu>
+          </a-dropdown>
+        </div>
+
         <a-menu
           class="index-page-nav"
           v-model="current"
@@ -16,21 +35,24 @@
           </a-menu-item>
           <a-sub-menu>
             <span slot="title">产品报价</span>
-            <a-menu-item key="setting:1">交易细则</a-menu-item>
+            <a-menu-item key="price:1">交易细则</a-menu-item>
           </a-sub-menu>
           <a-sub-menu>
             <span slot="title">软件下载</span>
-            <a-menu-item key="setting:1">PC</a-menu-item>
-            <a-menu-item key="setting:2">苹果</a-menu-item>
-            <a-menu-item key="setting:2">安卓</a-menu-item>
+            <a-menu-item key="download:2">PC</a-menu-item>
+            <a-menu-item key="download:3">苹果</a-menu-item>
+            <a-menu-item key="download:4">安卓</a-menu-item>
           </a-sub-menu>
            <a-sub-menu>
             <span slot="title">教程</span>
-            <a-menu-item key="setting:1">教程文档</a-menu-item>
+            <a-menu-item key="tutorial:5">教程文档</a-menu-item>
           </a-sub-menu>
-          <a-menu-item key="alipay">
-            联系我们
-          </a-menu-item>
+          <!-- <a-menu-item key="contactus">
+            <span slot="title">联系我们</span>
+          </a-menu-item> -->
+          <a-sub-menu key="contactus">
+            <span slot="title">联系我们</span>
+          </a-sub-menu>
         </a-menu>
       </nav>
     </div>
@@ -156,16 +178,17 @@
           <div class="menu-item">
             <h3>教程</h3>
             <p>教程文档</p>
+            <p>监管查询文档</p>
           </div>
           <div class="menu-item">
             <h3>联系我们</h3>
-            <p>客服电话：400-0577009</p>
+            <p>客服电话：400-0577-009</p>
             <p>客服QQ：83166672</p>
-            <p>客服微信：LOOCO8</p>
+            <p>客服微信：Looco8</p>
           </div>
         </div>
         <div class="copyright">
-          温馨提示及风险警告：交易存在较高风险，需先认真考虑自身经验水平和所能承担之风险。使用MT4工具进行交易，操作行为是一种自发行为，所引发的一切法律后果，由用户自行承担，请您知悉。
+          温馨提示及风险警告：交易存在较高风险，需先认真考虑自身经验水平和所能承担之风险。使用MT4工具进行交易，操作行为是一种自发行为，所引发的一切后果，由用户自行承担，请您知悉。
         </div>
       </div>
     </v-layer>
@@ -207,9 +230,19 @@
         margin:0 60px;
         h3 {
           margin: 0;
+          padding-bottom: 5px;
         }
-        p {
+        p, a {
+          font-size: 13px;
+          line-height: 1.4;
+          padding: 0;
           margin: 0;
+        }
+        a {
+          color: rgba(0, 0, 0, 0.65);
+          &:hover {
+            color: #cd2122;
+          }
         }
       }
     }
