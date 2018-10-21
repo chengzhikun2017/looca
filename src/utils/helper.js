@@ -7,10 +7,24 @@ const agent_levels = [
   { label: '二级', value: 2 },
   { label: '三级', value: 3 },
 ]
+const walletTypes = {
+  pay:'充值',
+  pay_cancel:'充值（撤销）',
+  withdraw:'提现',
+  withdraw_cancel:'提现（撤销）',
+  mt4_deposit:'入金',
+  mt4_deposit_cancel:'入金（撤销）',
+  mt4_withdraw:'出金',
+  mt4_withdraw_cancel:'出金（撤销）',
+  brokerage2balance:'佣金转余额',
+  mt4_account_vip:'VIP账号',
+  mt4_vip_return:'VIP手续费返还',
+}
 // import commonRemind from './commonRemind.js'
 const _toString = Object.prototype.toString
 export default class helper {
   static platform = null
+  static walletTypes = walletTypes
   static agent_levels = agent_levels
  
   static saveToLocal(key, value) {

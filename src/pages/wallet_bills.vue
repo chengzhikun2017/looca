@@ -97,19 +97,21 @@ const ListPhone = () =>
   import ('../components/container/ListPhone.vue')
 const walletListCard = () =>
   import ('../components/container/walletListCard.vue')
-const walletTypes = {
-  pay:'充值',
-  pay_cancel:'充值（撤销）',
-  withdraw:'提现',
-  withdraw_cancel:'提现（撤销）',
-  mt4_deposit:'入金',
-  mt4_deposit_cancel:'入金（撤销）',
-  mt4_withdraw:'出金',
-  mt4_withdraw_cancel:'出金（撤销）',
-  brokerage2balance:'佣金转余额',
-  mt4_account_vip:'VIP账号',
-  mt4_vip_return:'VIP手续费返还',
-}
+// const walletTypes = {
+//   pay:'充值',
+//   pay_cancel:'充值（撤销）',
+//   withdraw:'提现',
+//   withdraw_cancel:'提现（撤销）',
+//   mt4_deposit:'入金',
+//   mt4_deposit_cancel:'入金（撤销）',
+//   mt4_withdraw:'出金',
+//   mt4_withdraw_cancel:'出金（撤销）',
+//   brokerage2balance:'佣金转余额',
+//   mt4_account_vip:'VIP账号',
+//   mt4_vip_return:'VIP手续费返还',
+// }
+import helper from '../utils/helper.js'
+var walletTypes = helper.walletTypes
 const columns = [
   {title: 'uid',dataIndex: 'uid',},
   {title: '类型',dataIndex: 'type',scopedSlots: { customRender: 'type' },},
