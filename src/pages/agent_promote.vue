@@ -54,7 +54,7 @@
         客户关系：一级为直接客户、二级为您一级客户推广的客户，依次类推
       </div>
     </div>
-    <div class="agent_promote-note">
+    <div class="agent_promote-note" v-if="false">
       <div class="agent_promote-note-title">
         升级条件：
       </div>

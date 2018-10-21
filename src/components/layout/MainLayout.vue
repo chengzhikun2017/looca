@@ -234,8 +234,6 @@ export default {
     },
     setKeyPathByPath(path) {
       let keyPath = []
-      // console.log('%c path','color:red',path)
-      // console.log('%c this.config','color:red',this.config)
       if(!this.config[path]){
         return []
       }

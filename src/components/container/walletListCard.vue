@@ -6,21 +6,21 @@
           <div flex="cross:center main:justify">
             <div class="wallet_list_card-summary-title" flex-box="1" flex>
               <div class="wallet_list_card-summary-title-h1">
-                622012332
+                {{info.type}}
               </div>
-              <div class="wallet_list_card-summary-title-h2">
+              <!-- <div class="wallet_list_card-summary-title-h2">
                 VIP账户
-              </div>
+              </div> -->
             </div>
             <div class="wallet_list_card-summary-money" flex-box="0">
-              1000.00
+              ${{info.amount | money}}
             </div>
           </div>
         </div>
       </div>
       <div class="wallet_list_card-others" flex="cross:center">
         <div class="wallet_list_card-others-time" flex-box="1">
-          2018-19-19 08:00:00
+          {{info.createTime | timeFull}}
         </div>
         <div class="wallet_list_card-others-turnoff" @click="toggle" flex-box="0">
           <a-icon v-if="!isDetailShow" type="down-circle" />
@@ -44,60 +44,77 @@
   </div>
 </template>
 <script>
-  import {getTimeString} from '@/utils/time.js'
-  export default {
-    name: 'wallet_list_card',
-    props: {
-      info: {
-        type: Object,
-        default: () => {
-          return {
-            dollar: 10
-          }
-        }
-      },
-    },
-    computed:{
-    },
-    data() {
-      // 配置表
-      const config = {
-        title: {
-          'alipay': '支付宝转账',
-          'rate': '汇率',
-          'bank': '招商'
-        }
-      }
-      return {
-        config: config,
-        isDetailShow: false,
-        details: {
-          bank: '63548273****8493',
-          alipay: 20000,
-          rate: 6.18237
+import {mapState,mapMutations,mapActions,mapGetters} from 'vuex'
+import { getTimeString } from '@/utils/time.js'
+export default {
+  name: 'wallet_list_card',
+  props: {
+    info: {
+      type: Object,
+      default: () => {
+        return {
+          dollar: 10
         }
       }
     },
-    methods: {
-      toggle () {
-        this.isDetailShow = !this.isDetailShow
+  },
+  computed: {},
+  created() {
+    console.log('info', this.info)
+  },
+  data() {
+    // 配置表
+
+    const config = {
+      title: {
+        'alipay': '支付宝转账',
+        'rate': '汇率',
+        'bank': '招商'
       }
     }
+    return {
+      detailInfo:{},
+      config: config,
+      isDetailShow: false,
+      details: {
+        bank: '63548273****8493',
+        alipay: 20000,
+        rate: 6.18237
+      }
+    }
+  },
+  methods: {
+    toggle() {
+      this.isDetailShow = !this.isDetailShow
+      this.getDetail()
+    },
+    getDetail(){
+      this.getBalanceDetail({
+        type:this.info.type,
+        bizNo:this.info.bizNo,
+      })
+      .then((res) => {
+        this.details = {bizNo:this.info.bizNo,...res}
+      })
+    },
+    ...mapActions('wallet',['getBalanceDetail']),
   }
+}
+
 </script>
 <style lang="scss">
-  $prefix: "wallet_list_card";
-  @import '@/styles/listitem/index.scss';
-  #app .wallet_list_card {
-    .wallet_list_card-summary-title{
-      &-h2 {
-        padding-left: 10px;
-      }
-    }
-    .wallet_list_card-summary-money{
-      padding-left: 0;
-      text-align: right;
+$prefix: "wallet_list_card";
+@import '@/styles/listitem/index.scss';
+#app .wallet_list_card {
+  .wallet_list_card-summary-title {
+    &-h2 {
+      padding-left: 10px;
     }
   }
-</style>
+  .wallet_list_card-summary-money {
+    padding-left: 0;
+    text-align: right;
+  }
+}
 
+</style>

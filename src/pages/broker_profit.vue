@@ -120,7 +120,7 @@ const columnsFollow = [
   { title: "代理商手机号", [DI]: "phone", width: "70px" },
   { title: "客户名字", [DI]: "guest_name", width: "110px" },
   { title: "客户手机号", [DI]: "guest_phone" },
-  { title: "客户关系", [DI]: "depth", [SS]: {[CR]: 'depth' }, },
+  { title: "客户级别", [DI]: "depth", [SS]: {[CR]: 'depth' }, },
   { title: "业务编号", [DI]: "trade_no" },
   { title: "类型", [DI]: "type" },
   { title: "佣金", [DI]: "fee", [SS]: {[CR]: 'money' }, },

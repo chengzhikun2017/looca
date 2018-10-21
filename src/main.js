@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import events from 'events'
+import 'babel-polyfill'
 // flex.css
 import './styles/icons.css'
 import 'flex.css'

@@ -60,7 +60,7 @@ const columns = [
   {title:"名字",[DI]:"name",width:"70px"},
   {title:"手机号",[DI]:"phone",width:"110px"},
   {title:"客户类型",[DI]:"user_account_type",[SS]: { [CR]: 'user_account_type' },},
-  {title:"客户关系",[DI]:"depth",[SS]: { [CR]: 'depth' },},
+  {title:"客户级别",[DI]:"depth",[SS]: { [CR]: 'depth' },},
   // {title:"代理等级",[DI]:"level",[SS]: { [CR]: 'level' },width:'70px'},
   // {title:"充值金额",width:"80px",[DI]:"total_pay_fee",[SS]: { [CR]: 'money' },},
   {title:"账户余额",width:"80px",[DI]:"balance_fee",[SS]: { [CR]: 'money' },},
