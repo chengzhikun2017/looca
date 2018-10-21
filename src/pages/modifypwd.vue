@@ -48,14 +48,14 @@ export default {
         newPassword:this.formData.newPassword,
       })
       .then((res) => {
-        this.$message.info('修改成功') 
+        this.$message.info('修改成功')
         helper.goPage('/wallet_review')
       })
     },
     ...mapActions("account",['modifyPwd',])
   },
   computed: {},
-  components: {},
+  components: {}
 }
 
 </script>
