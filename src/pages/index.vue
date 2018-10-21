@@ -7,11 +7,28 @@
       </span>
       <nav class="link-box">
         <div class="index-page-nav" flex>
-          <div class="index-page-nav-title"></div>
+          <div class="index-page-nav-title active">首页</div>
           <a-dropdown>
-            <a class="ant-dropdown-link" href="#">
-              产品报价
-            </a>
+            <div class="index-page-nav-title">产品报价</div>
+            <div slot="overlay" class="index-page-nav-list">
+              <div class="index-page-nav-list-item" @click="download('DealRules')">交易细则</div>
+            </div>
+          </a-dropdown>
+          <a-dropdown>
+            <div class="index-page-nav-title">MT4下载</div>
+            <div slot="overlay" class="index-page-nav-list">
+              <div class="index-page-nav-list-item" @click="download('Windows')">PC</div>
+              <div class="index-page-nav-list-item" @click="download('Android')">安卓</div>
+              <div class="index-page-nav-list-item" @click="download('iPhone')">苹果</div>
+            </div>
+          </a-dropdown>
+          <a-dropdown>
+            <div class="index-page-nav-title">教程</div>
+            <div slot="overlay" class="index-page-nav-list">
+              <div class="index-page-nav-list-item" @click="download('Toturial')">教程文档</div>
+              <div class="index-page-nav-list-item" @click="download('NFA')">监管查询文档</div>
+            </div>
+
             <a-menu slot="overlay">
               <a-menu-item key="0">
                 <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">1st menu item</a>
@@ -23,9 +40,11 @@
               <a-menu-item key="3" disabled>3rd menu item（disabled）</a-menu-item>
             </a-menu>
           </a-dropdown>
+          <div class="index-page-nav-title" @click="contactUs">联系我们</div>
         </div>
 
-        <a-menu
+
+        <!-- <a-menu
           class="index-page-nav"
           v-model="current"
           mode="horizontal"
@@ -38,7 +57,7 @@
             <a-menu-item key="price:1">交易细则</a-menu-item>
           </a-sub-menu>
           <a-sub-menu>
-            <span slot="title">软件下载</span>
+            <span slot="title">MT4下载</span>
             <a-menu-item key="download:2">PC</a-menu-item>
             <a-menu-item key="download:3">苹果</a-menu-item>
             <a-menu-item key="download:4">安卓</a-menu-item>
@@ -46,14 +65,12 @@
            <a-sub-menu>
             <span slot="title">教程</span>
             <a-menu-item key="tutorial:5">教程文档</a-menu-item>
+            <a-menu-item key="tutorial:5">监管查询文档</a-menu-item>
           </a-sub-menu>
-          <!-- <a-menu-item key="contactus">
-            <span slot="title">联系我们</span>
-          </a-menu-item> -->
           <a-sub-menu key="contactus">
             <span slot="title">联系我们</span>
           </a-sub-menu>
-        </a-menu>
+        </a-menu> -->
       </nav>
     </div>
     <v-layer :height="bannerHeight">
@@ -167,18 +184,18 @@
         <div class="index-footer-menu" flex="main:center corss:center">
           <div class="menu-item">
             <h3>产品报价</h3>
-            <a href="../assets/display/交易细则.xls" download target="_blank">交易细则</a>
+            <p @click="download('DealRules')">交易细则</p>
           </div>
           <div class="menu-item">
-            <h3>软件下载</h3>
-            <p>PC</p>
-            <p>苹果</p>
-            <p>安卓</p>
+            <h3>MT4下载</h3>
+            <p @click="download('Windows')">PC</p>
+            <p @click="download('iPhone')">苹果</p>
+            <p @click="download('Android')">安卓</p>
           </div>
           <div class="menu-item">
             <h3>教程</h3>
             <p>教程文档</p>
-            <p>监管查询文档</p>
+            <p @click="download('NFA')">监管查询文档</p>
           </div>
           <div class="menu-item">
             <h3>联系我们</h3>
@@ -293,14 +310,31 @@ export default {
     }
   },
   methods: {
-    download (version) {
-      switch(version) {
-        case 'windows':
-          window.open('https://download.mql5.com/cdn/web/12872/mt4/loocoglobal4setup.exe')
+    download (type) {
+      let url = ''
+      switch(type) {
+        case 'NFA':
+          url = 'https://www.looco8.com/HowToCheckNewsOfNFA.pdf'
+          break
+        case 'DealRules':
+          url = 'https://www.looco8.com/交易细则.xls'
+          break
+        case 'Windows':
+          url = 'https://download.mql5.com/cdn/web/12872/mt4/loocoglobal4setup.exe'
+          break
+        case 'Android':
+          url = 'https://download.mql5.com/cdn/mobile/mt4/android?server=LoocoGlobal-Demo,LoocoGlobal-Primary'
+          break
+        case 'iPhone':
+          url = 'https://download.mql5.com/cdn/mobile/mt4/ios?server=LoocoGlobal-Demo,LoocoGlobal-Primary'
           break
         default:
           return
       }
+      window.open(url)
+    },
+    contactUs () {
+      window.scrollTo(0, 100000)
     }
   },
   computed: {},
@@ -877,44 +911,33 @@ $themeGrey: #808080;
       background: none;
       border: none;
       color: white;
-      line-height: 36px !important;
-      &.ant-menu-horizontal > .ant-menu-item:hover,
-      &.ant-menu-horizontal > .ant-menu-submenu:hover,
-      &.ant-menu-horizontal > .ant-menu-item-active,
-      &.ant-menu-horizontal > .ant-menu-submenu-active,
-      &.ant-menu-horizontal > .ant-menu-item-open,
-      &.ant-menu-horizontal > .ant-menu-submenu-open,
-      &.ant-menu-horizontal > .ant-menu-item-selected,
-      &.ant-menu-horizontal > .ant-menu-submenu-selected {
-        border: none;
-        background: #cd2122;
+      line-height: 1.8;
+      &-title {
+        min-width: 88px;
+        text-align: center;
+        padding: 5px 10px;
+        border-radius: 5px;
+        margin:0 8px;
+        cursor: pointer;
+        &:hover {
+          background: #cd2122;
+        }
+      }
+      &-list {
+        background: white;
+        padding:0 15px;
+        line-height: 1.5;
         border-radius: 3px;
-        color: white;
-      }
-      li {
-        margin: 0 8px;
-      }
-      .ant-menu-item:hover, .ant-menu-item-active, .ant-menu:not(.ant-menu-inline) .ant-menu-submenu-open, .ant-menu-submenu-active, .ant-menu-submenu-title:hover {
-          color: white;
-      }
-      .ant-select-selection {
-        color: white;
-        background: none;
-        border: none;
+        border:none;
         box-shadow: none;
-        position: relative;
-        &:after {
-          content: "";
-          opacity: 1;
-          position: absolute;
-          height: 1px;
-          width: 7px;
-          bottom: 3px;
-          bottom: calc(50% - 12px);
-          left: 12px;
-          background-color: rgba(255, 255, 255, 0.4);
-          -webkit-transition: opacity .2s ease-in-out;
-          transition: opacity .2s ease-in-out;
+        &-item {
+          padding: 10px 0;
+          width: 100px;
+          font-size: 14px;
+          cursor: pointer;
+          &:hover {
+            color: #cd2122;
+          }
         }
       }
     }
