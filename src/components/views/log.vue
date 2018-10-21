@@ -73,7 +73,7 @@ export default {
   background: rgba(0, 0, 0, 1);
   left: 0;
   top: 0;
-  z-index: 2;
+  z-index: 5;
   overflow: auto;
   .logo {
     width: 20px;

@@ -54,7 +54,7 @@ Vue.component("l-search-item", SearchItem)
 Vue.component("l-search-box", SearchItem)
 Vue.prototype.$message = Message
 Vue.prototype.$modal = Modal
-console.log('%c Menu','color:red',Menu)
+// console.log('%c Menu','color:red',Menu)
 function registerComponentChild(vue, parentAntComponent) {
   var parent = parentAntComponent
   for (let key in parent) {

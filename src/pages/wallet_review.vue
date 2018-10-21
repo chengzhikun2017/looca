@@ -19,7 +19,7 @@
         <a-button type='primary' class="wallet-list-btn" @click="go('/wallet_withdraw')">
           提现
         </a-button>
-        <a-button type='primary' class="wallet-list-btn" @click="go('/wallet_history')">
+        <a-button type='primary' class="wallet-list-btn" @click="go('/wallet_bills')">
           查看流水
         </a-button>
       </div>

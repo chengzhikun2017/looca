@@ -66,7 +66,7 @@ const columnsOpen = [
   { title: "手机号", [DI]: "phone", width: "110px" },
   { title: "客户类型", [DI]: "user_account_type", [SS]: {
       [CR]: 'user_account_type' }, },
-  { title: "客户关系", [DI]: "depth", [SS]: {
+  { title: "客户级别", [DI]: "depth", [SS]: {
       [CR]: 'depth' }, },
   { title: "订单号", [DI]: "order_id", },
   { title: "交易对", [DI]: "symbol", },
@@ -91,7 +91,7 @@ const columnsHistory = [
   { title: "名字", [DI]: "name", width: "70px" },
   { title: "手机号", [DI]: "phone", width: "110px" },
   { title: "客户类型", [DI]: "user_account_type", [SS]: {[CR]: 'user_account_type' }, },
-  { title: "客户关系", [DI]: "depth", [SS]: {[CR]: 'depth' }, },
+  { title: "客户级别", [DI]: "depth", [SS]: {[CR]: 'depth' }, },
   { title: "订单号", [DI]: "order_id", },
   { title: "交易对", [DI]: "symbol", },
   // { title: "方向", [DI]: "action", },
