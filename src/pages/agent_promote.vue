@@ -48,7 +48,7 @@
         返利金额：各交易品种佣金表
       </div>
       <div class="agent_promote-note-item">
-        结算时间：点差佣金次日结算，跟单手续费佣金月初结算
+        结算时间：点差佣金次日结算，跟单手续费月初结算
       </div>
       <div class="agent_promote-note-item">
         客户关系：一级为直接客户、二级为您一级客户推广的客户，依次类推

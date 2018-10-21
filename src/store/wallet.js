@@ -146,6 +146,31 @@ export default {
         state.payInfo = res
       })
     },
+    createAutoCollectOrder({},params) {
+      // receiptAccountId : 支付宝收款账号ID : /balance/alipay/account接口返回的id
+      // dollar : 充值金额美元，单位分
+      // dollar2RMBRate : 兑换汇率，/tool/dollar2RMBRate接口返回的rate
+      // dollarRateId : 兑换汇率ID，/tool/dollar2RMBRate接口返回的id
+      let promise = fetch({
+        url:'balance/pay/create',
+        params:{
+          ...params,
+          dollar2RMBRate: state.currency.usd2rmb.rate,
+          dollarRateId: state.currency.usd2rmb.id,
+          receiptAccountId: state.payInfo.id, 
+        },
+      })
+      return promise
+    },
+    queryPayStatus({},tradeNo) {
+      let promise = fetch({
+        url:'balance/pay/status',
+        params:{
+          tradeNo,
+        },
+      })
+      return promise
+    },
     getCurrency({ state }) {
       fetch({
           url: 'tool/dollar2RMBRate',

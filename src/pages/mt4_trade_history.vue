@@ -58,6 +58,9 @@
             {{closeTime|timeFull}}
           </span>
         </template>
+        <template slot="money" slot-scope="money">
+            {{money|money}}
+        </template>
       </a-table>
     </div>
     <!-- data -->
@@ -136,6 +139,10 @@ const columns = [{
 }, {
   title: "隔夜利息",
   dataIndex: "rollver",
+},{
+  title: "手续费($)",
+  dataIndex: "serviceFee",
+  scopedSlots: { customRender: 'money' },
 }, {
   title: "获利",
   dataIndex: "profit",

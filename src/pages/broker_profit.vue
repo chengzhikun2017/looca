@@ -4,7 +4,7 @@
     <div class="l-search-box">
       <div class="agent_overview-search">
         <a-radio-group v-model="listType" style="margin:8px">
-          <a-radio-button value="point">手续费佣金</a-radio-button>
+          <a-radio-button value="point">手续费</a-radio-button>
           <a-radio-button value="follow">跟单佣金</a-radio-button>
         </a-radio-group>
         <PartnerSelect v-model="partnerUid" :containSelf="true"></PartnerSelect>
