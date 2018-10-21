@@ -1,7 +1,7 @@
 <template>
   <a-select style="width: 100px" v-model="depth">
     <a-select-option v-for="item in depthes" :key="item.value" :value="item.value">
-      {{item.label}}关系
+      {{item.label}}
     </a-select-option>
   </a-select>
 </template>
@@ -12,10 +12,10 @@ export default {
     return {
       depth: 0,
       depthes: [
-        { label: "所有", value: 0 },
-        { label: "一级", value: 1 },
-        { label: "二级", value: 2 },
-        { label: "三级", value: 3 },
+        { label: "全部客户", value: 0 },
+        { label: "一级关系", value: 1 },
+        { label: "二级关系", value: 2 },
+        { label: "三级关系", value: 3 },
       ],
     }
   },

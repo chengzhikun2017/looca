@@ -14,7 +14,7 @@ export default {
       accountTypes: [
         { label: "全部", value: "" },
         { label: "普通", value: "normal" },
-        { label: "保本", value: "protect" },
+        // { label: "保本", value: "protect" },
       ],
     }
   },

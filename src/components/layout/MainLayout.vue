@@ -96,7 +96,7 @@ const config = {
   wallet_review: { title: "我的钱包", link: "wallet_review", rootKey: 'user' },
   wallet_withdraw: { title: "余额提现", link: "wallet_withdraw", rootKey: 'wallet_review' },
   wallet_recharge: { title: "余额充值", link: "wallet_recharge", rootKey: 'wallet_review' },
-  wallet_history: { title: "钱包记录", link: "wallet_history", rootKey: 'wallet_review' },
+  wallet_bills: { title: "钱包记录", link: "wallet_bills", rootKey: 'wallet_review' },
   brokerage_withdraw: { title: "佣金提现", link: "brokerage_withdraw", rootKey: 'wallet_review' },
 
   agent: { title: "代理推广" },
@@ -104,10 +104,10 @@ const config = {
   agent_profit_overview: { title: "返现记录", link: "agent_profit_overview", rootKey: 'agent' },
   broker: { title: "代理商",  },
   agent_promote: { title: "我的推广", link: "agent_promote", rootKey: 'broker' },
-  broker_user: { title: "客户", link: "broker_user", rootKey: 'broker' },
-  broker_mt4Ac: { title: "账户", link: "broker_mt4Ac", rootKey: 'broker' },
-  broker_trade: { title: "交易", link: "broker_trade", rootKey: 'broker' },
-  broker_profit: { title: "佣金", link: "broker_profit", rootKey: 'broker' },
+  broker_user: { title: "客户", link: "broker_user", rootKey: 'broker' ,hide:!this.isPC},
+  broker_mt4Ac: { title: "账户", link: "broker_mt4Ac", rootKey: 'broker' ,hide:!this.isPC},
+  broker_trade: { title: "交易", link: "broker_trade", rootKey: 'broker' ,hide:!this.isPC},
+  broker_profit: { title: "佣金", link: "broker_profit", rootKey: 'broker',hide:!this.isPC },
   // agent_details_account: { title: "代理商", link: "agent_details_account", rootKey: 'agent_details' },
 }
 import {
@@ -353,7 +353,7 @@ export default {
           config.wallet_review,
           config.wallet_withdraw,
           config.wallet_recharge,
-          config.wallet_history,
+          config.wallet_bills,
         ],
       }, 
       // { //no-lv
@@ -366,7 +366,7 @@ export default {
       // },
       { //agent
         key: 'broker',
-        hide: this.hideAgent,
+        hide: this.hideAgent ,
         link: null,
         icon: 'share-alt',
         ...config.broker,
