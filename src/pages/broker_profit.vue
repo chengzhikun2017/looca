@@ -18,7 +18,7 @@
         <a-button @click="searchList" type="primary">查询</a-button>
       </div>
     </div>
-    <div class="list broker-list pc">
+    <div class="list broker-list ">
       <a-table :pagination="pagination" bordered :dataSource="list.list" :rowKey="rowkey" :columns="columns" @change="onTableChange" :loading="loading">
         <template slot="action" slot-scope="text,record,index">
           <a-button size="small" type="primary" @click="viewDetail(record)">

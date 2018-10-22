@@ -59,7 +59,7 @@
           </span>
         </template>
         <template slot="money" slot-scope="money">
-            {{money|money}}
+          {{money|money}}
         </template>
       </a-table>
     </div>

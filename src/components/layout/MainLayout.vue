@@ -104,10 +104,10 @@ const config = {
   agent_profit_overview: { title: "返现记录", link: "agent_profit_overview", rootKey: 'agent' },
   broker: { title: "代理商",  },
   agent_promote: { title: "我的推广", link: "agent_promote", rootKey: 'broker' },
-  broker_user: { title: "客户", link: "broker_user", rootKey: 'broker' ,hide:!this.isPC},
-  broker_mt4Ac: { title: "账户", link: "broker_mt4Ac", rootKey: 'broker' ,hide:!this.isPC},
-  broker_trade: { title: "交易", link: "broker_trade", rootKey: 'broker' ,hide:!this.isPC},
-  broker_profit: { title: "佣金", link: "broker_profit", rootKey: 'broker',hide:!this.isPC },
+  broker_user: { title: "客户", link: "broker_user", rootKey: 'broker' ,},
+  broker_mt4Ac: { title: "账户", link: "broker_mt4Ac", rootKey: 'broker' ,},
+  broker_trade: { title: "交易", link: "broker_trade", rootKey: 'broker' ,},
+  broker_profit: { title: "佣金", link: "broker_profit", rootKey: 'broker', },
   // agent_details_account: { title: "代理商", link: "agent_details_account", rootKey: 'agent_details' },
 }
 import {
@@ -373,10 +373,10 @@ export default {
         title:this.isAgent?"代理推广":"代理商",
         children: [
           config.agent_promote,
-          config.broker_user,
-          config.broker_mt4Ac,
-          config.broker_trade,
-          config.broker_profit,
+          {...config.broker_user,hide:false},
+          {...config.broker_mt4Ac,hide:false},
+          {...config.broker_trade,hide:false},
+          {...config.broker_profit,hide:false},
           // config.agent_overview,
           // config.agent_profit_overview,
 

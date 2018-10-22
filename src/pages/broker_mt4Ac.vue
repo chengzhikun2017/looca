@@ -11,7 +11,7 @@
         <a-button @click="searchList" type="primary">查询</a-button>
       </div>
     </div>
-    <div class="list broker-list pc">
+    <div class="list broker-list">
       <a-table :pagination="pagination" bordered :dataSource="mt4List.list" :rowKey="rowkey" :columns="columns" @change="onTableChange" :loading="loading"> 
         <template slot="action" slot-scope="createTsime">
           <a-button size="small" type="primary" @click="">MT4账户</a-button> 

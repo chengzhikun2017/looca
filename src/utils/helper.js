@@ -297,6 +297,9 @@ export default class helper {
     } else {
       table = document.querySelector(selector)
     }
+    if(!table){
+      return
+    }
     let tfoot = table.querySelector('tfoot')
     if(tfoot){
       tfoot.replaceWith('')
