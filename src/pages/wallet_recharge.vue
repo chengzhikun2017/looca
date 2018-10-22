@@ -31,16 +31,18 @@
         </a-form>
       </div>
     </div>
-    <div v-if="current === 1" class="wallet_recharge-content">
+    <div v-if="'手动' == '自动' && current === 1" class="wallet_recharge-content">
       <a-row class="wallet_recharge-content-grid">
         <a-col :xs="24" :sm="12">
           <div class="wallet_recharge-content-pay" flex="dir:top main:center cross:center">
+            <img class="wallet_recharge-content-pay-type" src="@/assets/logo_alipay.jpg" alt="">
             <!-- <div class="wallet_recharge-content-pay-way">请使用支付宝APP</div>
             <div class="wallet_recharge-content-pay-note">扫一扫付款（元）</div> -->
-            <div class="wallet_recharge-content-pay-qrcode">
-              <img style="width: 100%" :src="payInfo.qrcodeUrl" alt="支付宝收款二维码">
-            </div>
             <div class="wallet_recharge-content-pay-money">{{formData.amount*usdRate*100 | money}}</div>
+            <div class="wallet_recharge-content-pay-qrcode" :class="{'overdate': isOverdate}">
+              <img style="width: 100%" :src="payInfo.qrcodeUrl" alt="支付宝收款二维码">
+              <div class="wallet_recharge-content-pay-qrcode-overdate">已过期</div>
+            </div>
             <!-- <div class="wallet_recharge-content-upload phone">
               <ImageUpload :editing="true" v-model="billImageUrl" uploadText="上传账单详情截图" label="支付凭证" />
             </div> -->
@@ -83,6 +85,60 @@
         <p class="wallet_recharge-content-note-item">3. 转账完成后，前往我的>账单，截图该笔账单详情</p>
       </div>
     </div>
+    <div v-if="'自动' == '自动' && current === 1" class="wallet_recharge-content">
+      <a-row class="wallet_recharge-content-grid">
+        <a-col :xs="24" :sm="12">
+          <div class="wallet_recharge-content-pay" flex="dir:top main:center cross:center">
+            <img class="wallet_recharge-content-pay-type" src="@/assets/logo_alipay.jpg" alt="">
+            <!-- <div class="wallet_recharge-content-pay-way">请使用支付宝APP</div>
+            <div class="wallet_recharge-content-pay-note">扫一扫付款（元）</div> -->
+            <div class="wallet_recharge-content-pay-money">{{formData.amount*usdRate*100 | money}}</div>
+            <div class="wallet_recharge-content-pay-qrcode" :class="{'overdate': isOverdate}">
+              <img style="width: 100%" :src="payInfo.qrcodeUrl" alt="支付宝收款二维码">
+              <div class="wallet_recharge-content-pay-qrcode-overdate">已过期</div>
+            </div>
+            <!-- <div class="wallet_recharge-content-upload phone">
+              <ImageUpload :editing="true" v-model="billImageUrl" uploadText="上传账单详情截图" label="支付凭证" />
+            </div> -->
+          </div>
+        </a-col>
+        <a-col :xs="24" :sm="12">
+          <div class="wallet_recharge-table" >
+            <p class="wallet_recharge-table-msg">打开支付宝扫一扫</p>
+            <p class="wallet_recharge-table-msg">过期后请勿转账，不自动到账</p>
+            <div class="wallet_recharge-table-msg">
+              <clock :seconds="10" @finish="test"></clock>
+            </div>
+            <a-form>
+              <a-form-item :wrapperCol="{ span: 24}">
+                <div class="wallet_recharge-btns bttn-box">
+                  <a-button type='primary' @click="onConfirmed">
+                    放弃支付
+                  </a-button>
+                  <a-button  class="pc"  @click="prev">
+                    上一步
+                  </a-button>
+                  <div class="prev-box phone">
+                    <span class="prev" @click="prev">
+                      上一步
+                    </span>
+                  </div>
+                  <p class="wallet_recharge-btns-note">
+                    支付完成，页面未跳转
+                  </p>
+                </div>
+              </a-form-item>
+            </a-form>
+          </div>
+        </a-col>
+      </a-row>
+      <div class="wallet_recharge-content-note">
+        <h3 class="wallet_recharge-content-note-title">重要提示</h3>
+        <!-- 这里的提示信息是需要动态替换的 -->
+        <p class="wallet_recharge-content-note-item">1. 支付宝转账页面请输入相同转账金额，否则不会到账</p>
+        <p class="wallet_recharge-content-note-item">2. 二维码一次有效，请勿重复转账</p>
+      </div>
+    </div>
     <div v-if="current === 2" class="wallet_recharge-content">
       <div v-if="rechargeSucceed" class="wallet_recharge-content-success" flex="dir:top main:center cross:center">
         <a-icon class="wallet_recharge-icon-success" type="check-circle" />
@@ -117,6 +173,7 @@
   </div>
 </template>
 <script>
+import Clock from '@/components/container/Clock'
 let newInput = new inputHelper.newInput(['amount','remark'])
 import helper from '../utils/helper.js'
 import inputMixin from './../components/mixin/input.js'
@@ -156,9 +213,13 @@ export default {
       // beforeUpload: () => {},
       // loading: null,
       // imageUrl: null
+      isOverdate: false
     }
   },
   methods: {
+    test () {
+      this.isOverdate = true
+    },
     next() {
       this.current++
     },
@@ -221,6 +282,7 @@ export default {
   },
   components:{
     ImageUpload,
+    Clock
   },
   computed:{
     usdRate() {
@@ -252,6 +314,12 @@ export default {
         //   font-weight: 500;
         //   color: #f5222d;
         // }
+        &-msg {
+          text-align: center;
+          margin: 0;
+          margin-top: 2px;
+          font-size: 13px;
+        }
         .#{$prefix}-table-btn {
           margin-top: 20px;
           button {
@@ -259,7 +327,14 @@ export default {
           }
         }
       }
+      .#{$prefix}-btns-note {
+        text-decoration: underline;
+        text-align: center;
+      }
       .#{$prefix}-content-pay {
+        &-type {
+          width: 120px;
+        }
         .#{$prefix}-content-pay-way {
           font-weight: 500;
           font-size: 14px;
@@ -271,8 +346,9 @@ export default {
           color: rgba(0,0,0,.65)
         }
         .#{$prefix}-content-pay-money {
+          margin-top: 18px;
           font-size: 18px;
-          line-height: 36px;
+          line-height: 1;
           color: #f5222d;
           font-weight: 600;
         }
@@ -281,6 +357,30 @@ export default {
           width: 100%;
           max-width: 160px;
           background: #fafafa;
+          position: relative;
+          &-overdate{
+            display: none;
+          }
+          &.overdate .#{$prefix}-content-pay-qrcode-overdate{
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            -webkit-box-align: center;
+            -ms-flex-align: center;
+            align-items: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, .6);
+            color: rgba(6, 6, 6, .8);
+            font-size: 28px;
+            font-weight: 800;
+          }
           img {
             width: 100%;
           }
@@ -320,6 +420,22 @@ export default {
       }
       .#{$prefix}-table-btn {
         padding-left: 30px;
+      }
+      .#{$prefix}-table-msg {
+        text-align: left !important;
+        margin: 10px 0 !important;
+      }
+      .#{$prefix}-btns {
+        text-align: left;
+        padding-top: 10px;
+        &.bttn-box:before {
+          width: 0 !important;
+        }
+        &-note {
+          margin-top: 5px;
+          padding-left: 24px;
+          text-align: left !important;
+        }
       }
     }
   }
