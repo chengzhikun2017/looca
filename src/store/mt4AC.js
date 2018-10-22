@@ -85,6 +85,7 @@ export default {
           }
         })
         state.list = tempVip.concat(tempArr)
+        // state.list = state.list.concat(state.list,state.list)
         state.syncSuccess = res.syncSuccess
         if (!getters.hasCurrentStorage) {
           dispatch('setDefaultCurrent')

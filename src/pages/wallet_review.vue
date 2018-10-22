@@ -66,7 +66,7 @@ export default {
     ...mapActions('wallet',['getWallet'])
   },
   computed: {
-    ...mapState('wallet',['money',])
+    ...mapState('wallet',['money','payInfo']),
   },
   components: {
   }

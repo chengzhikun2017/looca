@@ -113,6 +113,7 @@ export default {
       })      
     },
     test() {
+      this.getPayAccount()
       console.log('%c h','color:red',this.$store.state)
       // this.$router.push('/test3')
       // this.$store.dispatch('mt4Balance/list')
@@ -128,7 +129,7 @@ export default {
       // console.log('%c app vue ','color:red',this.routerMatchedComponent)
     },
     ...mapActions('account', ["checkSession"]),
-    ...mapMutations
+    ...mapActions('wallet', ["getPayAccount"]),
   },
   components: {
     Log,

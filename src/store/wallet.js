@@ -144,9 +144,10 @@ export default {
         url: 'balance/alipay/account',
       }).then(res => {
         state.payInfo = res
+        console.log('%c payWay','color:red',res.payWay)
       })
     },
-    createAutoCollectOrder({},params) {
+    createAutoCollectOrder({ state },params) {
       // receiptAccountId : 支付宝收款账号ID : /balance/alipay/account接口返回的id
       // dollar : 充值金额美元，单位分
       // dollar2RMBRate : 兑换汇率，/tool/dollar2RMBRate接口返回的rate
@@ -168,7 +169,7 @@ export default {
         params:{
           tradeNo,
         },
-      })
+      },{ showLoading: false})
       return promise
     },
     getCurrency({ state }) {

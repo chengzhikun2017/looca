@@ -253,6 +253,7 @@ export default {
       return {
         st: this.startDate,
         et: this.endDate,
+        type: this.listType==='all'?'':this.listType,
       }
     },
     params() {

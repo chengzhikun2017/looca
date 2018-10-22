@@ -163,12 +163,12 @@ export default {
         // console.log('%c res','color:red',res)
         let status = res.status
         status = 3
-        if(status === 1 || status === 3) {
+        if(status === 0 || status === 3) {
           //处理中
           this.responseText = "出金处理中"
           this.rechargeSucceed = true
           this.successResponse = res
-        }else if(res.status === 0) {
+        }else if(res.status === 1) {
           // success  
           this.rechargeSucceed = true
           this.successResponse = res
