@@ -17,9 +17,9 @@
               </a-input>
             </div>
           </a-form-item>
-          <a-form-item v-if="!isAutoPay" :wrapperCol="{ span: 18 }" label='支付金额' :labelCol="{ span: 6 }" :help="`实时汇率：1美金兑换${usdRate}人民币`">
+          <a-form-item  :wrapperCol="{ span: 18 }" label='支付金额' :labelCol="{ span: 6 }" :help="`实时汇率：1美金兑换${usdRate}人民币`">
             <div>根据实时汇率自动计算</div>
-            <div>{{formData.amount*usdRate*100 | money}}</div>
+            <div v-if="!isAutoPay">{{formData.amount*usdRate*100 | money}}</div>
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 24}">
             <div class="bttn-box">
