@@ -147,7 +147,11 @@ const columns = [{
   title: "获利",
   dataIndex: "profit",
   // width:'60px',
-}, ];
+},
+  { title: "净值", dataIndex: "actualProfit",},
+
+ ];
+
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import dateRange from './../components/mixin/dateRange.js'
 

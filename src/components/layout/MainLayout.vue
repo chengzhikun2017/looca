@@ -13,6 +13,7 @@
           <a-icon :type="topMenu.icon" v-if="topMenu.noChild"  />
           <span v-if="topMenu.noChild">{{topMenu.title}}</span>
         </component>
+        <a-menu-item key="coustom_1" @click.native="openSourceSystem">信号源大数据分析系统</a-menu-item>
       </a-menu>
       <div class="logo" flex="main:center cross:center" v-if="true">
         <img class="logo-image" src="@/assets/display/logo1.png" alt="">
@@ -197,7 +198,13 @@ export default {
         this.hideSider()
       }
     },
+    openSourceSystem() {
+      window.open('https://crm.looco8.com/broker/login')
+    },
     onItemClick(e) {
+      if(/coustom/.test(e.key)){
+        return
+      }
       this.go('/' + e.key)
       this.keyPath = e.keyPath.reverse()
       this.hideMobileSider()
@@ -322,13 +329,13 @@ export default {
         // link:"mt4_overview",
         icon: 'profile',
         ...config.mt4_overview,
-        children: [
-          config.mt4_create,
-          config.mt4_modifypwd,
-          config.mt4_bind,
-          config.mt4_findpwd,
-          config.mt4_money_bill,
-        ],
+        // children: [
+        //   config.mt4_create,
+        //   config.mt4_modifypwd,
+        //   config.mt4_bind,
+        //   config.mt4_findpwd,
+        //   config.mt4_money_bill,
+        // ],
       }, { //mt4_trade
         key: 'mt4_trade',
         hide: this.list.length === 0,
@@ -381,7 +388,7 @@ export default {
           // config.agent_profit_overview,
 
         ],
-      },]
+      }]
     },
     routePath() {
       return this.$route.path.split('/')[1]

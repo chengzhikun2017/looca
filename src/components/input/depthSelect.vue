@@ -13,9 +13,9 @@ export default {
       depth: 0,
       depthes: [
         { label: "全部客户", value: 0 },
-        { label: "一级关系", value: 1 },
-        { label: "二级关系", value: 2 },
-        { label: "三级关系", value: 3 },
+        { label: "一级", value: 1 },
+        { label: "二级", value: 2 },
+        { label: "三级", value: 3 },
       ],
     }
   },

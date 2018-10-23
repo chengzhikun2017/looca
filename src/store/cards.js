@@ -49,6 +49,7 @@ export default {
     // },
     clearListDC(s) {
       s.listDC = []
+      s.listGot = false
     },
     setInfoDC(s, cardInfoObj) {
       for (let key in s.newInfo) {

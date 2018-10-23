@@ -48,7 +48,7 @@
         </div>
         <div class="wallet_list_card-detail-item" v-if="detailInfo.bankName" flex="main:justify">
           <div class="wallet_list_card-detail-item-title">银行：</div>
-          <div class="wallet_list_card-detail-item-content">{{detailInfo.bankName | bankCard}}</div>
+          <div class="wallet_list_card-detail-item-content">{{detailInfo.bankName}}</div>
         </div>
         <div class="wallet_list_card-detail-item" v-if="detailInfo.bankCardNum" flex="main:justify">
           <div class="wallet_list_card-detail-item-title">银行卡号：</div>

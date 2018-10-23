@@ -67,6 +67,9 @@
           <template slot="money" slot-scope="money">
             {{money | money}}
           </template>
+          <template slot="type" slot-scope="type">
+            {{type | incomeType}}
+          </template>
           followCycleSt 至 followSettlementTradeNo
           <template slot="period" slot-scope="text,record">
             {{record.followCycleSt|timeFull}} ~ {{record.followCycleEt|timeFull}}
@@ -95,7 +98,7 @@ const columnsPoint = [
   { title: "代理商手机号", [DI]: "phone", width: "70px" },
   { title: "客户名字", [DI]: "guest_name", width: "110px" },
   { title: "客户手机号", [DI]: "guest_phone" },
-  { title: "客户关系", [DI]: "depth", [SS]: {[CR]: 'depth' }, },
+  { title: "客户级别", [DI]: "depth", [SS]: {[CR]: 'depth' }, },
   { title: "类型", [DI]: "type" ,[SS]: {[CR]: 'type' }, },
   { title: "订单号", [DI]: "order_id", },
   { title: "交易对", [DI]: "symbol", },
