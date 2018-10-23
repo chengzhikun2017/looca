@@ -50,6 +50,7 @@ section.container {
     /*background: #009;*/
     height: 100%;
     width: 100vw;
+    min-width: 1150px;
     /*background: linear-gradient(to left, #fff, #00f);*/
     position: absolute;
   }

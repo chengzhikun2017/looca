@@ -11,7 +11,7 @@
           <a-dropdown>
             <div class="index-page-nav-title">产品报价</div>
             <div slot="overlay" class="index-page-nav-list">
-              <div class="index-page-nav-list-item" @click="download('DealRules')">交易细则</div>
+              <div class="index-page-nav-list-item" @click="tutorial('交易细则', 2)">交易细则</div>
             </div>
           </a-dropdown>
           <a-dropdown>
@@ -25,20 +25,9 @@
           <a-dropdown>
             <div class="index-page-nav-title">教程</div>
             <div slot="overlay" class="index-page-nav-list">
-              <div class="index-page-nav-list-item" @click="download('Toturial')">教程文档</div>
-              <div class="index-page-nav-list-item" @click="download('NFA')">监管查询文档</div>
+              <div class="index-page-nav-list-item" @click="listFlag = true">教程文档</div>
+              <div class="index-page-nav-list-item" @click="open('查询NFA监管状况')">监管查询文档</div>
             </div>
-
-            <a-menu slot="overlay">
-              <a-menu-item key="0">
-                <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">1st menu item</a>
-              </a-menu-item>
-              <a-menu-item key="1">
-                <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">2nd menu item</a>
-              </a-menu-item>
-              <a-menu-divider />
-              <a-menu-item key="3" disabled>3rd menu item（disabled）</a-menu-item>
-            </a-menu>
           </a-dropdown>
           <div class="index-page-nav-title" @click="contactUs">联系我们</div>
         </div>
@@ -90,8 +79,8 @@
           开始您与 <strong>乐恺环球</strong> 的交易旅程
         </h2>
         <div class="bttn-box">
-          <a :href="`${crmDomain}/#/signup`" class="btn signup">注册真实账户</a>
-          <a :href="`${crmDomain}/#/mine_real`" class="btn login">立即登录</a>
+          <a :href="`${crmDomain}/#/signup`" target="_blank" class="btn signup">注册真实账户</a>
+          <a :href="`${crmDomain}/#/mine_real`" target="_blank" class="btn login">立即登录</a>
         </div>
         <p class="text">交易涉及风险，请确保您完全了解所涉及的风险</p>
       </div>
@@ -183,25 +172,29 @@
         </div>
         <div class="index-footer-menu" flex="main:center corss:center">
           <div class="menu-item">
+            <h3>监管查询</h3>
+            <p class="click" @click="download('NFAWeb')">美国NFA官网</p>
+            <p class="click" @click="open('查询NFA监管状况')">监管查询文档</p>
+          </div>
+          <div class="menu-item">
             <h3>产品报价</h3>
-            <p @click="download('DealRules')">交易细则</p>
+            <p class="click" @click="tutorial('交易细则', 2)">交易细则</p>
           </div>
           <div class="menu-item">
             <h3>MT4下载</h3>
-            <p @click="download('Windows')">PC</p>
-            <p @click="download('iPhone')">苹果</p>
-            <p @click="download('Android')">安卓</p>
+            <p class="click" @click="download('Windows')">PC</p>
+            <p class="click" @click="download('iPhone')">苹果</p>
+            <p class="click" @click="download('Android')">安卓</p>
           </div>
           <div class="menu-item">
             <h3>教程</h3>
-            <p>教程文档</p>
-            <p @click="download('NFA')">监管查询文档</p>
+            <p class="click" @click="listFlag = true">教程文档</p>
           </div>
           <div class="menu-item">
             <h3>联系我们</h3>
-            <p>客服电话：400-0577-009</p>
-            <p>客服QQ：83166672</p>
-            <p>客服微信：Looco8</p>
+            <p>电话：400-0577-009</p>
+            <p>Q Q：83166672</p>
+            <p>微信：Looco8</p>
           </div>
         </div>
         <div class="copyright">
@@ -209,6 +202,34 @@
         </div>
       </div>
     </v-layer>
+    <a-modal
+      :title="filename + '教程'"
+      centered
+      width="1000px"
+      okText="确定"
+      :zIndex="6666"
+      cancelText="取消"
+      v-model="tutorialFlag"
+      @ok="() => tutorialFlag = false"
+    >
+      <tutorial :file="filename" :pages="pagesNum"></tutorial>
+    </a-modal>
+    <a-modal
+      title="教程列表"
+      centered
+      width="520px"
+      okText="确定"
+      :zIndex="5555"
+      cancelText="取消"
+      v-model="listFlag"
+      @ok="() => listFlag = false"
+    >
+      <a-list
+        :dataSource="tutorialData"
+      >
+        <a-list-item slot="renderItem" @click="open(item.filename)" slot-scope="item, index">{{item.filename}}</a-list-item>
+      </a-list>
+    </a-modal>
   </div>
 </template>
 <style lang="scss">
@@ -218,7 +239,7 @@
       text-align: center;
       .logo-border {
         position: relative;
-        background-color: #ccc;
+        background-color: #00d500;
         margin: 0 auto;
         border-radius: 50%;
         overflow: hidden;
@@ -227,9 +248,6 @@
         color: white;
         font-size: 32px;
         line-height: 49px;
-        &:hover {
-          background-color: #00d500;
-        }
       }
     }
     &-qrcode {
@@ -263,6 +281,9 @@
         }
       }
     }
+    .click {
+      cursor: pointer;
+    }
     .copyright {
       padding: 10px 0 25px;
       font-size: 12px;
@@ -278,10 +299,41 @@ import widget2 from './../components/forIndex/widget2.vue'
 import widget5 from './../components/forIndex/widget5.vue'
 import widget4 from './../components/forIndex/widget4.vue'
 import widget3 from './../components/forIndex/widget3.vue'
+import tutorial from '@/components/forIndex/tutorial.vue'
 export default {
   name: 'index',
   data() {
     return {
+      listFlag: false,
+      tutorialFlag: false,
+      filename: '',
+      pagesNum: 0,
+      tutorialData: [
+        {
+          filename: 'MQL5操作流程',
+          pagesNum: 39
+        },
+        {
+          filename: 'MT4安装及使用教程-安卓版',
+          pagesNum: 10
+        },
+        {
+          filename: 'MT4安装及使用教程-电脑版',
+          pagesNum: 21
+        },
+        {
+          filename: 'MT4安装及使用教程-苹果版',
+          pagesNum: 11
+        },
+        {
+          filename: 'MT4账号申请教程-电脑版',
+          pagesNum: 15
+        },
+        {
+          filename: 'MT4账号申请教程-手机版',
+          pagesNum: 14
+        }
+      ],
       crmDomain:"https://crm.looco8.com",
       current: ['mail'],
       bannerHeight: "700px",
@@ -310,11 +362,17 @@ export default {
     }
   },
   methods: {
+    open (filename) {
+      window.open('https://www.looco8.com/' + filename + '/index.html')
+    },
     download (type) {
       let url = ''
       switch(type) {
         case 'NFA':
           url = 'https://www.looco8.com/HowToCheckNewsOfNFA.pdf'
+          break
+        case 'NFAWeb':
+          url = 'https://www.nfa.futures.org/'
           break
         case 'DealRules':
           url = 'https://www.looco8.com/交易细则.xls'
@@ -323,7 +381,7 @@ export default {
           url = 'https://download.mql5.com/cdn/web/12872/mt4/loocoglobal4setup.exe'
           break
         case 'Android':
-          url = 'https://download.mql5.com/cdn/mobile/mt4/android?server=LoocoGlobal-Demo,LoocoGlobal-Primary'
+          url = 'https://www.looco8.com/安卓metatrader4.apk.1.1'
           break
         case 'iPhone':
           url = 'https://download.mql5.com/cdn/mobile/mt4/ios?server=LoocoGlobal-Demo,LoocoGlobal-Primary'
@@ -332,6 +390,11 @@ export default {
           return
       }
       window.open(url)
+    },
+    tutorial (filename, pagesNum) {
+      this.filename = filename
+      this.pagesNum = pagesNum
+      this.tutorialFlag = true
     },
     contactUs () {
       window.scrollTo(0, 100000)
@@ -345,6 +408,7 @@ export default {
     'widget3': widget3,
     'widget4': widget4,
     'widget5': widget5,
+    'tutorial': tutorial
   },
 }
 
