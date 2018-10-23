@@ -25,7 +25,7 @@
             <div class="mt4_withdraw-input">
               <a-radio-group name="radioGroup" v-model="amountType">
                 <a-radio value="full">全部提取</a-radio>
-                <a-radio value="part" v-if="currentMt4Info.type==='normal'">其他金额</a-radio>
+                <a-radio value="part" v-if="currentMt4Info.type!=='follow'">其他金额</a-radio>
               </a-radio-group>
             </div>
           </a-form-item>
@@ -78,10 +78,10 @@
             <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='提交时间' :labelCol="{ span: 6 }">
               <span>{{successResponse.createTime | timeFull}}</span>
             </a-form-item>
-            <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='状态' :labelCol="{ span: 6 }">
-              <!-- //出金状态：0正在处理、1完成、2失败 -->
+            <!-- <a-form-item :wrapperCol="{ span: 18 }" class="mt4_withdraw-table-item" label='状态' :labelCol="{ span: 6 }">
+              //出金状态：0正在处理、1完成、2失败
               <span> {{successResponse.status | moneyBillStatus}}</span>
-            </a-form-item>
+            </a-form-item> -->
             <a-form-item :wrapperCol="{ span: 24}">
               <div class="bttn-box mt4_withdraw-table-btn">
                 <a-button type='primary' @click="viewRecord">

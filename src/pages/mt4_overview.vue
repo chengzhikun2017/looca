@@ -52,7 +52,7 @@
         出入金记录
       </a-button>
     </div>
-    <Mt4SyncFail  :success="!!!syncSuccess&&!loading" :reSyncFunc="refresh"> </Mt4SyncFail>
+    <Mt4SyncFail  :success="!!!syncSuccess&&!loading" :reSyncFunc="getList"> </Mt4SyncFail>
     <div>
       <a-list
         itemLayout="horizontal"
@@ -275,10 +275,10 @@ export default {
     }
   }
   .fixed-btn {
-    position: fixed;
-    right: 5px;
+    position: absolute;
+    right: 55px;
     left:auto;
-    top: 10px;
+    top: 12px;
     .link-btn{
       &:active,&:hover{
         text-decoration: none;

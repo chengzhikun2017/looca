@@ -143,7 +143,8 @@
       <div v-if="rechargeSucceed" class="wallet_recharge-content-success" flex="dir:top main:center cross:center">
         <a-icon class="wallet_recharge-icon-success" type="check-circle" />
         <div class="wallet_recharge-content-title">操作成功</div>
-        <p>请联系客服完成充值，10分钟到账</p>
+        <p v-if="!isAutoPay">请联系客服完成充值，10分钟到账</p>
+        <p v-if="isAutoPay">充值成功</p>
         <div class="wallet_recharge-table" >
           <div class="bttn-box wallet_recharge-table-btn">
             <a-button type='primary' @click="reset">
@@ -213,7 +214,8 @@ export default {
     return {
       input:newInput,
       ...defaultData,
-      MIN_AMOUNT:100,
+      MIN_AMOUNT:1,
+      MAX_RMB_AMOUNT:50000,
       isExpired: false,
       autoPayInfo:{},
       countDown:0,
@@ -302,9 +304,10 @@ export default {
         .then((res) => {
           this.handleAutoPayStatus(res.status)
         })
-      },300)
+      },2500)
     },
     handleAutoPayStatus(status){
+      status = 2
       if(status === 0 ){
         return
       }
@@ -333,6 +336,11 @@ export default {
       if (amount < this.MIN_AMOUNT) {
         this.input.status.amount =
           inputHelper.createStatus(2, '金额不能小于' + this.MIN_AMOUNT + '美金')
+        return false
+      }
+      if (amount * this.usdRate > this.MAX_RMB_AMOUNT) {
+        this.input.status.amount =
+          inputHelper.createStatus(2, '单次充值RMB不能超过' + this.MAX_RMB_AMOUNT + ',您可以进行多次充值')
         return false
       }
       return true
