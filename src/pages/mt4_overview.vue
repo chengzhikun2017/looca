@@ -27,11 +27,7 @@
         </a-radio-group>
       </div>
     </a-modal>
-    <div class="btn-container phone fixed-btn">
-      <a class="link-btn" href="javascript:void(0)" v-if="!isPC" @click="chooseCreate" >
-        新增账户
-      </a>
-    </div>
+
     <div class="default-info" :class="isPC?'':'phone'">
       <div class="btn-container" :class="isPC?'':'phone'" v-if="listGot">
         <a-button size="small" v-if="isPC"  type="primary" @click="chooseCreate" :disabled="!canCreate">
@@ -51,6 +47,11 @@
       <a-button size="small" v-if="list.length>0 && false" type="primary" @click="goPage('/mt4_money_bill')">
         出入金记录
       </a-button>
+    </div>
+    <div class="btn-container phone fixed-btn">
+      <a class="link-btn" href="javascript:void(0)" v-if="!isPC" @click="chooseCreate" >
+        新增账户
+      </a>
     </div>
     <Mt4SyncFail  :success="!!!syncSuccess&&!loading" :reSyncFunc="getList"> </Mt4SyncFail>
     <div>

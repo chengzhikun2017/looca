@@ -17,7 +17,7 @@
               </a-input>
             </div>
           </a-form-item>
-          <a-form-item :wrapperCol="{ span: 18 }" label='支付金额' :labelCol="{ span: 6 }" :help="`实时汇率：1美金兑换${usdRate}人民币`">
+          <a-form-item v-if="!isAutoPay" :wrapperCol="{ span: 18 }" label='支付金额' :labelCol="{ span: 6 }" :help="`实时汇率：1美金兑换${usdRate}人民币`">
             <div>根据实时汇率自动计算</div>
             <div>{{formData.amount*usdRate*100 | money}}</div>
           </a-form-item>
@@ -38,7 +38,9 @@
             <img class="wallet_recharge-content-pay-type" src="@/assets/logo_alipay.jpg" alt="">
             <!-- <div class="wallet_recharge-content-pay-way">请使用支付宝APP</div>
             <div class="wallet_recharge-content-pay-note">扫一扫付款（元）</div> -->
-            <div class="wallet_recharge-content-pay-money">{{formData.amount*usdRate*100 | money}}</div>
+            <div class="wallet_recharge-content-pay-money">
+              {{formData.amount*usdRate*100 | money}}
+            </div>
             <div class="wallet_recharge-content-pay-qrcode" :class="{'overdate': isExpired}">
               <img style="width: 100%" :src="payInfo.qrcodeUrl" alt="支付宝收款二维码">
               <div class="wallet_recharge-content-pay-qrcode-overdate">已过期</div>
@@ -92,7 +94,13 @@
             <img class="wallet_recharge-content-pay-type" src="@/assets/logo_alipay.jpg" alt="">
             <!-- <div class="wallet_recharge-content-pay-way">请使用支付宝APP</div>
             <div class="wallet_recharge-content-pay-note">扫一扫付款（元）</div> -->
-            <div class="wallet_recharge-content-pay-money">{{formData.amount*usdRate*100 | money}}</div>
+            <div class="wallet_recharge-content-pay-money">
+              <span style="font-weight: bold;font-size: 22px;">￥</span>
+              {{autoPayInfo.realPrice}}
+            </div>
+            <div class="wallet_recharge-content-pay-money">
+              扫码后，务必准确填入金额
+            </div>
             <div class="wallet_recharge-content-pay-qrcode" :class="{'overdate': isExpired}">
               <img style="width: 100%" :src="payInfo.qrcodeUrl" alt="支付宝收款二维码">
               <div class="wallet_recharge-content-pay-qrcode-overdate">已过期</div>
@@ -307,7 +315,6 @@ export default {
       },2500)
     },
     handleAutoPayStatus(status){
-      status = 2
       if(status === 0 ){
         return
       }
@@ -355,6 +362,13 @@ export default {
   components:{
     ImageUpload,
     Clock
+  },
+  watch: {
+    current(newVal) {
+      if(newVal!==1){
+        clearInterval(this.pollingTimer)
+      }
+    }
   },
   computed:{
     usdRate() {
