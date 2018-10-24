@@ -38,7 +38,7 @@
         </div>
         <div flex-box="1">
           <div>
-            实际盈利：${{summary.profit }}
+            实际盈利：${{summary.profit }}（含手续费）
           </div>
           <div>
             亏损笔数：{{summary.loss}}
