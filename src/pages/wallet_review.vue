@@ -24,8 +24,8 @@
         </a-button>
       </div>
     </div>
-    <div class="tarde_wallet-divider"></div>
-    <div class="trade_wallet-list">
+    <div class="tarde_wallet-divider" v-if="isAgent"></div>
+    <div class="trade_wallet-list" v-if="isAgent">
       <div class="trade_wallet-list-title">可提现佣金分红</div>
       <div class="trade_wallet-list-content">${{money.brokerage | money}}</div>
       <div class="trade_wallet-list-opt">
@@ -34,8 +34,8 @@
         </a-button>
       </div>
     </div>
-    <div class="tarde_wallet-divider"></div>
-    <div class="trade_wallet-list">
+    <div class="tarde_wallet-divider" v-if="isAgent"></div>
+    <div class="trade_wallet-list" v-if="isAgent">
       <div class="trade_wallet-list-title">累计佣金分红</div>
       <div class="trade_wallet-list-content">${{money.totalBrokerage | money}}</div>
       <div class="trade_wallet-list-opt">
@@ -66,7 +66,11 @@ export default {
     ...mapActions('wallet',['getWallet'])
   },
   computed: {
+    isAgent(){
+      return this.account.share.level > 0
+    },
     ...mapState('wallet',['money','payInfo']),
+    ...mapState(['account']),
   },
   components: {
   }
