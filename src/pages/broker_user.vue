@@ -10,10 +10,22 @@
         <a-button @click="searchList" type="primary">查询</a-button>
       </div>
     </div>
-    <a-modal title="跟单详情" :visible="showUpgradeAgent" @ok="submitUpgrade"  @cancel="handleCancel">
-
+    <a-modal v-model="showUpgradeAgent" title="请选择希望调整到的级别">
+      <!-- onCancel="closeUpgrade" -->
+      <!-- onOk="confirmUpgrade" -->
+      <template slot="footer">
+        <a-button @click="closeUpgrade">取消</a-button>
+        <a-button type="primary" @click="confirmUpgrade">
+          确定
+        </a-button>
+      </template>
+      <!-- <p>Some contents...</p> -->
+      <a-select style="width: 120px" v-model="targetLv">
+        <a-select-option v-for="item in agentLevels" v-if="" :key="item.value" :value="item.value">
+          {{item.label}}
+        </a-select-option>
+      </a-select>
     </a-modal>
-
     <div class="list broker-list ">
       <a-table :pagination="pagination" bordered :dataSource="userList.list" :rowKey="rowkey" :columns="columns" @change="onTableChange" :loading="loading">
         <template slot="action" slot-scope="text, record, index">
@@ -38,9 +50,9 @@
             <span>
               {{level | agentLevel}}
             </span>
-            <a-button size=small type="primary" :disabled="record.level==2" @click="upgradeAgent(record)">
-              调整
-            </a-button>
+          <a-button size=small type="primary" :disabled="record.level==2" @click="openUpgrade(record)">
+            升级
+          </a-button>
           </span>
         </template>
         <template slot="user_account_type" slot-scope="user_account_type">
@@ -71,27 +83,74 @@ const columns = [
   //   dataIndex: 'depth',
   //   // scopedSlots: { customRender: 'depth' },
   // }, 
-  { title: "序列号", [DI]: "uid", [SS]: {
-      [CR]: 'index' } },
+  {
+    title: "序列号",
+    [DI]: "uid",
+    [SS]: {
+      [CR]: 'index'
+    }
+  },
   { title: "名字", [DI]: "name", width: "70px" },
   { title: "手机号", [DI]: "phone", width: "110px" },
-  { title: "账户类型", [DI]: "user_account_type", [SS]: {
-      [CR]: 'user_account_type' }, },
-  { title: "客户级别", [DI]: "depth", [SS]: {
-      [CR]: 'depth' }, },
-  { title: "代理等级", [DI]: "level", [SS]: {
-      [CR]: 'level' }, width: '120px' },
+  {
+    title: "账户类型",
+    [DI]: "user_account_type",
+    [SS]: {
+      [CR]: 'user_account_type'
+    },
+  },
+  {
+    title: "客户级别",
+    [DI]: "depth",
+    [SS]: {
+      [CR]: 'depth'
+    },
+  },
+  {
+    title: "代理等级",
+    [DI]: "level",
+    [SS]: {
+      [CR]: 'level'
+    },
+    width: '120px'
+  },
   // {title:"所属经纪人",[DI]:"level",width:'70px'},
   // {title:"充值金额",width:"80px",[DI]:"total_pay_fee",[SS]: { [CR]: 'money' },},
-  { title: "账户余额", width: "80px", [DI]: "balance_fee", [SS]: {
-      [CR]: 'money' }, },
-  { title: "当前佣金", width: "80px", [DI]: "brokerage_fee", [SS]: {
-      [CR]: 'money' }, },
-  { title: "注册时间", [DI]: "register_time", width: "160px", [SS]: {
-      [CR]: 'time' }, },
-  { title: "操作", [DI]: "", [SS]: {
-      [CR]: 'action' }, width: "250px" },
+  {
+    title: "账户余额",
+    width: "80px",
+    [DI]: "balance_fee",
+    [SS]: {
+      [CR]: 'money'
+    },
+  },
+  {
+    title: "当前佣金",
+    width: "80px",
+    [DI]: "brokerage_fee",
+    [SS]: {
+      [CR]: 'money'
+    },
+  },
+  {
+    title: "注册时间",
+    [DI]: "register_time",
+    width: "160px",
+    [SS]: {
+      [CR]: 'time'
+    },
+  },
+  {
+    title: "操作",
+    [DI]: "",
+    [SS]: {
+      [CR]: 'action'
+    },
+    width: "250px"
+  },
 ]
+const Agent_Lv_Map = [0, 4, 3, 2, 1]
+const Agent_Lv_Text = ['无级别', '三级', '二级', '一级', '股东']
 export default {
   name: 'broker_user',
   mixins: [brokerSearchInputs],
@@ -105,7 +164,9 @@ export default {
       accountType: "",
       currentPage: 1,
       savedParams: {},
-      showUpgradeAgent:false,
+      showUpgradeAgent: false,
+      targetLv: null,
+      upgradingUserInfo: null,
 
       // search: 客户名字或者手机号
       // page: 页码， 默认1开始
@@ -121,13 +182,38 @@ export default {
     this.searchList()
   },
   methods: {
-    submitUpgrade() {
-      
+    submitUpgrade(targetUid, level) {
+      this.upgradeAgent({
+        targetUid,
+        level,
+      }).then(() => {
+        this.closeUpgrade()
+      })
     },
-    handleCancel() {
+    closeUpgrade() {
       this.showUpgradeAgent = false
     },
-    upgradeAgent(record) {
+    openUpgrade(record) {
+      this.upgradingUserInfo = record
+      this.showUpgradeAgent = true
+      let currentLvIndex = Agent_Lv_Map.indexOf(record.level)
+      this.targetLv = Agent_Lv_Map[currentLvIndex + 1]
+    },
+    confirmUpgrade() {
+      if (!this.targetLv) {
+        return
+      }
+      let record = this.upgradingUserInfo
+      let currentLvIndex = Agent_Lv_Map.indexOf(record.level)
+      let targetLv = this.agentLevels
+        .find(item => item.value == this.targetLv)
+
+      this.$modal.confirm({
+        content: `确定将${record.name}升从【${Agent_Lv_Text[currentLvIndex]}代理】升级至【${targetLv.label}代理】吗？`,
+        onOk: () => {
+          this.submitUpgrade(record.uid, targetLv.value)
+        },
+      })
       console.log('%c record', 'color:red', record)
     },
     goPage(path) {
@@ -185,9 +271,37 @@ export default {
     rowkey(item, index) {
       return index
     },
-    ...mapActions('broker', ["getUsers"]),
+    ...mapActions('broker', ["getUsers", 'upgradeAgent']),
   },
   computed: {
+    agentLevels() {
+      if (!this.upgradingUserInfo) {
+        return []
+      }
+      let current = this.upgradingUserInfo.level
+      switch (current) {
+        case 2:
+        case 1:
+          return [];
+        case 0:
+          return [
+            { value: 4, label: '三级' },
+            { value: 3, label: '二级' },
+            { value: 2, label: '一级' },
+          ];
+        case 4:
+          return [
+            { value: 3, label: '二级' },
+            { value: 2, label: '一级' },
+          ];
+        case 3:
+          return [
+            { value: 2, label: '一级' },
+          ];
+        default:
+          return [];
+      }
+    },
     partnerOpts() {
       let arr = this.partners.map((item) => {
         return {
