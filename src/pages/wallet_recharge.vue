@@ -17,13 +17,13 @@
               </a-input>
             </div>
           </a-form-item>
-          <a-form-item :wrapperCol="{ span: 18 }" label='支付金额' :labelCol="{ span: 6 }" :help="`实时汇率：1美金兑换${usdRate}人民币`">
+          <a-form-item  :wrapperCol="{ span: 18 }" label='支付金额' :labelCol="{ span: 6 }" :help="`实时汇率：1美金兑换${usdRate}人民币`">
             <div>根据实时汇率自动计算</div>
-            <div>{{formData.amount*usdRate*100 | money}}</div>
+            <div v-if="!isAutoPay">{{formData.amount*usdRate*100 | money}}</div>
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 24}">
             <div class="bttn-box">
-              <a-button type='primary' @click="goPayQR">
+              <a-button type='primary' @click="goStep2">
                 下一步
               </a-button>
             </div>
@@ -31,15 +31,17 @@
         </a-form>
       </div>
     </div>
-    <div v-if="'手动' == '自动' && current === 1" class="wallet_recharge-content">
+    <div v-if="!isAutoPay && current === 1" class="wallet_recharge-content">
       <a-row class="wallet_recharge-content-grid">
         <a-col :xs="24" :sm="12">
           <div class="wallet_recharge-content-pay" flex="dir:top main:center cross:center">
             <img class="wallet_recharge-content-pay-type" src="@/assets/logo_alipay.jpg" alt="">
             <!-- <div class="wallet_recharge-content-pay-way">请使用支付宝APP</div>
             <div class="wallet_recharge-content-pay-note">扫一扫付款（元）</div> -->
-            <div class="wallet_recharge-content-pay-money">{{formData.amount*usdRate*100 | money}}</div>
-            <div class="wallet_recharge-content-pay-qrcode" :class="{'overdate': isOverdate}">
+            <div class="wallet_recharge-content-pay-money">
+              {{formData.amount*usdRate*100 | money}}
+            </div>
+            <div class="wallet_recharge-content-pay-qrcode" :class="{'overdate': isExpired}">
               <img style="width: 100%" :src="payInfo.qrcodeUrl" alt="支付宝收款二维码">
               <div class="wallet_recharge-content-pay-qrcode-overdate">已过期</div>
             </div>
@@ -85,15 +87,21 @@
         <p class="wallet_recharge-content-note-item">3. 转账完成后，前往我的>账单，截图该笔账单详情</p>
       </div>
     </div>
-    <div v-if="'自动' == '自动' && current === 1" class="wallet_recharge-content">
+    <div v-if="isAutoPay && current === 1" class="wallet_recharge-content">
       <a-row class="wallet_recharge-content-grid">
         <a-col :xs="24" :sm="12">
           <div class="wallet_recharge-content-pay" flex="dir:top main:center cross:center">
             <img class="wallet_recharge-content-pay-type" src="@/assets/logo_alipay.jpg" alt="">
             <!-- <div class="wallet_recharge-content-pay-way">请使用支付宝APP</div>
             <div class="wallet_recharge-content-pay-note">扫一扫付款（元）</div> -->
-            <div class="wallet_recharge-content-pay-money">{{formData.amount*usdRate*100 | money}}</div>
-            <div class="wallet_recharge-content-pay-qrcode" :class="{'overdate': isOverdate}">
+            <div class="wallet_recharge-content-pay-money">
+              <span style="font-weight: bold;font-size: 22px;">￥</span>
+              {{autoPayInfo.realPrice}}
+            </div>
+            <div class="wallet_recharge-content-pay-money">
+              扫码后，务必准确填入金额
+            </div>
+            <div class="wallet_recharge-content-pay-qrcode" :class="{'overdate': isExpired}">
               <img style="width: 100%" :src="payInfo.qrcodeUrl" alt="支付宝收款二维码">
               <div class="wallet_recharge-content-pay-qrcode-overdate">已过期</div>
             </div>
@@ -107,12 +115,12 @@
             <p class="wallet_recharge-table-msg">打开支付宝扫一扫</p>
             <p class="wallet_recharge-table-msg">过期后请勿转账，不自动到账</p>
             <div class="wallet_recharge-table-msg">
-              <clock :seconds="10" @finish="test"></clock>
+              <clock ref="clock" @finish="onExpired"></clock>
             </div>
             <a-form>
               <a-form-item :wrapperCol="{ span: 24}">
                 <div class="wallet_recharge-btns bttn-box">
-                  <a-button type='primary' @click="onConfirmed">
+                  <a-button  @click="quit">
                     放弃支付
                   </a-button>
                   <a-button  class="pc"  @click="prev">
@@ -123,7 +131,7 @@
                       上一步
                     </span>
                   </div>
-                  <p class="wallet_recharge-btns-note">
+                  <p class="wallet_recharge-btns-note l-blue l-pointer-blue" @click="showContactTip" >
                     支付完成，页面未跳转
                   </p>
                 </div>
@@ -143,7 +151,8 @@
       <div v-if="rechargeSucceed" class="wallet_recharge-content-success" flex="dir:top main:center cross:center">
         <a-icon class="wallet_recharge-icon-success" type="check-circle" />
         <div class="wallet_recharge-content-title">操作成功</div>
-        <p>请联系客服完成充值，10分钟到账</p>
+        <p v-if="!isAutoPay">请联系客服完成充值，10分钟到账</p>
+        <p v-if="isAutoPay">充值成功</p>
         <div class="wallet_recharge-table" >
           <div class="bttn-box wallet_recharge-table-btn">
             <a-button type='primary' @click="reset">
@@ -160,6 +169,10 @@
         <div class="wallet_recharge-content-title">操作失败</div>
         <!-- 错误信息不确定，你自行修改 -->
         <p>{{errorResponse.message}}</p>
+        <p class="l-blue l-pointer-blue" @click="showContactTip" v-if="isAutoPay">
+          实际支付成功
+          <a-icon type="warning" />
+        </p>
         <a-button type='primary' @click="reset">
           重新提交
         </a-button>
@@ -210,18 +223,25 @@ export default {
       input:newInput,
       ...defaultData,
       MIN_AMOUNT:100,
-      // beforeUpload: () => {},
-      // loading: null,
-      // imageUrl: null
-      isOverdate: false
+      MAX_RMB_AMOUNT:50000,
+      isExpired: false,
+      autoPayInfo:{},
+      countDown:0,
+      pollingTimer:null,
     }
   },
+  beforeDestroy(){
+    clearInterval(this.pollingTimer)
+  },
   methods: {
-    test () {
-      this.isOverdate = true
-    },
     next() {
       this.current++
+    },
+    showContactTip(){
+      this.$modal.info({
+        content:'请截图支付宝转账订单并且联系客服完成充值'
+      })
+
     },
     prev() {
       this.current--
@@ -243,7 +263,6 @@ export default {
         // dollar2RMBRate: this.usdRate,
         // dollarRateId: this.rateId,
       }
-      console.log('%c recharge','color:red',params)
       this.recharge(params).then((res) => {
         this.rechargeSucceed = true
         this.successResponse = res
@@ -258,10 +277,65 @@ export default {
     goPage(path){
       helper.goPage(path)
     },
-    goPayQR() {
+    quit() {
+      helper.goPage(-1)
+    },
+    goStep2(){
       if (!this.checkValid()) {
         return
       }
+      if(!this.isAutoPay) {
+        this.goPayQR()
+      }else{
+        this.goAutoPayStep2()
+      }
+    },
+    goAutoPayStep2(){
+      this.createAutoCollectOrder({
+        dollar: this.formData.amount * 100,
+      }).then((res) => {
+        this.autoPayInfo = res
+        this.next()
+        this.pollingPayStatus()
+        this.$nextTick(() => {
+          this.isExpired = false
+          this.$refs.clock.setCountDown(res.expireTime)
+        })
+      })
+    },
+    onExpired(){
+      this.isExpired = true
+    },
+    pollingPayStatus(){
+      this.pollingTimer = setInterval(() => {
+        this.queryPayStatus(this.autoPayInfo.tradeNo)
+        .then((res) => {
+          this.handleAutoPayStatus(res.status)
+        })
+      },2500)
+    },
+    handleAutoPayStatus(status){
+      if(status === 0 ){
+        return
+      }
+      this.next()
+      clearInterval(this.pollingTimer)
+      //-1订单不存在，0创建订单， 1等待审核（手工订单）  2.充值完成， 3.充值失败
+      if(status === -1 ){
+        this.rechargeFailed = true
+        this.errorResponse = {message:'订单不存在'}
+        this.steps[2].title = "失败"
+      }
+      if(status === 2) {
+        this.rechargeSucceed = true
+      }
+      if(status === 3) {
+        this.rechargeFailed = true
+        this.errorResponse = {message:'充值失败'}
+        this.steps[2].title = "失败"
+      }
+    },
+    goPayQR() {
       this.next()
     },
     checkValid() {
@@ -271,10 +345,15 @@ export default {
           inputHelper.createStatus(2, '金额不能小于' + this.MIN_AMOUNT + '美金')
         return false
       }
+      if (amount * this.usdRate > this.MAX_RMB_AMOUNT) {
+        this.input.status.amount =
+          inputHelper.createStatus(2, '单次充值RMB不能超过' + this.MAX_RMB_AMOUNT + ',您可以进行多次充值')
+        return false
+      }
       return true
     },
-    ...mapActions('cards', ['getListDC']),
-    ...mapActions('wallet', ['recharge','getCurrency','getPayAccount']),
+    ...mapActions('cards', ['getListDC',]),
+    ...mapActions('wallet', ['recharge','getCurrency','getPayAccount','createAutoCollectOrder','queryPayStatus']),
   },
   created(){
     this.getCurrency()
@@ -283,6 +362,13 @@ export default {
   components:{
     ImageUpload,
     Clock
+  },
+  watch: {
+    current(newVal) {
+      if(newVal!==1){
+        clearInterval(this.pollingTimer)
+      }
+    }
   },
   computed:{
     usdRate() {
@@ -294,6 +380,9 @@ export default {
         return "error"
       }
       return "process"
+    },
+    isAutoPay(){
+      return this.payInfo.payWay === 'alipay_paysapi'  
     },
     ...mapState('wallet',['payInfo','currency']),
     ...mapState('account',['phone']),

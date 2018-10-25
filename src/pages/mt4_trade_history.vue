@@ -38,7 +38,7 @@
         </div>
         <div flex-box="1">
           <div>
-            实际盈利：${{summary.profit }}
+            实际盈利：${{summary.profit }}（含手续费）
           </div>
           <div>
             亏损笔数：{{summary.loss}}
@@ -59,7 +59,7 @@
           </span>
         </template>
         <template slot="money" slot-scope="money">
-            {{money|money}}
+          {{money|money}}
         </template>
       </a-table>
     </div>
@@ -147,7 +147,11 @@ const columns = [{
   title: "获利",
   dataIndex: "profit",
   // width:'60px',
-}, ];
+},
+  { title: "净值", dataIndex: "actualProfit",},
+
+ ];
+
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import dateRange from './../components/mixin/dateRange.js'
 

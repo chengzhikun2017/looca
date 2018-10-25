@@ -117,6 +117,9 @@ Vue.filter('payway', function(value) {
     case 'brokerage':
       return "佣金提现";
   }
+  if(/alipay/.test(value)){
+    return '支付宝'
+  }
 })
 Vue.filter('moneyBillType', function(value) {
   switch (value) {

@@ -104,7 +104,7 @@ export default {
         title: '手机号',
         dataIndex: 'phone',
       }, {
-        title: '关系',
+        title: '客户级别',
         dataIndex: 'relationDepth',
         scopedSlots: { customRender: 'relationDepth' },
 

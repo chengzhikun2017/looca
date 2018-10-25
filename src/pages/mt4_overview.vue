@@ -27,6 +27,7 @@
         </a-radio-group>
       </div>
     </a-modal>
+
     <div class="default-info" :class="isPC?'':'phone'">
       <div class="btn-container" :class="isPC?'':'phone'" v-if="listGot">
         <a-button size="small" v-if="isPC"  type="primary" @click="chooseCreate" :disabled="!canCreate">
@@ -35,9 +36,7 @@
         <a-button size="small" v-if="isPC"  type="primary" @click="refresh" >
           刷新
         </a-button>
-        <a class="link-btn" href="javascript:void(0)" v-if="!isPC" @click="chooseCreate" >
-          新增账户
-        </a>
+
       </div>
       <span >
         剩余可入金金额：${{money.balance | money}}
@@ -49,7 +48,12 @@
         出入金记录
       </a-button>
     </div>
-    <Mt4SyncFail  :success="!!!syncSuccess&&!loading" :reSyncFunc="refresh"> </Mt4SyncFail>
+    <div class="btn-container phone fixed-btn">
+      <a class="link-btn" href="javascript:void(0)" v-if="!isPC" @click="chooseCreate" >
+        新增账户
+      </a>
+    </div>
+    <Mt4SyncFail  :success="!!!syncSuccess&&!loading" :reSyncFunc="getList"> </Mt4SyncFail>
     <div>
       <a-list
         itemLayout="horizontal"
@@ -266,21 +270,22 @@ export default {
       left: 0;
       top: 0;
     }
-    .btn-container.phone {
-      position: fixed;
-      right: 5px;
-      left:auto;
-      top: 10px;
-      .link-btn{
-        &:active,&:hover{
-          text-decoration: none;
-        }
-      }
-      /*z-index:2;*/
-    }
+    
     button{
       margin-left: 5px;
     }
+  }
+  .fixed-btn {
+    position: absolute;
+    right: 55px;
+    left:auto;
+    top: 12px;
+    .link-btn{
+      &:active,&:hover{
+        text-decoration: none;
+      }
+    }
+    /*z-index:2;*/
   }
   .default-info.phone{
     .refresh-btn{

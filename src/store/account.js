@@ -75,12 +75,14 @@ export default {
     setVerifyCode(s, code) {
       s.verifyCode = code
     },
-    reset(s) {
+    reset(state) {
+      console.log('%c reset account','color:red',)
       var info = new defaultAccountInfo()
-      for (let key in info) {
-        s[key] = info[key]
-      }
-      s.isLoged = false
+      // for (let key in info) {
+      //   state[key] = info[key]
+      // }
+      Object.assign(state,info)
+      state.isLoged = false
     },
     setFindPwd(state,status){
       state.isFindpwd = status

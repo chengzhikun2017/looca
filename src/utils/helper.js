@@ -209,7 +209,7 @@ export default class helper {
     vueApp.$store.commit('mt4AC/resetList')
     vueApp.$store.commit('mt4Balance/resetList')
     vueApp.$store.commit('wallet/resetList')
-
+    vueApp.$store.commit('cards/clearListDC')
     vueApp.$store.commit('mt4AC/resetCurrent')
   }
 
@@ -296,6 +296,9 @@ export default class helper {
       table = document.getElementsByTagName('table')[0]
     } else {
       table = document.querySelector(selector)
+    }
+    if(!table){
+      return
     }
     let tfoot = table.querySelector('tfoot')
     if(tfoot){

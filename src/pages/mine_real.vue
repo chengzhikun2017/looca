@@ -36,10 +36,10 @@
             </a-input>
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 18 }" label='身份证正面' :labelCol="{ span: 6 }" :validateStatus="input.status.idCardUrl.validateStatus" :help="input.status.idCardUrl.help">
-            <ImageUpload :editing="editing" v-model="input.values.idCardUrl" label="身份证正面 " />
+            <ImageUpload :editing="editing" v-model="input.values.idCardUrl" label="身份证正面 " ref="idFront"/>
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 18 }" label='身份证反面' :labelCol="{ span: 6 }" :validateStatus="input.status.idCardUrl2.validateStatus" :help="input.status.idCardUrl2.help">
-            <ImageUpload :editing="editing" v-model="input.values.idCardUrl2" label="身份证反面 " />
+            <ImageUpload :editing="editing" v-model="input.values.idCardUrl2" label="身份证反面 " ref="idBack"/>
           </a-form-item>
           <a-form-item :wrapperCol="{ span: 24}" v-if="editing">
             <div class="bttn-box">
@@ -100,15 +100,28 @@ name: 'mine_real',
     }
   },
   created() {
-    this.getAuthInfo({isInitingApp:false})
-    .then(() => {
-      this.initData()
-    })
+    this.getSubmittedInfo()
+    vueApp.$bus.on('app_loged',this.getSubmittedInfo)
+  },
+  beforeDestroy(){
+    vueApp.$bus.removeListener('app_loged',this.getSubmittedInfo)
   },
   methods: {
+    getSubmittedInfo(){
+      this.getAuthInfo({isInitingApp:false})
+      .then(() => {
+        this.initData()
+      })
+    },
     initData(){
       this.formData.idCardUrl2=this.authInfo.idCardUrl2 || ''
       this.formData.idCardUrl=this.authInfo.idCardUrl || ''
+      if(!this.authInfo.idCardUrl) {
+        this.$refs.idFront.remove()
+      }
+      if(!this.authInfo.idCardUrl2) {
+        this.$refs.idBack.remove()
+      }
       this.formData.name = this.authInfo.name
       this.formData.email = this.authInfo.email
       this.formData.idCardNo = this.authInfo.idCardNo

@@ -5,6 +5,9 @@
         <div flex-box="1" flex="dir:top">
           <div flex="cross:center main:justify">
             <div class="wallet_list_card-summary-title" flex-box="1" flex>
+              <div class="wallet_list_card-summary-title-h1" v-if="info.mt4Uid" style="margin-right: 5px">
+                {{info.mt4Uid}} 
+              </div>
               <div class="wallet_list_card-summary-title-h1">
                 {{walletTypes[info.type]}}
               </div>
@@ -45,7 +48,7 @@
         </div>
         <div class="wallet_list_card-detail-item" v-if="detailInfo.bankName" flex="main:justify">
           <div class="wallet_list_card-detail-item-title">银行：</div>
-          <div class="wallet_list_card-detail-item-content">{{detailInfo.bankCardNum | bankCard}}</div>
+          <div class="wallet_list_card-detail-item-content">{{detailInfo.bankName}}</div>
         </div>
         <div class="wallet_list_card-detail-item" v-if="detailInfo.bankCardNum" flex="main:justify">
           <div class="wallet_list_card-detail-item-title">银行卡号：</div>
