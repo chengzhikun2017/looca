@@ -66,7 +66,7 @@ const columns = [
   {title:"账户余额",width:"80px",[DI]:"balance_fee",[SS]: { [CR]: 'money' },},
   {title:"账号类型",width:"80px",[DI]:"mt4_account_type",[SS]: { [CR]: 'mt4_account_type' },},
   {title:"持仓数量",[DI]:"open_order_num",},
-  {title:"持仓亏盈",[DI]:"open_order_profit",[SS]: { [CR]: 'money' },},
+  {title:"持仓亏盈",[DI]:"open_order_profit",},
   {title:"杠杆",[DI]:"leverage",},
   {title:"创建时间",[DI]:"create_time",[SS]: { [CR]: 'time' },},
 ]

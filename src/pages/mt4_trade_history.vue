@@ -148,7 +148,7 @@ const columns = [{
   dataIndex: "profit",
   // width:'60px',
 },
-  { title: "净值", dataIndex: "actualProfit",},
+  { title: "净利润", dataIndex: "actualProfit",},
 
  ];
 

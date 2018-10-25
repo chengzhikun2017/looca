@@ -50,9 +50,9 @@
             <span>
               {{level | agentLevel}}
             </span>
-          <a-button size=small type="primary" :disabled="record.level==2" @click="openUpgrade(record)">
+          <!-- <a-button size=small type="primary" :disabled="record.level==2" @click="openUpgrade(record)">
             升级
-          </a-button>
+          </a-button> -->
           </span>
         </template>
         <template slot="user_account_type" slot-scope="user_account_type">
@@ -209,12 +209,13 @@ export default {
         .find(item => item.value == this.targetLv)
 
       this.$modal.confirm({
-        content: `确定将${record.name}升从【${Agent_Lv_Text[currentLvIndex]}代理】升级至【${targetLv.label}代理】吗？`,
+        content: `确定将${record.name}升从
+        【${Agent_Lv_Text[currentLvIndex]}代理】升级至
+        【${targetLv.label}代理】吗？`,
         onOk: () => {
           this.submitUpgrade(record.uid, targetLv.value)
         },
       })
-      console.log('%c record', 'color:red', record)
     },
     goPage(path) {
       helper.goPage(path)
