@@ -222,7 +222,7 @@ export default {
     return {
       input:newInput,
       ...defaultData,
-      MIN_AMOUNT:100,
+      MIN_AMOUNT:30,
       MAX_RMB_AMOUNT:50000,
       isExpired: false,
       autoPayInfo:{},
