@@ -23,10 +23,10 @@
             </div>
           </a-dropdown>
           <a-dropdown>
-            <div class="index-page-nav-title">教程</div>
+            <div class="index-page-nav-title">新手教程</div>
             <div slot="overlay" class="index-page-nav-list">
-              <div class="index-page-nav-list-item" @click="listFlag = true">教程文档</div>
-              <div class="index-page-nav-list-item" @click="open('查询NFA监管状况')">监管查询文档</div>
+              <div class="index-page-nav-list-item" @click="listFlag = true">新手教程文档</div>
+              <div class="index-page-nav-list-item" @click="tutorial('查询NFA监管状况', 6)">监管查询文档</div>
             </div>
           </a-dropdown>
           <div class="index-page-nav-title" @click="contactUs">联系我们</div>
@@ -174,7 +174,7 @@
           <div class="menu-item">
             <h3>监管查询</h3>
             <p class="click" @click="download('NFAWeb')">美国NFA官网</p>
-            <p class="click" @click="open('查询NFA监管状况')">监管查询文档</p>
+            <p class="click" @click="tutorial('查询NFA监管状况', 6)">监管查询文档</p>
           </div>
           <div class="menu-item">
             <h3>产品报价</h3>
@@ -187,8 +187,8 @@
             <p class="click" @click="download('Android')">安卓</p>
           </div>
           <div class="menu-item">
-            <h3>教程</h3>
-            <p class="click" @click="listFlag = true">教程文档</p>
+            <h3>新手教程</h3>
+            <p class="click" @click="listFlag = true">新手教程文档</p>
           </div>
           <div class="menu-item">
             <h3>联系我们</h3>
@@ -205,7 +205,7 @@
     <a-modal
       :title="filename + '教程'"
       centered
-      width="1000px"
+      width="888px"
       okText="确定"
       :zIndex="6666"
       cancelText="取消"
@@ -227,12 +227,31 @@
       <a-list
         :dataSource="tutorialData"
       >
-        <a-list-item slot="renderItem" @click="open(item.filename)" slot-scope="item, index">{{item.filename}}</a-list-item>
+        <a-list-item slot="renderItem" @click="tutorial(item.filename, item.pagesNum)" slot-scope="item, index">{{item.filename}}</a-list-item>
       </a-list>
     </a-modal>
+    <div class="tutorial-loading" :class="{'hidden': loadingFlag}" flex="dir:top main:center cross:center">
+      <a-spin />
+      <p class="note">教程下载中...</p>
+    </div>
   </div>
 </template>
 <style lang="scss">
+  .tutorial-loading {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(255, 255, 255, .6);
+    &.hidden {
+      display: none !important;
+    }
+    .note {
+      color: #1890ff;
+    }
+  }
   .index-footer {
     &-logo {
       padding-top: 25px;
@@ -306,6 +325,7 @@ export default {
     return {
       listFlag: false,
       tutorialFlag: false,
+      loadingFlag: true,
       filename: '',
       pagesNum: 0,
       tutorialData: [
@@ -326,11 +346,11 @@ export default {
           pagesNum: 11
         },
         {
-          filename: 'MT4账号申请教程-电脑版',
+          filename: '注册账号申请MT4及使用教程-电脑版',
           pagesNum: 15
         },
         {
-          filename: 'MT4账号申请教程-手机版',
+          filename: '注册账号申请MT4及使用教程-手机版',
           pagesNum: 14
         }
       ],
@@ -363,25 +383,25 @@ export default {
   },
   methods: {
     open (filename) {
-      window.open('https://www.looco8.com/' + filename + '/index.html')
+      window.open('https://looco-1251098434.file.myqcloud.com/' + filename + '/index.html')
     },
     download (type) {
       let url = ''
       switch(type) {
         case 'NFA':
-          url = 'https://www.looco8.com/HowToCheckNewsOfNFA.pdf'
+          url = 'https://looco-1251098434.file.myqcloud.com/HowToCheckNewsOfNFA.pdf'
           break
         case 'NFAWeb':
           url = 'https://www.nfa.futures.org/'
           break
         case 'DealRules':
-          url = 'https://www.looco8.com/交易细则.xls'
+          url = 'https://looco-1251098434.file.myqcloud.com/交易细则.xls'
           break
         case 'Windows':
           url = 'https://download.mql5.com/cdn/web/12872/mt4/loocoglobal4setup.exe'
           break
         case 'Android':
-          url = 'https://www.looco8.com/安卓metatrader4.apk.1.1'
+          url = 'https://looco-1251098434.file.myqcloud.com/安卓metatrader4.1.1.apk'
           break
         case 'iPhone':
           url = 'https://download.mql5.com/cdn/mobile/mt4/ios?server=LoocoGlobal-Demo,LoocoGlobal-Primary'
@@ -394,7 +414,11 @@ export default {
     tutorial (filename, pagesNum) {
       this.filename = filename
       this.pagesNum = pagesNum
-      this.tutorialFlag = true
+      this.loadingFlag = false
+      setTimeout(() => {
+        this.loadingFlag = true
+        this.tutorialFlag = true
+      }, 3000)
     },
     contactUs () {
       window.scrollTo(0, 100000)
