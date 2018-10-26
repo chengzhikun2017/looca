@@ -50,9 +50,9 @@
             <span>
               {{level | agentLevel}}
             </span>
-          <!-- <a-button size=small type="primary" :disabled="record.level==2" @click="openUpgrade(record)">
+          <a-button size=small type="primary" :disabled="record.level==2" @click="openUpgrade(record)">
             升级
-          </a-button> -->
+          </a-button>
           </span>
         </template>
         <template slot="user_account_type" slot-scope="user_account_type">

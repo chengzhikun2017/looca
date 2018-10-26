@@ -161,7 +161,7 @@ export default {
           amount:count.total_amount,
           profit:count.total_profit,
           rollver:count.total_rollver,
-          service_fee:count.total_service_fee/100,
+          service_fee:count.total_service_fee,
         }
         if(this.savedParams.listType === "history"){
           obj.actual_profit = count.total_actual_profit
