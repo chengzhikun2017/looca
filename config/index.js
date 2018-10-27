@@ -3,10 +3,21 @@
 // see http://vuejs-templates.github.io/webpack for documentation.
 
 const path = require('path')
-
-module.exports = {
+const pro_env = require('./prod.env.js')
+// console.log('pro_env',pro_env)
+const lifeCycle = process.env.npm_lifecycle_event
+const assetsRoot = pro_env.assetsRoot
+var index_crm_path = assetsRoot+'/index_crm.html'
+var index_loo_show_path = assetsRoot + '/index_loo_show.html'
+if(/crm/.test(pro_env.project)){
+  index_crm_path = assetsRoot+'/index.html'
+} else if('show'===pro_env.project){
+  index_loo_show_path = assetsRoot + '/index.html'
+} 
+const devApi = /test/.test(lifeCycle)?
+  'http://118.31.42.82:10086/api':'https://crm.looco8.com/api/'
+module.exports = {  
   dev: {
-
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
@@ -48,16 +59,12 @@ module.exports = {
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../dist/index.html'),
-    index_loo_show: path.resolve(__dirname, '../dist/index_loo_show.html'),
+    index: path.resolve(__dirname, index_crm_path),
+    index_loo_show: path.resolve(__dirname, index_loo_show_path),
     // Paths
-    assetsRoot: path.resolve(__dirname, '../dist'),
-    assetsSubDirectory: 'static',
-    // assetsPublicPath: '/crm/',
-    // assetsPublicPath: '/',
-    // assetsPublicPath: 'https://looco-1251098434.file.myqcloud.com/', //cdn show
-    assetsPublicPath: 'https://looco-crm-1251098434.file.myqcloud.com/', //cdn crm
-
+    assetsRoot: path.resolve(__dirname, assetsRoot),
+    assetsSubDirectory:pro_env.assetsSubDirectory,
+    assetsPublicPath: pro_env.publicPath,
     /**
      * Source Maps
      */

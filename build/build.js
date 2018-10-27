@@ -9,11 +9,12 @@ const path = require('path')
 const chalk = require('chalk')
 const webpack = require('webpack')
 const config = require('../config')
+const proEnv = require('../config/prod.env.js')
 const webpackConfig = require('./webpack.prod.conf')
-
-const spinner = ora('building for production...')
+const emoji = /crm/.test(proEnv.project)?'🤔':'❤️' 
+const spinner = ora(`building for ***${emoji} ${proEnv.project}*** production...`)
 spinner.start()
-console.log('process.env.NODE_ENV',process.env.NODE_ENV)
+// console.log('process.env.NODE_ENV',process.env.NODE_ENV)
 rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
   if (err) throw err
   webpack(webpackConfig, (err, stats) => {

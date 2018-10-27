@@ -75,14 +75,10 @@ const columnsOpen = [
   { title: "开仓价", [DI]: "open_price", },
   { title: "开仓时间", [DI]: "open_time", [SS]: {
       [CR]: 'time' }, },
-  { title: "止损价", [DI]: "stop_loss", [SS]: {
-      [CR]: 'money' }, },
-  { title: "止盈价", [DI]: "take_profit", [SS]: {
-      [CR]: 'money' }, },
-  { title: "手续费", [DI]: "service_fee", [SS]: {
-      [CR]: 'money' }, },
-  { title: "库存费", [DI]: "rollver", [SS]: {
-      [CR]: 'money' }, },
+  { title: "止损价", [DI]: "stop_loss", },
+  { title: "止盈价", [DI]: "take_profit", },
+  { title: "手续费", [DI]: "service_fee",  },
+  { title: "库存费", [DI]: "rollver",  },
   { title: "亏盈", [DI]: "profit", },
 ]
 const columnsHistory = [
@@ -100,12 +96,12 @@ const columnsHistory = [
   { title: "平仓价", [DI]: "close_price", },
   { title: "开仓时间", [DI]: "open_time", [SS]: {[CR]: 'time' }, },
   { title: "平仓时间", [DI]: "close_time", [SS]: {[CR]: 'time' }, },
-  { title: "止损价", [DI]: "stop_loss", [SS]: {[CR]: 'money' }, },
-  { title: "止盈价", [DI]: "take_profit", [SS]: {[CR]: 'money' }, },
-  { title: "手续费", [DI]: "service_fee", [SS]: {[CR]: 'money' }, },
-  { title: "库存费", [DI]: "rollver", [SS]: {[CR]: 'money' }, },
+  { title: "止损价", [DI]: "stop_loss", },
+  { title: "止盈价", [DI]: "take_profit", },
+  { title: "手续费", [DI]: "service_fee",  },
+  { title: "库存费", [DI]: "rollver",  },
   { title: "亏盈", [DI]: "profit", },
-  { title: "净值", [DI]: "actual_profit", [SS]: {[CR]: 'money' }, },
+  { title: "净利润", [DI]: "actual_profit",},
 
 ]
 export default {
@@ -165,7 +161,7 @@ export default {
           amount:count.total_amount,
           profit:count.total_profit,
           rollver:count.total_rollver,
-          service_fee:count.total_service_fee/100,
+          service_fee:count.total_service_fee,
         }
         if(this.savedParams.listType === "history"){
           obj.actual_profit = count.total_actual_profit

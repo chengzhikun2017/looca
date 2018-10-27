@@ -25,9 +25,35 @@ export default {
   },
   getters: {},
   mutations: {
-
+    setAgentLv(state,{uid,level}) {
+      state.userList.list.find((item,index) => {
+        if(item.uid == uid) {
+          console.log('%c item','color:red',item)
+          item.level = level
+          // state.userList.list[index].level = level
+          return true
+        }
+        //body 
+      })
+    },
   },
   actions: {
+    upgradeAgent({state,commit},params) {
+      // targetUid:客户uid
+      // level:代理等级，有三级、二级、一级，对应的level 为 4、3、2
+      let promise = fetch({
+        url:'broker/user/setBrokerLevel',
+        params,
+      },{showLoading:false,rejectErr:true})
+      promise.then(() => {
+        vueApp.$message.info('升级成功')
+        commit('setAgentLv',{
+          uid:params.targetUid,
+          level:params.level,
+        })
+      })
+      return promise
+    },
     getPartner({ state },force) {
       if(!force && state.partnersGot){
         return

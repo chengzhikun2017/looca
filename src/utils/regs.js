@@ -1,6 +1,6 @@
  class Regs {
   get phone() {
-    let reg = /^1[3|4|5|8|7][0-9]\d{8}$/
+    let reg = /^\d{11}$/
     return reg
     // return reg.test(v)
     //考虑返回以下的格式

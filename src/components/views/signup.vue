@@ -119,12 +119,16 @@ export default {
     },
     getParams() {
       let { phone, code, password } = this.formData
-      return {
+      let params = {
         phone,
         code,
         password,
         save: this.savePassword
       }
+      if(this.qudao) {
+        params.qudao = this.qudao
+      }
+      return params
     },
     onPhoneBlur() {
       console.log('%c this.validate(phone)', 'color:red', this.validate('phone'))
@@ -206,6 +210,9 @@ export default {
       } else {
         return this.signup
       }
+    },
+    qudao() {
+      return this.$route.query.qudao
     },
     codeBtnType() {
       // if(this.sendingCode){
