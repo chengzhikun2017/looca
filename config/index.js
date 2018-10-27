@@ -4,7 +4,7 @@
 
 const path = require('path')
 const pro_env = require('./prod.env.js')
-console.log('pro_env',pro_env)
+// console.log('pro_env',pro_env)
 const lifeCycle = process.env.npm_lifecycle_event
 const assetsRoot = pro_env.assetsRoot
 var index_crm_path = assetsRoot+'/index_crm.html'
