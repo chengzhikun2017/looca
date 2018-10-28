@@ -57,9 +57,12 @@ export default {
     },
   },
   mutations: {
+    setQudao(state,qudao) {
+      console.log('%c qudao','color:red',qudao)
+      state.qudao = qudao
+    },
     setShareInfo(s, { qudao, ancestor, uid }) {
       // console.log('shareInfoSet commit',qudao,ancestor,uid)
-      s.qudao = qudao
       // s.ancestor=ancestor
       s.ancestor = uid
     },
@@ -121,7 +124,7 @@ export default {
       })
       return promise
     },
-    signup({ state , dispatch }, { phone, password, code, save ,qudao}) {
+    signup({ state , dispatch }, { phone, password, code, save }) {
       var promise = fetch({
         url: 'account/register',
         params: {
@@ -129,7 +132,7 @@ export default {
           code: code, // 存不存store?
           password: password,
           ancestor: state.ancestor,
-          qudao:qudao,
+          qudao:state.qudao,
         }
       })
       promise.then(res => {

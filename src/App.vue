@@ -1,30 +1,31 @@
 <template>
-<a-locale-provider :locale="zh_CN">
-  <div id="app">
-    <div id="__test"></div>
-    <MainLayout headerType="0">
-      <keep-alive>
-        <router-view v-if="$route.meta.keepAlive" />
-      </keep-alive>
-      <router-view v-if="!$route.meta.keepAlive" />
-      <div slot="header" class="head-text">
-        {{header}}
-        <!-- title -->
-        <!-- account -->
-        <!-- message -->
-      </div>
-    </MainLayout>
-    <button @click="test" class="test" v-if="isTest">test</button>
-    <Log v-if="isLoged!==true"></Log>
-    <Loading ></Loading>
-  </div>
-</a-locale-provider>
+  <a-locale-provider :locale="zh_CN">
+    <div id="app">
+      <div id="__test"></div>
+      <MainLayout headerType="0">
+        <keep-alive>
+          <router-view v-if="$route.meta.keepAlive" />
+        </keep-alive>
+        <router-view v-if="!$route.meta.keepAlive" />
+        <div slot="header" class="head-text">
+          {{header}}
+          <!-- title -->
+          <!-- account -->
+          <!-- message -->
+        </div>
+      </MainLayout>
+      <button @click="test" class="test" v-if="isTest">test</button>
+      <Log v-if="isLoged!==true"></Log>
+      <Loading></Loading>
+    </div>
+  </a-locale-provider>
 </template>
 <script>
 import zh_CN from 'vue-antd-ui/lib/locale-provider/zh_CN';
 import 'moment/locale/zh-cn';
 // import Log from './components/views/log.vue'
-const Log = () => import('./components/views/log.vue')
+const Log = () =>
+  import ('./components/views/log.vue')
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 import router from './router/index.js'
 import Loading from './components/loading.vue'
@@ -35,12 +36,15 @@ export default {
   data() {
     return {
       name: 'App',
+      query:{},
       zh_CN,
-      setHeader: () => {
-      }
+      setHeader: () => {}
     }
   },
   created() {
+    this.UrlSearch()
+    console.log('%c this.query.qudao','color:red',this.query.qudao)
+    this.setQudao(this.query.qudao)
     window.__test = this.test.bind(this)
     this.checkSession()
     // this.$store.dispatch('wallet/getCurrency')
@@ -56,13 +60,13 @@ export default {
     }
   },
   computed: {
-    routePath(){
+    routePath() {
       return this.$route.path
     },
     isTest() {
       return this.$store.state.app.isTest
     },
-    matched(){
+    matched() {
       return this.$route.matched
     },
     routerMatchedComponent: {
@@ -72,7 +76,7 @@ export default {
       }
     },
     header: {
-      cached:false,
+      cached: false,
       get() {
         return this.routerMatchedComponent && this.routerMatchedComponent.__header
       }
@@ -83,7 +87,7 @@ export default {
     //     return this.$route.path
     //   }
     // },
-    ...mapState('app', ['platform','isAndroid']),
+    ...mapState('app', ['platform', 'isAndroid']),
     ...mapState('account', ['isLoged']),
   },
   watch: {
@@ -92,29 +96,46 @@ export default {
     // },
   },
   methods: {
-    configAndroidKeyboard(){
-      if(!this.isAndroid){
+    UrlSearch() {
+      var name, value;
+      var str = location.hash;
+      var num = str.indexOf("?")
+      str = str.substr(num + 1); //取得所有参数   stringvar.substr(start [, length ]
+
+      var arr = str.split("&"); //各个参数放到数组里
+      console.log(arr)
+      for (var i = 0; i < arr.length; i++) {
+        num = arr[i].indexOf("=");
+        if (num > 0) {
+          name = arr[i].substring(0, num);
+          value = arr[i].substr(num + 1);
+          this.query[name] = value;
+        }
+      }
+    },
+    configAndroidKeyboard() {
+      if (!this.isAndroid) {
         return
       }
       var winHeight = window.innerHeight //获取当前页面高度
-      window.addEventListener('resize',()=>{
+      window.addEventListener('resize', () => {
         console.log('resize')
         var currentHeight = window.innerHeight
-        console.log('%c heights','color:red',winHeight,currentHeight)
-        if(winHeight - currentHeight >50){
+        console.log('%c heights', 'color:red', winHeight, currentHeight)
+        if (winHeight - currentHeight > 50) {
           console.log('弹出')
           vueApp.$emit("keyboard_show")
           // document.body.style.height = winHeight + 'px'
-        }else{
+        } else {
           vueApp.$emit("keyboard_hide")
           console.log('收起')
           // document.body.style.height = '100%'
         }
-      })      
+      })
     },
     test() {
       this.getPayAccount()
-      console.log('%c h','color:red',this.$store.state)
+      console.log('%c h', 'color:red', this.$store.state)
       // this.$router.push('/test3')
       // this.$store.dispatch('mt4Balance/list')
       // this.$modal.info({
@@ -128,6 +149,7 @@ export default {
       // console.log('%c app vue ','color:red',this)
       // console.log('%c app vue ','color:red',this.routerMatchedComponent)
     },
+    ...mapMutations('account', ["setQudao"]),
     ...mapActions('account', ["checkSession"]),
     ...mapActions('wallet', ["getPayAccount"]),
   },

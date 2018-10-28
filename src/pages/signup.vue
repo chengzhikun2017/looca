@@ -61,7 +61,7 @@ export default {
   /*background: #000;*/
   left: 0;
   top: 0;
-  z-index: 99999;
+  z-index: 999;
   overflow: auto;
   /*padding:0 20px;*/
   .main-title{

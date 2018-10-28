@@ -103,7 +103,6 @@ export default {
       }, 1000)
     },
     handleSubmit() {
-      console.log(this.checkValid())
       if (!this.checkValid()) {
         return
       }
@@ -125,10 +124,9 @@ export default {
         password,
         save: this.savePassword
       }
-      if(this.qudao) {
-        params.qudao = this.qudao
-      }
-      console.log('%c params','color:red',params)
+      // if(this.qudao) {
+      //   params.qudao = this.qudao
+      // }
       return params
     },
     onPhoneBlur() {
@@ -212,9 +210,9 @@ export default {
         return this.signup
       }
     },
-    qudao() {
-      return this.$route.query.qudao
-    },
+    // qudao() {
+    //   return this.$route.query.qudao
+    // },
     codeBtnType() {
       // if(this.sendingCode){
       //   return "loading"
