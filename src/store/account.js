@@ -12,7 +12,7 @@ class defaultAccountInfo {
   constructor(props) {
     this.verifyCode = ''
     this.ancestor = null
-    this.qudao = null
+    this.saleWay = null
     this.phone = ''
     // this.captcha = ''
     this.userId = null
@@ -59,7 +59,7 @@ export default {
   mutations: {
     setQudao(state,qudao) {
       console.log('%c qudao','color:red',qudao)
-      state.qudao = qudao
+      state.saleWay = qudao
     },
     setShareInfo(s, { qudao, ancestor, uid }) {
       // console.log('shareInfoSet commit',qudao,ancestor,uid)
@@ -132,7 +132,7 @@ export default {
           code: code, // 存不存store?
           password: password,
           ancestor: state.ancestor,
-          qudao:state.qudao,
+          qudao:state.saleWay,
         }
       })
       promise.then(res => {

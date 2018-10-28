@@ -8,14 +8,21 @@ function resolve (dir) {
   return path.join(__dirname, '..', dir)
 }
 
+const pro_env = require('../config/prod.env.js')
+const project = pro_env.project
 
-
+var entry = {
+  app: ["babel-polyfill", "./src/main.js"],
+  app_loo_show: ["babel-polyfill", './src/AppShowLoo/main.js'],
+}
+if(/crm/.test(project)) {
+  delete entry.app_loo_show
+}else if(/show/.test(project)) {
+  delete entry.app
+}
 module.exports = {
   context: path.resolve(__dirname, '../'),
-  entry: {
-    app: ["babel-polyfill", "./src/main.js"],
-    app_loo_show:["babel-polyfill", './src/AppShowLoo/main.js'],
-  },
+  entry,
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',

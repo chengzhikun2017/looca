@@ -14,7 +14,51 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : require('../config/prod.env')
+const pro_env = require('../config/prod.env.js')
 
+var crmHtmlWebpackPlugin = new HtmlWebpackPlugin({
+  filename: process.env.NODE_ENV === 'testing'
+    ? 'index.html'
+    : config.build.index,
+  template: 'index.html',
+  inject: true,
+  minify: {
+    removeComments: true,
+    collapseWhitespace: true,
+    removeAttributeQuotes: true
+    // more options:
+    // https://github.com/kangax/html-minifier#options-quick-reference
+  },
+  excludeChunks:['app_loo_show'],
+  // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+  chunksSortMode: 'dependency'
+})
+var showHtmlWebpackPlugin = new HtmlWebpackPlugin({
+  filename: process.env.NODE_ENV === 'testing'
+    ? 'index_loo_show.html'
+    : config.build.index_loo_show,
+  template: 'index_loo_show.html',
+  inject: true,
+  minify: {
+    removeComments: true,
+    collapseWhitespace: true,
+    removeAttributeQuotes: true
+  },
+  excludeChunks:['app'],
+  chunksSortMode: 'dependency'
+})
+
+function htmlWebpackPluginGen(project){
+  if(project === 'default') {
+    return [crmHtmlWebpackPlugin, showHtmlWebpackPlugin]
+  }else if(/show/.test(project)) {
+    return [showHtmlWebpackPlugin]
+  }else if(/crm/.test(project)) {
+    return [crmHtmlWebpackPlugin]
+  }
+  return [crmHtmlWebpackPlugin, showHtmlWebpackPlugin]
+}
+var htmlWebpackPlugins = htmlWebpackPluginGen(pro_env.project)
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({
@@ -59,40 +103,44 @@ const webpackConfig = merge(baseWebpackConfig, {
         ? { safe: true, map: { inline: false } }
         : { safe: true }
     }),
+
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
-    new HtmlWebpackPlugin({
-      filename: process.env.NODE_ENV === 'testing'
-        ? 'index.html'
-        : config.build.index,
-      template: 'index.html',
-      inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-        // more options:
-        // https://github.com/kangax/html-minifier#options-quick-reference
-      },
-      excludeChunks:['app_loo_show'],
-      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
-    }),
-    new HtmlWebpackPlugin({
-      filename: process.env.NODE_ENV === 'testing'
-        ? 'index_loo_show.html'
-        : config.build.index_loo_show,
-      template: 'index_loo_show.html',
-      inject: true,
-      minify: {
-        removeComments: true,
-        collapseWhitespace: true,
-        removeAttributeQuotes: true
-      },
-      excludeChunks:['app'],
-      chunksSortMode: 'dependency'
-    }),
+
+    // new HtmlWebpackPlugin({
+    //   filename: process.env.NODE_ENV === 'testing'
+    //     ? 'index.html'
+    //     : config.build.index,
+    //   template: 'index.html',
+    //   inject: true,
+    //   minify: {
+    //     removeComments: true,
+    //     collapseWhitespace: true,
+    //     removeAttributeQuotes: true
+    //     // more options:
+    //     // https://github.com/kangax/html-minifier#options-quick-reference
+    //   },
+    //   excludeChunks:['app_loo_show'],
+    //   // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+    //   chunksSortMode: 'dependency'
+    // }),
+    // new HtmlWebpackPlugin({
+    //   filename: process.env.NODE_ENV === 'testing'
+    //     ? 'index_loo_show.html'
+    //     : config.build.index_loo_show,
+    //   template: 'index_loo_show.html',
+    //   inject: true,
+    //   minify: {
+    //     removeComments: true,
+    //     collapseWhitespace: true,
+    //     removeAttributeQuotes: true
+    //   },
+    //   excludeChunks:['app'],
+    //   chunksSortMode: 'dependency'
+    // }),
+    ...htmlWebpackPlugins,
+
     // keep module.id stable when vendor modules does not change
     new webpack.HashedModuleIdsPlugin(),
     // enable scope hoisting
