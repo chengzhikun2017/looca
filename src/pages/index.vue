@@ -79,7 +79,7 @@
           开始您与 <strong>乐恺环球</strong> 的交易旅程
         </h2>
         <div class="bttn-box">
-          <a :href="`${crmDomain}/#/signup`" target="_blank" class="btn signup">注册真实账户</a>
+          <a :href="`${crmDomain}/#/signup${signupQuery}`" target="_blank" class="btn signup">注册真实账户</a>
           <a :href="`${crmDomain}/#/mine_real`" target="_blank" class="btn login">立即登录</a>
         </div>
         <p class="text">交易涉及风险，请确保您完全了解所涉及的风险</p>
@@ -101,7 +101,7 @@
             </h5>
           </div>
           <div class="action-box">
-            <a :href="`${crmDomain}/#/signup`" class="btn action_box-button-first btn-lined" target="_blank" itemprop="url">
+            <a :href="`${crmDomain}/#/signup${signupQuery}`" class="btn action_box-button-first btn-lined" target="_blank" itemprop="url">
               注册真实账户
               </a>
             <a :href="`${crmDomain}/#/mine_real`" class="btn action_box-button-second btn-fullwhite" target="_blank" itemprop="url">
@@ -424,7 +424,21 @@ export default {
       window.scrollTo(0, 100000)
     }
   },
-  computed: {},
+  computed: {
+    signupQuery(){
+      let query = [],queryStr
+      if(this.qudao){
+        query.push("qudao="+this.qudao)
+      }
+      if(query.length){
+        queryStr = '?'+query.join("&")
+      }
+      return queryStr
+    },
+    qudao(){
+      return this.$route.query.qudao
+    },
+  },
   components: {
     'v-layer': layer,
     'widget1': widget1,

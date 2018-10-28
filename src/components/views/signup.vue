@@ -128,6 +128,7 @@ export default {
       if(this.qudao) {
         params.qudao = this.qudao
       }
+      console.log('%c params','color:red',params)
       return params
     },
     onPhoneBlur() {

@@ -121,7 +121,7 @@ export default {
       })
       return promise
     },
-    signup({ state , dispatch }, { phone, password, code, save }) {
+    signup({ state , dispatch }, { phone, password, code, save ,qudao}) {
       var promise = fetch({
         url: 'account/register',
         params: {
@@ -129,7 +129,7 @@ export default {
           code: code, // 存不存store?
           password: password,
           ancestor: state.ancestor,
-          qudao: state.qudao,
+          qudao:qudao,
         }
       })
       promise.then(res => {
