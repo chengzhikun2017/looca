@@ -35,6 +35,7 @@ const agent_promote = ()=> import( '../pages/agent_promote.vue')
 const agent_overview = ()=> import( '../pages/agent_overview.vue')
 const agent_profit_overview = ()=> import( '../pages/agent_profit_overview.vue')
 const signup = ()=> import( '../pages/signup.vue')
+const helper = ()=> import( '../pages/helper.vue')
 
 /**
  * test part
@@ -127,6 +128,7 @@ crmRoutes = crmRoutes.concat(
   newRoute('/broker_trade', 'broker_trade', broker_trade),
   newRoute('/broker_profit', 'broker_profit', broker_profit),
   newRoute('/broker_mt4Ac', 'broker_mt4Ac', broker_mt4Ac),
+  newRoute('/helper', 'helper', helper),
 )
 
 

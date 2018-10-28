@@ -80,6 +80,7 @@ const config = {
   mine_real: { title: "开户信息", link: "mine_real", rootKey: 'user' },
   modifypwd: { title: "修改密码", link: "modifypwd", rootKey: 'user' },
 
+  helper: { title: '帮助中心',link:'helper' },
   mt4_account: { title: 'MT4账户管理' },
   mt4_create: { title: "开立账户", link: "mt4_create", rootKey: 'mt4_overview' },
   mt4_overview: { title: "MT4账户", link: "mt4_overview", isRoot: true },
@@ -388,6 +389,11 @@ export default {
           // config.agent_profit_overview,
 
         ],
+      },{
+        noChild: true,
+        // link:"mt4_overview",
+        icon: 'question-circle-o',
+        ...config.helper,
       }]
     },
     routePath() {
