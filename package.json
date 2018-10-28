@@ -14,6 +14,7 @@
     "test": "npm run unit && npm run e2e",
     "build:crm": "cross-env env_config=crm node build/build.js",
     "build:crm_test": "cross-env env_config=crm_test node build/build.js",
+    "publish_test": "npm run build:crm_test && ./deploy.sh",
     "build:show": "cross-env env_config=show node build/build.js",
     "build": "node build/build.js"
   },

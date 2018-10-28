@@ -3,6 +3,7 @@ node_modules/
 /dist/
 /dist_crm/
 /dist_show/
+/deploy/
 /dist_crm_test/
 npm-debug.log*
 yarn-debug.log*
