@@ -2,7 +2,7 @@
   <div class="helper-page">
     <div class="helper-page-note">
       <div class="helper-page-note-title">
-        普通账户
+        普通账户交易规则
       </div>
       <div class="helper-page-note-item">
         1.普通账户最多可以创建5个；
@@ -22,7 +22,7 @@
     </div>
     <div class="helper-page-note">
       <div class="helper-page-note-title">
-        跟单账户
+        跟单账户交易规则
       </div>
       <div class="helper-page-note-item">
         1.跟单账户最多可以创建10个；
@@ -67,31 +67,15 @@ $prefix: "helper";
 @import '@/styles/utils/cardTable.scss';
 @import '@/styles/utils/note.scss';
 .#{$prefix}-page {
-  .#{$prefix}-content {
-    margin: 20px 0;
-    padding: 20px 0;
-    .#{$prefix}-content-title {
-      font-weight: 800;
-      margin-bottom: 10px;
+  &-note {
+    &-title {
+      font-weight: 700;
+      font-size: 14px;
+      padding: 15px 0 3px;
     }
-    .#{$prefix}-content-image {
-      max-width: 160px;
-      height: 160px;
-      img {
-        width: 100%;
-      }
-    }
-    .#{$prefix}-content-link {
-      margin-top: 10px;
-      font-size: 15px;
-      font-weight: bold;
-      .link-box{
-
-      }
-      .link{
-        font-size: 13px;
-        font-weight: normal;
-      }
+    &-item {
+      font-size: 13px;
+      padding-bottom: 2px;
     }
   }
 }
