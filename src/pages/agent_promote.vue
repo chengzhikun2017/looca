@@ -148,4 +148,4 @@ $prefix: "agent_promote";
 @import '@/styles/utils/note.scss';
 
 </style>
-</style>
+
