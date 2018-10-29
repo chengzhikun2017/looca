@@ -187,7 +187,7 @@
             <p class="click" @click="download('Android')">安卓</p>
           </div>
           <div class="menu-item">
-            <h3>新手教程</h3>
+            <h3 @click="test">新手教程</h3>
             <p class="click" @click="listFlag = true">新手教程文档</p>
           </div>
           <div class="menu-item">
@@ -319,6 +319,7 @@ import widget5 from './../components/forIndex/widget5.vue'
 import widget4 from './../components/forIndex/widget4.vue'
 import widget3 from './../components/forIndex/widget3.vue'
 import tutorial from '@/components/forIndex/tutorial.vue'
+
 export default {
   name: 'index',
   data() {
@@ -422,6 +423,9 @@ export default {
     },
     contactUs () {
       window.scrollTo(0, 100000)
+    },
+    test () {
+      this.$http.get('https://crm.looco8.com/#/')
     }
   },
   computed: {

@@ -1,10 +1,11 @@
 <template>
-  <div class="agent_profit_tip-page" v-if="false">
+  <div class="agent_profit_tip-page">
+    <h3 class="agent_profit_tip-page-title">推广说明</h3>
     <div class="agent_profit_tip-content" v-if="degree === 3">
       <ol>
        <li class="agent_profit_tip-content-item">
           <div class="agent_profit_tip-content-title">手续费收益：外汇4美金、黄金白银10美金、原油1美金。</div>
-          <div class="note">例：三级代理 -> 客户，交易1手外汇和1手黄金，三级代理获得收益如下：</div>
+          <div class="agent_profit_tip-content-note">例：三级代理 -> 客户，交易1手外汇、1手黄金和1手原油，三级代理获得收益如下：</div>
           <div class="table">
             <table>
               <tr>
@@ -35,7 +36,7 @@
         <li class="agent_profit_tip-content-item">
           <div class="agent_profit_tip-content-title">手续费收益：</div>
           <div class="agent_profit_tip-content-sub-title">①手续费收益：外汇8美金、黄金白银20美金、原油2美金。</div>
-          <div class="note">例：二级代理 -> 客户，交易1手外汇和1手黄金，二级代理获得收益如下：</div>
+          <div class="agent_profit_tip-content-note">例：二级代理 -> 客户，交易1手外汇、1手黄金和1手原油，二级代理获得收益如下：</div>
           <div class="table">
             <table>
               <tr>
@@ -54,7 +55,7 @@
             </table>
           </div>
           <div class="agent_profit_tip-content-sub-title">②享受三级多余收益：外汇4美金、黄金白银10美金、原油1美金。</div>
-          <div class="note">例：二级代理 -> 三级代理 -> 客户，交易1手外汇和1手黄金，二级代理获得收益如下：</div>
+          <div class="agent_profit_tip-content-note">例：二级代理 -> 三级代理 -> 客户，交易1手外汇、1手黄金和1手原油，二级代理获得收益如下：</div>
           <div class="table">
             <table>
               <tr>
@@ -85,7 +86,7 @@
        <li class="agent_profit_tip-content-item">
           <div class="agent_profit_tip-content-title">手续费收益：</div>
           <div class="agent_profit_tip-content-sub-title">①手续费收益：外汇10美金、黄金白银25美金、原油2.5美金。</div>
-          <div class="note">例：一级代理 -> 客户，交易1手外汇和1手黄金，一级代理获得收益如下：</div>
+          <div class="agent_profit_tip-content-note">例：一级代理 -> 客户，交易1手外汇、1手黄金和1手原油，一级代理获得收益如下：</div>
           <div class="table">
             <table>
               <tr>
@@ -104,7 +105,7 @@
             </table>
           </div>
           <div class="agent_profit_tip-content-sub-title">②同级晋升奖励：外汇1美金、黄金白银2.5美金、原油0.25美金。</div>
-          <div class="note">例：一级代理 -> 一级代理 -> 客户，交易1手外汇和1手黄金，原一级代理获得收益如下：</div>
+          <div class="agent_profit_tip-content-note">例：一级代理 -> 一级代理 -> 客户，交易1手外汇、1手黄金和1手原油，原一级代理获得收益如下：</div>
           <div class="table">
             <table>
               <tr>
@@ -123,7 +124,7 @@
             </table>
           </div>
           <div class="agent_profit_tip-content-sub-title">③享受二级多余收益：外汇2美金、黄金白银5美金、原油0.5美金。</div>
-          <div class="note">例：一级代理 -> 二级代理 -> 客户，交易1手外汇和1手黄金，一级代理获得收益如下：</div>
+          <div class="agent_profit_tip-content-note">例：一级代理 -> 二级代理 -> 客户，交易1手外汇、1手黄金和1手原油，一级代理获得收益如下：</div>
           <div class="table">
             <table>
               <tr>
@@ -142,7 +143,7 @@
             </table>
           </div>
           <div class="agent_profit_tip-content-sub-title">④享受三级多余收益：外汇6美金、黄金白银15美金、原油1.5美金。</div>
-          <div class="note">例：一级代理 -> 三级代理 -> 客户，交易1手外汇和1手黄金，一级代理获得收益如下：</div>
+          <div class="agent_profit_tip-content-note">例：一级代理 -> 三级代理 -> 客户，交易1手外汇、1手黄金和1手原油，一级代理获得收益如下：</div>
           <div class="table">
             <table>
               <tr>
@@ -186,19 +187,33 @@
 <style lang="scss">
   $prefix: "agent_profit_tip";
   .#{$prefix}-page {
-    padding: 0 10px;
+    &-title {
+      color: rgba(0, 0, 0, .65);
+      font-size: 15px;
+      line-height: 1.5;
+      font-weight: 700;
+      padding: 0;
+      margin: 0;
+    }
     .#{$prefix}-content {
+      padding: 0 10px;
       font-size: 13px;
       &-item {
-        margin-top: 15px;
+        margin-top: 6px;
       }
       &-title {
-        color: #000000a6;
+        color: rgba(10, 10, 10, .65);
         padding-bottom: 5px;
-        font-weight: 800;
         font-size: 14px;
       }
       &-sub-title {
+        font-size: 13px;
+        color: rgba(20, 20, 20, .65);
+        padding-bottom: 2px;
+      }
+      &-note {
+        font-size: 13px;
+        color: rgba(50, 50, 50, .65);
         padding-bottom: 2px;
       }
       .table {
@@ -207,10 +222,11 @@
           border: 1px solid #ccc;
           border-left: none;
           border-bottom: none;
+          font-size: 12px;
           tr {
             border-bottom: 1px solid #ccc;
             td {
-              padding: 5px 10px;
+              padding: 8px 15px;
               border-left: 1px solid #ccc;
             }
           }

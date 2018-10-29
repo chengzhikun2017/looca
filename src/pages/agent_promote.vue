@@ -131,12 +131,15 @@ $prefix: "agent_promote";
     margin: 20px 0;
     padding: 20px 0;
     .#{$prefix}-content-title {
-      font-weight: 800;
-      margin-bottom: 10px;
+      font-size: 15px;
+      color: rgba(0, 0, 0, .65);
+      font-weight: 700;
+      margin-bottom: 5px;
     }
     .#{$prefix}-content-image {
       max-width: 160px;
       height: 160px;
+      margin-bottom: 20px;
       img {
         width: 100%;
       }

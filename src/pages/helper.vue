@@ -8,7 +8,7 @@
         1.普通账户最多可以创建5个；
       </div>
       <div class="helper-page-note-item">
-        2.手续费：外汇1手30美金，黄金白银1手60美金，原油1手6美金；
+        2.手续费：外汇1手20美金，黄金白银1手50美金，原油1手5美金；
       </div>
       <div class="helper-page-note-item">
         3.交易密码自己交易时使用，只读密码，只能查看，不能交易；
@@ -28,7 +28,7 @@
         1.跟单账户最多可以创建10个；
       </div>
       <div class="helper-page-note-item">
-        2.手续费：外汇1手30美金，黄金白银1手60美金，原油1手6美金；
+        2.手续费：外汇1手20美金，黄金白银1手50美金，原油1手5美金；
       </div>
       <div class="helper-page-note-item">
         3.平台获取跟单盈利的25%佣金，直系上级获取跟单盈利的5%佣金，亏损不收取佣金；
@@ -69,13 +69,16 @@ $prefix: "helper";
 .#{$prefix}-page {
   &-note {
     &-title {
+      color: rgba(#000000, 0.6);
       font-weight: 700;
-      font-size: 14px;
-      padding: 15px 0 3px;
+      font-size: 15px;
+      line-height: 1.5;
+      padding: 20px 0 5px;
     }
     &-item {
-      font-size: 13px;
-      padding-bottom: 2px;
+      color: rgba(10, 10, 10, .65);
+      padding-bottom: 5px;
+      font-size: 14px;
     }
   }
 }

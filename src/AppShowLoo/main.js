@@ -4,6 +4,7 @@ import Vue from 'vue'
 import App from './App2.vue'
 import flex from 'flex.css'
 import router from './router.js'
+import axios from 'axios'
 import {
   // Button,
   // LocaleProvider,
@@ -91,7 +92,8 @@ registerComponentChild(Vue, List)
 // registerComponentChild(Vue, DatePicker)
 // Vue.component(Divider.name, Divider)
 // Vue.component(Card.name, Card)
-
+const serviceOut = axios.create()
+Vue.prototype.$http = serviceOut
 /* eslint-disable no-new */
 new Vue({
   el: '#app_show',
