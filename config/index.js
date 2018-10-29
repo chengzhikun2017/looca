@@ -25,8 +25,8 @@ module.exports = {
         '/api':{
             // target:'http://106.14.119.213:9009/api',
             // target:'https://hgj.wd577.cn/api',
-            // target:'http://118.31.42.82:10086/api',
-            target:'https://crm.looco8.com/api/',
+            target:devApi,
+            // target:'https://crm.looco8.com/api/',
             changeOrigin: true,
             pathRewrite: {
               '^/api': ''
