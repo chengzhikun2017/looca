@@ -23,11 +23,11 @@
             </table>
           </div>
         </li>
-       <li class="agent_profit_tip-content-item">
+       <li class="agent_profit_tip-content-item agent_profit_tip-content-title">
           跟单盈利：下级跟单账户若盈利，直系上级返跟单盈利的5%佣金，亏损无佣金（限直系上级）。
         </li>
-       <li class="agent_profit_tip-content-item">返佣时间：手续费次日凌晨1点开始结算，跟单盈利下月初1号结算。请在我的钱包“可提现佣金”查看。</li>
-       <li class="agent_profit_tip-content-item">客户升级代理，需要联系客服手动操作，QQ：83166672、电话：4000577009。</li>
+       <li class="agent_profit_tip-content-item agent_profit_tip-content-title">返佣时间：手续费次日凌晨1点开始结算，跟单盈利下月初1号结算。请在我的钱包“可提现佣金”查看。</li>
+       <li class="agent_profit_tip-content-item agent_profit_tip-content-title">客户升级代理，需要联系客服手动操作，QQ：83166672、电话：4000577009。</li>
       </ol>
     </div>
     <div class="agent_profit_tip-content" v-if="degree === 2">
@@ -73,11 +73,11 @@
             </table>
           </div>
         </li>
-       <li class="agent_profit_tip-content-item">
+       <li class="agent_profit_tip-content-item agent_profit_tip-content-title">
           跟单盈利：下级跟单账户若盈利，直系上级返跟单盈利的5%佣金，亏损无佣金（限直系上级）。
         </li>
-       <li class="agent_profit_tip-content-item">返佣时间：手续费次日凌晨1点开始结算，跟单盈利下月初1号结算。请在我的钱包“可提现佣金”查看。</li>
-       <li class="agent_profit_tip-content-item">客户升级代理，需要联系客服手动操作，QQ：83166672、电话：4000577009。</li>
+       <li class="agent_profit_tip-content-item agent_profit_tip-content-title">返佣时间：手续费次日凌晨1点开始结算，跟单盈利下月初1号结算。请在我的钱包“可提现佣金”查看。</li>
+       <li class="agent_profit_tip-content-item agent_profit_tip-content-title">客户升级代理，需要联系客服手动操作，QQ：83166672、电话：4000577009。</li>
       </ol>
     </div>
     <div class="agent_profit_tip-content" v-if="degree === 1">
@@ -161,11 +161,11 @@
             </table>
           </div>
         </li>
-        <li class="agent_profit_tip-content-item">
+        <li class="agent_profit_tip-content-item agent_profit_tip-content-title">
           跟单盈利：下级跟单账户若盈利，直系上级返跟单盈利的5%佣金，亏损无佣金（限直系上级）。
         </li>
-       <li class="agent_profit_tip-content-item">返佣时间：手续费次日凌晨1点开始结算，跟单盈利下月初1号结算。请在我的钱包“可提现佣金”查看。</li>
-       <li class="agent_profit_tip-content-item">客户升级代理，需要联系客服手动操作，QQ：83166672、电话：4000577009。</li>
+       <li class="agent_profit_tip-content-item agent_profit_tip-content-title">返佣时间：手续费次日凌晨1点开始结算，跟单盈利下月初1号结算。请在我的钱包“可提现佣金”查看。</li>
+       <li class="agent_profit_tip-content-item agent_profit_tip-content-title">客户升级代理，需要联系客服手动操作，QQ：83166672、电话：4000577009。</li>
       </ol>
     </div>
   </div>
@@ -193,7 +193,9 @@
         margin-top: 15px;
       }
       &-title {
+        color: #333;
         padding-bottom: 5px;
+        font-weight: 800;
       }
       &-sub-title {
         padding-bottom: 2px;
