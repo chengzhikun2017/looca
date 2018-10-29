@@ -1,5 +1,5 @@
 <template>
-  <div class="agent_profit_tip-page">
+  <div class="agent_profit_tip-page" v-if="false">
     <div class="agent_profit_tip-content" v-if="degree === 3">
       <ol>
        <li class="agent_profit_tip-content-item">
