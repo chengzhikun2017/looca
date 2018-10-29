@@ -3,22 +3,22 @@
     <div class="agent_profit_tip-content" v-if="degree === 3">
       <ol>
        <li class="agent_profit_tip-content-item">
-          <div class="agent_profit_tip-content-title">手续费收益：外汇6美金、黄金白银12美金、原油1.2美金。</div>
+          <div class="agent_profit_tip-content-title">手续费收益：外汇4美金、黄金白银10美金、原油1美金。</div>
           <div class="note">例：三级代理 -> 客户，交易1手外汇和1手黄金，三级代理获得收益如下：</div>
           <div class="table">
             <table>
               <tr>
                 <td rowspan="3">手续费收益</td>
                 <td>外汇</td>
-                <td>6美金</td>
+                <td>4美金</td>
               </tr>
               <tr>
                 <td>黄金白银</td>
-                <td>12美金</td>
+                <td>10美金</td>
               </tr>
               <tr>
                 <td>原油</td>
-                <td>1.2美金</td>
+                <td>1美金</td>
               </tr>
             </table>
           </div>
@@ -34,41 +34,41 @@
       <ol>
         <li class="agent_profit_tip-content-item">
           <div class="agent_profit_tip-content-title">手续费收益：</div>
-          <div class="agent_profit_tip-content-sub-title">①手续费收益：外汇12美金、黄金白银24美金、原油2.4美金。</div>
+          <div class="agent_profit_tip-content-sub-title">①手续费收益：外汇8美金、黄金白银20美金、原油2美金。</div>
           <div class="note">例：二级代理 -> 客户，交易1手外汇和1手黄金，二级代理获得收益如下：</div>
           <div class="table">
             <table>
               <tr>
                 <td rowspan="3">手续费收益</td>
                 <td>外汇</td>
-                <td>12美金</td>
+                <td>8美金</td>
               </tr>
               <tr>
                 <td>黄金白银</td>
-                <td>24美金</td>
+                <td>20美金</td>
               </tr>
               <tr>
                 <td>原油</td>
-                <td>2.4美金</td>
+                <td>2美金</td>
               </tr>
             </table>
           </div>
-          <div class="agent_profit_tip-content-sub-title">②享受三级多余收益：外汇6美金、黄金白银12美金、原油1.2美金。</div>
+          <div class="agent_profit_tip-content-sub-title">②享受三级多余收益：外汇4美金、黄金白银10美金、原油1美金。</div>
           <div class="note">例：二级代理 -> 三级代理 -> 客户，交易1手外汇和1手黄金，二级代理获得收益如下：</div>
           <div class="table">
             <table>
               <tr>
                 <td rowspan="3">手续费收益</td>
                 <td>外汇</td>
-                <td>( 12 - 6 ) = 6美金</td>
+                <td>( 8 - 4 ) = 4美金</td>
               </tr>
               <tr>
                 <td>黄金白银</td>
-                <td>( 24 - 12 ) = 12美金</td>
+                <td>( 20 - 10 ) = 10美金</td>
               </tr>
               <tr>
                 <td>原油</td>
-                <td>( 2.4 - 1.2 ) = 1.2美金</td>
+                <td>( 2 - 1 ) = 1美金</td>
               </tr>
             </table>
           </div>
@@ -84,79 +84,79 @@
       <ol>
        <li class="agent_profit_tip-content-item">
           <div class="agent_profit_tip-content-title">手续费收益：</div>
-          <div class="agent_profit_tip-content-sub-title">①手续费收益：外汇15美金、黄金白银30美金、原油3美金。</div>
+          <div class="agent_profit_tip-content-sub-title">①手续费收益：外汇10美金、黄金白银25美金、原油2.5美金。</div>
           <div class="note">例：一级代理 -> 客户，交易1手外汇和1手黄金，一级代理获得收益如下：</div>
           <div class="table">
             <table>
               <tr>
                 <td rowspan="3">手续费收益</td>
                 <td>外汇</td>
-                <td>15美金</td>
+                <td>10美金</td>
               </tr>
               <tr>
                 <td>黄金白银</td>
-                <td>30美金</td>
+                <td>25美金</td>
               </tr>
               <tr>
                 <td>原油</td>
-                <td>3美金</td>
+                <td>2.5美金</td>
               </tr>
             </table>
           </div>
-          <div class="agent_profit_tip-content-sub-title">②同级晋升奖励：外汇1.5美金、黄金白银3美金、原油0.3美金。</div>
+          <div class="agent_profit_tip-content-sub-title">②同级晋升奖励：外汇1美金、黄金白银2.5美金、原油0.25美金。</div>
           <div class="note">例：一级代理 -> 一级代理 -> 客户，交易1手外汇和1手黄金，原一级代理获得收益如下：</div>
           <div class="table">
             <table>
               <tr>
                 <td rowspan="3">同级晋升奖励</td>
                 <td>外汇</td>
-                <td>1.5美金</td>
+                <td>1美金</td>
               </tr>
               <tr>
                 <td>黄金白银</td>
-                <td>3美金</td>
+                <td>2.5美金</td>
               </tr>
               <tr>
                 <td>原油</td>
-                <td>0.3美金</td>
+                <td>0.25美金</td>
               </tr>
             </table>
           </div>
-          <div class="agent_profit_tip-content-sub-title">③享受二级多余收益：外汇3美金、黄金白银6美金、原油0.6美金。</div>
+          <div class="agent_profit_tip-content-sub-title">③享受二级多余收益：外汇2美金、黄金白银5美金、原油0.5美金。</div>
           <div class="note">例：一级代理 -> 二级代理 -> 客户，交易1手外汇和1手黄金，一级代理获得收益如下：</div>
           <div class="table">
             <table>
               <tr>
                 <td rowspan="3">手续费收益</td>
                 <td>外汇</td>
-                <td>( 15 - 12 ) = 3美金</td>
+                <td>( 10 - 8 ) = 2美金</td>
               </tr>
               <tr>
                 <td>黄金白银</td>
-                <td>( 30 - 24 ) = 6美金</td>
+                <td>( 25 - 20 ) = 5美金</td>
               </tr>
               <tr>
                 <td>原油</td>
-                <td>( 3 - 2.4 ) = 0.6美金</td>
+                <td>( 2.5 - 2 ) = 0.5美金</td>
               </tr>
             </table>
           </div>
-          <div class="agent_profit_tip-content-sub-title">④享受三级多余收益：外汇9美金、黄金白银18美金、原油1.8美金。</div>
+          <div class="agent_profit_tip-content-sub-title">④享受三级多余收益：外汇6美金、黄金白银15美金、原油1.5美金。</div>
           <div class="note">例：一级代理 -> 三级代理 -> 客户，交易1手外汇和1手黄金，一级代理获得收益如下：</div>
           <div class="table">
             <table>
               <tr>
                 <td rowspan="3">手续费收益</td>
                 <td>外汇</td>
-                <td>( 15 - 6 ) = 9美金</td>
+                <td>( 10 - 4 ) = 6美金</td>
               </tr>
               <tr>
                 <td>黄金白银</td>
-                <td>( 30 - 12 ) = 18美金</td>
+                <td>( 25 - 10 ) = 15美金</td>
               </tr>
               <tr>
                 <td>原油</td>
-                <td>( 3 - 1.2 ) = 1.8美金</td>
+                <td>( 2.5 - 1 ) = 1.5美金</td>
               </tr>
             </table>
           </div>
