@@ -2,7 +2,7 @@
   <div class="trade_wallet-page">
     <div class="trade_wallet-list">
       <div class="trade_wallet-list-title">
-        余额 
+        余额
         <span class="refresh-tip">
           如金额未及时更新，请稍后尝试刷新
           <a href="Javascript:void(0)" class="refresh-btn" @click="getWallet">

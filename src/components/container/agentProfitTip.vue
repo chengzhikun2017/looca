@@ -23,11 +23,11 @@
             </table>
           </div>
         </li>
-       <li class="agent_profit_tip-content-item agent_profit_tip-content-title">
+       <li class="agent_profit_tip-content-title">
           跟单盈利：下级跟单账户若盈利，直系上级返跟单盈利的5%佣金，亏损无佣金（限直系上级）。
         </li>
-       <li class="agent_profit_tip-content-item agent_profit_tip-content-title">返佣时间：手续费次日凌晨1点开始结算，跟单盈利下月初1号结算。请在我的钱包“可提现佣金”查看。</li>
-       <li class="agent_profit_tip-content-item agent_profit_tip-content-title">客户升级代理，需要联系客服手动操作，QQ：83166672、电话：4000577009。</li>
+       <li class="agent_profit_tip-content-title">返佣时间：手续费次日凌晨1点开始结算，跟单盈利下月初1号结算。请在我的钱包“可提现佣金”查看。</li>
+       <li class="agent_profit_tip-content-title">客户升级代理，需要联系客服手动操作，QQ：83166672、电话：4000577009。</li>
       </ol>
     </div>
     <div class="agent_profit_tip-content" v-if="degree === 2">
@@ -73,11 +73,11 @@
             </table>
           </div>
         </li>
-       <li class="agent_profit_tip-content-item agent_profit_tip-content-title">
+       <li class="agent_profit_tip-content-title">
           跟单盈利：下级跟单账户若盈利，直系上级返跟单盈利的5%佣金，亏损无佣金（限直系上级）。
         </li>
-       <li class="agent_profit_tip-content-item agent_profit_tip-content-title">返佣时间：手续费次日凌晨1点开始结算，跟单盈利下月初1号结算。请在我的钱包“可提现佣金”查看。</li>
-       <li class="agent_profit_tip-content-item agent_profit_tip-content-title">客户升级代理，需要联系客服手动操作，QQ：83166672、电话：4000577009。</li>
+       <li class="agent_profit_tip-content-title">返佣时间：手续费次日凌晨1点开始结算，跟单盈利下月初1号结算。请在我的钱包“可提现佣金”查看。</li>
+       <li class="agent_profit_tip-content-title">客户升级代理，需要联系客服手动操作，QQ：83166672、电话：4000577009。</li>
       </ol>
     </div>
     <div class="agent_profit_tip-content" v-if="degree === 1">
@@ -141,7 +141,7 @@
               </tr>
             </table>
           </div>
-          <div class="agent_profit_tip-content-sub-title">③享受三级多余收益：外汇9美金、黄金白银18美金、原油1.8美金。</div>
+          <div class="agent_profit_tip-content-sub-title">④享受三级多余收益：外汇9美金、黄金白银18美金、原油1.8美金。</div>
           <div class="note">例：一级代理 -> 三级代理 -> 客户，交易1手外汇和1手黄金，一级代理获得收益如下：</div>
           <div class="table">
             <table>
@@ -161,11 +161,11 @@
             </table>
           </div>
         </li>
-        <li class="agent_profit_tip-content-item agent_profit_tip-content-title">
+        <li class="agent_profit_tip-content-title">
           跟单盈利：下级跟单账户若盈利，直系上级返跟单盈利的5%佣金，亏损无佣金（限直系上级）。
         </li>
-       <li class="agent_profit_tip-content-item agent_profit_tip-content-title">返佣时间：手续费次日凌晨1点开始结算，跟单盈利下月初1号结算。请在我的钱包“可提现佣金”查看。</li>
-       <li class="agent_profit_tip-content-item agent_profit_tip-content-title">客户升级代理，需要联系客服手动操作，QQ：83166672、电话：4000577009。</li>
+       <li class="agent_profit_tip-content-title">返佣时间：手续费次日凌晨1点开始结算，跟单盈利下月初1号结算。请在我的钱包“可提现佣金”查看。</li>
+       <li class="agent_profit_tip-content-title">客户升级代理，需要联系客服手动操作，QQ：83166672、电话：4000577009。</li>
       </ol>
     </div>
   </div>
@@ -193,9 +193,10 @@
         margin-top: 15px;
       }
       &-title {
-        color: #333;
+        color: #000000a6;
         padding-bottom: 5px;
         font-weight: 800;
+        font-size: 14px;
       }
       &-sub-title {
         padding-bottom: 2px;
