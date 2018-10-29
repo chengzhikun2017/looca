@@ -28,6 +28,7 @@
       </div>
     </a-modal>
 
+
     <div class="default-info" :class="isPC?'':'phone'">
       <div class="btn-container" :class="isPC?'':'phone'" v-if="listGot">
         <a-button size="small" v-if="isPC"  type="primary" @click="chooseCreate" :disabled="!canCreate">
@@ -52,6 +53,15 @@
       <a class="link-btn" href="javascript:void(0)" v-if="!isPC" @click="chooseCreate" >
         新增账户
       </a>
+    </div>
+    <a-alert
+      message="温馨提示:在非农及金十数据新闻公布的大数据行情下，可能会出现滑点严重以及无报价导致不成交等不可抗力因素，请客户做好风险预警。"
+      type="warning"
+      showIcon
+      closable
+      onClose="onWarningHide"
+    />
+    <div style="height: 10px;" v-if="showWarning">
     </div>
     <Mt4SyncFail  :success="!!!syncSuccess&&!loading" :reSyncFunc="getList"> </Mt4SyncFail>
     <div>
@@ -130,6 +140,7 @@ export default {
   name:'mt4_overview',
   data() {
     return {
+      showWarning:true,
       MAX_NORMAL_NUM,
       MAX_FOLLOW_NUM,
       createType: '',
@@ -163,6 +174,9 @@ export default {
     }
   },
   methods: {
+    onWarningHide(){
+      this.showWarning = false
+    },
     refresh() {
       this.getList()
       this.getWallet()

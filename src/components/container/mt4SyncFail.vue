@@ -2,7 +2,7 @@
   <div class="container v-mt4-sync-fail">
 
     <a-alert type="warning" v-if="success" showIcon>
-      <p slot="description">
+      <p slot="message">
         由于网络延迟导致数据未完全同步，您可以稍后
         <a class="link-btn" href="javascript:void(0)"  @click="refresh" >
           刷新
@@ -83,7 +83,7 @@ span {
 </style>
 <style lang="scss">
 .v-mt4-sync-fail{
-  .ant-alert-description{
+  .ant-alert-message{
     p{
       margin-bottom: 0;
     }

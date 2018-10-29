@@ -37,7 +37,8 @@
         <img alt="qrcode" style="width: 100%" :src="shareInfo.qrcodeUrl" />
       </a-modal>
     </div>
-    <div class="agent_promote-note">
+    <AgentProfitTip :degree="agentDegree"></AgentProfitTip>
+    <div class="agent_promote-note" v-if=false>
       <div class="agent_promote-note-title">
         推广返利说明
       </div>
@@ -68,32 +69,44 @@
         3.如需帮助，请联系客服，反复充值不累计。
       </div>
     </div>
-                    
-                    
-
   </div>
 </template>
 <script>
+const agentProfitTip = () =>
+  import ('../components/container/agentProfitTip.vue')
 import { mapState, mapMutations, mapActions, mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      showFullQR:false,
+      showFullQR: false,
     }
   },
   computed: {
+    agentDegree() {
+      // let degree
+      switch (this.shareInfo.level) {
+        case 2:
+          return 1;
+        case 3:
+          return 2
+        case 4:
+          return 3
+        default:
+          return -1;
+      }
+    },
     ...mapState("share", ['shareInfo']),
     ...mapGetters('share', ['incomeSummary', 'guestSummary'])
   },
   methods: {
-    copyLink(){
-      this.$copyText(this.shareInfo.link).then( (e)=> {
+    copyLink() {
+      this.$copyText(this.shareInfo.link).then((e) => {
         this.$message.info('复制成功')
-      },  (e)=> {
+      }, (e) => {
         this.$message.error('复制失败')
       })
     },
-    handleCancel(){
+    handleCancel() {
       this.showFullQR = false
     },
     ...mapActions("share", ['getShareInfo', 'getGuestCount', 'getIncomeCount']),
@@ -102,6 +115,9 @@ export default {
     this.getShareInfo()
     this.getGuestCount()
     this.getIncomeCount()
+  },
+  components: {
+    AgentProfitTip: agentProfitTip,
   },
 }
 
@@ -129,10 +145,8 @@ $prefix: "agent_promote";
       margin-top: 10px;
       font-size: 15px;
       font-weight: bold;
-      .link-box{
-
-      }
-      .link{
+      .link-box {}
+      .link {
         font-size: 13px;
         font-weight: normal;
       }
@@ -148,4 +162,3 @@ $prefix: "agent_promote";
 @import '@/styles/utils/note.scss';
 
 </style>
-
