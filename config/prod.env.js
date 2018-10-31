@@ -30,7 +30,7 @@ const configs = {
     project:'default',
   }
 }
-module.exports = {
-  NODE_ENV: '"production"',
-  ...configs[process.env.env_config||'default'],
-}
+
+module.exports = merge(configs[process.env.env_config||'default'], {
+  NODE_ENV: '"production"'
+})

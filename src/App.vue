@@ -8,10 +8,7 @@
         </keep-alive>
         <router-view v-if="!$route.meta.keepAlive" />
         <div slot="header" class="head-text">
-          {{header}}
-          <!-- title -->
-          <!-- account -->
-          <!-- message -->
+          <!-- {{header}} -->
         </div>
       </MainLayout>
       <button @click="test" class="test" v-if="isTest">test</button>
@@ -42,16 +39,11 @@ export default {
     }
   },
   created() {
-    this.UrlSearch()
-    console.log('%c this.query.qudao','color:red',this.query.qudao)
+    // this.parseQuery()
+    // this.addQudaoScript()
     this.setQudao(this.query.qudao)
     window.__test = this.test.bind(this)
     this.checkSession()
-    // this.$store.dispatch('wallet/getCurrency')
-    // setInterval(() => {
-    //   this.$store.dispatch('wallet/getCurrency')
-    // },120000)
-    // var winHeight = $(window).height(); //获取当前页面高度
     this.configAndroidKeyboard()
   },
   provide() {
@@ -91,19 +83,16 @@ export default {
     ...mapState('account', ['isLoged']),
   },
   watch: {
-    // path(oldV, newV) {
-    //   // console.log(oldV, newV)
-    // },
+    
   },
   methods: {
-    UrlSearch() {
+    parseQuery() {
       var name, value;
       var str = location.hash;
       var num = str.indexOf("?")
       str = str.substr(num + 1); //取得所有参数   stringvar.substr(start [, length ]
 
       var arr = str.split("&"); //各个参数放到数组里
-      console.log(arr)
       for (var i = 0; i < arr.length; i++) {
         num = arr[i].indexOf("=");
         if (num > 0) {
@@ -119,19 +108,27 @@ export default {
       }
       var winHeight = window.innerHeight //获取当前页面高度
       window.addEventListener('resize', () => {
-        console.log('resize')
+        // console.log('resize')
         var currentHeight = window.innerHeight
-        console.log('%c heights', 'color:red', winHeight, currentHeight)
+        // console.log('%c heights', 'color:red', winHeight, currentHeight)
         if (winHeight - currentHeight > 50) {
-          console.log('弹出')
+          // console.log('弹出')
           vueApp.$emit("keyboard_show")
           // document.body.style.height = winHeight + 'px'
         } else {
           vueApp.$emit("keyboard_hide")
-          console.log('收起')
+          // console.log('收起')
           // document.body.style.height = '100%'
         }
       })
+    },
+    addQudaoScript() {
+      if(this.query.qudao == 'jYzqyi') {
+        let script = document.createElement('script')
+        script.src="https://s19.cnzz.com/z_stat.php?id=1275196681&web_id=1275196681"
+        script.setAttribute('language','JavaScript')
+        document.head.append(script)
+      }
     },
     test() {
       this.getPayAccount()

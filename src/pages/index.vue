@@ -426,18 +426,29 @@ export default {
     },
     test () {
       this.$http.get('https://crm.looco8.com/#/')
-    }
+    },
+    addQudaoScript() {
+      if(this.qudao == 'jYzqyi') {
+        let script = document.createElement('script')
+        script.src="https://s19.cnzz.com/z_stat.php?id=1275196681&web_id=1275196681"
+        script.setAttribute('language','JavaScript')
+        document.head.append(script)
+      }
+    },
+  },
+  created() {
+    this.addQudaoScript()
   },
   computed: {
     crmQuery(){
-      let query = [],queryStr
+      let query = [],queryStr = ''
       if(this.qudao){
         query.push("qudao="+this.qudao)
       }
       if(query.length){
         queryStr = '?'+query.join("&")
       }
-      return queryStr
+      return queryStr 
     },
     qudao(){
       return this.$route.query.qudao

@@ -1,6 +1,6 @@
 <template>
   <div class="agent_profit_tip-page">
-    <h3 class="agent_profit_tip-page-title">推广说明</h3>
+    <h3 class="agent_profit_tip-page-title" v-if="!hide">推广说明</h3>
     <div class="agent_profit_tip-content" v-if="degree === 3">
       <ol>
        <li class="agent_profit_tip-content-item">
@@ -176,8 +176,13 @@
     props: {
       degree: {
         type: Number,
-        default: 1
+        default: 0
       }
+    },
+    computed:{
+      hide(){
+        return this.degree>3 || this.degree <1
+      },
     },
     data () {
       return {}

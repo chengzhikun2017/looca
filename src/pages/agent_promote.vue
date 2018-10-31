@@ -83,7 +83,6 @@ export default {
   },
   computed: {
     agentDegree() {
-      // let degree
       switch (this.shareInfo.level) {
         case 2:
           return 1;

@@ -15,11 +15,13 @@ var entry = {
   app: ["babel-polyfill", "./src/main.js"],
   app_loo_show: ["babel-polyfill", './src/AppShowLoo/main.js'],
 }
+console.log('project',project)
 if(/crm/.test(project)) {
   delete entry.app_loo_show
 }else if(/show/.test(project)) {
   delete entry.app
 }
+console.log('entry',entry)
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry,
