@@ -1,27 +1,39 @@
 <template>
   <div class="l-qudao-signup">
     <div class="signup-box" v-if="showSignup">
-      <h3 class="title">
-        每手返佣8美金，最高返佣20美金，手续费可封顶（按月支付）
-      </h3>
-      <div class="form-box">
-        <p class="label">您的贵姓</p>
-        <a-input v-model="familyName" placeholder="请填写姓氏"></a-input>
-        <p class="label">联系电话</p>
-        <a-input v-model="phone" placeholder="请填写手机号"></a-input>
-        <div class="btn-box">
-          <a-button :loading='loading' type="primary" @click="submit" style="width:180px">提交</a-button>
+      <div class="signup-box-pannel" flex>
+        <div class="signup-box-pannel-left" flex-box="1" flex="main:center">
+          <div class="form-box">
+            <h3 class="title">
+              立即与<span class="title-emphasize">乐恺环球</span>合作
+            </h3>
+            <p class="label">您的姓名</p>
+            <a-input v-model="familyName" placeholder="请填写姓名" class="form-box-input"></a-input>
+            <p class="label">联系电话</p>
+            <a-input v-model="phone" placeholder="请填写手机号" class="form-box-input"></a-input>
+            <div class="btn-box">
+              <a-button :loading='loading' class="form-box-input" type="primary" @click="submit">提交</a-button>
+            </div>
+          </div>
+        </div>
+        <div class="signup-box-pannel-right" flex-box="1">
+          <div class="title">加入我们</div>
+          <div class="service-qr-box">
+            <img src="@/assets/qrcode_assit.jpg" alt="" class="qr-pic">
+            <h3 class="text">客服微信：Looco8</h3>
+          </div>
         </div>
       </div>
-      <div class="service-qr-box">
-        <img src="" alt="" class="qr-pic">
-        <h3 class="text">客服微信：Looco8</h3>
-      </div>
+      <h3 class="signup-box-note">
+        每手返佣<span class="signup-box-note-emphasize">8美金</span>，最高返佣<span class="signup-box-note-emphasize">20美金</span>，手续费可封顶（按月支付）
+      </h3>
       <span class="close-btn pointer" @click="hide">
         <a-icon type="close"  />
       </span>
     </div>
     <div class="thumbnail-box pointer" @click="show" v-if="!showSignup">
+      <img src="@/assets/qrcode_assit.jpg" alt="" class="qr-pic">
+      <h3 class="text">客服微信</h3>
     </div>
   </div>
 </template>
@@ -31,8 +43,8 @@ export default {
   name: 'qudaoSignup',
   data() {
     return {
-      phone: '12345678900',
-      familyName: 'huaf',
+      phone: '',
+      familyName: '',
       showSignup: true,
       loading:false,
     }
@@ -112,72 +124,111 @@ export default {
 }
 
 .signup-box {
-  width: 800px;
-  height: 360px;
+  box-sizing: border-box;
+  width: 480px;
+  padding:0 15px;
+  height: 300px;
   /*border: 1px solid red;*/
   position: fixed;
   left: 0;
   right: 0;
-  margin: 0 auto;
-  top: 80px;
+  margin: 0 auto -150px;
+  bottom: 50%;
   z-index: 2;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.8);
   background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0, rgba(0, 0, 0, 0) 30%);
-
+  &-note {
+    font-size: 14px;
+    color: white;
+    text-align: left;
+    padding-top: 10px;
+    padding-left: 30px;
+    &-emphasize {
+      color: #cd2122;
+      font-weight: 800;
+      font-size: 16px;
+      letter-spacing: 1px;
+      display: inline-block;
+      padding: 0 2px;
+    }
+  }
   .close-btn {
     color: #fff;
-    padding: 5px;
+    padding: 8px;
     width: 30px;
     height: 30px;
     font-size: 20px;
     position: absolute;
-    right: 0;
+    right: 5px;
     top: 0;
     line-height: 1;
     opacity: 0.7;
   }
   .title {
     color: #fff;
-    margin-top: 30px;
-    font-size: 20px;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 700;
     /*background: #000;*/
+    &-emphasize {
+      color: #cd2122;
+    }
   }
   .form-box {
-    width: 320px;
-    margin-left: 80px;
+    text-align: left;
+    &-input {
+      width: 180px;
+    }
     .label {
-      margin-top: 16px;
       text-align: left;
       color: #fff;
+      margin: 10px 0 5px;
     }
     .btn-box {
       text-align: left;
-      margin-top: 30px;
+      margin-top: 25px;
+    }
+  }
+  .signup-box-pannel-right {
+    text-align: center;
+    .title {
+      margin-bottom: 15px;
     }
   }
   .service-qr-box {
-    position: absolute;
-    top: 80px;
-    right: 80px;
     background: #fff;
-    width: 200px;
-    height: 240px;
+    width: 160px;
+    height: 180px;
+    margin: 0 auto;
     .qr-pic {
-      height: 160px;
+      margin-top: 10px;
+      margin-bottom: 0px;
+      height: 140px;
     }
     .text {
       color: #666;
+      font-size: 14px;
     }
   }
 }
 
 .thumbnail-box {
   position: fixed;
-  top: 100px;
+  top: 180px;
   right: 10%;
-  width: 160px;
-  height: 160px;
+  width: 120px;
+  height: 145px;
+  z-index: 2;
   background: #fff;
+  .text {
+    font-size: 14px;
+    margin-top: 2px;
+    line-height: 1;
+    color: #333;
+  }
+  img {
+    width: 120px;
+  }
 }
 
 </style>
