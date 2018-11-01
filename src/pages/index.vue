@@ -11,7 +11,7 @@
           <a-dropdown>
             <div class="index-page-nav-title">产品报价</div>
             <div slot="overlay" class="index-page-nav-list">
-              <div class="index-page-nav-list-item" @click="tutorial('交易细则', 2)">交易细则</div>
+              <div class="index-page-nav-list-item" @click="tutorial('交易细则', 1)">交易细则</div>
             </div>
           </a-dropdown>
           <a-dropdown>
@@ -178,7 +178,7 @@
           </div>
           <div class="menu-item">
             <h3>产品报价</h3>
-            <p class="click" @click="tutorial('交易细则', 2)">交易细则</p>
+            <p class="click" @click="tutorial('交易细则', 1)">交易细则</p>
           </div>
           <div class="menu-item">
             <h3>MT4下载</h3>
@@ -448,7 +448,7 @@ export default {
       if(query.length){
         queryStr = '?'+query.join("&")
       }
-      return queryStr 
+      return queryStr
     },
     qudao(){
       return this.$route.query.qudao
