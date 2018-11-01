@@ -25,6 +25,7 @@
     "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "flex.css": "^1.1.7",
+    "jsonp": "^0.2.1",
     "moment": "^2.22.2",
     "underscore": "^1.9.1",
     "vue": "^2.5.2",

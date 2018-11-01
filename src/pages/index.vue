@@ -234,6 +234,7 @@
       <a-spin />
       <p class="note">教程下载中...</p>
     </div>
+    <qudaoSignup v-if="showQudaoSignup"></qudaoSignup>
   </div>
 </template>
 <style lang="scss">
@@ -319,7 +320,7 @@ import widget5 from './../components/forIndex/widget5.vue'
 import widget4 from './../components/forIndex/widget4.vue'
 import widget3 from './../components/forIndex/widget3.vue'
 import tutorial from '@/components/forIndex/tutorial.vue'
-
+import qudaoSignup from './../components/forIndex/qudaoSignup.vue'
 export default {
   name: 'index',
   data() {
@@ -453,8 +454,12 @@ export default {
     qudao(){
       return this.$route.query.qudao
     },
+    showQudaoSignup(){
+      return this.qudao
+    },
   },
   components: {
+    qudaoSignup,
     'v-layer': layer,
     'widget1': widget1,
     'widget2': widget2,

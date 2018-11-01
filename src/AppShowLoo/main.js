@@ -6,19 +6,19 @@ import flex from 'flex.css'
 import router from './router.js'
 import axios from 'axios'
 import {
-  // Button,
+  Button,
   // LocaleProvider,
   Carousel,
   Icon,
   // Menu,
   // Layout,
   // Form,
-  // Input,
+  Input,
   // Select,
   // Tabs,
   // Checkbox,
   Spin,
-  // Message,
+  Message,
   Modal,
   Dropdown,
   // Upload,
@@ -46,17 +46,19 @@ function registerComponentChild(vue, parentAntComponent) {
     }
   }
 }
-
-// Vue.component(Button.name, Button)
+Vue.prototype.$modal = Modal
+Vue.prototype.$message = Message
+Vue.component(Button.name, Button)
 // Vue.component(LocaleProvider.name, LocaleProvider)
 Vue.component(Modal.name, Modal)
+// Vue.component(Message.name, Message)
 Vue.component(Popover.name, Popover)
 // Vue.component(Upload.name, Upload)
 // registerComponentChild(Vue, Upload)
 Vue.component(Spin.name, Spin)
-// Vue.component(Input.name, Input)
+Vue.component(Input.name, Input)
+registerComponentChild(Vue, Input)
 Vue.component(Dropdown.name, Dropdown)
-// registerComponentChild(Vue, Input)
 Vue.component(Icon.name, Icon)
 Vue.component(Carousel.name, Carousel)
 // Vue.component(Checkbox.name, Checkbox)
