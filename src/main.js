@@ -20,7 +20,6 @@ import "./utils/vue_proto.js"
 import _ from 'underscore'
 import infiniteScroll from 'vue-infinite-scroll'
 import VueClipboard from 'vue-clipboard2'
- 
 Vue.use(VueClipboard)
 window._ = _
 Vue.use(infiniteScroll)

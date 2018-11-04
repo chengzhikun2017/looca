@@ -72,7 +72,7 @@
       <div v-if="rechargeSucceed" class="wallet_withdraw-content-success" flex="dir:top main:center cross:center">
         <a-icon class="wallet_withdraw-icon-success" type="check-circle" />
         <div class="wallet_withdraw-content-title">操作成功</div>
-        <p>预计1-2个工作日到账</p>
+        <p>到账时间：T+1 （提现的第二个工作日到账，周一至周四提现第二天到账，周五提现将在下周一到账，周六周日不到账）</p>
         <div class="wallet_withdraw-table">
           <a-form>
             <a-form-item :wrapperCol="{ span: 18 }" class="wallet_withdraw-table-item" label='提现账户：' :labelCol="{ span: 6 }">

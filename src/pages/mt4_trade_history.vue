@@ -142,7 +142,7 @@ const columns = [{
 },{
   title: "手续费($)",
   dataIndex: "serviceFee",
-  scopedSlots: { customRender: 'money' },
+  // scopedSlots: { customRender: 'money' },
 }, {
   title: "获利",
   dataIndex: "profit",
