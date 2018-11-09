@@ -51,6 +51,15 @@ export default {
   },
 
   actions: {
+    getFollowUrl({} , mt4Uid) {
+      let promise = fetch({
+        url: "mt4Account/followSSOLoginUrl",
+        params: {
+          mt4Uid,
+        },
+      })
+      return promise
+    },
     setDefaultCurrent({ state, commit, dispatch }) {
       commit('setCurrent', state.list[0].mt4Uid)
     },

@@ -6,7 +6,7 @@
           MT4{{mt4.type| mt4Type}}<a class="btn" v-if="mt4.type==='vip'" type="primary" size="small" @click="viewVIP(mt4)">VIP账号</a>：{{mt4.mt4Uid}}
           <!-- <div class="mt4_account_list_item-account-box-follow" v-if="mt4.type==='vip'">  -->
           <!-- </div> -->
-          <a-button size="small" icon="usb" type="primary" ghost v-if="mt4.type=='follow'"  @click="goAction('/unknown')">
+          <a-button size="small" icon="usb" type="primary" ghost v-if="mt4.type=='follow'"  @click="onClickFollowBtn">
             跟单
           </a-button>
         </span>
