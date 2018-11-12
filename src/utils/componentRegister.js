@@ -19,6 +19,7 @@ import {
   List,
   Table,
   TreeSelect,
+  Tree,
   Radio,
   Col,
   Row,
@@ -29,6 +30,7 @@ import {
   Card,
   Divider,
   Tooltip,
+  Tag,
 } from 'vue-antd-ui';
 import SearchItem from './../components/container/SearchItem.vue'
 import SearchBox from './../components/container/SearchItem.vue'
@@ -68,6 +70,7 @@ function registerComponentChild(vue, parentAntComponent) {
 Vue.component("MainLayout", MainLayout)
 Vue.component("BrokerAsyncTip", BrokerAsyncTip)
 Vue.component(Button.name, Button)
+Vue.component(Tag.name, Tag)
 Vue.component(LocaleProvider.name, LocaleProvider)
 Vue.component(Modal.name, Modal)
 Vue.component(Upload.name, Upload)
@@ -93,9 +96,11 @@ Vue.component(Form.name, Form)
 registerComponentChild(Vue, Form)
 Vue.component(Table.name, Table)
 registerComponentChild(Vue, Table)
-Vue.component(TreeSelect.name, TreeSelect)
 registerComponentChild(Vue, Radio)
 Vue.component(Radio.name, Radio)
+Vue.component(Tree.name, Tree)
+registerComponentChild(Vue, Tree)
+Vue.component(TreeSelect.name, TreeSelect)
 registerComponentChild(Vue, TreeSelect)
 registerComponentChild(Vue, Col)
 Vue.component(Col.name, Col)

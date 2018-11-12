@@ -38,6 +38,15 @@ export default {
     },
   },
   actions: {
+    getUserList({state,commit},params) {
+      // partnerUid: uid为自己时获取我的客户，其它则为获取分公司的客户
+      // childUid:一级客户uid，可选，默认为0，返回结果为一级客户
+      let promise = fetch({
+        url:'broker/user/proxy',
+        params,
+      },{showLoading:false,rejectErr:true})
+      return promise
+    },
     upgradeAgent({state,commit},params) {
       // targetUid:客户uid
       // level:代理等级，有三级、二级、一级，对应的level 为 4、3、2

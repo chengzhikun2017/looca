@@ -99,6 +99,7 @@ const columnsPoint = [
   { title: "客户名字", [DI]: "guest_name", width: "110px" },
   { title: "客户手机号", [DI]: "guest_phone" },
   { title: "客户级别", [DI]: "depth", [SS]: {[CR]: 'depth' }, },
+  { title: "上级代理",[DI]: "parent_name",},
   { title: "类型", [DI]: "type" ,[SS]: {[CR]: 'type' }, },
   { title: "订单号", [DI]: "order_id", },
   { title: "交易对", [DI]: "symbol", },
@@ -124,6 +125,7 @@ const columnsFollow = [
   { title: "客户名字", [DI]: "guest_name", width: "110px" },
   { title: "客户手机号", [DI]: "guest_phone" },
   { title: "客户级别", [DI]: "depth", [SS]: {[CR]: 'depth' }, },
+  { title: "上级代理",[DI]: "parent_name",},
   { title: "业务编号", [DI]: "trade_no" },
   { title: "类型", [DI]: "type" },
   { title: "佣金", [DI]: "fee", [SS]: {[CR]: 'money' }, },
@@ -214,7 +216,6 @@ export default {
       }
       this.savedParams = params
       this.currentPage = 1
-      console.log('%c -----', 'color:red', )
       setTimeout(() => {
         this.getList()
       }, 20);
@@ -228,6 +229,15 @@ export default {
         let count = this.list.count
         let data = helper.createTableFootData(this.columns,{
           fee:count.total_fee / 100,
+          rollver:count.total_rollver,
+          service_fee:count.total_service_fee,
+          profit:count.total_profit,
+          actual_profit:count.total_actual_profit,
+          // "total_rollver": 0.25000, //总库存费
+          // "total_service_fee": -30.43000, //总手续费
+          // "total_fee": 2000, //总金额
+          // "total_profit": -12.39000, //总利润 总盈亏
+          // "total_actual_profit": -12.17000 //总实际盈亏盈
         })
         helper.addTableFooter(data)
       })

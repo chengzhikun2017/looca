@@ -33,7 +33,6 @@ export default {
     setCurrent(s, id) {
       s.currentMt4Uid = id
       helper.resetStoreTrade()
-      // console.log('%c s.list','color:red',s.list)
       s.currentMt4Info = s.list.find((item) => {
         return item.mt4Uid === id 
       })
@@ -45,9 +44,6 @@ export default {
     resetCurrent(s) {
       helper.removeLocal('currentMt4Uid')
     },
-    // setListGot(bool) {
-    //   state.listGot = bool
-    // },
   },
 
   actions: {
@@ -75,8 +71,6 @@ export default {
         showLoading: false,
       })
       promise.then(res => {
-        console.log('%c res mt4 account','color:red',res)
-        // commit('setListGot',true)
         state.listGot = true
         let tempArr = []
         let tempVip = []

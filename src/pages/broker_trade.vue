@@ -11,6 +11,8 @@
         <DepthSelect v-model="depth"></DepthSelect>
         <Mt4TypeSelect v-model="mt4Type"></Mt4TypeSelect>
         <AccountTypeSelect v-model="accountType"></AccountTypeSelect>
+        <SymbolSelect v-model='symbol'></SymbolSelect>
+        <ActionTypeSelect v-model='actionType'></ActionTypeSelect>
         <a-range-picker :ranges="{ '今天': [moment(), moment()], '近一周': [moment().add(-6,'day'), moment()] }" :defaultValue="[defaultStart,defaultEnd]" @change="onDateRangeChange" style="width: 240px" />
         <a-input style="width: 150px" v-model="search" placeholder="手机号/姓名" @keydown.enter="searchList" />
         <a-button @click="searchList" type="primary">查询</a-button>
@@ -68,9 +70,10 @@ const columnsOpen = [
       [CR]: 'user_account_type' }, },
   { title: "客户级别", [DI]: "depth", [SS]: {
       [CR]: 'depth' }, },
+  { title: "上级代理",[DI]: "parent_name",},
   { title: "订单号", [DI]: "order_id", },
   { title: "交易对", [DI]: "symbol", },
-  // { title: "方向", [DI]: "action", },
+  { title: "方向", [DI]: "action_type", },
   { title: "数量", [DI]: "amount", },
   { title: "开仓价", [DI]: "open_price", },
   { title: "开仓时间", [DI]: "open_time", [SS]: {
@@ -88,9 +91,10 @@ const columnsHistory = [
   { title: "手机号", [DI]: "phone", width: "110px" },
   { title: "客户类型", [DI]: "user_account_type", [SS]: {[CR]: 'user_account_type' }, },
   { title: "客户级别", [DI]: "depth", [SS]: {[CR]: 'depth' }, },
+  { title: "上级代理",[DI]: "parent_name",},
   { title: "订单号", [DI]: "order_id", },
   { title: "交易对", [DI]: "symbol", },
-  // { title: "方向", [DI]: "action", },
+  { title: "方向", [DI]: "action_type", },
   { title: "数量", [DI]: "amount", },
   { title: "开仓价", [DI]: "open_price", },
   { title: "平仓价", [DI]: "close_price", },
@@ -112,7 +116,7 @@ export default {
       listType: 'open',
       search: '',
       loading: false,
-      currentPage: 1,
+      // currentPage: 1,
       savedParams: {
         listType: 'open'
       },
@@ -128,18 +132,21 @@ export default {
   },
   methods: {
     searchList() {
-      let params = {
-        search: this.search,
-        listType: this.listType,
-        partnerUid: this.partnerUid,
-        depth: this.depth,
-        accountType: this.accountType,
-        mt4AccountType: this.mt4Type,
-        st: this.startDate,
-        et: this.endDate,
-      }
-      this.savedParams = params
-      this.currentPage = 1
+      // let params = {
+      //   listType: this.listType,
+      //   partnerUid: this.partnerUid,
+      //   depth: this.depth,
+      //   accountType: this.accountType,
+      //   mt4AccountType: this.mt4Type,
+
+      //   st: this.startDate,
+      //   et: this.endDate,
+      //   search: this.search,
+      // }
+      // this.savedParams = params
+      // this.currentPage = 1
+      this.beforeSearchList()
+      this.savedParams.listType = this.listType
       if (this.savedParams.listType === 'open') {
         this.getMethod = this.getOpenOrder
       } else if (this.savedParams.listType === 'history') {

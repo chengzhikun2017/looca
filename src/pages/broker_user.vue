@@ -5,6 +5,7 @@
       <div class="agent_overview-search">
         <PartnerSelect v-model="partnerUid"></PartnerSelect>
         <DepthSelect v-model="depth"></DepthSelect>
+        <AgentLevelSelect v-model="agentLevel"></AgentLevelSelect>
         <AccountTypeSelect v-model="accountType"></AccountTypeSelect>
         <a-input style="width: 150px" v-model="search" placeholder="手机号/姓名" @keydown.enter="searchList" />
         <a-button @click="searchList" type="primary">查询</a-button>
@@ -107,6 +108,10 @@ const columns = [
     },
   },
   {
+    title: "上级代理",
+    [DI]: "parent_name",
+  },
+  {
     title: "代理等级",
     [DI]: "level",
     [SS]: {
@@ -159,18 +164,12 @@ export default {
       partnerUid: this.$store.state.account.userId,
       search: '',
       columns,
-      depth: 0,
       loading: false,
-      accountType: "",
-      currentPage: 1,
-      savedParams: {},
+      // currentPage: 1,
+      // savedParams: {},
       showUpgradeAgent: false,
       targetLv: null,
       upgradingUserInfo: null,
-
-      // search: 客户名字或者手机号
-      // page: 页码， 默认1开始
-      // limit: 每页个数，默认10
     }
   },
   created() {
@@ -178,7 +177,6 @@ export default {
     //   this.search = this.queryPhone
     //   this.partnerUid = this.queryPartnerUid
     // }
-    console.log('%c ', 'color:red', )
     this.searchList()
   },
   methods: {
@@ -226,10 +224,11 @@ export default {
         partnerUid: this.partnerUid,
         depth: this.depth,
         accountType: this.accountType,
+        level: this.agentLevel || "",
       }
-      console.log('%c params', 'color:red', params)
       this.currentPage = 1
       this.savedParams = params
+
       this.getList()
     },
     addFooterCount() {
@@ -243,6 +242,7 @@ export default {
           balance_fee: count.total_balance_fee / 100,
           brokerage_fee: count.total_brokerage_fee / 100,
           total_pay_fee: count.total_pay_fee / 100,
+          // "total_brokerage_fee": 0, //总佣金，美金，分
         })
         helper.addTableFooter(data)
       })
