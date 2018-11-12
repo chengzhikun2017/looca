@@ -1,12 +1,35 @@
 <template>
   <div class="l-qudao-signup">
     <div class="signup-box" v-if="showSignup">
-      <div class="signup-box-pannel">
-        <img src="@/assets/spreadLinks.jpg" class="signup-box-pannel-img" alt="">
-        <span class="close-btn pointer" @click="hide">
-          <a-icon type="close"  />
-        </span>
+      <div class="signup-box-pannel" flex>
+        <div class="signup-box-pannel-left" flex-box="1" flex="main:center">
+          <div class="form-box">
+            <h3 class="title">
+              立即与<span class="title-emphasize">乐恺环球</span>合作
+            </h3>
+            <p class="label">您的姓名</p>
+            <a-input v-model="familyName" placeholder="请填写姓名" class="form-box-input"></a-input>
+            <p class="label">联系电话</p>
+            <a-input v-model="phone" placeholder="请填写手机号" maxlength="11" class="form-box-input"></a-input>
+            <div class="btn-box">
+              <a-button :loading='loading' :disabled="submitFlag"  class="form-box-input" type="primary" @click="submit">提交</a-button>
+            </div>
+          </div>
+        </div>
+        <div class="signup-box-pannel-right" flex-box="1">
+          <div class="title">加入我们</div>
+          <div class="service-qr-box">
+            <img src="@/assets/qrcode_assit.jpg" alt="" class="qr-pic">
+            <h3 class="text">客服微信：Looco8</h3>
+          </div>
+        </div>
       </div>
+      <h3 class="signup-box-note">
+        每手返佣<span class="signup-box-note-emphasize">8美金</span>，最高返佣<span class="signup-box-note-emphasize">20美金</span>，手续费可封顶（按月支付）
+      </h3>
+      <span class="close-btn pointer" @click="hide">
+        <a-icon type="close"  />
+      </span>
     </div>
     <div class="thumbnail-box pointer" @click="show" v-if="!showSignup">
       <img src="@/assets/qrcode_assit.jpg" alt="" class="qr-pic">
@@ -105,8 +128,8 @@ export default {
 .signup-box {
   box-sizing: border-box;
   width: 480px;
-  // padding:0 15px;
-  // height: 300px;
+  padding:0 15px;
+  height: 300px;
   /*border: 1px solid red;*/
   position: fixed;
   left: 0;
@@ -133,12 +156,12 @@ export default {
   }
   .close-btn {
     color: #fff;
-    padding: 6px;
+    padding: 8px;
     width: 30px;
     height: 30px;
     font-size: 20px;
     position: absolute;
-    right: 3px;
+    right: 5px;
     top: 0;
     line-height: 1;
     opacity: 0.7;
@@ -167,10 +190,6 @@ export default {
       text-align: left;
       margin-top: 25px;
     }
-  }
-  .signup-box-pannel-img {
-    width: 100%;
-    height: auto;
   }
   .signup-box-pannel-right {
     text-align: center;

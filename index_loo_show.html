@@ -9,6 +9,12 @@
   <meta http-equiv="Pragma" content="max-age=0" />
   <title>LoocoGlobal 乐恺环球</title>
   <script type="text/javascript">
+
+  var viewport = document.querySelector("meta[name=viewport]");
+  var windowInnerWidth = window.innerWidth
+  var windowOuterWidth = window.outerWidth
+  // viewport.setAttribute('content', 'width=device-width,initial-scale=' + windowInnerWidth /960 + ',user-scalable=yes')
+  viewport.setAttribute('content', 'width=device-width,initial-scale=' + windowOuterWidth/480 + ',user-scalable=yes')
   window.onerror = function(message, source, lineno, colno, error) {
     return
     alert(message)
