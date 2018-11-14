@@ -3,11 +3,11 @@
     <BrokerAsyncTip></BrokerAsyncTip>
     <div class="l-search-box">
       <div class="agent_overview-search">
-        <a-radio-group v-model="listType" style="margin:8px">
+        <a-radio-group v-model="listType" style="margin:8px 8px 8px 0">
           <a-radio-button value="point">手续费</a-radio-button>
           <a-radio-button value="follow">跟单佣金</a-radio-button>
         </a-radio-group>
-        <PartnerSelect v-model="partnerUid" :containSelf="true"></PartnerSelect>
+        <PartnerSelect v-model="partnerInfo" :containSelf="true"></PartnerSelect>
         <DepthSelect v-model="depth"></DepthSelect>
         <!-- <Mt4TypeSelect v-model="mt4Type"></Mt4TypeSelect> -->
         <!-- <AccountTypeSelect v-model="accountType"></AccountTypeSelect> -->
@@ -174,10 +174,11 @@ export default {
     }
   },
   created(){
-    if(this.queryPhone){
-      this.search = this.queryPhone
-      this.partnerUid = this.queryPartnerUid
-    }
+    // if(this.queryPhone){
+    //   this.search = this.queryPhone
+    //   //todo
+    //   this.partnerUid = this.queryPartnerUid
+    // }
     this.searchList()
   },
   methods: {
@@ -203,19 +204,12 @@ export default {
       //
     },
     searchList() {
-      let params = {
-        search: this.search,
-        childSearch: this.childSearch,
-        brokerageType: this.listType,
-        partnerUid: this.partnerUid,
-        depth: this.depth,
-        accountType: this.accountType,
-        mt4AccountType: this.mt4Type,
-        st: this.startDate,
-        et: this.endDate,
-      }
-      this.savedParams = params
-      this.currentPage = 1
+      
+      this.beforeSearchList()
+      this.savedParams.brokerageType = this.listType
+      this.savedParams.childSearch = this.childSearch
+      // this.savedParams = params
+      // this.currentPage = 1
       setTimeout(() => {
         this.getList()
       }, 20);
@@ -280,6 +274,7 @@ export default {
       } else if (this.savedParams.brokerageType === 'point') {
         return columnsPoint
       }
+      return columnsFollow
     },
     list() {
       return this.profitList

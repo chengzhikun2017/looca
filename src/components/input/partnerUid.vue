@@ -21,20 +21,29 @@
       </a-select-option>
     </a-select>
     <a-tag closable @close="onClose">Tag 2</a-tag> -->
+    <!-- 使用缓存  -->
+    <!-- 重新加载 -->
     <a-modal
-      title="Title"
+      title="选择所属上级"
       :visible="showSeletor"
-      @cancel="showSeletor=false"
+      @cancel="onCancel"
+      @ok="onOk"
     >
-    <!-- @ok="handleOk"
-    :confirmLoading="confirmLoading"
-     -->
-       <a-tree
-        :loadData="onLoadData"
-        :treeNodes="treeData"
-      />
+      <!-- @ok="handleOk"
+      :confirmLoading="confirmLoading"
+       -->
+     <a-tree
+      :loadData="onLoadData"
+       @select="onSelect"
+      :treeNodes="partnerOpts"
+      :selectedKeys="selectedNode.key?[selectedNode.key]:[]"
+    />
     </a-modal>
-    <a-button @click="showSeletor=true">选择</a-button>
+    <!-- <a-tag>{{selectedNode.title}}</a-tag> -->
+    <!-- <a-button @click="show">选择</a-button> -->
+    <a-input-search placeholder="input search text" disabled style="width: 160px"  :value="selectedNode.title" @search="show" >
+     <a-button slot="enterButton" type="primary">选择</a-button>
+   </a-input-search>
   </span>
 </template>
 <script>
@@ -43,24 +52,17 @@ export default {
   name: 'partnerUid',
   data() {
     return {
-      showSeletor:true,
-      treeData: [
-        { title: 'Expand to load', key: '0' },
-        { title: 'Expand to load', key: '1' },
-        { title: 'Tree Node', key: '2', isLeaf: true },
-      ],
-      partnerUid: '',
-      users: {
-        depth1: [],
-        depth2: [],
-        depth3: [],
-      },
-      selectedUserId: {
-        depth1: "",
-        depth2: "",
-        depth3: "",
-      },
-      currentDepth: 0,
+      modelValue: null,
+      showSeletor: false,
+      // treeData: [
+      //   { title: 'Expand to load', key: '0' },
+      //   { title: 'Expand to load', key: '1' },
+      //   { title: 'Tree Node', key: '2', isLeaf: true },
+      // ],
+      // partnerUid: '',
+      partnerOpts: [],
+      temp: 0,
+      selectedNode: {},
     }
   },
   props: {
@@ -72,80 +74,116 @@ export default {
     },
   },
   methods: {
+    onOk() {
+      this.$emit('input', { ...this.selectedNode })
+      this.hide()
+    },
+    onCancel() {
+      this.selectedNode = this.value
+      this.hide()
+    },
+    hide() {
+      this.showSeletor = false
+    },
+    show() {
+      // this.selectedNode = this.value
+      this.showSeletor = true
+    },
+    onSelect(keys, node) {
+      // console.log('on select ',args)
+      // console.log('nodes', node)
+      this.selectedNode = node.node.dataRef
+    },
     onLoadData(treeNode) {
+      console.log('%c treeNode','color:red',treeNode)
+      if (treeNode.dataRef.depth >= 2 || treeNode.dataRef.isLeaf) {
+        return Promise.resolve()
+      }
+      // console.log('%c children', 'color:red', treeNode.dataRef)
       return new Promise((resolve) => {
         if (treeNode.dataRef.children) {
           resolve()
           return
         }
-        setTimeout(() => {
-          treeNode.dataRef.children = [
-            { title: 'Child Node', key: `${treeNode.eventKey}-0` },
-            { title: 'Child Node', key: `${treeNode.eventKey}-1` },
-          ]
-          this.treeData = [...this.treeData]
+        let nodeData = treeNode.dataRef
+        let params = {
+          partnerUid: treeNode.dataRef.partnerUid
+        }
+        if (nodeData.depth !== 0) {
+          params.childUid = nodeData.key
+        }
+        this.getUserList(params).then((res) => {
+          treeNode.dataRef.children = res.map((item) => {
+            return {
+              title: item.name,
+              key: item.uid + '',
+              childUid:item.uid,
+              depth: nodeData.depth + 1,
+              partnerUid: nodeData.partnerUid,
+              isLeaf:nodeData.depth >= 1,
+            }
+          })
+          this.partnerOpts = [...this.partnerOpts]
           resolve()
-        }, 1000)
+        })
       })
     },
-    onChange(value) {
-      console.log(arguments)
-    },
-    onClose() {
-      console.log('%c tag closed', 'color:red', )
-    },
-    getUsers() {
-      if (this.currentDepth >= 3) {
-        return
-      }
-      this.currentDepth++
-        this.getUserList({
-          partnerUid: this.partnerUid
-        })
+    initRootTree() {
+      this.getPartner()
         .then((res) => {
-          this.users["depth" + this.currentDepth] = res
+          let arr = res.map((item) => {
+            return {
+              title: item.name,
+              key: item.partnerUid + '',
+              depth: 0,
+              partnerUid: item.partnerUid,
+            }
+          })
+          let firstRoot = {
+            title: "我的客户",
+            key: this.userId + '',
+            depth: 0,
+            partnerUid: this.userId
+          }
+          arr.unshift(firstRoot)
+          if (this.containSelf) {
+            firstRoot = {
+              title: "本人",
+              key: '0',
+              depth: 0,
+              partnerUid: this.userId,
+              isLeaf:true,
+            }
+            arr.unshift(firstRoot)
+          }
+          arr.forEach((item) => {
+            item.isRoot = true 
+          })
+          this.partnerOpts = arr
+          let valueInited = this.selectedNode.key!==undefined
+          if(valueInited){
+
+          }else {
+            this.selectedNode = firstRoot
+            this.$emit('input', firstRoot)
+          }
+          // return arr
         })
     },
     ...mapActions('broker', ['getPartner', 'getUserList'])
   },
   created() {
-    this.getPartner()
-    if (!this.value) {
-      this.partnerUid = this.userId
-    } else {
-      this.partnerUid = Number(this.value)
-    }
+    this.selectedNode = this.value
+    this.initRootTree()
   },
   watch: {
-    selectedUserId(value) {
-      console.log('%c selected user id changed', 'color:red', value)
-      this.getUserList({
-        partnerUid: this.partnerUid,
-        childUid: value,
-      })
-    },
-    partnerUid(val) {
-      // this.getUsers()
-      this.$emit('input', val)
-    },
     value(value) {
-      this.partnerUid = Number(value)
+      // console.log('%c selectedNode','color:red',value)
+      this.selectedNode = value
     },
   },
   computed: {
-    partnerOpts() {
-      let arr = this.partners.map((item) => {
-        return {
-          label: item.name,
-          value: item.partnerUid,
-        }
-      })
-      arr.unshift({ label: "我的客户", value: this.userId })
-      if (this.containSelf) {
-        arr.unshift({ label: "本人", value: 0 })
-      }
-      return arr
-    },
+    
     ...mapState('account', ['userId']),
     ...mapState('broker', ['partners'])
   },

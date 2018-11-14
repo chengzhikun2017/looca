@@ -10,6 +10,7 @@ import {vueApp} from './../../main.js'
 export default {
   data() {
     return {
+      partnerInfo:{},
       partnerUid: "",
       depth: "",
       mt4Type: "",
@@ -22,13 +23,24 @@ export default {
       currentPage:1,      
     }
   },
+  created() {
+    if(this.isFromUserPage){
+      this.search = this.queryPhone
+      let {depth,isRoot,isLeaf,key,partnerUid,childUid,title}=this._query
+      this.partnerInfo = {
+        depth,isRoot,isLeaf,key,partnerUid,childUid,title
+      }
+    }
+  },
   computed: {
-
+    _query(){
+      return this.$route.query
+    },
+    isFromUserPage(){
+      return this.$route.query.from_user == 1
+    },
     queryPhone() {
       return this.$route.query.phone
-    },
-    queryPartnerUid() {
-      return this.$route.query.partnerUid
     },
     ...mapState('broker',['partnersGot']),
   },
@@ -44,14 +56,16 @@ export default {
   methods: {
     beforeSearchList(){
       let params = {
-        search: this.search,
-        partnerUid: this.partnerUid,
-        depth: this.depth,
+        // search: this.search,
+        // partnerUid: this.partnerUid,
+        partnerUid: this.partnerInfo.partnerUid,
+        childUid:this.partnerInfo.childUid || '',
+        depth: this.partnerInfo.depth,
         accountType: this.accountType,
         level: this.agentLevel || "",
         symbol: this.symbol&&`${this.symbol}.` || '',
         actionType: this.actionType || '',
-
+        mt4AccountType: this.mt4Type,
         st: this.startDate,
         et: this.endDate,
         search: this.search,

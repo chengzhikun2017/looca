@@ -3,7 +3,7 @@
     <BrokerAsyncTip></BrokerAsyncTip>
     <div class="l-search-box">
       <div class="agent_overview-search">
-        <PartnerSelect v-model="partnerUid"></PartnerSelect>
+        <PartnerSelect v-model="partnerInfo"></PartnerSelect>
         <DepthSelect v-model="depth"></DepthSelect>
         <Mt4TypeSelect v-model="mt4Type"></Mt4TypeSelect>
         <AccountTypeSelect v-model="accountType"></AccountTypeSelect>
@@ -79,28 +79,29 @@ export default {
       search:'',
       columns,
       loading:false,
-      savedParams:{},
-      currentPage:1,
+      // savedParams:{},
+      // currentPage:1,
     }
   },
   created(){
-    if(this.queryPhone){
-      this.search = this.queryPhone
-      this.partnerUid = this.queryPartnerUid
-    }
+    // if(this.queryPhone){
+    //   this.search = this.queryPhone
+    //   this.partnerUid = this.queryPartnerUid
+    // }
     this.searchList()
   },
   methods: {
     searchList(){
-      let params = {
-        search:this.search,
-        partnerUid:this.partnerUid,
-        depth:this.depth,
-        accountType:this.accountType,
-        mt4AccountType:this.mt4Type,
-      }
-      this.currentPage = 1
-      this.savedParams = params
+      // let params = {
+      //   search:this.search,
+      //   partnerUid:this.partnerUid,
+      //   depth:this.depth,
+      //   accountType:this.accountType,
+      //   mt4AccountType:this.mt4Type,
+      // }
+      // this.currentPage = 1
+      // this.savedParams = params
+      this.beforeSearchList()
       this.getList()
     },
     addFooterCount() {

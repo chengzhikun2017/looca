@@ -3,11 +3,11 @@
     <BrokerAsyncTip></BrokerAsyncTip>
     <div class="l-search-box">
       <div class="agent_overview-search">
-        <a-radio-group v-model="listType" style="margin:8px">
+        <a-radio-group v-model="listType" style="margin:8px 8px 8px 0">
           <a-radio-button value="open">持仓订单</a-radio-button>
           <a-radio-button value="history">历史记录</a-radio-button>
         </a-radio-group>
-        <PartnerSelect v-model="partnerUid"></PartnerSelect>
+        <PartnerSelect v-model="partnerInfo"></PartnerSelect>
         <DepthSelect v-model="depth"></DepthSelect>
         <Mt4TypeSelect v-model="mt4Type"></Mt4TypeSelect>
         <AccountTypeSelect v-model="accountType"></AccountTypeSelect>
@@ -124,10 +124,10 @@ export default {
     }
   },
   created() {
-    if(this.queryPhone){
-      this.search = this.queryPhone
-      this.partnerUid = this.queryPartnerUid
-    }
+    // if(this.queryPhone){
+    //   this.search = this.queryPhone
+    //   this.partnerUid = this.queryPartnerUid
+    // }
     this.searchList()
   },
   methods: {

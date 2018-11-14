@@ -65,7 +65,9 @@ export default {
     },
     getPartner({ state },force) {
       if(!force && state.partnersGot){
-        return
+        return new Promise((resolve,reject)=>{
+          resolve(state.partners)
+        })
       }
       let promise = fetch({
         url: "broker/user/partner",
@@ -74,7 +76,7 @@ export default {
         state.partners = res
         state.partnersGot = true
         vueApp.$bus.emit('partners_got')
-        // console.log('%c partners_got','color:red',)
+        // console.log('%c partners_got','color:red',res)
       })
       return promise
     },
@@ -88,6 +90,11 @@ export default {
         },
       }, { showLoading: false })
       promise.then((res) => {
+        console.log('%c get user ','color:red',res)
+        console.log('%c params.depth','color:red',params.depth)
+        res.list.forEach((item) => {
+          item.depth = item.depth + ( params.depth || 0 )
+        })
         state.userList = Object.assign(state.userList, res)
       })
       return promise
@@ -102,6 +109,9 @@ export default {
         },
       }, { showLoading: false })
       promise.then((res) => {
+        res.list.forEach((item) => {
+          item.depth = item.depth + ( params.depth || 0 )
+        })
         state.mt4List = Object.assign(state.mt4List, res)
       })
       return promise
@@ -116,6 +126,9 @@ export default {
         },
       }, { showLoading: false })
       promise.then((res) => {
+        res.list.forEach((item) => {
+          item.depth = item.depth + ( params.depth || 0 )
+        })
         state.openOrderList = Object.assign(state.openOrderList, res)
       })
       return promise
@@ -130,6 +143,9 @@ export default {
         },
       }, { showLoading: false })
       promise.then((res) => {
+        res.list.forEach((item) => {
+          item.depth = item.depth + ( params.depth || 0 )
+        })
         state.historyOrderList = Object.assign(state.historyOrderList, res)
       })
       return promise
@@ -144,6 +160,9 @@ export default {
         },
       }, { showLoading: false })
       promise.then((res) => {
+        res.list.forEach((item) => {
+          item.depth = item.depth + ( params.depth || 0 )
+        })
         state.profitList = Object.assign(state.profitList, res)
       })
       return promise

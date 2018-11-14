@@ -3,7 +3,7 @@
     <BrokerAsyncTip></BrokerAsyncTip>
     <div class="l-search-box">
       <div class="agent_overview-search">
-        <PartnerSelect v-model="partnerUid"></PartnerSelect>
+        <PartnerSelect v-model="partnerInfo" @input2="onInput2"></PartnerSelect>
         <DepthSelect v-model="depth"></DepthSelect>
         <AgentLevelSelect v-model="agentLevel"></AgentLevelSelect>
         <AccountTypeSelect v-model="accountType"></AccountTypeSelect>
@@ -30,13 +30,13 @@
     <div class="list broker-list ">
       <a-table :pagination="pagination" bordered :dataSource="userList.list" :rowKey="rowkey" :columns="columns" @change="onTableChange" :loading="loading">
         <template slot="action" slot-scope="text, record, index">
-          <a-button size="small" type="primary" @click="goPage(`/broker_mt4Ac?phone=${record.phone}&partnerUid=${savedParams.partnerUid}`)">
+          <a-button size="small" type="primary" @click="onClickAction(record,'/broker_mt4Ac')">
             MT4账户
           </a-button>
-          <a-button size="small" type="primary" @click="goPage(`/broker_trade?phone=${record.phone}&partnerUid=${savedParams.partnerUid}`)">
+          <a-button size="small" type="primary" @click="onClickAction(record,'/broker_trade')">
             MT4交易
           </a-button>
-          <a-button size="small" type="primary" @click="goPage(`/broker_profit?phone=${record.phone}&partnerUid=${savedParams.partnerUid}`)">
+          <a-button size="small" type="primary" @click="onClickAction(record,'/broker_profit')">
             佣金报表
           </a-button>
         </template>
@@ -161,7 +161,6 @@ export default {
   mixins: [brokerSearchInputs],
   data() {
     return {
-      partnerUid: this.$store.state.account.userId,
       search: '',
       columns,
       loading: false,
@@ -173,13 +172,27 @@ export default {
     }
   },
   created() {
-    // if(this.queryPhone){
-    //   this.search = this.queryPhone
-    //   this.partnerUid = this.queryPartnerUid
-    // }
-    this.searchList()
+
+  },
+  mounted() {
+    this.$nextTick(() => {
+      setTimeout(() => {
+        this.searchList()
+      }, 20);
+    })
   },
   methods: {
+    onClickAction(record, path) {
+      // helper.urlConcat(path,{
+      //   ...savedParams.partnerInfo,
+      //   phone:record.phone,
+      // }) 
+      this.goPage(helper.urlConcat(path, {
+        ...this.partnerInfo,
+        phone: record.phone,
+        from_user:1,
+      }))
+    },
     submitUpgrade(targetUid, level) {
       this.upgradeAgent({
         targetUid,
@@ -187,6 +200,9 @@ export default {
       }).then(() => {
         this.closeUpgrade()
       })
+    },
+    onInput2(e) {
+      console.log('%c input 2 ', 'color:red', e)
     },
     closeUpgrade() {
       this.showUpgradeAgent = false
@@ -219,17 +235,20 @@ export default {
       helper.goPage(path)
     },
     searchList() {
-      let params = {
-        search: this.search,
-        partnerUid: this.partnerUid,
-        depth: this.depth,
-        accountType: this.accountType,
-        level: this.agentLevel || "",
-      }
-      this.currentPage = 1
-      this.savedParams = params
+      // let params = {
+      //   search: this.search,
+      //   partnerUid: this.partnerUid,
+      //   depth: this.depth,
+      //   accountType: this.accountType,
+      //   level: this.agentLevel || "",
+      // }
+      // this.currentPage = 1
+      // this.savedParams = params
 
+      // setTimeout(() => {
+      this.beforeSearchList()
       this.getList()
+      // }, 0);
     },
     addFooterCount() {
       this.$nextTick(() => {
@@ -302,16 +321,6 @@ export default {
         default:
           return [];
       }
-    },
-    partnerOpts() {
-      let arr = this.partners.map((item) => {
-        return {
-          label: item.name,
-          value: item.partnerUid,
-        }
-      })
-      arr.unshift({ label: "我的客户", value: this.userId })
-      return arr
     },
     pagination() {
       return {

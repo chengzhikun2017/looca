@@ -221,7 +221,6 @@ export default class helper {
     vueApp.$store.dispatch('wallet/getPayAccount')
     vueApp.$store.dispatch('wallet/getWallet')
     vueApp.$store.dispatch('broker/getPartner')
-    vueApp.$store.dispatch('broker/getPartner')
     vueApp.$store.dispatch('share/getShareInfo')
   }
 
