@@ -211,6 +211,7 @@ export default class helper {
     vueApp.$store.commit('wallet/resetList')
     vueApp.$store.commit('cards/clearListDC')
     vueApp.$store.commit('mt4AC/resetCurrent')
+    vueApp.$store.commit('broker/resetPartner')
   }
 
   static getInitialInfo() {

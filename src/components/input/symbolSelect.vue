@@ -12,7 +12,7 @@ export default {
     return {
       symbol:0 ,
       symbols:[
-        { label:'所有交易对',value:0},
+        { label:'交易对',value:0},
         { label:'EURUSD',value:'EURUSD'},
         { label:'AUDUSD',value:'AUDUSD'},
         { label:'USDCAD',value:'USDCAD'},

@@ -12,7 +12,7 @@ export default {
     return {
       actionType: 0,
       actionTypes: [
-        { label:'全部方向',value:0},
+        { label:'方向',value:0},
         { label:'Sell',value:'Sell'},
         { label:'Buy',value:'Buy'},
       ],

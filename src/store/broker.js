@@ -36,6 +36,10 @@ export default {
         //body 
       })
     },
+    resetPartner(state) {
+      state.partners = []
+      state.partnersGot = false
+    },
   },
   actions: {
     getUserList({state,commit},params) {
