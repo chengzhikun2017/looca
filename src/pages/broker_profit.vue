@@ -99,6 +99,7 @@ const columnsPoint = [
   { title: "客户名字", [DI]: "guest_name", width: "110px" },
   { title: "客户手机号", [DI]: "guest_phone" },
   { title: "客户级别", [DI]: "depth", [SS]: {[CR]: 'depth' }, },
+  { title: "上级代理",[DI]: "parent_name",},
   { title: "类型", [DI]: "type" ,[SS]: {[CR]: 'type' }, },
   { title: "订单号", [DI]: "order_id", },
   { title: "交易对", [DI]: "symbol", },
@@ -222,6 +223,7 @@ export default {
         let count = this.list.count
         let data = helper.createTableFootData(this.columns,{
           fee:count.total_fee / 100,
+          amount:Number(count.total_amount),
           rollver:count.total_rollver,
           service_fee:count.total_service_fee,
           profit:count.total_profit,
