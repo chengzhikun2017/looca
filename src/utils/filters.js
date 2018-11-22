@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import TimeUtil from './time.js'
+import SYMBOL from './symbols.js'
 Vue.filter('bankCard', function(value) {
   var start4 = value.slice(0, 4)
   var end4 = value.slice(value.length - 4)
@@ -149,4 +150,8 @@ Vue.filter('mt4Type', function(value) {
     case 'follow':
       return "跟单账号";
   }
+})
+
+Vue.filter('symbol', function(value) {
+  return SYMBOL[value]
 })

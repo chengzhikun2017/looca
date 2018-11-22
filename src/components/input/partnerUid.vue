@@ -42,7 +42,7 @@
     <!-- <a-tag>{{selectedNode.title}}</a-tag> -->
     <!-- <a-button @click="show">选择</a-button> -->
     <a-input-search placeholder="input search text" disabled style="width: 160px"  :value="selectedNode.title" @search="show" >
-     <a-button slot="enterButton" type="primary">选择</a-button>
+     <a-button slot="enterButton" type="primary">查看客户</a-button>
    </a-input-search>
   </span>
 </template>

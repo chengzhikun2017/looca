@@ -63,7 +63,7 @@ export default {
         depth: this.partnerInfo.depth,
         accountType: this.accountType,
         level: this.agentLevel || "",
-        symbol: this.symbol&&`${this.symbol}.` || '',
+        symbol: this.symbol || '',
         actionType: this.actionType || '',
         mt4AccountType: this.mt4Type,
         st: this.startDate,

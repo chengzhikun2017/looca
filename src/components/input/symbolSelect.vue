@@ -6,53 +6,29 @@
   </a-select>
 </template>
 <script>
+import SYMBOLS from './../../utils/symbols.js'
+const symbols = [{ label: '交易对', value: 0 },]
+for(let key in SYMBOLS){
+  symbols.push({ label: SYMBOLS[key], value: key },)
+}
 export default {
   name: 'symbolSelect',
   data() {
     return {
-      symbol:0 ,
-      symbols:[
-        { label:'交易对',value:0},
-        { label:'EURUSD',value:'EURUSD'},
-        { label:'AUDUSD',value:'AUDUSD'},
-        { label:'USDCAD',value:'USDCAD'},
-        { label:'USDJPY',value:'USDJPY'},
-        { label:'EURAUD',value:'EURAUD'},
-        { label:'EURJPY',value:'EURJPY'},
-        { label:'GBPUSD',value:'GBPUSD'},
-        { label:'CADJPY',value:'CADJPY'},
-        { label:'EURGBP',value:'EURGBP'},
-        { label:'NZDUSD',value:'NZDUSD'},
-        { label:'USDCHF',value:'USDCHF'},
-        { label:'USDSGD',value:'USDSGD'},
-        { label:'AUDCHF',value:'AUDCHF'},
-        { label:'AUDJPY',value:'AUDJPY'},
-        { label:'EURCAD',value:'EURCAD'},
-        { label:'NZDJPY',value:'NZDJPY'},
-        { label:'EURCHF',value:'EURCHF'},
-        { label:'AUDCAD',value:'AUDCAD'},
-        { label:'CHFJPY',value:'CHFJPY'},
-        { label:'CADCHF',value:'CADCHF'},
-        { label:'GBPJPY',value:'GBPJPY'},
-        { label:'GBPCHF',value:'GBPCHF'},
-        { label:'NZDCHF',value:'NZDCHF'},
-        { label:'NZDCAD',value:'NZDCAD'},
-        { label:'XAGUSD',value:'XAGUSD'},
-        { label:'XAUUSD',value:'XAUUSD'},
-        { label:'XTIUSD',value:'XTIUSD'},
-      ],
+      symbol: 0,
+      symbols,
     }
   },
-  props:{
-    value:{
-      required:true,
+  props: {
+    value: {
+      required: true,
     },
   },
   watch: {
     symbol(value) {
       this.$emit('input', value)
     },
-    value(value){
+    value(value) {
       this.symbol = value
     },
   },

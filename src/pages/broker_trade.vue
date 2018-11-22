@@ -43,6 +43,9 @@
         <template slot="money" slot-scope="money">
           {{money | money}}
         </template>
+        <template slot="symbol" slot-scope="symbol">
+          {{symbol | symbol}}
+        </template>
       </a-table>
     </div>
   </div>
@@ -72,7 +75,7 @@ const columnsOpen = [
       [CR]: 'depth' }, },
   { title: "上级代理",[DI]: "parent_name",},
   { title: "订单号", [DI]: "order_id", },
-  { title: "交易对", [DI]: "symbol", },
+  { title: "交易对", [DI]: "symbol", [SS]: {[CR]: 'symbol' },},
   { title: "方向", [DI]: "action_type", },
   { title: "数量", [DI]: "amount", },
   { title: "开仓价", [DI]: "open_price", },
@@ -93,7 +96,7 @@ const columnsHistory = [
   { title: "客户级别", [DI]: "depth", [SS]: {[CR]: 'depth' }, },
   { title: "上级代理",[DI]: "parent_name",},
   { title: "订单号", [DI]: "order_id", },
-  { title: "交易对", [DI]: "symbol", },
+  { title: "交易对", [DI]: "symbol",[SS]: {[CR]: 'symbol' }, },
   { title: "方向", [DI]: "action_type", },
   { title: "数量", [DI]: "amount", },
   { title: "开仓价", [DI]: "open_price", },

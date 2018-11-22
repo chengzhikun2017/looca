@@ -40,6 +40,9 @@
         <template slot="depth" slot-scope="depth">
           {{depth | guestDepth}}
         </template>
+        <template slot="symbol" slot-scope="symbol">
+          {{symbol | symbol}}
+        </template>
         <template slot="money" slot-scope="money">
           {{money | money}}
         </template>
@@ -66,6 +69,9 @@
           </template>
           <template slot="money" slot-scope="money">
             {{money | money}}
+          </template>
+          <template slot="symbol" slot-scope="symbol">
+            {{symbol | symbol}}
           </template>
           <template slot="type" slot-scope="type">
             {{type | incomeType}}
@@ -102,7 +108,7 @@ const columnsPoint = [
   { title: "上级代理",[DI]: "parent_name",},
   { title: "类型", [DI]: "type" ,[SS]: {[CR]: 'type' }, },
   { title: "订单号", [DI]: "order_id", },
-  { title: "交易对", [DI]: "symbol", },
+  { title: "交易对", [DI]: "symbol", [SS]: {[CR]: 'symbol' },},
   { title: "方向", [DI]: "action_type", },
   { title: "数量", [DI]: "amount", },
   { title: "开仓价", [DI]: "open_price", },
@@ -136,7 +142,7 @@ const detailColums = [
   { title: "序列号", [DI]: "",[SS]:{[CR]:'index'} },
   { title: "MT4账号", [DI]: "mt4Uid", },
   { title: "订单号", [DI]: "orderId", },
-  { title: "交易对", [DI]: "symbol", },
+  { title: "交易对", [DI]: "symbol", [SS]: {[CR]: 'symbol' },},
   { title: "方向", [DI]: "actionType", },
   { title: "数量", [DI]: "amount", },
   { title: "开仓价", [DI]: "openPrice", },
