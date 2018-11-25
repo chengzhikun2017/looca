@@ -73,7 +73,7 @@
       </div>
       <div class="banner-container">
         <h1 class="title">
-          <span>Looco Global • 乐恺环球<br>更懂你的外汇平台</span>
+          <span>Looco Global • 乐恺环球<br>更懂你的平台</span>
         </h1>
         <h2 class="subtitle">
           开始您与 <strong>乐恺环球</strong> 的交易旅程
@@ -92,9 +92,9 @@
           <div class="action-text">
             <h4 class="text action_box-title" itemprop="headline">
               <span class="emphsis">
-                Looco Global(乐恺环球)，更懂你的外汇平台。
+                Looco Global(乐恺环球)，更懂你的平台。
               </span>
-              自2013年以来，给来自30多个国家，超过百万的客户提供稳定外汇交易。
+              自2013年以来，给来自30多个国家，超过百万的客户提供稳定交易。
             </h4>
             <h5 class="subtitle">
               交易涉及风险，请确保您完全了解所涉及的风险
@@ -115,21 +115,21 @@
           为什么选择Looco Global乐恺环球
         </h3>
         <h4 class="tbk__subtitle" itemprop="alternativeHeadline">
-          专注于每一位客户的交易体验，一个更懂你的外汇平台。
+          专注于每一位客户的交易体验，一个更懂你的平台。
         </h4>
       </div>
       <div class="items-box">
         <widget1 :src='itemImgs[0]' title="专业开发团队" content="耗时数年打造的Looco Global金牌团队，拥有顶尖的产品开发运营能力。" />
-        <widget1 :src='itemImgs[1]' title="屡获外汇经纪商奖" content="Looco Global乐恺环球自2013年成立以来，多次获得“年度外汇经纪商“奖。" />
+        <widget1 :src='itemImgs[1]' title="屡获经纪商奖" content="Looco Global乐恺环球自2013年成立以来，多次获得“年度经纪商“奖。" />
         <widget1 :src='itemImgs[2]' title="严格的监管" content="Looco Global乐恺环球荣获美国NFA监管." />
-        <widget1 :src='itemImgs[3]' title="高效的客服体系" content="Looco Global乐恺环球客服团队5*24小时为您提供服务，更懂你的外汇平台。" />
+        <widget1 :src='itemImgs[3]' title="高效的客服体系" content="Looco Global乐恺环球客服团队5*24小时为您提供服务，更懂你的平台。" />
       </div>
     </v-layer>
     <v-layer height="440px">
       <div class="description-box">
         <widget2 :src='descriptionSrcs[0]' title="Looco Global乐恺环球执照与监管" content="Looco Global乐恺环球平台执照与监管在线查询，平台拥有美国NFA监管" />
-        <widget2 :src='descriptionSrcs[1]' title="Looco Global乐恺环球交易产品" content="Looco Global乐恺环球拥有目前最全的外汇交易产品，包含外汇、黄金、白银、原油、股指等。" />
-        <widget2 :src='descriptionSrcs[2]' title="Looco Global乐恺环球跟单社区" content="Looco Global乐恺环球重金打造专业外汇交易团队、大数据反向跟单信号、EA等供所有乐恺环球客户选择复制跟单。" />
+        <widget2 :src='descriptionSrcs[1]' title="Looco Global乐恺环球交易产品" content="Looco Global乐恺环球拥有目前最全的交易产品，包含、黄金、白银、原油、股指等。" />
+        <widget2 :src='descriptionSrcs[2]' title="Looco Global乐恺环球跟单社区" content="Looco Global乐恺环球重金打造专业交易团队、大数据反向跟单信号、EA等供所有乐恺环球客户选择复制跟单。" />
       </div>
       <!-- description -->
     </v-layer>
@@ -140,7 +140,7 @@
             MetaTrader 4（MT4）随时随地进行交易
           </h3>
           <h4 class="subtitle">
-              最受欢迎的外汇交易平台
+              最受欢迎的交易平台
           </h4>
           <widget5 title="移动交易技术" content="通过苹果，安卓手机和平板电脑进行交易" />
           <widget5 title="强大的分析功能" content="在线报价以及带有9个周期的交互性图表允许您检查报价所有细节" />
@@ -153,7 +153,7 @@
       <!-- download -->
     </v-layer>
     <!-- <v-layer height="600px" dev> -->
-    <!-- 一个更懂你的外汇平台 -->
+    <!-- 一个更懂你的平台 -->
     <!-- </v-layer> -->
     <v-layer height="275px">
       <!-- contacts -->
