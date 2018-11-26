@@ -151,7 +151,7 @@ export default {
               title: "本人",
               key: '0',
               depth: 0,
-              partnerUid: this.userId,
+              partnerUid: 0,
               isLeaf:true,
             }
             arr.unshift(firstRoot)
