@@ -42,7 +42,7 @@
               {{formData.amount*usdRate*100 | money}}
             </div>
             <div class="wallet_recharge-content-pay-qrcode" :class="{'overdate': isExpired}">
-              <img style="width: 100%" :src="payInfo.qrcodeUrl" alt="支付宝收款二维码">
+              <img style="width: 100%" class="qrcode-img" :src="payInfo.qrcodeUrl" alt="支付宝收款二维码">
               <div class="wallet_recharge-content-pay-qrcode-overdate">已过期</div>
             </div>
             <!-- <div class="wallet_recharge-content-upload phone">
@@ -102,9 +102,10 @@
               扫码后，务必准确填入金额
             </div>
             <div class="wallet_recharge-content-pay-qrcode" :class="{'overdate': isExpired}">
-              <img style="width: 100%" :src="payInfo.qrcodeUrl" alt="支付宝收款二维码">
+              <img style="width: 100%" class="qrcode-img" :src="autoPayInfo.qrcodeUrl" alt="支付宝收款二维码">
               <div class="wallet_recharge-content-pay-qrcode-overdate">已过期</div>
             </div>
+            
             <!-- <div class="wallet_recharge-content-upload phone">
               <ImageUpload :editing="true" v-model="billImageUrl" uploadText="上传账单详情截图" label="支付凭证" />
             </div> -->
@@ -114,6 +115,19 @@
           <div class="wallet_recharge-table" >
             <p class="wallet_recharge-table-msg">打开支付宝扫一扫</p>
             <p class="wallet_recharge-table-msg">过期后请勿转账，不自动到账</p>
+            <div style="text-align: center;">
+              <a-button @click="goAlipay" type="primary" v-if="!isPC">
+                启动支付宝APP进行支付
+              </a-button>
+            </div>
+
+            <p class="wallet_recharge-table-msg" v-if="!isPC">
+              无法打开支付宝付款？
+              <a-tooltip slot="addonAfter" placement="left" >
+
+                <a-icon  type="question-circle" class="l-red" @click="showAlipayTip"/>
+              </a-tooltip>
+            </p>
             <div class="wallet_recharge-table-msg">
               <clock ref="clock" @finish="onExpired"></clock>
             </div>
@@ -234,6 +248,23 @@ export default {
     clearInterval(this.pollingTimer)
   },
   methods: {
+    goAlipay() {
+      helper.openNewPage(this.autoPayInfo.payUrl)
+    },
+    showAlipayTip() {
+      this.$modal.info({
+        title:"提示",
+        // style:"top: 20px;",
+        // onOk:this.goAction.bind(this,'/mt4_withdraw'),
+        content: 
+        <div>
+          <p>请确保手机安装了支付宝APP。</p>
+          <p>请确保Looco网站是直接在浏览器中打开的。</p>
+          <p>若还是无法支付，请将本页面二维码截图保存，手动打开支付宝，点击扫一扫，从相册中选择截图即可。</p>
+        </div>,
+        okText:"知道了",
+      })
+    },
     next() {
       this.current++
     },
@@ -384,6 +415,7 @@ export default {
     isAutoPay(){
       return this.payInfo.payWay === 'alipay_paysapi'  
     },
+    ...mapState('app',['isPC']),
     ...mapState('wallet',['payInfo','currency']),
     ...mapState('account',['phone']),
   },
@@ -445,7 +477,8 @@ export default {
           margin-bottom: 10px;
           width: 100%;
           max-width: 160px;
-          background: #fafafa;
+          min-height: 160px;
+          background: #f0f0f0;
           position: relative;
           &-overdate{
             display: none;

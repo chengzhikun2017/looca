@@ -144,7 +144,7 @@ export default {
         url: 'balance/alipay/account',
       }).then(res => {
         state.payInfo = res
-        console.log('%c payWay','color:red',res.payWay)
+        // console.log('%c payWay','color:red',res.payWay)
       })
     },
     createAutoCollectOrder({ state },params) {

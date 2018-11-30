@@ -200,7 +200,7 @@ export default {
       }
     },
     openSourceSystem() {
-      window.open('https://crm.looco8.com/broker/login')
+      helper.openNewPage('https://crm.looco8.com/broker/login')
     },
     onItemClick(e) {
       if(/coustom/.test(e.key)){

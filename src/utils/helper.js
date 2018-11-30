@@ -305,4 +305,7 @@ export default class helper {
       tfoot.replaceWith('')
     }
   }
+  static openNewPage(url) {
+    window.open(url)
+  }
 }

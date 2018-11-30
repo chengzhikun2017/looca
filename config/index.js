@@ -15,7 +15,8 @@ if(/crm/.test(pro_env.project)){
   index_loo_show_path = assetsRoot + '/index.html'
 } 
 const devApi = /test/.test(lifeCycle)?
-  'http://118.31.42.82:10086/api':'https://crm.looco8.com/api/'
+  'http://118.31.42.82:10086/api':'http://crm.looco8.com/api/'
+console.log('dev api url',devApi)
 module.exports = {  
   dev: {
     // Paths
