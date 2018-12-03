@@ -116,7 +116,7 @@
             <p class="wallet_recharge-table-msg">打开支付宝扫一扫</p>
             <p class="wallet_recharge-table-msg">过期后请勿转账，不自动到账</p>
             <div style="text-align: center;">
-              <a-button @click="goAlipay" type="primary" v-if="!isPC">
+              <a-button @click="goAlipay" type="primary" v-if="!isPC" :disabled="isExpired">
                 启动支付宝APP进行支付
               </a-button>
             </div>
