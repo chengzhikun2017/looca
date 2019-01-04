@@ -146,7 +146,7 @@ export default {
     return {
       gettingDC:false,
       input: newInput,
-      MIN_AMOUNT: 30,
+      MIN_AMOUNT: 1,
       MAX_AMOUNT: 20000,
       MAX_WITHDRAW_NUM: 5,
       ...defaultData,
