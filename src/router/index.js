@@ -41,11 +41,16 @@ const helper = ()=> import( '../pages/helper.vue')
  * test part
  */
 // import test3 from  './../pages/test/test3.vue'
-const test1 = () =>  import ('./../pages/test/test1.vue')
-const test2 = () =>  import ('./../pages/test/test2.vue')
-const test3 = () =>  import ('./../pages/test/test3.vue')
-const test4 = () =>  import ('./../pages/test/test4.vue')
-const test5 = () =>  import ('./../pages/test/test5.vue')
+// const test1 = () =>  import ('./../pages/test/test1.vue')
+// const test2 = () =>  import ('./../pages/test/test2.vue')
+// const test3 = () =>  import ('./../pages/test/test3.vue')
+// const test4 = () =>  import ('./../pages/test/test4.vue')
+// const test5 = () =>  import ('./../pages/test/test5.vue')
+const test1 = () => import(/* webpackChunkName: "group-test" */ './../pages/test/test1.vue')
+const test2 = () => import(/* webpackChunkName: "group-test" */ './../pages/test/test2.vue')
+const test3 = () => import(/* webpackChunkName: "group-test" */ './../pages/test/test3.vue')
+const test4 = () => import(/* webpackChunkName: "group-test" */ './../pages/test/test4.vue')
+const test5 = () => import(/* webpackChunkName: "group-test" */ './../pages/test/test5.vue')
 
 /**
  * accounting part (accounting) webpackChunkName: "accounting"
